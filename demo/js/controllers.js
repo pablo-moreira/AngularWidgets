@@ -36,7 +36,6 @@
 	}])    
     .controller('ButtonController', ['$scope',  'version', function ($scope) {
         
-
         $scope.showMessage = function(msg) {
             alert(msg);
         };
@@ -342,7 +341,7 @@
             $scope.fieldDisabled = true;
         };
 
-        $scope.selectedsCountries = new Array();
+        $scope.selectedsCountries = ["Brazil","Argentina"];
 //        $scope.multipleCountry = {
 //            
 //            , completeMethod: $scope.countries

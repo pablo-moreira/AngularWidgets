@@ -109,7 +109,7 @@
     	function load(request) {
     		
     		var $this = this;
-    		 
+    		
     		fctLoader(request, function(data) {
     		
     			setData(data);
@@ -146,29 +146,23 @@
     		data = [];
     		filteredData = [];
     		
-    		if (request.query) {
-    			
-    			
-    			
-    		}
+    		var filterDataCurrent = this.allData;
     		
 	        if (request.filter) {        	
 	        	
 	        	// TODO - Implement more one predicates
 	        	var filter = request.filter.predicates[0];
 	        	
-	        	var filterDataCurrent = this.allData;
-	        	
 		        for (var i = 0, t = filterDataCurrent.length; i < t; i++) {
 		        	
 		        	var item = filterDataCurrent[i],
 		        		itemFieldValue; 
 		        		
-		        	if (filter.field) {
-		        		itemFieldValue = item[filter.field];
+		        	if (filter.field === '*') {
+		        		itemFieldValue = item;
 		        	}
 		        	else {
-		        		itemFieldValue = item;
+		        		itemFieldValue = item[filter.field];
 		        	}
 
 		        	itemFieldValue = itemFieldValue.toLowerCase();

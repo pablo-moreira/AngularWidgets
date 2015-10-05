@@ -36,8 +36,8 @@
                             
                 var $this = this;
                 
-                this.scope.$watch(this.options.value, function(newValue, oldValue) {
-    				$this.inputQuery.val($this.getItemLabel(newValue));
+                this.scope.$watch(this.options.value, function(newValue) {
+               		$this.setValue(newValue);
     			});
                 
                 this.determineTransclude();
@@ -45,10 +45,11 @@
                 $compile(this.element.contents())(this.scope);
                
                 if(this.options.multiple) {
-                    this.inputQuery.wrap('<ul class="pui-autocomplete-multiple ui-widget pui-inputtext ui-state-default ui-corner-all">' +
-                        '<li class="pui-autocomplete-input-token"></li></ul>');
-                    this.inputContainer = this.element.parent();
-                    this.multiContainer = this.inputContainer.parent();
+                	this.multiContainer = angular.element('<ul class="pui-autocomplete-multiple ui-widget pui-inputtext ui-state-default ui-corner-all">' +
+                        '<li class="pui-autocomplete-input-token"></li></ul>')
+                        .prependTo(this.element);
+                    this.inputContainer = this.multiContainer.childrenSelector('.pui-autocomplete-input-token');
+                    this.inputContainer.append(this.inputQuery);
                 }
                 else {
                     if (this.options.dropdown) {
@@ -147,23 +148,22 @@
                 this.bindOnPanelItemMouseDown(element);
         	},
         	
-        	determineOptions: function (attrs) {
+        	determineOptions: function (options) {
 
-            	var options = this.scope.$eval(attrs.binding) || {};
-
-            	options.minQueryLength = attrs.minquerylength || options.minQueryLength || 2;            
-                options.completeMethod = attrs.completemethod;
-                options.dropdown = attrs.dropdown || options.dropdown;
-                options.scrollHeight = attrs.scrollheight || options.scrollHeight ;
-                options.itemLabel = attrs.itemlabel || null;
-                options.item = attrs.item || null;
-                options.value = attrs.value;
-                options.paginator = attrs.paginator || false;
-                options.rows = attrs.rows || 10;
-                options.panelWidth = attrs.panelwidth;
-                options.disabled = attrs.disabled;
-                
-                this.options = options;
+        		this.options = {
+        			minQueryLength : 2,
+        			dropdown : false,
+        			scrollHeight: 200,
+        			item : 'item',
+        			itemLabel : null,        			
+        			paginator : false,
+        			rows: 10,
+        			panelWidth: null,
+        			disabled: false,
+        			completeMethod: null
+        		}
+        		
+        		widgetBase.determineOptions(this.scope, this.options, options, []);
             },
             
             determineCompleteMethod: function (cm) {
@@ -235,7 +235,7 @@
             		var keyCode = widgetBase.keyCode,
                         key = e.which,
                         shouldSearch = true;
-
+            		
                     if(key === keyCode.UP 
                     	|| key === keyCode.LEFT 
                     	|| (key === keyCode.DOWN && $this.panelVisible())
@@ -243,6 +243,8 @@
                     	|| key === keyCode.TAB 
                     	|| key === keyCode.SHIFT 
                     	|| key === keyCode.ENTER 
+                    	|| key === keyCode.END
+                    	|| key === keyCode.HOME
                     	|| key === keyCode.NUMPAD_ENTER) {
                         shouldSearch = false;
                     }
@@ -257,7 +259,7 @@
 
                         if(value.length >= $this.options.minQueryLength || key === keyCode.DOWN) {
                             if($this.timeout) {
-                            	$this.timeout.cancel();
+                            	$timeout.cancel($this.timeout);
                             }
 
                             $this.timeout = $timeout(function() {
@@ -350,6 +352,12 @@
     	        		$this.dropdownBtn.removeClass('ui-state-active');	        		
     	        	});
                 }
+            	
+            	if (this.options.multiple) {
+            		this.multiContainer.bind('click', function(e) {
+            			$this.inputQuery[0].focus();
+            		});
+            	}
 
                 $document.bind("click", function (event) {
                 	
@@ -597,34 +605,32 @@
             	var $this = this;
             	
             	var item = panelItem.data('item');
-            	var itemLabel = $this.getItemLabel(item);
             	
             	panelItem.bind('mousedown', function(e) {
-                    
+            		
                 	if($this.options.multiple) {
+                		
+                		$this.addSelectedItem(item);
+//                        var tokenMarkup = '<ul><li class="pui-autocomplete-token ui-state-active ui-corner-all ">';
+//                        tokenMarkup += '<span class="pui-autocomplete-token-icon ui-icon ui-icon-close" ></span>';
+//                        tokenMarkup += '<span class="pui-autocomplete-token-label">' + itemLabel + '</span></li></ul>';
+//
+//                        var itemElement = angular.element(tokenMarkup).children()[0];
+//                        angular.element($this.inputContainer.children()[0]).after(itemElement);
+//
+//                        angular.element(itemElement).childrenSelector('.pui-autocomplete-token-icon').bind('click', function() {
+//                            itemElement.remove();
+//                            if ($this.options.removeSelection) {
+//                                $this.options.removeSelection(value);
+//                            }
+//                        });
 
-                        var tokenMarkup = '<ul><li class="pui-autocomplete-token ui-state-active ui-corner-all ">';
-                        tokenMarkup += '<span class="pui-autocomplete-token-icon ui-icon ui-icon-close" ></span>';
-                        tokenMarkup += '<span class="pui-autocomplete-token-label">' + itemLabel + '</span></li></ul>';
-
-                        var itemElement = angular.element(tokenMarkup).children()[0];
-                        angular.element($this.inputContainer.children()[0]).after(itemElement);
-
-                        angular.element(itemElement).childrenSelector('.pui-autocomplete-token-icon').bind('click', function() {
-                            itemElement.remove();
-                            if ($this.options.removeSelection) {
-                                $this.options.removeSelection(value);
-                            }
-                        });
-
-                        $this.inputQuery.val('').triggerHandler("focus");
+                        $this.inputQuery.val('');
                     }
-                    else {
-                        $this.inputQuery.val(itemLabel).triggerHandler("focus");
-                    }
-                	
+            		
                     $this.updateModel(item);                        
                     $this.hide();
+                    $this.inputQuery.triggerHandler("focus");
                 });
             },
             
@@ -690,17 +696,25 @@
             },
         	
             updateModel: function(value) {
-               
-            	//var scope = this.inputValue.scope();
-                //ngModelController = autocompleteData.inputValue.controller('ngModel');
-
-                var parseValue = $parse(this.options.value);
-                parseValue.assign(this.scope, value);
-                
-                this.scope.safeApply();
-//                scope.safeApply(function () {
-//                    ngModelController.$setViewValue(value);
-//                });
+                    
+            	var parseValue = $parse(this.options.value);
+            	
+            	if (this.options.multiple) {
+            		
+            		var currentValue = parseValue(this.scope);
+            		
+            		if (angular.isArray(currentValue)) {
+            			currentValue.push(value);
+            		}
+            		else {
+            			parseValue.assign(this.scope, new Array(value));	
+            		}
+            	}
+            	else {                    
+                    parseValue.assign(this.scope, value);
+            	}
+            	
+            	this.scope.safeApply();            	
 
                 if (this.options.addSelection) {
                     this.options.addSelection(value);
@@ -745,7 +759,8 @@
             },
             
             buildQueryCriterion: function () {
-            	return {	
+            	return {
+            		field : this.options.itemLabel || '*', 
 					operator : widgetBase.filterOperator.START_WITH,
 					value : this.query
 				};
@@ -756,8 +771,11 @@
             	var req = {
     				first: 0,
     				sorts: this.dataTable ? this.dataTable.sorts : [],
-    				query: this.buildQueryCriterion(),
-    				filter: null
+    				query: this.query ? this.buildQueryCriterion() : null,
+    				filter: this.query ? {
+    					operator : widgetBase.predicateOperator.AND,
+    					predicates : [ this.buildQueryCriterion() ]
+    				} : null
     			};
             	
             	if (this.dataTable && this.dataTable.options.paginator) {
@@ -765,6 +783,48 @@
             	}
             	
             	return req;
+            },
+            
+            setValue: function (value) {
+
+            	var $this = this;
+            	
+            	if(this.options.multiple) {
+            		            		
+                	this.multiContainer.childrenSelector('.pui-autocomplete-token').remove();
+                	                	
+                	angular.forEach(value, function (item) {        	
+                		$this.addSelectedItem(item);
+                	});
+            		
+                	this.inputQuery.val('');
+            	}
+            	else {
+            		this.inputQuery.val(this.getItemLabel(value));	
+            	}
+            },
+            
+            addSelectedItem: function (item) {
+
+            	var tokenMarkup = '<ul><li class="pui-autocomplete-token ui-state-active ui-corner-all">';
+                tokenMarkup += '<span class="pui-autocomplete-token-icon ui-icon ui-icon-close"></span>';
+                tokenMarkup += '<span class="pui-autocomplete-token-label">' + this.getItemLabel(item) + '</span></li></ul>';
+        	
+                var itemElement = angular.element(tokenMarkup).children()[0];
+                angular.element(this.inputContainer.children()[0]).after(itemElement);
+
+            	var $this = this;
+                
+                angular.element(itemElement).childrenSelector('.pui-autocomplete-token-icon').bind('click', function() {
+                	
+                	itemElement.remove();
+                	
+                    if ($this.options.itemRemove) {
+                        $this.options.itemRemove(item);
+                    }
+
+                    $this.removeSelectedItem(item) 
+                });
             }
         });
                 

@@ -230,23 +230,7 @@
 			};
 			
 	        this.determineOptions = function (options) {
-	        		        	
-//	        	var opts = options.options ? this.scope.$eval(options.options) : {};
-
-//	        	this.options.item = options.item || opts.item || 'item';
-//	        	this.options.itemId = options.itemid || opts.itemId;
-//	        	this.options.items = options.items || opts.value;
-//	        	
-//	        	this.options.columns = options.columns;
-//				this.options.caption = options.caption || opts.caption;			
-//				this.options.selectionMode = options.selectionmode || opts.selectionMode;
-//				this.options.onRowSelect = options.onrowselect ? this.scope.$eval(options.onrowselect) : ( opts.onRowSelect ? opts.onRowSelect : null );
-//				this.options.onRowUnselect = options.onrowunselect ? this.scope.$eval(options.onrowunselect) : null;
-//				this.options.rows = options.rows ? parseInt(options.rows) : ( opts.rows != null ? parseInt(opts.rows) : null);
-//				this.options.paginator = options.paginator || opts.paginator || false;
-//				this.options.onBuildRow = options.onBuildRow;
-//				this.options.binding = options.binding || null;
-				
+	        		        					
 	        	this.options = {
 					item: 'item',
 					itemId: null,
