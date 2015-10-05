@@ -1,0 +1,8 @@
+/bower_components/
+.project
+.settings/
+.classpath
+/target/
+.idea/
+/node_modules/
+/dist/
