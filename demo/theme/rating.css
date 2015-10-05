@@ -1,0 +1,28 @@
+.pui-rating-star, .pui-rating-cancel {
+    cursor: pointer;
+    display: block;
+    float: left;
+    overflow: hidden;
+    text-indent: -999em;
+}
+.pui-rating-star a, .pui-rating-cancel a {
+    background: url("images/rating.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 15px;
+    width: 16px;
+}
+.pui-rating-star a {
+    background-position: 0 -32px;
+}
+.pui-rating-star-on a {
+    background-position: 0 -48px;
+}
+.pui-rating-star-hover a {
+    background-position: 0 -64px;
+}
+.pui-rating-cancel-hover a {
+    background-position: 0 -16px;
+}
+.pui-rating.ui-state-disabled .pui-rating-star, .pui-rating.ui-state-disabled .pui-rating-cancel {
+    cursor: default;
+}

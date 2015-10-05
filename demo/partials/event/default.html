@@ -1,0 +1,35 @@
+
+<div id="content">
+
+	<pui-panel header="puiEvent">
+		
+
+		<section>
+			<header>Enter key on puiInputText</header>
+
+			Field <pui-inputText id="default" value="value1">
+                <pui-event actionListener="showInfo(value1)"> </pui-event>
+            </pui-inputText> <br/>
+            Name <pui-inputText id="default" value="data.name">
+            <pui-event actionListener="showName()"> </pui-event>
+        </pui-inputText>
+		</section>
+
+		<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+            <pui-tabview id="sourceTabs" >
+                <pui-panel header="html" id="d_html">
+                    <pre pretty-print="html" >
+
+
+                    </pre>
+                </pui-panel>
+                <pui-panel header="controller" id="d_script">
+                    <pre pretty-print="js" >
+
+                    </pre>
+                </pui-panel>
+			</pui-tabview>
+		</pui-fieldset>
+
+	</pui-panel>
+</div>

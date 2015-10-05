@@ -1,0 +1,50 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+		
+	<section>
+		<header>Title and content can be dynamic</header>
+
+		<pui-tabview id="dynamic" >
+        	<pui-tab header="{{title1}}" id="tab1">
+            	{{description1}}
+			</pui-tab>
+			<pui-tab header="{{title2}}" id="tab2">
+            	{{description2}}
+			</pui-tab>
+		</pui-tabview>
+		
+		Title 1 = <input type="text" ng-model="title1" id="title1"><br/>
+		Description 1 = <input type="text" ng-model="description1" id="desc1"><br/>
+		Title 2 = <input type="text" ng-model="title2" id="title2"><br/>
+		Description 2 = <input type="text" ng-model="description2" id="desc2"><br/>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="html" id="d_html">
+				<pre pretty-print="html" >
+<pui-tabview id="dynamic" >
+	<pui-tab header="{{title1}}" id="tab1">
+		{{description1}}
+	</pui-tab>
+	<pui-tab header="{{title2}}" id="tab2">
+		{{description2}}
+	</pui-tab>
+</pui-tabview>
+
+Title 1 = <input type="text" ng-model="title1" id="title1"><br/>
+Description 1 = <input type="text" ng-model="description1" id="desc1"><br/>
+Title 2 = <input type="text" ng-model="title2" id="title2"><br/>
+Description 2 = <input type="text" ng-model="description2" id="desc2"><br/>
+				</pre>
+		    </pui-tab>
+			<pui-tab header="controller" id="d_script">
+				<pre pretty-print="js" >
+$scope.title1 = 'title1';
+$scope.description1 = 'description1';
+$scope.title2 = 'title2';
+$scope.description2 = 'description2';
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

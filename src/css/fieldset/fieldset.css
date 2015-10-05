@@ -1,0 +1,26 @@
+.pui-fieldset, .pui-fieldset .pui-fieldset-legend {
+    padding:0.6em 1em;
+}
+
+.pui-fieldset-toggleable .pui-fieldset-legend {
+    padding: 0.5em 1em 0.5em 0.5em;
+    cursor:pointer;
+    white-space: nowrap;
+}
+
+.pui-fieldset .pui-fieldset-toggler {
+    padding-right: .1em;
+    margin-top: -0.1em;
+    float:left;
+}
+
+/* AngularJS Animation of collapsing/expanding content*/
+.pui-fieldset-content.pui-hide {
+    max-height:0;
+    opacity:0;
+    padding:0 10px;
+}
+.pui-fieldset-content {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}

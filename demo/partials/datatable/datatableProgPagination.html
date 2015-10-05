@@ -1,0 +1,46 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+	
+	<section>
+		<header>Programmatic changing the current page</header>
+            
+		<pui-datatable id="progPaginatorSelection" 
+			binding="progPaginationBind"
+			paginator="true"
+			rows="4"            	 
+			items="fixedData">
+		</pui-datatable>
+            
+		<br/>
+                        
+		Goto page: 
+		<pui-inputText value="progPaginationPage" id="newSelectedPage"></pui-inputText> (0-based)
+		<pui-button action="progPaginationBind.goToPage(progPaginationPage)" id="setPage" value="Go" ></pui-button>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-datatable id="progPaginatorSelection" 
+	binding="progPaginationBind"
+	paginator="true"
+	rows="4"            	 
+	items="fixedData">
+</pui-datatable>
+          
+<br/>
+                      
+Goto page: 
+<pui-inputText value="progPaginationPage" id="newSelectedPage"></pui-inputText> (0-based) 
+<pui-button actionListener="progPaginationBind.goToPage(progPaginationPage)" id="setPage" value="Go" ></pui-button>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.progPaginationBind = null;
+$scope.progPaginationPage = 0; 
+				</pre>
+        	</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

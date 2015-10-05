@@ -1,0 +1,25 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+	
+	<section>
+		<header>Additional arrow button for all options</header>
+		<pui-autocomplete id="dropdown" value="country" completeMethod="countries" dropdown="true" scrollHeight="200"></pui-autocomplete>
+		Controller value is : <span id="modelValue">{{country}}</span>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="html" id="d_html">
+				<pre pretty-print="html" >
+<pui-autocomplete id="default" value="country" complete_method="countries" dropdown="true" scroll_height="200"></pui-autocomplete>
+Controller value is : {{country}}
+				</pre>
+			</pui-tab>
+			<pui-tab header="controller" id="d_script">
+				<pre pretty-print="js" >
+$scope.country = null;
+$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

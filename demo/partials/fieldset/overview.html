@@ -1,0 +1,64 @@
+
+<div id="content">
+
+	<pui-panel header="puiFieldset">
+		
+
+		<pui-fieldset id="description" legend="Description" style="margin-bottom:20px">
+			Grouping component which also provides content toggling.
+		</pui-fieldset>
+		<pui-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
+			<legend>Supports</legend>
+			<ul>
+				<li>Grouping of content skinned according to the theme</li>
+				<li>Optional toggleable content</li>
+				<li>Expression allowed in legend tag and within body</li>
+				<li>Programmatic toggleable</li>
+				<li>Callback function available when user toggles the content</li>
+			</ul>
+		</pui-fieldset>
+		<pui-fieldset id="issues" legend="Know issues" style="margin-bottom:20px">
+			<ul>
+				<li>No warning when callback set but not the collapsed option.</li>
+			</ul>
+		</pui-fieldset>
+		<pui-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
+		</pui-fieldset>
+
+		<pui-fieldset id="Configuration" legend="Configuration" style="margin-bottom:20px">
+			<table class="doc-table">
+				<thead>
+				<tr>
+					<th class="ui-state-default">Name</th>
+					<th class="ui-state-default">Type</th>
+					<th class="ui-state-default">Default</th>
+					<th class="ui-state-default">Description</th>
+				</tr>
+				</thead>
+				<tbody>
+
+				<tr class="ui-widget-content">
+					<td>toggleable</td>
+					<td>Boolean</td>
+					<td>false</td>
+					<td>Will there be a + and - to toggle the contents of the fieldSet.</td>
+				</tr>
+				<tr class="ui-widget-content">
+					<td>collapsed</td>
+					<td>Boolean</td>
+					<td>undefined</td>
+					<td>When set, defines the display status of the fieldset.</td>
+				</tr>
+				<tr class="ui-widget-content">
+					<td>onStateChanged</td>
+					<td>function()</td>
+					<td>undefined</td>
+					<td>Allows to react when the user changes the collapsed state of the content.</td>
+				</tr>
+				</tbody>
+			</table>
+		</pui-fieldset>
+
+
+	</pui-panel>
+</div>

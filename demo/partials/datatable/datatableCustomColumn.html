@@ -1,0 +1,59 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+				
+	<section>
+		<header>Custom Column</header>
+		<pui-datatable 
+			items="fixedData" 
+			item="car">				
+	    	<pui-column value="brand" headerText="Brand">
+	    		<input type="text" ng-model="car.brand" />
+	    	</pui-column>
+			
+			<pui-column value="year" headerText="Year" sortBy="year">			
+			</pui-column>
+			
+			<pui-column headerText="Color" sortBy="color">
+				<div style="border: 1px solid #666; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>				
+			</pui-column>
+			
+			<pui-column>
+				<pui-button action="showInfo(car)" value="Show Info"></pui-button>
+			</pui-column>
+		</pui-datatable>
+	</section>
+	
+	
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-datatable 
+	items="fixedData" 
+	item="car">	
+   	<pui-column value="brand" headerText="Brand">
+   		<input type="text" ng-model="car.brand" />
+   	</pui-column>
+	
+	<pui-column value="year" headerText="Year" sortBy="year">			
+	</pui-column>
+	
+	<pui-column headerText="Color" sortBy="color">
+		<div style="border: 1px solid #666; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>				
+	</pui-column>
+	
+	<pui-column>
+		<pui-button action="showInfo(car)" value="Show Info"></pui-button>
+	</pui-column>
+</pui-datatable>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.showInfo = function (car) {
+	puiGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
+};
+				</pre>
+        	</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

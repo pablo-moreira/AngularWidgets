@@ -1,0 +1,85 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<pui-fieldset id="description" legend="Description" style="margin-bottom:20px">
+		Autocomplete functionality for input element.  Allows also the selection of multiple items.
+	</pui-fieldset>
+	
+	<pui-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
+		<ul>
+			<li>Selection from a fix list</li>
+			<li>JavaScript function which determines the proposed values</li>
+			<li>Support for disabled</li>
+			<li>Show multiple selected values</li>
+			<li>Limit the allowed values to fix list</li>
+		</ul>
+	</pui-fieldset>
+
+	<pui-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
+		<ul>
+			<li>Custom content/layout of proposed values</li>
+		</ul>
+	</pui-fieldset>
+
+	<pui-fieldset id="Configuration" legend="Configuration" style="margin-bottom:20px">
+
+		<table class="doc-table">
+			<thead>
+			<tr>
+				<th class="ui-state-default">Name</th>
+				<th class="ui-state-default">Type</th>
+				<th class="ui-state-default">Default</th>
+				<th class="ui-state-default">Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr class="ui-widget-content">
+				<td>completeMethod</td>
+				<td>array or function(request,response)</td>
+				<td>undefined</td>
+				<td>List with possible values or function which returns them.</td>
+			</tr>
+			<tr class="ui-widget-content">
+				<td>minQueryLength</td>
+				<td>Integer</td>
+				<td>2</td>
+				<td>Minimum length of input value to run a query.</td>
+			</tr>
+
+			<tr class="ui-widget-content">
+				<td>multiple</td>
+				<td>boolean</td>
+				<td>false</td>
+				<td>Enables multiple selection mode.</td>
+			</tr>
+			<tr class="ui-widget-content">
+				<td>dropdown</td>
+				<td>boolean</td>
+				<td>false</td>
+				<td>Displays a dropdown button next to the input field to search all items.</td>
+			</tr>
+			<tr class="ui-widget-content">
+				<td>scrollHeight</td>
+				<td>integer</td>
+				<td>200</td>
+				<td>Maximum height of the suggestions panel in pixels.</td>
+			</tr>
+			<tr class="ui-widget-content">
+				<td>forceSelection</td>
+				<td>boolean</td>
+				<td>false</td>
+				<td>When enabled, input value is restricted only with suggested items.</td>
+			</tr>
+			<tr class="ui-widget-content">
+				<td>disabled</td>
+				<td>boolean</td>
+				<td>false</td>
+				<td>When true, disable component.</td>
+			</tr>
+			</tbody>
+		</table>
+           completMethod = function(request,response) <br/>
+           <b>request.query</b> return the characters entered by the user in the field. <br/>
+           <b>response.call(this, data); </b> shows the items in the data array in a selection panel.
+	</pui-fieldset>
+
+</pui-panel>

@@ -1,0 +1,36 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+		
+	<section>
+		<header>Default integration</header>
+		<pui-button id="infoBtn" action="showInfoGrowl()" value="Info"></pui-button>
+		<pui-button id="errorBtn" action="showErrorGrowl()" value="Error"></pui-button>
+		<pui-button id="warnBtn" action="showWarnGrowl()" value="Warn"></pui-button>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-button id="infoBtn" action="showInfoGrowl()" value="Info"></pui-button>
+<pui-button id="errorBtn" action="showErrorGrowl()" value="Error"></pui-button>
+<pui-button id="warnBtn" action="showWarnGrowl()" value="Warn"></pui-button>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.showInfoGrowl = function() {
+	puiGrowl.showInfoMessage('Info message title', "Info detail message");
+};
+
+$scope.showErrorGrowl = function() {
+	puiGrowl.showErrorMessage('Error message title', "Error detail message");
+};
+
+$scope.showWarnGrowl = function() {
+	puiGrowl.showWarnMessage('Warn message title', "Warn detail message");
+}
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

@@ -1,0 +1,42 @@
+<pui-panel header="{{mainCtrl.widget.label}}">		
+
+	<section>
+		<header>Multiple values integration</header>
+
+		<pui-autocomplete 
+			id="multiple" 
+			value="selectedsCountries" 
+			completeMethod="countries"
+			multiple="true">
+		</pui-autocomplete>
+		
+		<br/>
+			
+		Selected values are : {{selectedsCountries}}
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-autocomplete 
+	id="multiple" 
+	value="selectedsCountries" 
+	completeMethod="countries"
+	multiple="true">
+</pui-autocomplete>
+
+<br/>
+	
+Selected values are : {{selectedsCountries}}
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.selectedsCountries = [];
+$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

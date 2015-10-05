@@ -1,0 +1,156 @@
+
+<div id="content">
+
+	<pui-panel header="puiDatatable">
+		
+		<pui-fieldset id="description" legend="description" style="margin-bottom:20px">
+            Datatable displays data in tabular format. Pagination, Sorting, Selection are built-in features supporting both local and remote data.
+		</pui-fieldset>
+		<pui-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
+			<ul>
+				<li>Themeable table representation of data</li>
+                <li>Takes javascript array or function to supply data</li>
+                <li>Autodetection of columns based on properties of first object in array</li>
+                <li>Callback executed when row selected</li>
+                <li>Columns (properties of object) to show can be defined with nested pui-column directive</li>
+                <li>Sortable columns</li>
+                <li>Pagination of table</li>
+                <li>Table caption and column headers definable</li>
+                <li>Multiple row selection</li>
+                <li>Programmatic setting selected row(s) and page</li>
+			</ul>
+		</pui-fieldset>
+		<pui-fieldset id="issues" legend="Known issues" style="margin-bottom:20px">
+		</pui-fieldset>
+
+		<pui-fieldset id="Configuration" legend="Configuration" style="margin-bottom:20px">
+            <table class="doc-table">
+                <thead>
+                <tr>
+                    <th class="ui-state-default">Name</th>
+                    <th class="ui-state-default">Type</th>
+                    <th class="ui-state-default">Default</th>
+                    <th class="ui-state-default">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="ui-widget-content">
+                    <td>value</td>
+                    <td>Array of objects / function(callback)</td>
+                    <td>null</td>
+					<td>Data to shown as an array of objects or function that supplies (remotely) the info.</td>
+				</tr>
+                <tr class="ui-widget-content">
+                    <td>selectionMode</td>
+                    <td>String</td>
+                    <td>null</td>
+                    <td>Determines if only one (value single) or multiple rows can be selected.</td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>rowKey</td>
+                    <td>String</td>
+                    <td>null</td>
+                    <td>Name of the property used to uniquely identify the row.</td>
+                </tr>
+
+                <tr class="ui-widget-content">
+                    <td>onRowSelect</td>
+                    <td>function(event, data)</td>
+                    <td>null</td>
+                    <td>When specified, it activates the selection possibilities and function is called when user selects a row in the table.</td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>onRowUnselect</td>
+                    <td>function(event, data)</td>
+                    <td>null</td>
+                    <td>When specified, it is called when user deselects a row in the table. No effect when selection options is not activated ('rowUnselect' or 'rowUnselectAll' specified as event)</td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>onPage</td>
+                    <td>function(event, data)</td>
+                    <td>null</td>
+                    <td>When specified, it is called when user changes the page (paginated data)</td>
+                </tr>
+
+
+                <tr class="ui-widget-content">
+                    <td>binding</td>
+                    <td>Object</td>
+                    <td>undefined</td>
+                    <td>Retrieve the options from a JavaScript object.</td>
+                </tr>
+                 <tr class="ui-widget-content">
+                    <td>tableData (only in JavaScript object)</td>
+                    <td>Array of objects / function(callback)</td>
+                    <td>undefined</td>
+                    <td>When the binding attribute is used, the data to show is retrieved from this property.</td>
+                </tr>
+
+                <tr class="ui-widget-content">
+                    <td>paginator</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>Is the data paginated.</td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>rows</td>
+                    <td>int</td>
+                    <td>false</td>
+                    <td>The number of rows on each page of data.</td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>caption</td>
+                    <td>String</td>
+                    <td>undefined</td>
+                    <td>Table header name.</td>
+                </tr>
+
+
+
+
+				</tbody>
+			</table>
+
+            <h3>column definition</h3>
+            Column information isn't needed but when specified, this is the where the information is taken from.
+            <ol>
+                <li>Child elements with pui-column directive on</li>
+                <li>Autodetect from the first object in the data</li>
+            </ol>
+
+            <h3>pui-column directive</h3>
+            <table class="doc-table">
+                <thead>
+                <tr>
+                    <th class="ui-state-default">Name</th>
+                    <th class="ui-state-default">Type</th>
+                    <th class="ui-state-default">Default</th>
+                    <th class="ui-state-default">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="ui-widget-content">
+                    <td>value</td>
+                    <td>String</td>
+                    <td>null</td>
+                    <td>Name of the property.</td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>sortable</td>
+                    <td>boolean</td>
+                    <td>false</td>
+                    <td>Is this column sortable.</td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>headerText</td>
+                    <td>String</td>
+                    <td>undefined</td>
+                    <td>Column header value.</td>
+                </tr>
+                </tbody>
+            </table>
+		</pui-fieldset>
+
+
+	</pui-panel>
+</div>

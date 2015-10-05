@@ -1,0 +1,34 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Callback when user selects from proposed list</header>
+
+		<pui-autocomplete id="callback" value="country" binding="callbackOptions"></pui-autocomplete><br/>
+		Controller value is : {{country}}
+	</section>
+
+	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
+           <pui-tabview id="sourceTabs" >
+               <pui-panel header="html" id="d_html">
+					<pre pretty-print="html" >
+       <pui-autocomplete id="callback" value="country" binding="callbackOptions"></pui-autocomplete><br/>
+       Controller value is : {{country}}
+					</pre>
+               </pui-panel>
+               <pui-panel header="controller" id="d_script">
+					<pre pretty-print="js" >
+$scope.country = null;
+$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+
+$scope.callbackOptions = {
+	completeMethod: $scope.countries
+	, callback: function(label) {
+		alert(label + ' selected ');
+	}
+};
+					</pre>
+				</pui-panel>
+			</pui-tabview>
+	</pui-fieldset>
+
+</pui-panel>

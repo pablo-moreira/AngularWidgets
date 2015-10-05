@@ -1,0 +1,40 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Specification of columns</header>
+		<pui-datatable id="columns" items="fixedData">
+			<pui-column value="brand" headerText="Brand"></pui-column>
+			<pui-column value="year" headerText="Year"></pui-column>
+		</pui-datatable>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-datatable id="columns" items="fixedData">
+	<pui-column value="brand" headerText="Brand"></pui-column>
+	<pui-column value="year" headerText="Year"></pui-column>
+</pui-datatable>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.fixedData =  [
+    {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
+    {'brand':'Audi','year': 2011, 'color':'Black', 'vin':'gwregre345'},
+    {'brand':'Renault','year': 2005, 'color':'Gray', 'vin':'h354htr'},
+    {'brand':'Bmw','year': 2003, 'color':'Blue', 'vin':'j6w54qgh'},
+    {'brand':'Mercedes','year': 1995, 'color':'White', 'vin':'hrtwy34'},
+    {'brand':'Opel','year': 2005, 'color':'Black', 'vin':'jejtyj'},
+    {'brand':'Honda','year': 2012, 'color':'Yellow', 'vin':'g43gr'},
+    {'brand':'Chevrolet','year': 2013, 'color':'White', 'vin':'greg34'},
+    {'brand':'Opel','year': 2000, 'color':'Black', 'vin':'h54hw5'},
+    {'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
+];
+
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

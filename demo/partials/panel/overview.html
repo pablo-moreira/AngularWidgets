@@ -1,0 +1,98 @@
+
+<div id="content">
+
+	<pui-panel header="puiPanel">
+		
+
+		<pui-fieldset id="description" legend="Description" style="margin-bottom:20px">
+			Grouping component providing with content toggle and close features.
+		</pui-fieldset>
+		<pui-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
+			<ul>
+				<li>Toggling and closing can be specified in the view or in the controller</li>
+				<li>Title attribute supports AngularJS expressions</li>
+				<li>Collapsing and expanding panel can be triggered programmatic</li>
+				<li>Toggle orientation can be configured.</li>
+				<li>Showing and hiding panel content can be animated.</li>
+                <li>Feedback on user actions (toggling and closing)</li>
+			</ul>
+		</pui-fieldset>
+		<pui-fieldset id="issues" legend="Known issues" style="margin-bottom:20px">
+		</pui-fieldset>
+		<pui-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
+			<ul>
+				<li>Support for 'rendered' (showing and hiding panel)</li>
+			</ul>
+		</pui-fieldset>
+
+		<pui-fieldset id="Configuration" legend="Configuration" style="margin-bottom:20px">
+			<table class="doc-table">
+				<thead>
+				<tr>
+					<th class="ui-state-default">Name</th>
+					<th class="ui-state-default">Type</th>
+					<th class="ui-state-default">Default</th>
+					<th class="ui-state-default">Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr class="ui-widget-content">
+					<td>header</td>
+					<td>String</td>
+					<td>undefined</td>
+					<td>Panel title
+					</td>
+				</tr>
+                <tr class="ui-widget-content">
+                    <td>toggleable</td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                    <td>Can the panel be collapsed and expanded.</td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>collapsed</td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                    <td>Initial state of the panel contents.</td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>closeable</td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                    <td>Can the panel be removed.</td>
+                </tr>
+				<tr class="ui-widget-content">
+					<td>toggleOrientation</td>
+					<td>String</td>
+					<td>vertical</td>
+					<td>Defines orientation of toggle direction, valid values are "vertical" and "horizontal".</td>
+				</tr>
+                <tr class="ui-widget-content">
+                    <td>onStateChange</td>
+                    <td>String -> function ()</td>
+                    <td>undefined</td>
+                    <td>Linked to a function in the scope which is called when user expand/collapse a panel.
+                    </td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>onClose</td>
+                    <td>String -> function ()</td>
+                    <td>undefined</td>
+                    <td>Linked to a function in the scope which is called when user closes a panel.
+                    </td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>binding</td>
+                    <td>Object</td>
+                    <td>undefined</td>
+                    <td>Retrieve the options from a JavaScript object.</td>
+                </tr>
+
+				</tbody>
+			</table>
+		</pui-fieldset>
+
+		</pui-fieldset>
+
+	</pui-panel>
+</div>

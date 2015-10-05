@@ -1,0 +1,25 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Default integration</header>
+		<pui-button id="default" action="showMessage('Button clicked')" value="AngularWidgets"></pui-button>
+	</section>
+
+	<pui-fieldset legend="Source" id="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-button id="default" action="showMessage('Button clicked')" value="AngularWidgets"></pui-button>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js" >
+$scope.showMessage = function(msg) {
+	alert(msg);
+};
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+	
+</pui-panel>

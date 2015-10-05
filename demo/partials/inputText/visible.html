@@ -1,0 +1,48 @@
+
+<div id="content">
+
+	<pui-panel header="puiInputText">
+		
+
+		<section>
+			<header>Support for rendered</header>
+
+			<pui-inputText id="visible" value="value1" rendered="fieldVisible"></pui-inputText><br/>
+			<br/>
+            Controller value is : <span id="modelValue">{{value1}}</span><br/>
+			<button ng-click="showField()" type="button" ng-hide="fieldVisible" id="showBtn">Show</button>
+			<button ng-click="hideField()" type="button" ng-show="fieldVisible" id="hideBtn">Hide</button>
+
+
+		</section>
+
+		<pui-fieldset id="Source"legend="Source" style="margin-bottom:20px">
+            <pui-tabview id="sourceTabs" >
+                <pui-panel header="html" id="d_html">
+                    <pre pretty-print="html" >
+    <pui-inputText id="visible" value="value1" rendered="fieldVisible"></pui-inputText><br/>
+    <br/>
+    Controller value is : <span id="modelValue">{{value1}}</span><br/>
+    <button ng-click="showField()" type="button" ng-hide="fieldVisible" id="showBtn">Show</button>
+    <button ng-click="hideField()" type="button" ng-show="fieldVisible" id="hideBtn">Hide</button>
+
+                    </pre>
+                </pui-panel>
+                <pui-panel header="controler" id="d_script">
+                    <pre pretty-print="js" >
+$scope.fieldDisabled = true;
+
+$scope.enableField = function() {
+    $scope.fieldDisabled = false;
+};
+
+$scope.disableField = function() {
+    $scope.fieldDisabled =  true;
+};
+                    </pre>
+                </div>
+			</div>
+		</pui-fieldset>
+
+	</pui-panel>
+</div>

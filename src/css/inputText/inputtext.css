@@ -1,0 +1,26 @@
+.pui-inputtext {
+    margin: 0;
+    outline: medium none;
+    padding: 4px;
+    font-weight: normal;
+}
+
+.ui-widget-header .pui-inputtext,
+.ui-widget-content .pui-inputtext {
+    font-weight: normal;
+}
+
+/* AngularJS Animation of hinding/showing content*/
+input.pui-inputtext.pui-hide {
+    opacity:0;
+
+}
+
+input.pui-hidden {
+    display: none;
+}
+
+input.pui-inputtext {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}

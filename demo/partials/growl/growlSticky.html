@@ -1,0 +1,32 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Sticky message example</header>
+		<pui-button id="btnInfo" action="showStickyMessage()" value="Info"></pui-button>
+		<pui-button id="btnReset" action="resetGrowlOptions()" value="Reset options"></pui-button>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-button id="btnInfo" action="showStickyMessage()" value="Info"></pui-button>
+<pui-button id="btnReset" action="resetGrowlOptions()" value="Reset options"></pui-button>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.showStickyMessage = function() {
+	puiGrowl.setSticky(true);
+	puiGrowl.showInfoMessage('Message', "Message remains until close icon clicked or other message requested");
+};
+
+$scope.resetGrowlOptions = function() {
+	puiGrowl.setSticky(false);
+}
+
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

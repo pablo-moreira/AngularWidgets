@@ -1,0 +1,44 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Disabled autocomplete</header>
+
+		<pui-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></pui-autocomplete><br/>
+		
+		Controller value is : <span id="modelValue">{{country}}</span>
+		<br/>
+		<pui-button action="enableField()" ng-show="fieldDisabled" value="Enable"></pui-button>
+		<pui-button action="disableField()" ng-hide="fieldDisabled" value="Disable"></pui-button>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></pui-autocomplete><br/>
+
+Controller value is : <span id="modelValue">{{country}}</span>
+<br/>
+<pui-button action="enableField()" ng-show="fieldDisabled" value="Enable"></pui-button>
+<pui-button action="disableField()" ng-hide="fieldDisabled" value="Disable"></pui-button>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.country = null;
+$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+
+$scope.fieldDisabled = true;
+
+$scope.enableField = function() {
+	$scope.fieldDisabled = false;
+};
+
+$scope.disableField = function() {
+	$scope.fieldDisabled =  true;
+};
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

@@ -1,0 +1,38 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Autocomplete with a function</header>
+
+		<pui-autocomplete id="function"  value="value" completeMethod="autoCompleteMethod" minQueryLength="3"></pui-autocomplete>
+		<br/>
+		Controller value is : <span id="modelValue">{{value}}</span>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html" >
+<pui-autocomplete id="function"  value="value" complete_method="autoCompleteMethod"></pui-autocomplete>
+<br/>
+Controller value is : {{value}}
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js" >
+$scope.autoCompleteMethod = function (request, response) {
+    
+	var data = [];
+    
+	var query = request.query;
+    
+	for (var i = 0; i < 5; i++) {
+		data.push(query.value + i);
+	}
+    
+	response(data);
+};
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

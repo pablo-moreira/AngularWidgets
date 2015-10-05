@@ -1,0 +1,70 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+		<pui-fieldset id="description" legend="Description" style="margin-bottom:20px">
+			Tabbed panel component featuring client side tabs
+		</pui-fieldset>
+		<pui-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
+			<ul>
+				<li>Themeable panel components</li>
+				<li>Title can be on top or on the left, also definable by angular expressions</li>
+				<li>Tabs can be removed</li>
+				<li>Programmatic setting the active tab</li>
+				<li>User callback when tab is selected</li>
+                <li>Panel can be in an included file.</li>
+                <li>Support for changing number of tabs dynamically</li>
+                <li>puiPanel can be used to define the panel</li>
+			</ul>
+		</pui-fieldset>
+		<pui-fieldset id="issues" legend="Known issues" style="margin-bottom:20px">
+		</pui-fieldset>
+
+		<pui-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
+			<ul>
+				<li>Support of effects</li>
+                <li>Lazy loading</li>
+			</ul>
+		</pui-fieldset>
+
+		<pui-fieldset id="Configuration" legend="Documentation" style="margin-bottom:20px">
+            <table class="doc-table">
+                <thead>
+                <tr>
+                    <th class="ui-state-default">Name</th>
+                    <th class="ui-state-default">Type</th>
+                    <th class="ui-state-default">Default</th>
+                    <th class="ui-state-default">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="ui-widget-content">
+                    <td>closeable</td>
+                    <td>Boolean</td>
+                    <td>false</td>
+                    <td>Can the tab panels be closed?
+                    </td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>orientation</td>
+                    <td>String</td>
+                    <td>top</td>
+                    <td>Where are the tab panels located? On the 'top' or on the 'left'?
+                    </td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>onTabChange</td>
+                    <td>String -> function (index)</td>
+                    <td>undefined</td>
+                    <td>Linked to a function in the scope which is called when user selects another tab.
+                    </td>
+                </tr>
+                <tr class="ui-widget-content">
+                    <td>binding</td>
+                    <td>Object</td>
+                    <td>undefined</td>
+                    <td>Retrieve the options from a JavaScript object.</td>
+                </tr>
+                </tbody>
+             </table>
+            On the object bound to the widget with the <i>binding</i> attribute, an additional function is created <b>setActiveTab = function(idx)</b> which can be used to change the active tab progmatically.
+        </pui-fieldset>
+</pui-panel>

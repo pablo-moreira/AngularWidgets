@@ -1,0 +1,52 @@
+
+<div id="content">
+
+	<pui-panel header="puiTabview">
+		
+		<section>
+			<header>Tab panels included</header>
+
+
+			<pui-tabview id="repeat" dynamic="includeList">
+			</pui-tabview>
+            data field1: <span id="field1Value"> {{distributedData.field1}}</span> <br/>
+            data field2: <span id="field2Value"> {{distributedData.field2}}</span> <br/>
+            data field3: <span id="field3Value"> {{distributedData.field3}}</span> <br/>
+            <button type="button" ng-click="addPanel()" id="addPanel">Add panel</button>
+		</section>
+
+		<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+            <pui-tabview id="sourceTabs" >
+                <pui-panel header="html" id="d_html">
+						<pre pretty-print="html" >
+    <div id="repeat" pui-tabview="includeList">
+    </div>
+    data field1: {{distributedData.field1}} <br/>
+    data field2: {{distributedData.field2}} <br/>
+    data field3: {{distributedData.field3}} <br/>
+    <button type="button" ng-click="addPanel()">Add panel</button>
+
+						</pre>
+
+                </pui-panel>
+                <pui-panel header="controller" id="d_script">
+                        <pre pretty-print="js" >
+    $scope.includeList = ["partials/puiTabview/include/panel1.html"
+       , "partials/puiTabview/include/panel2.html"];
+
+    $scope.distributedData = {
+        field1: "field1"
+        , field2: "field2"
+        , field3: "field3"
+    };
+
+    $scope.addPanel = function() {
+        $scope.includeList.push("partials/puiTabview/include/panel3.html");
+    }
+                        </pre>
+					</pui-panel>
+			</pui-tabview>
+		</pui-fieldset>
+
+	</pui-panel>
+</div>

@@ -1,0 +1,58 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+				
+	<section>
+		<header>HttpDataLoader - String</header>
+		<pui-datatable			 
+			item="car" 
+			itemId="vin"
+			items="httpDataLoaderObject" 
+			caption="Http Data Loader With Paginator"
+			selectionMode="multiple"			
+			paginator="true"
+		   	rows="4"
+			onRowSelect="onRowSelect"
+			onRowUnselect="onRowUnselect">
+				
+	    	<pui-column value="brand" headerText="Brand"></pui-column>			
+			<pui-column value="year" headerText="Year" sortBy="year"></pui-column>			
+			<pui-column value="color" headerText="Color" sortBy="color"></pui-column>
+			
+		</pui-datatable>
+	</section>
+	
+	
+		<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-datatable		 
+	item="car" 
+	itemId="vin"
+	items="'json/cars2.json'" 
+	caption="Http Data Loader With Paginator"
+	selectionMode="multiple"			
+	paginator="true"
+   	rows="4"
+	onRowSelect="onRowSelect"
+	onRowUnselect="onRowUnselect">
+   	<pui-column value="brand" headerText="Brand"></pui-column>			
+	<pui-column value="year" headerText="Year" sortBy="year"></pui-column>			
+	<pui-column value="color" headerText="Color" sortBy="color"></pui-column>
+</pui-datatable>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.onRowSelect = function(event, data) {
+	puiGrowl.showInfoMessage('Row selection', 'Selected a ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
+}
+$scope.onRowUnselect = function(event, data) {
+	if (data) {
+		puiGrowl.showInfoMessage('Row deselection', 'deselected the ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
+	}
+}
+				</pre>
+        	</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

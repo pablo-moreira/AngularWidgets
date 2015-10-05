@@ -1,0 +1,5 @@
+<h3>Widgets</h3>
+<div ng-repeat="widget in widgets.allWidgets">
+	<pui-button actionListener="widgets.selectWidget(widget.label)" class="widgetSelection" value="{{widget.label}}"> </pui-button>
+	<br/>
+</div>
