@@ -3,20 +3,32 @@
 	<section>
 		<header>Callback when user selects from proposed list</header>
 
-		<pui-autocomplete id="callback" value="country" binding="callbackOptions"></pui-autocomplete><br/>
-		Controller value is : {{country}}
+		<pui-fieldset legend="Single">		
+			<pui-autocomplete id="acEvtSingle" value="country" completeMethod="countries" itemSelect="itemSelect" itemRemove="itemRemove"></pui-autocomplete>
+			<br/>
+			<br/>
+			Controller value is: {{country}}
+		</pui-fieldset>
+	
+		<pui-fieldset legend="Multiple" style="margin-top: 10px">			
+			<pui-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" itemSelect="itemSelect" itemRemove="itemRemove" multiple="true"></pui-autocomplete>
+			<br/>
+			<br/>
+			Controller value is: {{countriesSelected}}
+		</pui-fieldset>
+
 	</section>
 
 	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
-           <pui-tabview id="sourceTabs" >
-               <pui-panel header="html" id="d_html">
-					<pre pretty-print="html" >
-       <pui-autocomplete id="callback" value="country" binding="callbackOptions"></pui-autocomplete><br/>
-       Controller value is : {{country}}
-					</pre>
-               </pui-panel>
-               <pui-panel header="controller" id="d_script">
-					<pre pretty-print="js" >
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-autocomplete id="callback" value="country" options="callbackOptions"></pui-autocomplete><br/>
+Controller value is : {{country}}
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
 $scope.country = null;
 $scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
 
@@ -26,9 +38,8 @@ $scope.callbackOptions = {
 		alert(label + ' selected ');
 	}
 };
-					</pre>
-				</pui-panel>
-			</pui-tabview>
+				</pre>
+			</pui-tab>
+		</pui-tabview>
 	</pui-fieldset>
-
 </pui-panel>

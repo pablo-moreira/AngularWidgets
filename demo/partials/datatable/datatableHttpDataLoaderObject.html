@@ -42,7 +42,7 @@
 			<pui-tab header="Controller" id="d_script">
 				<pre pretty-print="js">
 $scope.httpDataLoaderObject = new PJeUI.HttpDataLoader({
-	url: 'json/cars2.json'
+	url: 'json/cars.json'
 });	
 $scope.onRowSelect = function(event, data) {
 	puiGrowl.showInfoMessage('Row selection', 'Selected a ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');

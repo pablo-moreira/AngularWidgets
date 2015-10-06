@@ -41,8 +41,16 @@
 		             "path": "autocomplete/autocompleteCallback"
 		         },
 		         {
+		             "label": "Object",
+		             "path": "autocomplete/autocompleteObject"
+		         },
+		         {
 		             "label": "Custom Content",
-		             "path": "puiAutocomplete/autocompleteCustomContent"
+		             "path": "autocomplete/autocompleteCustomContent"
+		         },
+		         {
+		             "label": "Http Data Loader",
+		             "path": "autocomplete/autocompleteHttpDataLoader"
 		         }		
 		     ]
 		 },

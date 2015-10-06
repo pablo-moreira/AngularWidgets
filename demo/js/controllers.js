@@ -202,8 +202,8 @@
         $scope.progPaginationPage = 0;        
          
         // HttpDataLoader
-        $scope.httpDataLoaderObject = new PJeUI.HttpDataLoader({
-        	url: 'json/cars2.json',
+        $scope.httpDataLoaderObject = new AngularWidgets.HttpDataLoader({
+        	url: 'json/cars.json',
         	success: function (data, params) {
         		
 		        if (params.sorts.length > 0) {
@@ -277,14 +277,13 @@
             puiGrowl.setSticky(false);
         }
     } ])
-    .controller('AutocompleteController', [ '$scope',   function($scope) {
-				
-    	$scope.value01 = 'b';
-    	$scope.value02 = null;
-    	$scope.value03 = null;
-		$scope.value04 = null;
+    .controller('AutocompleteController', [ '$scope',   function($scope) {			
     	
         $scope.country = null;
+        $scope.countrySelecteds = [];
+
+        $scope.car = null;
+        $scope.carSelecteds = [];
 
         $scope.countries = ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antarctica', 'Antigua and Barbuda', 'Argentina', 'Armenia',
             'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda',
@@ -304,7 +303,7 @@
             'Tanzania', 'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Uganda', 'Ukraine', 'United Arab Emirates',
             'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'];
                 
-       	$scope.objects = [
+		$scope.cars = [
            {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
            {'brand':'Audi','year': 2011, 'color':'Black', 'vin':'gwregre345'},
            {'brand':'Renault','year': 2005, 'color':'Gray', 'vin':'h354htr'},
@@ -315,9 +314,8 @@
            {'brand':'Chevrolet','year': 2013, 'color':'White', 'vin':'greg34'},
            {'brand':'Opel','year': 2000, 'color':'Black', 'vin':'h54hw5'},
            {'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
-       ];
+		];
         
-
        	$scope.autoCompleteMethod = function (request, response) {
        	    
        		var data = [];
@@ -342,37 +340,14 @@
         };
 
         $scope.selectedsCountries = ["Brazil","Argentina"];
-//        $scope.multipleCountry = {
-//            
-//            , completeMethod: $scope.countries
-//            , multipleValues: []
-//            , addSelection : function(value) {
-//                $scope.safeApply(  // external changes aren't picked up by angular
-//                    $scope.multipleCountry.multipleValues.push(value)
-//                )
-//            }
-//            , removeSelection : function(value) {
-//                var arr = $scope.multipleCountry.multipleValues,
-//                    idx = arr.indexOf(value);
-//                if (idx > -1) {
-//                    $scope.safeApply(  // external changes aren't picked up by angular
-//                        $scope.multipleCountry.multipleValues = arr.splice(idx, 1)
-//                    )
-//                }
-//            }
-//        };
 
-        $scope.limitToList = {
-            forceSelection : true
-            , completeMethod: $scope.countries
+        $scope.itemSelect = function(item) {
+			alert(item + ' selected');
         };
 
-        $scope.callbackOptions = {
-            completeMethod: $scope.countries
-            , makeSelection: function(label) {
-                alert(label + ' selected ');
-            }
-        };
+        $scope.itemRemove = function(item) {
+        	alert(item + ' removed')
+        }
 
     } ])
     .controller('FieldsetController', [ '$scope',   function($scope) {

@@ -86,204 +86,237 @@
         return false;
     };
     
-    AngularWidgets.FunctionDataLoader = function (fctLoader) {
-    	
-    	// public 
-    	this.init = init;
-    	this.load = load;
-    	this.getRowCount = getRowCount;
-    	this.getData = getData;
-    	
-    	// private
-    	var data = [];
-    	var onLoadData = null;
-    	    	
-    	function setData(value) {
-    		data = value;
-    	} 
-    	
-    	function init(options) {
-    		this.onLoadData = options.onLoadData;
-    	}
-    	
-    	function load(request) {
-    		
-    		var $this = this;
-    		
-    		fctLoader(request, function(data) {
-    		
-    			setData(data);
-    			
-    			$this.onLoadData(request);
-    		});
-    	}    	
-    	
-    	function getRowCount() {
-    		return data.length;
-    	}
-    	
-    	function getData() {
-    		return data;
-    	}
-    }
-    
-    AngularWidgets.ArrayDataLoader = function (allData) {
-      	
-    	// public
-    	this.allData = allData;    	
-    	this.onLoadData = null;
-    	
-    	// private
-    	var data = [];
-    	var filteredData = allData;
-    	
-    	this.init = function(options) {
-    		this.onLoadData = options.onLoadData;
-    	}
-    	
-    	this.load = function(request) {
-    		        		
-    		data = [];
-    		filteredData = [];
-    		
-    		var filterDataCurrent = this.allData;
-    		
-	        if (request.filter) {        	
-	        	
-	        	// TODO - Implement more one predicates
-	        	var filter = request.filter.predicates[0];
-	        	
-		        for (var i = 0, t = filterDataCurrent.length; i < t; i++) {
-		        	
-		        	var item = filterDataCurrent[i],
-		        		itemFieldValue; 
-		        		
-		        	if (filter.field === '*') {
-		        		itemFieldValue = item;
-		        	}
-		        	else {
-		        		itemFieldValue = item[filter.field];
-		        	}
-
-		        	itemFieldValue = itemFieldValue.toLowerCase();
-
-			        if (!filter.value) {
-			        	filteredData.push(item);
-			        }
-			        else {
-			        	if (filter.operator == 'start_with' && itemFieldValue.indexOf(filter.value) === 0) {
-			        		filteredData.push(item);
-			        	}
-			        	else if (filter.operator == 'contains' && itemFieldValue.indexOf(filter.value) != -1) {
-			        		filteredData.push(item);
-			        	}
-			        }
-		        }
-		        
-		        filterDataCurrent = filteredData;
-		        
-	    		var rowCount = filteredData.length,
-					rows = request.pageSize || filteredData.length,    		
-					page = request.first + rows;
-	        }
-	        else {
-	        	
-	    		var rowCount = this.allData.length,
-    				rows = request.pageSize || this.allData.length,    		
-    				page = request.first + rows;
-	        	
-	    		filteredData = this.allData;
-	        }
-			
-	        for (var i = request.first; i < (page) && i < rowCount; i++) {
-	        	data.push(filteredData[i]);
-	        }
-
-	        if (request.sorts && request.sorts.length) {
-	        
-	        	var field = request.sorts[0].field;
-	        	var order = request.sorts[0].order == "asc" ? 1 : -1;
-	        
-				data.sort(function(data1, data2) {
-	            
-					var value1 = data1[field],
-	                	value2 = data2[field],
-	                	result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-		
-					return (order * result);
-		        });
-	        }
-			
-	        this.onLoadData(request);
-    	}
-    	
-    	this.getRowCount = function() {
-    		return filteredData.length;
-    	}
-    	
-    	this.getData = function() {
-    		return data;
-    	}
-    };
-    
-    AngularWidgets.HttpDataLoader = function (options) {
-    
-    	// public
-		this.url = options.url;
-		this.method = options.method || "post";
-		this.loadedData = null;
-		this.onLoadData = null;
-		this.http = null;
-		
-		// private
-		var data = null;	
-		
-		this.init = function (options) {
-			this.onLoadData = options.onLoadData;
-			this.http = options.http;
-		}
-				
-		this.load = options.load || function (request) {
-		
-			var $this = this;
-			
-			this.http[this.method](this.url, request)
-				.success(function(data) {
-
-					$this.loadedData = $this.success(data, request);
-
-					$this.onLoadData(request);
-				})
-				.error(function(data){
-					$this.error(data, request); 
-				});
-		};
-		
-		this.success = options.success || function(data, request) {
-			return data;
-		};
-		
-		this.error = options.error || function(data, request) {
-			
-		};
-		
-		this.getRowCount = function () {
-			return this.loadedData.rowCount;
-		}
-		
-		this.getData = function () {
-			return this.loadedData.rows;
-		}
-    };
-    
     angular.module('pje.ui.config', []).value('pje.ui.config', {
             labelPrefix: 'lbl'
         });
 
     var angularService = angular.module('angular.service', ['ngAnimate']);
 
-    angularService.factory('widgetBase', ['$parse', '$interpolate', '$animate', function ($parse, $interpolate, $animate) {
+    angularService.factory('widgetBase', ['$parse', '$interpolate', '$animate', '$q', '$http', function ($parse, $interpolate, $animate, $q, $http) {
     
+		window.AngularWidgets.FunctionDataLoader = function (fctLoader) {
+
+			// public 
+			this.load = load;
+			this.getRowCount = getRowCount;
+			this.getData = getData;			
+
+			// private
+			var data = [];
+			var onLoadData = null;
+
+			function setData(d) {
+				data = d;
+			} 
+
+			function load(request) {
+
+				var deferred = $q.defer();
+
+				try {
+					var $this = this;
+
+					fctLoader(request, function(data) {
+
+						setData(data);
+
+						deferred.resolve(request);						
+					});					
+				}
+				catch (e) {
+					this.deferred.reject({ 'request': request, 'error': e });
+				}
+
+				return customPromise(deferred.promise);
+			}    	
+
+			function getRowCount() {
+				return data.length;
+			}
+
+			function getData() {
+				return data;
+			}
+		}
+
+		window.AngularWidgets.ArrayDataLoader = function (allData) {
+      	
+			// public
+			this.load = load
+			this.allData = allData;
+			this.getRowCount = getRowCount;
+			this.getData = getData;
+
+			// private
+			var data = [];
+			var filteredData = allData;			
+
+			function load(request) {
+				
+				var deferred = $q.defer();
+
+				try {
+					data = [];
+					filteredData = [];
+
+					var filterDataCurrent = this.allData;
+
+					if (request.filter) {        	
+
+						// TODO - Implement more one predicates
+						var filter = request.filter.predicates[0];
+
+						for (var i = 0, t = filterDataCurrent.length; i < t; i++) {
+
+							var item = filterDataCurrent[i],
+								itemFieldValue; 
+
+							if (filter.field === '*') {
+								itemFieldValue = item;
+							}
+							else {
+								itemFieldValue = item[filter.field];
+							}
+
+							itemFieldValue = itemFieldValue.toLowerCase();
+
+							if (!filter.value) {
+								filteredData.push(item);
+							}
+							else {
+								if (filter.operator == 'start_with' && itemFieldValue.indexOf(filter.value) === 0) {
+									filteredData.push(item);
+								}
+								else if (filter.operator == 'contains' && itemFieldValue.indexOf(filter.value) != -1) {
+									filteredData.push(item);
+								}
+							}
+						}
+
+						filterDataCurrent = filteredData;
+
+						var rowCount = filteredData.length,
+							rows = request.pageSize || filteredData.length,    		
+							page = request.first + rows;
+					}
+					else {
+
+						var rowCount = this.allData.length,
+							rows = request.pageSize || this.allData.length,    		
+							page = request.first + rows;
+
+						filteredData = this.allData;
+					}
+
+					for (var i = request.first; i < (page) && i < rowCount; i++) {
+						data.push(filteredData[i]);
+					}
+
+					if (request.sorts && request.sorts.length) {
+
+						var field = request.sorts[0].field;
+						var order = request.sorts[0].order == "asc" ? 1 : -1;
+
+						data.sort(function(data1, data2) {
+
+							var value1 = data1[field],
+								value2 = data2[field],
+								result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+							return (order * result);
+						});
+					}
+					
+					deferred.resolve(request);
+					//this.onLoadData(request);
+				}
+				catch (e) {
+					deferred.reject({ 'request': request, 'error': e });
+				}
+
+				return customPromise(deferred.promise);
+			}
+
+			function getRowCount() {
+				return filteredData.length;
+			}
+
+			function getData() {
+				return data;
+			}
+		};
+
+		window.AngularWidgets.HttpDataLoader = function (options) {
+    
+			// public
+			this.url = options.url;
+			this.method = options.method || "post";
+			this.load = load;
+			this.success = options.success || success;
+			this.getRowCount = getRowCount;
+			this.getData = getData;
+
+			// private
+			var data = null;
+			var loadedData = null;
+
+			function load(request) {
+
+				var $this = this;
+				var deferred = $q.defer();
+
+				$http[this.method](this.url, request)
+					.success(function(data) {
+
+						loadedData = $this.success(data, request);
+						
+						deferred.resolve(request);
+						//$this.onLoadData(request);
+					})
+					.error(function(data){
+						deferred.reject({ 'request': request, 'error': data });
+					});
+
+				return customPromise(deferred.promise);
+			};
+
+			function success(data, request) {
+				return data;
+			};
+
+			function getRowCount() {
+				return loadedData.rowCount;
+			}
+
+			function getData() {
+				return loadedData.rows;
+			}
+		};
+
+		function customPromise(promise) {
+
+			promise.success = function(fn) {
+
+				promise.then(function(response) {
+
+					fn(response);
+				});
+
+				return promise;
+			};
+
+			promise.error = function(fn) {
+
+				promise.then(null, function(response) {
+					fn(response);
+				});
+
+				return promise;
+			};
+
+			return promise;			
+		}
+		    
     	var widgetBase = {};
     	
     	widgetBase.guid = function() {
@@ -355,7 +388,29 @@
 	    		}
     		}
     	};
-    	
+
+    	widgetBase.determineDataLoader = function(value) {
+			
+			var dataLoader;
+
+    		if (angular.isString(value)) {
+				dataLoader = new AngularWidgets.HttpDataLoader({url: value});
+			} 
+			else if (angular.isFunction(value)) {
+				dataLoader = new AngularWidgets.FunctionDataLoader(value);
+			} 
+			else if (value instanceof AngularWidgets.HttpDataLoader || value instanceof AngularWidgets.ArrayDataLoader) {
+				dataLoader = value;
+			} 
+			else if (angular.isArray(value)) {
+				dataLoader = new AngularWidgets.ArrayDataLoader(value);
+			} 
+			else {
+				dataLoader = new AngularWidgets.ArrayDataLoader([value]);
+			}
+
+			return dataLoader;
+    	}    	
     	widgetBase.extend = function(target, source) {
     		
     		target = target || {};
@@ -567,7 +622,7 @@
         	AND : 'and',
         	OR : 'or'
         };
-        
+
         return widgetBase;
     }]);
 

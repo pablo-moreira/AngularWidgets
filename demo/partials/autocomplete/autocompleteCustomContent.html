@@ -1,0 +1,78 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+	
+	<section>
+		<header>Custom content</header>
+
+		<pui-fieldset legend="Single">		
+			<pui-autocomplete id="acCustomSingle" value="car" completeMethod="cars" item="car" itemLabel="brand" dropdown="true">
+				<pui-column headerText="Vin" value="vin"></pui-column>
+				<pui-column headerText="Brand" value="brand"></pui-column>
+				<pui-column headerText="Year" value="year"></pui-column>
+				<pui-column headerText="Color">
+					<div style="border: 1px dashed #000; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>
+				</pui-column>
+			</pui-autocomplete>
+			<br/>
+			<br/>
+			Controller value is: <pre ng-show="car != null">{{car | json}}</pre>
+		</pui-fieldset>
+	
+		<pui-fieldset legend="Multiple" style="margin-top: 10px">
+			<pui-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true">
+				<pui-column headerText="Vin" value="vin"></pui-column>
+				<pui-column headerText="Brand" value="brand"></pui-column>
+				<pui-column headerText="Year" value="year"></pui-column>
+				<pui-column headerText="Color">
+					<div style="border: 1px dashed #000; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>
+				</pui-column>
+			</pui-autocomplete>
+			<br/>
+			<br/>
+			Controller value is: <pre ng-show="carSelecteds != null">{{carSelecteds | json}}</pre>
+		</pui-fieldset>
+	</section>
+	
+	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-fieldset legend="Single">		
+	<pui-autocomplete id="acCustomSingle" value="car" completeMethod="cars" item="car" itemLabel="brand" dropdown="true">
+		<pui-column headerText="Vin" value="vin"></pui-column>
+		<pui-column headerText="Brand" value="brand"></pui-column>
+		<pui-column headerText="Year" value="year"></pui-column>
+		<pui-column headerText="Color">
+			<div style="border: 1px dashed #000; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>
+		</pui-column>
+	</pui-autocomplete>
+	<br/>
+	<br/>
+	Controller value is: <pre ng-show="car != null">{ {car | json}}</pre>
+</pui-fieldset>
+
+<pui-fieldset legend="Multiple" style="margin-top: 10px">
+	<pui-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true">
+		<pui-column headerText="Vin" value="vin"></pui-column>
+		<pui-column headerText="Brand" value="brand"></pui-column>
+		<pui-column headerText="Year" value="year"></pui-column>
+		<pui-column headerText="Color">
+			<div style="border: 1px dashed #000; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>
+		</pui-column>
+	</pui-autocomplete>
+	<br/>
+	<br/>
+	Controller value is: <pre ng-show="carSelecteds != null">{ {carSelecteds | json}}</pre>
+</pui-fieldset>	
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.car = null;
+$scope.carSelecteds = [];
+$scope.cars = [ {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'}, ... ];          
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+		
+</pui-panel>

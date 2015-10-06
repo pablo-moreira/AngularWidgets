@@ -1,0 +1,50 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+	
+	<section>
+		<header>Autocomplete Http Data Loader</header>
+
+		<pui-fieldset legend="Single">		
+			<pui-autocomplete id="acObjectSingle" value="car" completeMethod="'json/cars.json'" itemLabel="brand" dropdown="true"></pui-autocomplete>
+			<br/>
+			<br/>
+			Controller value is: <pre ng-show="car != null">{{car | json}}</pre>
+		</pui-fieldset>
+	
+		<pui-fieldset legend="Multiple" style="margin-top: 10px">
+			<pui-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="'json/cars.json'" itemLabel="brand" dropdown="true" multiple="true"></pui-autocomplete>
+			<br/>
+			<br/>
+			Controller value is: <pre ng-show="carSelecteds != null">{{carSelecteds | json}}</pre>
+		</pui-fieldset>
+	</section>
+	
+	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-fieldset legend="Single">		
+	<pui-autocomplete id="acObjectSingle" value="car" completeMethod="cars" itemLabel="brand" dropdown="true"></pui-autocomplete>
+	<br/>
+	<br/>
+	Controller value is: <pre ng-show="car != null">{ {car | json}}</pre>
+</pui-fieldset>
+
+<pui-fieldset legend="Multiple" style="margin-top: 10px">
+	<pui-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true"></pui-autocomplete>
+	<br/>
+	<br/>
+	Controller value is: <pre ng-show="carSelecteds != null">{ {carSelecteds | json}}</pre>
+</pui-fieldset>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+$scope.car = null;
+$scope.carSelecteds = [];
+$scope.cars = [ {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'}, ... ];          
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+		
+</pui-panel>

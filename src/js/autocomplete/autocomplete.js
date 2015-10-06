@@ -18,28 +18,30 @@
     	widget.Autocomplete = widgetBase.createWidget({
         	
     		value: null,
+    		cachedResults: [],
     		
     		init: function(options) {
         						
 				this.determineOptions(options);
             	
             	if (this.options.completeMethod) {
-            		this.determineCompleteMethod(this.scope.$eval(this.options.completeMethod));
+            		this.setItems(this.scope.$eval(this.options.completeMethod));
+            	}
+            	else {
+            		this.setItems([]);
             	}
             	
             	var inputElement = this.element.childrenSelector('input'),
                     panelElement = this.element.childrenSelector('.pui-autocomplete-panel');
 
                 this.inputQuery = angular.element(inputElement[0]);
-                this.inputValue = angular.element(inputElement[1]);
-                
-                this.inputData = widgetInputText.buildWidget(this.inputQuery, options, this.options);
+                this.inputValue = angular.element(inputElement[1]);                
                 this.panel = angular.element(panelElement[0])
                             
                 var $this = this;
                 
                 this.scope.$watch(this.options.value, function(value) {
-               		$this.updateValue(value);
+               		$this.setValue(value, false);
     			});
                 
                 this.determineTransclude();
@@ -63,66 +65,30 @@
                 }
                             	
             	var $this = this;
-            	
-            	if (this.completeMethod) {
-            	
-	            	var superLoad = this.completeMethod.load;
-	                
-	            	var firstLoad = true;
-	            	
-	            	this.completeMethod.load = function (request) {
-	                	
-	            		// Avoid first call from datatable load
-	            		if (firstLoad && request != null) {
-	            			return ;
-	            		}
-	
-	            		if (request) {
-	            			// Request by dataTable interface
-	            			if (request.filter && request.filter.predicates) {
-	            				request.filter.predicates.push($this.buildQueryCriterion());
-	            			}
-	            			else {
-	            				if ($this.query) {
-	            					request.filter = $this.buildRequest().filter 
-	            				}
-	            			}
-	            		}
-	            		else {
-	            			// Request by inputQuery interface
-	            			request = $this.buildRequest();
-	            		}
-	
-	            		superLoad.call(this, request);
-	            		
-	            		$this.onLoadData();
-	            		
-	            		if (firstLoad) {
-	            			firstLoad = false;
-	            			$this.scope.$apply();
-	            		}
-	            	};
-            	}
-            	            	                
+            	            	            	                
                 if (this.columns.length) {
                 	
-                	var dataTable = widgetDatatable.create(this.scope, this.panel, {
+                	this.dataTable = widgetDatatable.create(this.scope, this.panel, {
             			columns : this.columns,
             			items : this.completeMethod,
             			item : this.options.item,
             			onBuildRow : function (dataTable, scope, element, attrs) { $this.onBuildDataTableRow(dataTable, scope, element, attrs); },
                 		paginator : this.options.paginator,
-                		rows: this.options.rows
+                		rows: this.options.rows,
+                		loadOnRender: false
             		});
-
-                	this.dataTable = dataTable;
                 	
                 	this.dataTable.element.addClass('pui-autocomplete-items');                	
                 }
                 
                 this.bindKeyEvents();
                 this.bindEvents();
-                this.addBehaviour();
+                
+	            if (options.disabled !== undefined) {
+	            	this.scope.$watch(options.disabled, function (value) {
+	            		$this.enableDisable(value);
+	                });	            	
+	            }
         	},
         	
         	onBuildDataTableRow: function (dataTable, scope, element, attrs) {
@@ -146,14 +112,15 @@
                         
                 	element.addClass('ui-state-highlight');
                 });  
-                
-                this.bindOnPanelItemMouseDown(element);
+
+                this.onItemMouseDown(element);
         	},
         	
         	determineOptions: function (options) {
 
         		this.options = {
         			minQueryLength : 2,
+        			forceSelection : true,
         			dropdown : false,
         			scrollHeight: 200,
         			item : 'item',
@@ -170,29 +137,38 @@
         		widgetBase.determineOptions(this.scope, this.options, options, ['itemSelect', 'itemRemove']);
             },
             
-            determineCompleteMethod: function (cm) {
+            setItems: function (value) {
+				
+				this.completeMethod = widgetBase.determineDataLoader(value);    			
 
-    			if (angular.isString(cm)) {
-    				this.completeMethod = new AngularWidgets.HttpDataLoader({ url: cm });
-    			}
-    			else if (angular.isFunction(cm)) {
-    				this.completeMethod = new AngularWidgets.FunctionDataLoader(cm);
-    			}
-    			else if ( cm instanceof AngularWidgets.HttpDataLoader ) {
-    				this.completeMethod = cm;
-    			}
-    			else {
-    				this.completeMethod = new AngularWidgets.ArrayDataLoader(cm);
-    			}
-    			
-    			var $this = this;
-    			
-    			this.completeMethod.init({
-        			http : $http,
-        			onLoadData : function () {
-        				$this.onLoadData();
-        			}
-        		});
+            	var $this = this;
+            	
+            	if (this.completeMethod) {
+            	
+            		// Backup load function
+	            	var superLoad = this.completeMethod.load;
+	                	            	
+	            	this.completeMethod.load = function (request) {
+	                	
+	            		if (request) {
+	            			// Request by dataTable interface
+	            			if (request.filter && request.filter.predicates) {
+	            				request.filter.predicates.push($this.buildQueryCriterion());
+	            			}
+	            			else {
+	            				if ($this.query) {
+	            					request.filter = $this.buildRequest().filter;
+	            				}
+	            			}
+	            		}
+	            		else {
+	            			// Request by inputQuery interface
+	            			request = $this.buildRequest();
+	            		}
+	
+	            		return superLoad.call(this, request);
+	            	};
+            	}
             },
             
     		determineTransclude: function () {
@@ -223,13 +199,11 @@
                 this.inputQuery[0].focus();
                 this.inputQuery.triggerHandler("focus");
     			
-        		if (!this.isHttpDataLoader()) {
-        			this.handleData();
-        		}
+       			this.handleData();
  			},
     		
     		bindKeyEvents: function() {
-                
+               
     			var $this = this;
     			
             	this.inputQuery.bind('keyup', function(e) {
@@ -332,13 +306,63 @@
                         }
                     }
                 });
-            },
 
+                this.inputQuery.bind("blur", function(e) { 
+
+ 					if ($this.options.forceSelection === true) {
+                        
+                        if ($this.options.multiple) {
+                        	
+
+                        }
+                        else {
+							var idx = $this.cachedResults.indexOf($this.inputQuery.val());
+
+							if (idx === -1) {								
+								$this.setValue(null);
+							}
+                        }
+					}
+					else {
+						if ($this.options.multiple) {
+							$this.inputQuery.val('');
+						}
+						else {	
+
+							var inputValue = $this.inputQuery.val();
+							var value = $this.value;                    		
+							var itemLabel = $this.getItemLabel(value);
+
+							if (itemLabel != inputValue) {
+
+								if ($this.options.itemLabel) {
+									var obj = {};
+									obj[$this.options.itemLabel] = inputValue;            			
+									$this.updateModel(obj);
+								}
+								else {
+									$this.updateModel(inputValue);    	            			
+								}
+							}
+						}
+					}
+
+					$this.hide();	
+				});
+
+				widgetBase.hoverAndFocus(this.inputQuery);
+            },
+     
             bindEvents: function() {
                 
             	var $this = this;
-            	
-            	if (this.options.dropdown) {
+
+            	if (this.options.multiple) {
+            		this.multiContainer.bind('click', function(e) {
+            			$this.inputQuery[0].focus();
+            		});
+            	}
+            	else if (this.options.dropdown) {
                     
             		widgetBase.hoverAndFocus(this.dropdownBtn);
             		
@@ -353,13 +377,7 @@
     	        	this.dropdownBtn.bind('keyup', function(e){ 
     	        		$this.dropdownBtn.removeClass('ui-state-active');	        		
     	        	});
-                }
-            	
-            	if (this.options.multiple) {
-            		this.multiContainer.bind('click', function(e) {
-            			$this.inputQuery[0].focus();
-            		});
-            	}
+                }         	
 
                 $document.bind("click", function (event) {
                 	
@@ -412,10 +430,23 @@
             },
             
             search: function (value) {
-                
+                	
+                var $this = this;
+
             	this.query = value.toLowerCase(); //autoComplete.options.caseSensitive ? value : value.toLowerCase(),
 
-                this.completeMethod.load(null);
+                this.completeMethod.load(null).success(function(request) {
+
+                   	if ($this.dataTable) {
+                   		$this.dataTable.onLoadData();
+                   	}
+
+                   	$this.onLoadData();
+				})
+				.error(function(response) {
+					/* TODO - Tratar erros */
+					alert(response);
+				});
             },
             
             handleData: function() {
@@ -602,90 +633,48 @@
                 });
             },
             
-            bindOnPanelItemMouseDown: function (panelItem) {
+           	onItemMouseDown: function (elementItem) {
             	
             	var $this = this;
             	
-            	var item = panelItem.data('item');
+            	var item = elementItem.data('item');
             	
-            	panelItem.bind('mousedown', function(e) {
-            		
-                	if($this.options.multiple) { 
-                		$this.addSelectedItem(item);
-                        $this.inputQuery.val('');
-                        $this.hide();
-                    }
-                	else {
-                		$this.setValue(item);
-                	}
+            	elementItem.bind('mousedown', function(e) {
 
-                    $this.inputQuery[0].focus();
-                });
+					$this.hide();
+
+					if($this.options.multiple) { 
+						$this.inputQuery.val('');
+						$this.addSelectedItem(item);						
+					}
+					else {
+						$this.inputQuery.val($this.getItemLabel(item));
+						$this.setValue(item);						
+					}
+										
+					$this.inputQuery[0].focus();
+				});
             },
             
             bindDynamicEvents: function(panelItens) {
                 
-            	var cachedResults = [];
+                var $this = this;
+            	
+            	this.cachedResults = [];
                 
                 this.highlightInList(panelItens);
 
-                var $this = this;
-                
                 angular.forEach(panelItens, function(panelItem) {
                     
                 	var item = panelItem.data('item');
                 	var itemLabel = $this.getItemLabel(item);
                 	  
-                	$this.bindOnPanelItemMouseDown(panelItem);                    
+                	$this.onItemMouseDown(panelItem);
                     
                     if ($this.options.forceSelection) {
-                        cachedResults.push(itemLabel);
+                        $this.cachedResults.push(itemLabel);
                     }
-                });
-
-                if (this.options.forceSelection) {
-                    
-                	this.inputQuery.bind("blur", function (e) {
-                        
-                    	var idx = cachedResults.indexOf($this.inputQuery.val());
-                        
-                        if (idx === -1) {
-                            $this.inputQuery.val("");
-                            $this.updateModel("");
-                        }
-                        
-                        $this.hide();
-                    });
-                }
-                else {
-                	
-                	this.inputQuery.bind("blur", function (e) {
-                		
-                		if ($this.options.multiple) {
-                			$this.inputQuery.val('');
-                		}
-                		else {	
-                            
-                    		var inputValue = $this.inputQuery.val();
-                    		var value = $this.value;                    		
-                    		var itemLabel = $this.getItemLabel(value);
-                    		
-                    		if (itemLabel != inputValue) {
-                    			
-                    			if ($this.options.itemLabel) {
-        	            			var obj = {};
-        	            			obj[$this.options.itemLabel] = inputValue;            			
-        	            			$this.updateModel(obj);
-        	            		}
-        	            		else {
-        	            			$this.updateModel(value);    	            			
-        	            		}
-                    		}
-                		}                		
-            			
-            			$this.hide();
-                    });
-                }
+                });                
             },
                        
             enableDisable: function (value) {
@@ -706,18 +695,6 @@
                     if(this.options.dropdown) {
                         this.dropdownBtn.removeClass('ui-state-disabled');
                     }
-                }
-            },
-
-            addBehaviour: function() {
-                
-            	widgetBase.hoverAndFocus(this.inputQuery);
-
-                if (this.options.disabled !== undefined) {
-                	var $this = this;         	
-                	this.scope.$watch(this.options.disabled, function(value) {
-                		$this.enableDisable(value);
-                	});
                 }
             },
             
@@ -747,31 +724,7 @@
             	
             	return req;
             },
-            
-            updateValue: function (value) {
-            	
-            	if (this.value !== value) {
-            		
-            		this.value = value;
-            	
-            		if(this.options.multiple) {
-	            		
-            			var $this = this;
-            			
-	                	this.multiContainer.childrenSelector('.pui-autocomplete-token').remove();
-	                	                	
-	                	angular.forEach(value, function (item) {        	
-	                		$this.renderSelectedItem(item);
-	                	});
-	            		
-	                	this.inputQuery.val('');
-	            	}
-	            	else {
-	            		this.inputQuery.val(this.getItemLabel(value));	
-	            	}
-            	}
-            },
-            
+                        
             updateModel: function(value) {
                 
             	var parseValue = $parse(this.options.value);                
@@ -779,27 +732,101 @@
             	
             	this.scope.safeApply();
 
-                if (this.options.addSelection) {
-                    this.options.addSelection(value);
+                if (this.options.itemSelect) {
+                    this.options.itemSelect(value);
                 }
+            },
+            
+            setValue: function (value, updateModel) {
+            	
+				if (value === undefined) {
+					value = null;
+				}
 
-                if (this.options.makeSelection) {
-                    this.options.makeSelection(value);
-                }
+            	if (this.options.multiple && !angular.isArray(value)) {
+            		value = [];
+            		updateModel = true;
+            	}
+				
+				if (!this.isSelectedItem(value)) {
+
+					this.value = value;
+
+					if(this.options.multiple) {
+
+						var $this = this;
+
+						this.multiContainer.childrenSelector('.pui-autocomplete-token').remove();
+
+						angular.forEach(value, function (item) {        	
+							$this.renderSelectedItem(item);
+						});
+
+						this.inputQuery.val('');
+					}
+					else {
+						this.inputQuery.val(this.getItemLabel(value));	
+					}
+
+					if (updateModel !== false) {
+						this.updateModel(value);
+					}
+				}
             },
             
-            setValue: function (value) {
-            	this.updateModel(value);            	
-            },
-            
+			isSelectedItem: function(item) {
+				
+				if (this.value === null) {
+					return false;
+				}
+
+				var items;							
+
+				if (this.options.multiple) {
+					items = this.value;
+				}
+				else {
+					items = [ this.value ];
+				}
+				
+				if (this.options.itemId) {
+					
+					var itemId = item[this.options.itemId];
+
+					for (var i=0,l=items.length; i<l; i++) {
+						
+						var curItemId = items[i][this.options.itemId];
+						
+						if (angular.equals(curItemId,itemId)) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+				else {
+					
+					for (var i=0,l=items.length; i<l; i++) {
+						
+						var curItem = items[i];
+						
+						if (angular.equals(curItem,item)) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+			},
+
             addSelectedItem: function (item) {
 
-            	if (this.value.indexOf(item) === -1) {
+            	if (!this.isSelectedItem(item)) {
             	
+					this.value.push(item);
+
             		this.renderSelectedItem(item);
             		
-                	this.value.push(item);
-	                	
                 	this.scope.safeApply();
 	                	
                     if (this.options.itemSelect) {
