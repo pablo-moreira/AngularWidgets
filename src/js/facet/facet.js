@@ -18,7 +18,7 @@
             	
             	var facet = angular.element(puiFacet).data('options');
             	
-            	this[facet.name] = facet.element;
+            	this[facet.name] = facet;
             
             }, facets);
             
@@ -30,21 +30,26 @@
     	return widgetFacet;
     })
     .directive('puiFacet', function () {
-        
-    	var linkFn = function (scope, element, attrs) {
-        	
-        	var options = {        			
-        		name 		: attrs.name,
-        		element		: element
-        	};
-        	
-            element.data("options", options);
-        };
-        
         return {
-            restrict: 'E',
-            priority: 5,
-            link : linkFn
+        	restrict: 'E',
+        	priority: 1000,        	
+        	compile: function compile(element, attrs, transclude) {
+        		
+        		var options = {
+                    name 		: attrs.name,
+                    element		: element,
+	        		contents	: element[0].innerHTML.trim()
+	        	};
+    				
+        		element.html('');
+        		
+        		return {
+        			pre: function (scope, element, attrs) {
+        				element.data("options", options);		
+        			},
+        			post: function (scope, element, attrs) {}
+                }
+        	}
         };
     });
     

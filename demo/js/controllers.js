@@ -149,6 +149,10 @@
             {'brand':'Opel','year': 2000, 'color':'Black', 'vin':'h54hw5'},
             {'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
         ];
+		
+		$scope.teste = function() {
+			alert('oi');
+		}
 
         $scope.remoteData = function (callback) {
             $http.get('json/cars.json')
@@ -204,38 +208,20 @@
         // HttpDataLoader
         $scope.httpDataLoaderObject = new AngularWidgets.HttpDataLoader({
         	url: 'json/cars.json',
-        	success: function (data, params) {
+        	parseResponse: function (data, request) {
         		
-		        if (params.sorts.length > 0) {
-			        
-		        	var field = params.sorts[0].field;
-		        	var order = params.sorts[0].order == "asc" ? 1 : -1;
-		        
-					data.rows.sort(function(data1, data2) {
-		            
-						var value1 = data1[field],
-		                	value2 = data2[field],
-		                	result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
-			
-						return (order * result);
-			        });
-		        }
-        		
-        		var pageSize = params.pageSize || data.rowCount;
-        		
-        		var page = params.first + pageSize,
-    				rowCount = data.rowCount
+				var arrayDataLoader = new AngularWidgets.ArrayDataLoader(data.rows);
+				
+				var result = { 'rowCount': data.rowCount, 'rows': null };
+				
+				arrayDataLoader.load(request)
+				.success(function(request) {
 
-	    		var rows = [];
-            
-	            for (var i = params.first; i < (page) && i < data.rowCount; i++) {
-	             	rows.push(data.rows[i]);
-	            }
-	            
-        		return { 
-	        		rowCount: data.rowCount,
-	        		rows: rows
-        		}
+					result.rows = arrayDataLoader.getData();
+				
+				});
+
+        		return result;
         	}
         });        
         
@@ -329,6 +315,9 @@
        		response(data);
        	};
 
+        $scope.httpDataLoaderSingle = new AngularWidgets.FakeHttpDataLoader({ url: 'json/cars.json' });
+        $scope.httpDataLoaderMultiple = new AngularWidgets.FakeHttpDataLoader({ url: 'json/cars.json' });
+        
         $scope.fieldDisabled = true;
 
         $scope.enableField = function () {

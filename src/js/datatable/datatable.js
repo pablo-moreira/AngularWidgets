@@ -4,8 +4,8 @@
 (function(window, document, undefined) {
     "use strict";
     
-    angular.module('pje.ui').factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'datatablePaginator', 'widgetFacet', 
-        function($compile, $http, widgetBase, widgetColumn, datatablePaginator, widgetFacet) {
+    angular.module('pje.ui').factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', 
+        function($compile, $http, widgetBase, widgetColumn, widgetPaginator, widgetFacet) {
             
             var widgetDatatable = {};
             
@@ -41,8 +41,22 @@
                     this.determineOptions(options);
                     
                     this.setItems(this.options.itemsBind ? this.scope.$eval(this.options.items) : this.options.items);
-                    this.paginatorData = this.options.paginator ? datatablePaginator.buildWidget(scope, element, options, this.options) : null;
                     
+                    if (this.options.paginator) {
+                        
+                        var $this = this;
+                                  
+                        this.paginator = widgetPaginator.buildWidget(this.scope, null, {
+                            rows: this.options.rows,
+                            dataLoader: this.items,
+                            onChangePageListener: function(page) {
+                                $this.refresh();                   
+                            }
+                        });
+
+                        this.element.append(this.paginator.element);
+                    }
+
                     this.determineTransclude();
                     
                     if (this.options.columns) {
@@ -88,7 +102,7 @@
                     
                     tbody.data("dataTable", this);
                     
-                    tbody.html('<tr class="ui-widget-content" ng-repeat="' + this.options.item + ' in getData()" pui-row-build />');
+                    tbody.html('<tr class="ui-widget-content" ng-repeat="' + this.options.item + ' in $getData()" pui-row-build />');
                     
                     var row = tbody.findAllSelector('tr');
                     
@@ -125,12 +139,12 @@
                     if (this.facets) {
                         if (this.facets.header) {
                             var header = angular.element('<div class="pui-datatable-header ui-widget-header ui-corner-top"></div>');
-                            header.append(this.facets.header);
+                            header.append(this.facets.header.contents);
                             this.element.prepend(header);
                         }
                         if (this.facets.footer) {
                             var footer = angular.element('<div class="pui-datatable-footer ui-widget-header ui-corner-bottom"></div>');
-                            footer.append(this.facets.footer);
+                            footer.append(this.facets.footer.contents);
                             this.element.append(footer);
                         }
                     }
@@ -217,7 +231,7 @@
                     
                     var $this = this;
                     
-                    this.scope.getData = function() {
+                    this.scope.$getData = function() {
                         return $this.items.getData();
                     };
                     
@@ -253,11 +267,11 @@
                 };
                 
                 this.getFirst = function() {
-                    return this.options.paginator ? this.paginatorData.getFirst() : 0;
+                    return this.options.paginator ? this.paginator.getFirst() : 0;
                 };
                 
                 this.getPageSize = function() {
-                    return this.options.paginator ? this.paginatorData.getRows() : this.items.getRowCount();
+                    return this.options.paginator ? this.paginator.getRows() : this.items.getRowCount();
                 }
                 
                 this.getParams = function() {
@@ -268,22 +282,11 @@
                         filter: null
                     };
                     
-                    if (this.options.paginator) {
-                        params.pageSize = this.paginatorData.getRows();
+                    if (this.paginator) {
+                        params.pageSize = this.paginator.getRows();
                     }
                     
                     return params;
-                }
-                
-                this.initPaginator = function() {
-                    
-                    this.element.after(this.paginatorData.paginatorContainer);
-                    
-                    var $this = this;
-                    
-                    datatablePaginator.initialize(this.paginatorData, this.items.getRowCount(), function() {
-                        $this.refresh();
-                    });
                 }
                 
                 this.initSelection = function(row) {
@@ -444,14 +447,14 @@
                         this.changeScope();
                         
                         this.buildBody();
-                        
+
                         if (this.options.paginator) {
-                            this.initPaginator();
+                            this.paginator.render();
                         }
                     } 
                     else {
                         if (this.options.paginator) {
-                            datatablePaginator.update(this.paginatorData, this.items.getRowCount());
+                            this.paginator.update();
                         }
                     }
                 };
@@ -543,7 +546,7 @@
             return widgetDatatable;
         }]);
     
-    angular.module('pje.ui').directive('puiDatatable', ['$compile', '$http', 'widgetBase', 'widgetDatatable', 'widgetColumn', 'datatablePaginator', function($compile, $http, widgetBase, widgetDatatable, widgetColumn, datatablePaginator) {
+    angular.module('pje.ui').directive('puiDatatable', ['widgetDatatable', function(widgetDatatable) {
             return {
                 restrict: 'E',
                 priority: 50,
@@ -555,7 +558,7 @@
                 replace: true,
                 template: widgetDatatable.template
             };
-        }]);
+    }]);
     
     angular.module('pje.ui').directive('puiRowBuild', function() {
         return {

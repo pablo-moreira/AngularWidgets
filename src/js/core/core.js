@@ -94,7 +94,7 @@
 
     angularService.factory('widgetBase', ['$parse', '$interpolate', '$animate', '$q', '$http', function ($parse, $interpolate, $animate, $q, $http) {
     
-		window.AngularWidgets.FunctionDataLoader = function (fctLoader) {
+		AngularWidgets.FunctionDataLoader = function (fctLoader) {
 
 			// public 
 			this.load = load;
@@ -139,7 +139,7 @@
 			}
 		}
 
-		window.AngularWidgets.ArrayDataLoader = function (allData) {
+		AngularWidgets.ArrayDataLoader = function (allData) {
       	
 			// public
 			this.load = load
@@ -206,18 +206,14 @@
 							page = request.first + rows;
 
 						filteredData = this.allData;
-					}
-
-					for (var i = request.first; i < (page) && i < rowCount; i++) {
-						data.push(filteredData[i]);
-					}
+					}            
 
 					if (request.sorts && request.sorts.length) {
 
 						var field = request.sorts[0].field;
 						var order = request.sorts[0].order == "asc" ? 1 : -1;
 
-						data.sort(function(data1, data2) {
+						filteredData.sort(function(data1, data2) {
 
 							var value1 = data1[field],
 								value2 = data2[field],
@@ -226,9 +222,12 @@
 							return (order * result);
 						});
 					}
+
+					for (var i = request.first; i < (page) && i < rowCount; i++) {
+						data.push(filteredData[i]);
+					}
 					
 					deferred.resolve(request);
-					//this.onLoadData(request);
 				}
 				catch (e) {
 					deferred.reject({ 'request': request, 'error': e });
@@ -245,14 +244,14 @@
 				return data;
 			}
 		};
-
-		window.AngularWidgets.HttpDataLoader = function (options) {
+		
+		AngularWidgets.HttpDataLoader = function (options) {
     
 			// public
 			this.url = options.url;
 			this.method = options.method || "post";
 			this.load = load;
-			this.success = options.success || success;
+			this.parseResponse = options.parseResponse || parseResponse;
 			this.getRowCount = getRowCount;
 			this.getData = getData;
 
@@ -268,7 +267,7 @@
 				$http[this.method](this.url, request)
 					.success(function(data) {
 
-						loadedData = $this.success(data, request);
+						loadedData = $this.parseResponse(data, request);
 						
 						deferred.resolve(request);
 						//$this.onLoadData(request);
@@ -280,7 +279,7 @@
 				return customPromise(deferred.promise);
 			};
 
-			function success(data, request) {
+			function parseResponse(data, request) {
 				return data;
 			};
 
@@ -292,6 +291,23 @@
 				return loadedData.rows;
 			}
 		};
+
+		AngularWidgets.FakeHttpDataLoader = function (options) {
+
+			options.parseResponse = function(data, request) {
+
+				var arrayDataLoader = new AngularWidgets.ArrayDataLoader(data.rows);
+
+				arrayDataLoader.load(request)
+							
+				return { 
+					'rowCount': arrayDataLoader.getRowCount(), 
+					'rows': arrayDataLoader.getData() 
+				};
+			}
+
+			return new AngularWidgets.HttpDataLoader(options);
+		}
 
 		function customPromise(promise) {
 

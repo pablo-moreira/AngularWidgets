@@ -2,16 +2,33 @@
 	
 	<section>
 		<header>Autocomplete Http Data Loader</header>
-
-		<pui-fieldset legend="Single">		
-			<pui-autocomplete id="acObjectSingle" value="car" completeMethod="'json/cars.json'" itemLabel="brand" dropdown="true"></pui-autocomplete>
+	
+		<pui-fieldset legend="Single">
+			<pui-autocomplete 
+				id="acHttpPaginatorSingle"
+				value="car" 
+				completeMethod="httpDataLoaderSingle" 
+				itemLabel="brand" 
+				dropdown="true" 
+				paginator="true"
+				rows="30">
+			</pui-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: <pre ng-show="car != null">{{car | json}}</pre>
 		</pui-fieldset>
-	
+
 		<pui-fieldset legend="Multiple" style="margin-top: 10px">
-			<pui-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="'json/cars.json'" itemLabel="brand" dropdown="true" multiple="true"></pui-autocomplete>
+			<pui-autocomplete 
+				id="acHttpPaginatorMultiple"
+				value="carSelecteds"
+				completeMethod="httpDataLoaderMultiple"
+				itemLabel="brand"
+				dropdown="true"
+				paginator="true"
+				rows="30"
+				multiple="true">
+			</pui-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: <pre ng-show="carSelecteds != null">{{carSelecteds | json}}</pre>
@@ -22,18 +39,35 @@
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
 				<pre pretty-print="html">
-<pui-fieldset legend="Single">		
-	<pui-autocomplete id="acObjectSingle" value="car" completeMethod="cars" itemLabel="brand" dropdown="true"></pui-autocomplete>
+<pui-fieldset legend="Single">
+	<pui-autocomplete 
+		id="acHttpPaginatorSingle"
+		value="car" 
+		completeMethod="httpDataLoaderSingle" 
+		itemLabel="brand" 
+		dropdown="true" 
+		paginator="true"
+		rows="30">
+	</pui-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: <pre ng-show="car != null">{ {car | json}}</pre>
+	Controller value is: <pre ng-show="car != null">{{car | json}}</pre>
 </pui-fieldset>
 
 <pui-fieldset legend="Multiple" style="margin-top: 10px">
-	<pui-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true"></pui-autocomplete>
+	<pui-autocomplete 
+		id="acHttpPaginatorMultiple"
+		value="carSelecteds"
+		completeMethod="httpDataLoaderMultiple"
+		itemLabel="brand"
+		dropdown="true"
+		paginator="true"
+		rows="30"
+		multiple="true">
+	</pui-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: <pre ng-show="carSelecteds != null">{ {carSelecteds | json}}</pre>
+	Controller value is: <pre ng-show="carSelecteds != null">{{carSelecteds | json}}</pre>
 </pui-fieldset>
 				</pre>
 			</pui-tab>
@@ -41,7 +75,8 @@
 				<pre pretty-print="js">
 $scope.car = null;
 $scope.carSelecteds = [];
-$scope.cars = [ {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'}, ... ];          
+$scope.httpDataLoaderSingle = new AngularWidgets.HttpDataLoader({ url: 'json/cars.json' });
+$scope.httpDataLoaderMultiple = new AngularWidgets.HttpDataLoader({ url: 'json/cars.json' });
 				</pre>
 			</pui-tab>
 		</pui-tabview>

@@ -45,13 +45,18 @@
 		             "path": "autocomplete/autocompleteObject"
 		         },
 		         {
+		             "label": "Http Data Loader",
+		             "path": "autocomplete/autocompleteHttpDataLoader"
+		         },
+		         {
 		             "label": "Custom Content",
 		             "path": "autocomplete/autocompleteCustomContent"
 		         },
 		         {
-		             "label": "Http Data Loader",
-		             "path": "autocomplete/autocompleteHttpDataLoader"
-		         }		
+		             "label": "Table Content",
+		             "path": "autocomplete/autocompleteTableContent"
+		         },		         
+	
 		     ]
 		 },
  {

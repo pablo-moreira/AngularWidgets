@@ -3,58 +3,66 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('datatablePaginator',  ['widgetBase', 'puiPaginatorTemplate', function (widgetBase, puiPaginatorTemplate) {
+    angular.module('pje.ui').factory('widgetPaginator',  ['widgetBase', 'puiPaginatorTemplate', function (widgetBase, puiPaginatorTemplate) {
         
-    	var datatablePaginator = {};
+    	var widget = {};
 
-        datatablePaginator.buildWidget = function (scope, element, attrs, options) {           
-        	return new Paginator(scope, element, options);
+        widget.buildWidget = function (scope, element, options) {           
+        	return new widget.Paginator(scope, element, options);
         };
-        
-        function Paginator(scope, element, options) {
-        	
-        	var page;
-        	var rows;
-        	var rowCount;
-        	var pageLinks;
-        	
-        	this.constructor = function(scope, element, options) {
-        		 
-        		var template = options.template || '{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}';
+	
+		widget.Paginator = widgetBase.createWidget({
+
+			init: function(options) {
+				
+				var template = options.template || '{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}';
         		
         		this.page = 0;
         		this.rows = parseInt(options.rows) || 10;
         		this.rowCount = 0;
-        		this.elementKeys = template.split(/[ ]+/);
-        		this.paginatorContainer = angular.element("<div></div>");
+        		this.templateKeys = template.split(/[ ]+/);
+        		this.templateElements = [];
         		this.pageLinks = options.pageLinks || 10;
+				this.dataLoader = options.dataLoader;
+
+        		if (!this.element) {
+        			this.element = angular.element('<div class="pui-paginator ui-widget-header"></div>');
+        		}
         		
+        		if (options.onChangePageListener) {
+        			this.onChangePageListener = options.onChangePageListener;
+        		}  
+
         		if (options.onChangePage) {
         			this.onChangePage = options.onChangePage;
-        		}                     		
-        	}
-        	
-        	this.getPageLinks = function() {
+        		}                   		
+			},
+
+			getRowCount: function() {
+				return this.dataLoader.getRowCount();
+			},
+
+			getPageLinks: function() {
         		return this.pageLinks;
-        	}
+        	},
         	
-        	this.getPageCount = function() {
-        		return Math.ceil(this.rowCount / this.getRows()) || 1;
-        	}
+        	getPageCount: function() {
+        		return Math.ceil(this.getRowCount() / this.getRows()) || 1;
+        	},
         	
-        	this.getFirst = function() {
+        	getFirst: function() {
     			return (this.getCurrentPage() * this.getRows());
-    		};
+    		},
         	
-    		this.getRows = function() {
+    		getRows: function() {
     			return this.rows;
-    		}
+    		},
     		
-        	this.getCurrentPage = function() {
+        	getCurrentPage: function() {
         		return this.page;
-        	};
+        	},
         	
-        	this.goToPage = function(page) {
+        	goToPage: function(page) {
         		
         		page = parseInt(page, 10);
         		
@@ -64,80 +72,65 @@
         		}
         		        		
         		this.page = page;
-        		            	
-            	this.updateCallback();
-                
-                if (this.onChangePage) {
-                	this.onChangePage('pageSelection', page);
-                }	
-        	}
-        	
-        	this.goToPreviousPage = function() {
-        		this.goToPage(this.getCurrentPage() -1);
-        	}
-        	
-        	this.goToNextPage = function() {
-        		this.goToPage(this.getCurrentPage() + 1);
-        	}
-        	
-        	this.goToLastPage = function() {
-        		this.goToPage(this.getPageCount() - 1);
-        	}
-        	
-        	this.goToFirstPage = function() {
-        		this.goToPage(0);
-        	}
-        	
-        	this.constructor(scope, element, options);
-        }
 
-        datatablePaginator.initialize = function(paginatorData, rowCount, updateCallback) {
-            paginatorData.rowCount = rowCount;
-            paginatorData.updateCallback = updateCallback;
-            this.renderPaginator(paginatorData);
-        };
-        
-        datatablePaginator.update = function (paginatorData, rowCount) {
-        	paginatorData.rowCount = rowCount;
-        	this.updateUI(paginatorData);
-        }
-
-        datatablePaginator.updateUI = function (paginatorData) {
-            for (var elementKey in paginatorData.paginatorElements) {
-                puiPaginatorTemplate.getTemplate(elementKey).update(paginatorData.paginatorElements[elementKey], paginatorData);
-            }
-        };
-
-        datatablePaginator.renderPaginator = function(paginator) {
-        	
-        	if (paginator.paginatorContainer.hasClass('pui-paginator')) {
-        		paginator.paginatorContainer.html('');
-        	}
-        	else {
-        		paginator.paginatorContainer.addClass('pui-paginator ui-widget-header');
-        	}
-            
-        	paginator.paginatorElements = [];
-            
-        	for (var i = 0; i < paginator.elementKeys.length; i++) {
-            
-        		var elementKey = paginator.elementKeys[i],
-                    handler = puiPaginatorTemplate.getTemplate(elementKey);
-
-                if (handler) {
-                    var paginatorElement = handler.create(paginator);
-                    paginator.paginatorElements[elementKey] = paginatorElement;
-                    paginator.paginatorContainer.append(paginatorElement);
+                if (this.onChangePageListener) {
+                	this.onChangePageListener(page);
                 }
-            }
-        };
 
-        return datatablePaginator;
-    }]);
+                if (this.onChangePage) {
+                	this.onChangePage(page);
+                }
+        	},
+
+        	goToPreviousPage: function() {
+        		this.goToPage(this.getCurrentPage() -1);
+        	},
+        	
+        	goToNextPage: function() {
+        		this.goToPage(this.getCurrentPage() + 1);
+        	},
+        	
+        	goToLastPage: function() {
+        		this.goToPage(this.getPageCount() - 1);
+        	},
+        	
+        	goToFirstPage: function() {
+        		this.goToPage(0);
+        	},
+
+        	update: function () {
+
+				for (var key in this.templateElements) {
+					puiPaginatorTemplate.getTemplate(key).update(this.templateElements[key], this);
+				}
+			},
+
+        	render: function() {
+        	
+				this.element.html('');
+                        
+        		for (var i = 0; i < this.templateKeys.length; i++) {
+            
+        			var templateKey = this.templateKeys[i],
+                    	handler = puiPaginatorTemplate.getTemplate(templateKey);
+
+                	if (handler) {
+	                    var templateElement = handler.create(this);
+	                    this.templateElements[templateKey] = templateElement;
+	                    this.element.append(templateElement);
+    	            }
+	            }
+    	    }
+		});
+
+		return widget;
+	}]);
 
     angular.module('pje.ui').factory('puiPaginatorTemplate', function () {
+        
         var elementHandlers = {},
-            puiPaginatorTemplate = {};
+
+		puiPaginatorTemplate = {};
 
         puiPaginatorTemplate.addTemplate = function (name, handler) {
             elementHandlers[name] = handler;

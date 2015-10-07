@@ -13,7 +13,10 @@
 }
 
 .pui-autocomplete-panel {
-    position: absolute;
+    position: absolute;    
+}
+
+.pui-autocomplete-panel-content {
     overflow: auto;
 }
 
