@@ -314,7 +314,6 @@
 			promise.success = function(fn) {
 
 				promise.then(function(response) {
-
 					fn(response);
 				});
 
@@ -382,15 +381,29 @@
         	
         	widgetBase.extend(optionsInline, opts);
     		
-        	// Equalize options names
+        	// Equalize options names and types
     		for (var optName in optionsDefault) {
-    			
+
+    			// Equalize options names
     			var optNameLc = optName.toLowerCase();
 		
     			if (optNameLc != optName && optionsInline[optNameLc]) {
     				optionsInline[optName] = optionsInline[optNameLc];
     				delete(optionsInline[optNameLc]);
     			}
+
+				// Equarlize options types
+				if (optionsInline[optName] !== undefined) {
+
+					var to = typeof optionsDefault[optName];
+					
+					if (angular.isNumber(optionsDefault[optName])) {
+						optionsInline[optName] = parseFloat(optionsInline[optName]);
+					}
+					else if ('boolean' === to) {
+						optionsInline[optName] = (/^(true|1|yes)$/i).test(optionsInline[optName]);
+					}					
+				}
     		}
 
     		widgetBase.extend(optionsDefault, optionsInline);

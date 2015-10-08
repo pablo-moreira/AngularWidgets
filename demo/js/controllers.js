@@ -149,12 +149,8 @@
             {'brand':'Opel','year': 2000, 'color':'Black', 'vin':'h54hw5'},
             {'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
         ];
-		
-		$scope.teste = function() {
-			alert('oi');
-		}
-
-        $scope.remoteData = function (callback) {
+	
+	    $scope.remoteData = function (callback) {
             $http.get('json/cars.json')
                 .then(function(response){
                     $scope.safeApply(  // external changes aren't picked up by angular
@@ -265,6 +261,10 @@
     } ])
     .controller('AutocompleteController', [ '$scope',   function($scope) {			
     	
+		$scope.teste = function() {
+			alert('oi');
+		}
+    	
         $scope.country = null;
         $scope.countrySelecteds = [];
 
@@ -330,14 +330,13 @@
 
         $scope.selectedsCountries = ["Brazil","Argentina"];
 
-        $scope.itemSelect = function(item) {
+        $scope.onItemSelect = function(item) {
 			alert(item + ' selected');
         };
 
-        $scope.itemRemove = function(item) {
+        $scope.onItemRemove = function(item) {
         	alert(item + ' removed')
-        }
-
+        };
     } ])
     .controller('FieldsetController', [ '$scope',   function($scope) {
         

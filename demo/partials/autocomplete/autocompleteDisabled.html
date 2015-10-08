@@ -4,11 +4,10 @@
 		<header>Disabled autocomplete</header>
 
 		<pui-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></pui-autocomplete><br/>
-		
 		Controller value is : <span id="modelValue">{{country}}</span>
 		<br/>
-		<pui-button action="enableField()" ng-show="fieldDisabled" value="Enable"></pui-button>
-		<pui-button action="disableField()" ng-hide="fieldDisabled" value="Disable"></pui-button>
+		<pui-button action="enableField()" disabled="!fieldDisabled" value="Enable"></pui-button>
+		<pui-button action="disableField()" disabled="fieldDisabled" value="Disable"></pui-button>
 	</section>
 
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
@@ -19,8 +18,9 @@
 
 Controller value is : <span id="modelValue">{{country}}</span>
 <br/>
-<pui-button action="enableField()" ng-show="fieldDisabled" value="Enable"></pui-button>
-<pui-button action="disableField()" ng-hide="fieldDisabled" value="Disable"></pui-button>
+<br/>
+<pui-button action="enableField()" disabled="!fieldDisabled" value="Enable"></pui-button>
+<pui-button action="disableField()" disabled="fieldDisabled" value="Disable"></pui-button>
 				</pre>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">

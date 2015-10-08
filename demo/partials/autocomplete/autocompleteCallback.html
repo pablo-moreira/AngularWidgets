@@ -4,14 +4,14 @@
 		<header>Callback when user selects from proposed list</header>
 
 		<pui-fieldset legend="Single">		
-			<pui-autocomplete id="acEvtSingle" value="country" completeMethod="countries" itemSelect="itemSelect" itemRemove="itemRemove"></pui-autocomplete>
+			<pui-autocomplete id="acEvtSingle" value="country" completeMethod="countries" onItemSelect="onItemSelect"></pui-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: {{country}}
 		</pui-fieldset>
 	
 		<pui-fieldset legend="Multiple" style="margin-top: 10px">			
-			<pui-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" itemSelect="itemSelect" itemRemove="itemRemove" multiple="true"></pui-autocomplete>
+			<pui-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" onItemSelect="onItemSelect" onItemRemove="onItemRemove" multiple="true"></pui-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: {{countriesSelected}}
@@ -23,20 +23,33 @@
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
 				<pre pretty-print="html">
-<pui-autocomplete id="callback" value="country" options="callbackOptions"></pui-autocomplete><br/>
-Controller value is : {{country}}
+<pui-fieldset legend="Single">		
+	<pui-autocomplete id="acEvtSingle" value="country" completeMethod="countries" onItemSelect="onItemSelect"></pui-autocomplete>
+	<br/>
+	<br/>
+	Controller value is: ((country))
+</pui-fieldset>
+
+<pui-fieldset legend="Multiple" style="margin-top: 10px">			
+	<pui-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" onItemSelect="onItemSelect" onItemRemove="onItemRemove" multiple="true"></pui-autocomplete>
+	<br/>
+	<br/>
+	Controller value is: ((countriesSelected))
+</pui-fieldset>
 				</pre>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<pre pretty-print="js">
 $scope.country = null;
+$scope.countrySelecteds = [];
 $scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
 
-$scope.callbackOptions = {
-	completeMethod: $scope.countries
-	, callback: function(label) {
-		alert(label + ' selected ');
-	}
+$scope.onItemSelect = function(item) {
+	alert(item + ' selected');
+};
+
+$scope.onItemRemove = function(item) {
+	alert(item + ' removed')
 };
 				</pre>
 			</pui-tab>

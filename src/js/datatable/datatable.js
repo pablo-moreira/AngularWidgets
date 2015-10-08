@@ -138,14 +138,15 @@
                     
                     if (this.facets) {
                         if (this.facets.header) {
-                            var header = angular.element('<div class="pui-datatable-header ui-widget-header ui-corner-top"></div>');
-                            header.append(this.facets.header.contents);
-                            this.element.prepend(header);
+                            var header = angular.element('<div class="pui-datatable-header ui-widget-header ui-corner-top"></div>')
+                                    .prependTo(this.element)
+                                    .append(this.facets.header.transclude());                        
                         }
-                        if (this.facets.footer) {
-                            var footer = angular.element('<div class="pui-datatable-footer ui-widget-header ui-corner-bottom"></div>');
-                            footer.append(this.facets.footer.contents);
-                            this.element.append(footer);
+                        
+                        if (this.facets.footer) {                            
+                            var footer = angular.element('<div class="pui-datatable-footer ui-widget-header ui-corner-bottom"></div>')
+                                    .appendTo(this.element)
+                                    .append(this.facets.footer.transclude());
                         }
                     }
                 }

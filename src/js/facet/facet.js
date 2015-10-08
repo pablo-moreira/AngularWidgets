@@ -32,23 +32,18 @@
     .directive('puiFacet', function () {
         return {
         	restrict: 'E',
-        	priority: 1000,        	
-        	compile: function compile(element, attrs, transclude) {
-        		
+        	priority: 1000, 
+        	transclude: true,
+        	link: function facetLink($scope, $element, $attr, ctrl, $transclude) {
+                
         		var options = {
-                    name 		: attrs.name,
-                    element		: element,
-	        		contents	: element[0].innerHTML.trim()
+                    scope       : $scope,
+                    element     : $element,
+                    name        : $attr.name,
+                    transclude  : $transclude
 	        	};
-    				
-        		element.html('');
-        		
-        		return {
-        			pre: function (scope, element, attrs) {
-        				element.data("options", options);		
-        			},
-        			post: function (scope, element, attrs) {}
-                }
+
+                $element.data("options", options);
         	}
         };
     });
