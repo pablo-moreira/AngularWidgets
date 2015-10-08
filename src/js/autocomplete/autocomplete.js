@@ -185,8 +185,6 @@
 
 				this.inputQuery[0].focus();
 
-				this.renderItems();
-
 				if (this.firstLoad) {
 
 					this.firstLoad = false;
@@ -200,6 +198,8 @@
 						this.paginator.update(this.items.getRowCount());
 					}
 				}
+
+				this.renderItems();
  			},
     		
     		bindKeyEvents: function() {
@@ -626,7 +626,6 @@
             alignPanel: function() {
                 
             	var panelWidth = null,
-            		panelContentWidth = null,
                     height = null,
                     width = null;
 			
@@ -635,8 +634,7 @@
 				if (this.panelVisible()) {
 					width = container.offsetWidth;
 					height = container.offsetHeight;
-					panelWidth = this.panel[0].offsetWidth;
-					panelContentWidth = this.panelContent[0].offsetWidth;
+					panelWidth = this.panelContent[0].offsetWidth; // When open keep the same size
 				}
 				else {
 					this.panel.css({'visibility':'hidden','display':'block'});
@@ -644,7 +642,6 @@
 					width = container.offsetWidth;                       
 					height = container.offsetHeight;
 					panelWidth = this.panel[0].offsetWidth;
-					panelContentWidth = this.panelContent[0].offsetWidth;
 
 					this.panel.css({'visibility':'visible','display':'none'});
 				}
@@ -655,10 +652,6 @@
 
 					if (width < inputWidth) {
 						width = inputWidth;
-					}
-
-					if (width < panelContentWidth) {
-						width = panelContentWidth;
 					}
 
 					if (width < panelWidth) {
