@@ -4,7 +4,7 @@
 		<header>Disabled autocomplete</header>
 
 		<pui-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></pui-autocomplete><br/>
-		Controller value is : <span id="modelValue">{{country}}</span>
+		Controller value is : {{country}}
 		<br/>
 		<pui-button action="enableField()" disabled="!fieldDisabled" value="Enable"></pui-button>
 		<pui-button action="disableField()" disabled="fieldDisabled" value="Disable"></pui-button>
@@ -15,9 +15,7 @@
 			<pui-tab header="HTML" id="d_html">
 				<pre pretty-print="html">
 <pui-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></pui-autocomplete><br/>
-
-Controller value is : <span id="modelValue">{{country}}</span>
-<br/>
+Controller value is : {{country}}
 <br/>
 <pui-button action="enableField()" disabled="!fieldDisabled" value="Enable"></pui-button>
 <pui-button action="disableField()" disabled="fieldDisabled" value="Disable"></pui-button>

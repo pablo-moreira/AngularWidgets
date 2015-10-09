@@ -72,10 +72,6 @@
                 }
                             	
             	var $this = this;
-            	            	            	                
-                if (this.columns.length) {
-                	             	
-                }
 
 				if (this.options.paginator) {
 					
@@ -96,7 +92,7 @@
                 this.bindKeyEvents();
                 this.bindEvents();
                 
-	            if (options.disabled !== undefined) {
+	            if (options.disabled) {
 	            	this.scope.$watch(options.disabled, function (value) {
 	            		$this.enableDisable(value);
 					});	            	
@@ -149,7 +145,7 @@
         			pageLinks		: 1
         		}
         		
-        		widgetBase.determineOptions(this.scope, this.options, options, ['onItemSelect', 'onItemRemove']);
+        		widgetBase.determineOptions(this.scope, this.options, options, ['onItemSelect', 'onItemRemove'], ['disabled']);
             },
             
             setItems: function (value) {				
@@ -517,43 +513,99 @@
             renderTable: function() {
 				
 				if (!this.tableContainer) {
-					this.tableContainer = angular.element('<table class="pui-autocomplete-items pui-datatable ui-widget-content ui-widget ui-corner-all ui-helper-reset"><thead></thead><tbody class="pui-datatable-data"></tbody></table>')
-						.appendTo(this.panelContent);
-					
-					this.tableHeader = this.tableContainer.findAllSelector("thead");
-					this.tableBody = this.tableContainer.findAllSelector("tbody");
+					this.initTable();	
 				}
 				else {					
 					this.tableBody.children().remove();
 				}
 
+				var $this = this;
 				
-                tbody.html('<tr class="ui-widget-content" ng-repeat="' + this.options.item + ' in $getData()" pui-row-build />');
-                    
-                    var row = tbody.findAllSelector('tr');
-                    
-                    tbody.append(row);
-                    
-                    for (var i = 0, t = this.columns.length; i < t; i++) {
-                        
-                        var column = this.columns[i], 
-                        columnInTable = angular.element('<table><tbody><tr><td/></tr></tbody></table>'), 
-                        td = columnInTable.findAllSelector('td');
-                        
-                        if (column.contents) {
-                            td.append(column.contents);
-                        } 
-                        else {
-                            td.append(angular.element('<span ng-bind="' + this.options.item + '.' + column.field + '"></span>'));
-                        }
-                        
-                        row.append(td);
-                    }
-                    
-                    $compile(this.element.contents())(this.scope);
+				angular.forEach(this.items.getData(), function (item) {
 
+					var tr = angular.element('<table><tbody><tr class="pui-autocomplete-item ui-widget-content"></tr></tbody></table>')
+						.findAllSelector('tr')
+						.appendTo($this.tableBody);
 
+					angular.forEach($this.columns, function (column) {
+						
+						var td = angular.element('<table><tbody><tr><td/></tr></tbody></table>')
+							.findAllSelector('td')
+							.appendTo(tr);
+                        
+						column.transclude(function(tcdElement, tcdScope) {
+
+							// Save the child scope for destroy
+							$this.childrenScope.push(tcdScope);
+
+							tcdScope[$this.options.item] = item;
+
+							if (tcdElement.length) {
+								td.append(tcdElement);
+							}
+							else {
+								td.append(angular.element('<span>{{' + $this.options.item + '.' + column.field + '}}</span>'));
+							}
+
+							$compile(td.contents())(tcdScope);
+						});
+					});
+
+					// Bind events
+// 					li.bind('mouseenter', function(e) {
+
+// 						$this.listContainer.childrenSelector('.ui-state-highlight').removeClass('ui-state-highlight');
+
+// 						li.addClass('ui-state-highlight');
+// 					});
+
+// 					li.mousedown(function(e) {
+// 						$this.onSelectItem(item);
+// 					});
+				});                
+
+				// Select the first element
+// 				var children = angular.element(this.listContainer.children()[0]).addClass('ui-state-highlight');
+
+                    
+// 				$compile(this.element.contents())(this.scope);
         	},
+
+        	initTable: function() {
+
+				this.tableContainer = angular.element('<table class="pui-autocomplete-items pui-datatable ui-widget-content ui-widget ui-corner-all ui-helper-reset"><thead></thead><tbody class="pui-datatable-data"></tbody></table>')
+					.appendTo(this.panelContent);
+					
+				this.tableHead = this.tableContainer.findAllSelector("thead");
+				this.tableBody = this.tableContainer.findAllSelector("tbody");
+				this.renderTableHead();
+        	},
+
+			renderTableHead: function() {
+                                            
+				var $this = this;
+                        
+				angular.forEach(this.columns, function(column) {
+
+					// Elements are created as child of div tag. And if not valid html, it is not created.
+					var th = angular.element('<table><thead><th class="ui-state-default"/></thead></table>').findAllSelector('th');
+                            
+					th.data('sortBy', column.sortBy);
+                            
+					$this.tableHead.append(th);
+                            
+					if (column.headerText) {
+                      	th.text(column.headerText);
+					}
+                            
+					if (column.sortable) {
+						th
+						.addClass('pui-sortable-column')
+						.append('<span class="pui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span>')
+						.data('order', 1);
+					}
+				});
+			},
         	
         	renderList: function() {           
 				
@@ -629,7 +681,7 @@
                     height = null,
                     width = null;
 			
-				var container = this.options.columns ? this.tableContainer[0] : this.listContainer[0];
+				var container = this.columns.length ? this.tableContainer[0] : this.listContainer[0];
 
 				if (this.panelVisible()) {
 					width = container.offsetWidth;

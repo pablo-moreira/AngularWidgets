@@ -23,28 +23,23 @@
     	return widgetColumn;
     })
     .directive('puiColumn', function () {
-        return {
-        	priority: 1000,
+        return {        	
         	restrict: 'E',
-        	compile: function compile(element, attrs, transclude) {
-        		
-        		var options = {        			
-	        		field 		: attrs.value,
-	        		sortBy		: attrs.sortby || attrs.value,
-	        		sortable 	: attrs.sortable || attrs.sortby != null ? true : false,        		
-	        		headerText	: attrs.headertext || attrs.value,
-	        		element		: element,
-	        		contents	: element[0].innerHTML.trim()        		
+        	priority: 1000,
+        	transclude: true,
+        	link: function columnLink($scope, $element, attrs, ctrl, $transclude) {
+
+        		var options = {   
+        			scope					: $scope,     			
+	        		element    				: $element,
+	        		transclude 			 	: $transclude,
+	        		field 					: attrs.value,
+	        		sortBy					: attrs.sortby || attrs.value,
+	        		sortable 				: attrs.sortable || attrs.sortby != null ? true : false,        		
+	        		headerText				: attrs.headertext || attrs.value
 	        	};
-    				
-        		element.html('');
-        		
-        		return {
-        			pre: function (scope, element, attrs) {
-        				element.data("options", options);		
-        			},
-        			post: function (scope, element, attrs) {}
-                }
+
+                $element.data("options", options);
         	}
         };
     });

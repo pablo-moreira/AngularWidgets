@@ -375,11 +375,15 @@
 			}
     	};
     	
-    	widgetBase.determineOptions = function(scope, optionsDefault, optionsInline, fctOptions) {
+    	widgetBase.determineOptions = function(scope, optionsDefault, optionsInline, fctOptions, expressions) {
     	
-        	var opts = optionsInline.options ? scope.$eval(optionsInline.options) : {};
+			expressions = expressions !== undefined ? expressions : [];
+    	
+        	var options = angular.copy(optionsInline);
+
+        	var dynamicOptions = options.options ? scope.$eval(options.options) : {};
         	
-        	widgetBase.extend(optionsInline, opts);
+        	widgetBase.extend(options, dynamicOptions);
     		
         	// Equalize options names and types
     		for (var optName in optionsDefault) {
@@ -387,26 +391,32 @@
     			// Equalize options names
     			var optNameLc = optName.toLowerCase();
 		
-    			if (optNameLc != optName && optionsInline[optNameLc]) {
-    				optionsInline[optName] = optionsInline[optNameLc];
-    				delete(optionsInline[optNameLc]);
+    			if (optNameLc != optName && options[optNameLc]) {
+    				options[optName] = options[optNameLc];
+    				delete(options[optNameLc]);
+    			}
+
+				// Eval expressions
+    			if (expressions.indexOf(optName) !== -1) {
+					options[optName] = scope.$eval(options[optName]);
     			}
 
 				// Equarlize options types
-				if (optionsInline[optName] !== undefined) {
+				if (options[optName] !== undefined) {
 
-					var to = typeof optionsDefault[optName];
+					var tod = typeof optionsDefault[optName];
+					var toi = typeof options[optName];
 					
 					if (angular.isNumber(optionsDefault[optName])) {
-						optionsInline[optName] = parseFloat(optionsInline[optName]);
+						options[optName] = parseFloat(options[optName]);
 					}
-					else if ('boolean' === to) {
-						optionsInline[optName] = (/^(true|1|yes)$/i).test(optionsInline[optName]);
+					else if (tod === 'boolean' && toi !== 'boolean') {
+						options[optName] = (/^(true|1|yes)$/i).test(options[optName]);
 					}					
 				}
     		}
 
-    		widgetBase.extend(optionsDefault, optionsInline);
+    		widgetBase.extend(optionsDefault, options);
     		
     		if (fctOptions) {
 	    		for (var i=0, t=fctOptions.length; i<t; i++) {
