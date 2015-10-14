@@ -8,57 +8,40 @@
 			"controller": "AutocompleteController",
 			"defaultPath": "autocomplete/autocompleteOverview",
 			"subPages": [
-			     {
-		             "label": "Overview",
-		             "path": "autocomplete/autocompleteOverview"
-		         },
-		         {
-		             "label": "Default",
-		             "path": "autocomplete/autocompleteDefault"
-		         },
-		         {
-		             "label": "Dropdown",
-		             "path": "autocomplete/autocompleteDropdown"
-		         },
-		         {
-		             "label": "Function",
-		             "path": "autocomplete/autocompleteFunction"
-		         },
-		         {
-		             "label": "Disabled",
-		             "path": "autocomplete/autocompleteDisabled"
-		         },
-		         {
-		             "label": "Multiple",
-		             "path": "autocomplete/autocompleteMultiple"
-		         },
-		         {
-		             "label": "Force selection",
-		             "path": "autocomplete/autocompleteLimited"
-		         },
-		         {
-		             "label": "Callback",
-		             "path": "autocomplete/autocompleteCallback"
-		         },
-		         {
-		             "label": "Object",
-		             "path": "autocomplete/autocompleteObject"
-		         },
-		         {
-		             "label": "Http Data Loader",
-		             "path": "autocomplete/autocompleteHttpDataLoader"
-		         },
-		         {
-		             "label": "Custom Content",
-		             "path": "autocomplete/autocompleteCustomContent"
-		         },
-		         {
-		             "label": "Table Content",
-		             "path": "autocomplete/autocompleteTableContent"
-		         },		         
-	
-		     ]
-		 },
+				{ "label": "Overview", "path": "autocomplete/autocompleteOverview" },
+		        { "label": "Default", "path": "autocomplete/autocompleteDefault" },
+		        { "label": "Dropdown", "path": "autocomplete/autocompleteDropdown" },
+		        { "label": "Function", "path": "autocomplete/autocompleteFunction" },
+				{ "label": "Disabled", "path": "autocomplete/autocompleteDisabled" },
+				{ "label": "Multiple", "path": "autocomplete/autocompleteMultiple" },
+				{ "label": "Force selection", "path": "autocomplete/autocompleteLimited" },
+				{ "label": "Callback", "path": "autocomplete/autocompleteCallback" },
+				{ "label": "Object", "path": "autocomplete/autocompleteObject" },
+				{ "label": "Http Data Loader", "path": "autocomplete/autocompleteHttpDataLoader" },
+				{ "label": "Custom Content", "path": "autocomplete/autocompleteCustomContent" },
+				{ "label": "Table Content", "path": "autocomplete/autocompleteTableContent" }
+			]
+		},
+		{
+			"widget": "puiDropdown",
+			"label": "Dropdown",
+			"controller": "DropdownController",
+			"defaultPath": "dropdown/dropdownOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "dropdown/dropdownOverview" },
+		        { "label": "Default", "path": "dropdown/dropdownDefault" },
+		        { "label": "Dropdown", "path": "dropdown/dropdownDropdown" },
+		        { "label": "Function", "path": "dropdown/dropdownFunction" },
+				{ "label": "Disabled", "path": "dropdown/dropdownDisabled" },
+				{ "label": "Multiple", "path": "dropdown/dropdownMultiple" },
+				{ "label": "Force selection", "path": "dropdown/dropdownLimited" },
+				{ "label": "Callback", "path": "dropdown/dropdownCallback" },
+				{ "label": "Object", "path": "dropdown/dropdownObject" },
+				{ "label": "Http Data Loader", "path": "dropdown/dropdownHttpDataLoader" },
+				{ "label": "Custom Content", "path": "dropdown/dropdownCustomContent" },
+				{ "label": "Table Content", "path": "dropdown/dropdownTableContent" }
+			]
+		},
  {
      "widget": "puiButton",
      "label": "Button",

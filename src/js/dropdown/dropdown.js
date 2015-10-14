@@ -4,15 +4,15 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetAutocomplete', ['$compile', '$timeout', '$parse', '$document', '$http', 'widgetBase', 'widgetInputText', 'widgetDatatable', 'widgetColumn', 'widgetPaginator', 'widgetFacet',
+    angular.module('pje.ui').factory('widgetDropdown', ['$compile', '$timeout', '$parse', '$document', '$http', 'widgetBase', 'widgetInputText', 'widgetDatatable', 'widgetColumn', 'widgetPaginator', 'widgetFacet',
                       function ($compile, $timeout, $parse, $document, $http, widgetBase, widgetInputText, widgetDatatable, widgetColumn, widgetPaginator, widgetFacet) {
 
         var widget = {};
         
-        widget.template = 	'<div class="pui-autocomplete ui-widget">' +
-        						'<div ng-transclude></div>' +
-        						'<input class="pui-inputtext pui-inputtext ui-widget ui-state-default ui-corner-all">' + 
-        						'<input class="pui-inputtext-hidden" type="hidden" />' +        						
+        widget.template = 	'<div class="pui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix">' +
+        						'<div class="ng-transclude" ng-transclude></div>' +
+        						'<div class="ui-helper-hidden-accessible"></div>' +
+        						'<div class="ui-helper-hidden-accessible"><input type="text" /></div>' +
         					'</div>';
         
         widget.buildWidget = function(scope, element, attrs) {
@@ -21,6 +21,19 @@
         
     	widget.Autocomplete = widgetBase.createWidget({
         	
+			options: {
+				effect: 'fade',
+				effectSpeed: 'normal',
+				filter: false,
+				filterMatchMode: 'startsWith',
+				caseSensitive: false,
+				filterFunction: null,
+				data: null,
+				content: null,
+				scrollHeight: 200,
+				appendTo: 'body'
+			},
+
     		value: null,
     		cachedResults: [],
     		childrenScope: [],
@@ -32,7 +45,7 @@
         						
 				this.determineOptions(options);
             	
-            	if (this.options.completeMethod) {
+            	if (this.options.items) {
             		this.setItems(this.scope.$eval(this.options.completeMethod));
             	}
             	else {
@@ -957,7 +970,7 @@
         return widget;
     }]);
     
-    angular.module('pje.ui').directive('puiAutocomplete', ['widgetAutocomplete', function (widgetAutocomplete) {
+    angular.module('pje.ui').directive('puiDropdown', ['widgetDropdown', function (widgetAutocomplete) {
         return {
             restrict: 'E',
             replace: true,            

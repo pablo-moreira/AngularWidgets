@@ -260,11 +260,7 @@
         }
     } ])
     .controller('AutocompleteController', [ '$scope',   function($scope) {			
-    	
-		$scope.teste = function() {
-			alert('oi');
-		}
-    	
+   	
         $scope.country = null;
         $scope.countrySelecteds = [];
 
@@ -337,7 +333,7 @@
         $scope.onItemRemove = function(item) {
         	alert(item + ' removed')
         };
-    } ])
+    }])
     .controller('FieldsetController', [ '$scope',   function($scope) {
         
     	$scope.fieldsetBind;
@@ -348,7 +344,7 @@
 
         $scope.fieldsetName = 'Change me';
         
-    } ])
+    }])
     .controller('EventController', ['$scope',   function($scope) {
         
         $scope.value1 = '';

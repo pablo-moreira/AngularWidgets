@@ -503,7 +503,9 @@
 
         		elem.focus(function () {
         			var $this = angular.element(this);
-        			$this.addClass('ui-state-focus');
+        			if (!$this.hasClass('ui-state-disabled')) {
+                        $this.addClass('ui-state-focus');
+                    }        			
                 });
 
         		elem.blur(function () {
@@ -917,19 +919,19 @@
 
             targetWidth = dimensions.width;
             targetHeight = dimensions.height;
-            basePosition = dimensions.offset;
+			basePosition = dimensions.offset;			
 
-            if (options.at[ 0 ] === "right") {
-                basePosition.left += targetWidth;
-            } else if (options.at[ 0 ] === "center") {
-                basePosition.left += targetWidth / 2;
-            }
+			if (options.at[ 0 ] === "right") {
+				basePosition.left += targetWidth;
+			} else if (options.at[ 0 ] === "center") {
+				basePosition.left += targetWidth / 2;
+			}
 
-            if (options.at[ 1 ] === "bottom") {
-                basePosition.top += targetHeight;
-            } else if (options.at[ 1 ] === "center") {
-                basePosition.top += targetHeight / 2;
-            }
+			if (options.at[ 1 ] === "bottom") {
+				basePosition.top += targetHeight;
+			} else if (options.at[ 1 ] === "center") {
+				basePosition.top += targetHeight / 2;
+			}	
 
             element.style.position = "absolute";
             element.style.left = basePosition.left + "px";

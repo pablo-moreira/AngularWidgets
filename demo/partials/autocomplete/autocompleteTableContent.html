@@ -4,7 +4,7 @@
 		<header>Custom content</header>
 
 		<pui-fieldset legend="Single">		
-			<pui-autocomplete id="acCustomSingle" value="car" completeMethod="cars" item="car" itemLabel="brand" dropdown="true">
+			<pui-autocomplete id="acCustomSingle" value="car" completeMethod="httpDataLoaderSingle" item="car" itemLabel="brand" dropdown="true" paginator="true" rows="25">
 				<pui-column headerText="Vin" value="vin"></pui-column>
 				<pui-column headerText="Brand" value="brand"></pui-column>
 				<pui-column headerText="Year" value="year"></pui-column>
@@ -18,7 +18,7 @@
 		</pui-fieldset>
 	
 		<pui-fieldset legend="Multiple" style="margin-top: 10px">
-			<pui-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true">
+			<pui-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="httpDataLoaderMultiple" item="car" itemLabel="brand" dropdown="true" multiple="true" paginator="true" rows="25">
 				<pui-column headerText="Vin" value="vin"></pui-column>
 				<pui-column headerText="Brand" value="brand"></pui-column>
 				<pui-column headerText="Year" value="year"></pui-column>
@@ -37,7 +37,7 @@
 			<pui-tab header="HTML" id="d_html">
 				<pre pretty-print="html">
 <pui-fieldset legend="Single">		
-	<pui-autocomplete id="acCustomSingle" value="car" completeMethod="cars" item="car" itemLabel="brand" dropdown="true">
+	<pui-autocomplete id="acCustomSingle" value="car" completeMethod="cars" item="car" itemLabel="brand" dropdown="true" paginator="true" rows="25">
 		<pui-column headerText="Vin" value="vin"></pui-column>
 		<pui-column headerText="Brand" value="brand"></pui-column>
 		<pui-column headerText="Year" value="year"></pui-column>
@@ -47,11 +47,11 @@
 	</pui-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: <pre ng-show="car != null">{ {car | json}}</pre>
+	Controller value is: <pre ng-show="car != null">((car | json))</pre>
 </pui-fieldset>
 
 <pui-fieldset legend="Multiple" style="margin-top: 10px">
-	<pui-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true">
+	<pui-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="cars" item="car" itemLabel="brand" dropdown="true" multiple="true" paginator="true" rows="25">
 		<pui-column headerText="Vin" value="vin"></pui-column>
 		<pui-column headerText="Brand" value="brand"></pui-column>
 		<pui-column headerText="Year" value="year"></pui-column>
@@ -61,7 +61,7 @@
 	</pui-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: <pre ng-show="carSelecteds != null">{ {carSelecteds | json}}</pre>
+	Controller value is: <pre ng-show="carSelecteds != null">((carSelecteds | json))</pre>
 </pui-fieldset>	
 				</pre>
 			</pui-tab>
