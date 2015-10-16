@@ -21,15 +21,34 @@
         
     	widget.Autocomplete = widgetBase.createWidget({
         	
-    		value: null,
-    		cachedResults: [],
-    		childrenScope: [],
-    		firstLoad: true,
-			mouseDownOnPanelHappened: false,
-			columns: null,
+        	optionsDefault: {
+				caseSensitive	: false, 
+				minQueryLength	: 2,
+				forceSelection	: true,
+				multiple 		: false,
+				dropdown 		: false,
+				scrollHeight	: 300,
+				item 			: 'item',
+				itemLabel 		: null,        			
+				paginator 		: false,
+				rows			: 30,
+				panelWidth		: null,
+				disabled		: false,
+				completeMethod	: null,
+				onItemSelect	: null,
+				onItemRemove	: null,
+				pageLinks		: 1
+			},
     		
     		init: function(options) {
-        						
+
+    			this.value = null;
+    			this.cachedResult = [];
+    			this.childrenScope = [];
+    			this.firstLoad = true;
+				this.mouseDownOnPanelHappened = false;
+				this.columns = null;
+			
 				this.determineOptions(options);
             	
             	if (this.options.completeMethod) {
@@ -65,7 +84,7 @@
                 else {
                     if (this.options.dropdown) {
                         this.dropdownBtn = angular.element('<button type="button" class="pui-autocomplete-dropdown pui-button ui-widget ui-state-default ui-corner-right pui-button-icon-only">' +
-                            '<span class="pui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span>' +
+                            '<span class="pui-icon fa fa-fw fa-caret-down"></span>' +
                             '<span class="pui-button-text">&nbsp;</span></button>');
                         this.inputQuery.after(this.dropdownBtn);
                         this.inputQuery.removeClass('ui-corner-all').addClass('ui-corner-left');
@@ -99,54 +118,9 @@
 					});	            	
 	            }
         	},
-        	
-        	onBuildDataTableRow: function (dataTable, scope, element, attrs) {
-        		
-        		element = angular.element(element);
-        		        		
-        		scope.$watch('$index', function (newValue, oldValue) {
-					if (newValue == 0) {
-						element.addClass('ui-state-highlight');
-					}
-					else {
-						element.removeClass('ui-state-highlight');
-					}
-				});
-        		
-                element.bind('mouseenter', function() {
-                	
-                	angular.forEach(element.parent().children(), function (itemPanel) {
-                		angular.element(itemPanel).removeClass('ui-state-highlight');
-                	});
-                        
-                	element.addClass('ui-state-highlight');
-                });  
-
-                this.onItemMouseDown(element);
-        	},
-        	
+        	        	
         	determineOptions: function (options) {
-
-        		this.options = {
-        			caseSensitive	: false, 
-        			minQueryLength	: 2,
-        			forceSelection	: true,
-        			multiple 		: false,
-        			dropdown 		: false,
-        			scrollHeight	: 300,
-        			item 			: 'item',
-        			itemLabel 		: null,        			
-        			paginator 		: false,
-        			rows			: 30,
-        			panelWidth		: null,
-        			disabled		: false,
-        			completeMethod	: null,
-        			onItemSelect	: null,
-        			onItemRemove	: null,
-        			pageLinks		: 1
-        		}
-        		
-        		widgetBase.determineOptions(this.scope, this.options, options, ['onItemSelect', 'onItemRemove'], ['disabled']);
+        		this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onItemSelect', 'onItemRemove'], ['disabled']);
             },
             
             setItems: function (value) {				
@@ -437,7 +411,7 @@
             },
             
             panelVisible: function() {
-                return this.panel.css('display') !== 'none' && !this.panel.hasClass('ui-helper-hidden');
+                return widgetBase.isVisible(this.panel);
             },
             
             search: function (value) {

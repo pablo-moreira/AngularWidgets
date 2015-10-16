@@ -1,0 +1,35 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>ConfirmDialog is integrated with confirm behavior and used as a replacement for the javascript confirmation utility.</header>
+		
+		<pui-confirmdialog binding="dialogCtrl.confirmDialog" title="Destroy the World" message="Are you sure?" yesAction="dialogCtrl.yesAction()" noAction="dialogCtrl.noAction()" dismissAction="dialogCtrl.dismissAction()"></pui-confirmdialog>
+		
+		<pui-button value="Destroy the World" action="dialogCtrl.confirmDialog.show()"></pui-button>
+		
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-confirmdialog binding="dialogCtrl.confirmDialog" title="Destroy the World" message="Are you sure?" yesAction="dialogCtrl.yesAction()" noAction="dialogCtrl.noAction()" dismissAction="dialogCtrl.dismissAction()"></pui-confirmdialog>
+
+<pui-button value="Destroy the World" action="dialogCtrl.confirmDialog.show()"></pui-button>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+function DialogController() {
+	
+	var vm = this;
+
+	vm.title = "Godfather I";
+	vm.dialog = null;
+
+}
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

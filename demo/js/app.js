@@ -13,9 +13,13 @@ demo.config(['$routeProvider', 'widgets', function($routeProvider, widgets) {
 
     angular.forEach(widgets, function(widget) {
     	angular.forEach(widget.subPages, function (widgetPage) {
+
+            var alias = widget.controller.firstToLowerCase().replace('Controller', 'Ctrl')
+            
             $routeProvider.when('/' + widgetPage.path, {
                 templateUrl: 'partials/' + widgetPage.path + '.html',
-                controller: widget.controller
+                controller: widget.controller,
+                controllerAs: alias
             });    		
     	});
     });

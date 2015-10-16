@@ -15,7 +15,6 @@
             }
         };
 
-
         growlInternal.widget = function(_growlElement) {
             this.data.growlElement = angular.element(_growlElement);
             this.data.growlElement.addClass("pui-growl ui-widget");

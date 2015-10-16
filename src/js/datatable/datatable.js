@@ -188,7 +188,7 @@
                             }
                             
                             if (column.sortable) {
-                                header.addClass('pui-sortable-column').append('<span class="pui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span>');
+                                header.addClass('pui-sortable-column').append('<span class="pui-sortable-column-icon fa fa-fw fa-sort"></span>');
                                 header.data('order', 1);
                             }
                         });
@@ -248,7 +248,7 @@
                 
                 this.determineOptions = function(options) {
                     
-                    this.options = {
+                    this.optionsDefault = {
                         item: 'item',
                         itemId: null,
                         items: [],
@@ -264,7 +264,7 @@
                         loadOnRender: true
                     };
                     
-                    widgetBase.determineOptions(this.scope, this.options, options, ['onRowSelect', 'onRowUnselect']);
+                    this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onRowSelect', 'onRowUnselect']);
                 };
                 
                 this.getFirst = function() {
@@ -374,10 +374,10 @@
                         column.removeClass('ui-state-hover').addClass('ui-state-active');
                         sortIcon.removeClass('ui-icon-carat-2-n-s');
                         if (order === -1) {
-                            sortIcon.removeClass('ui-icon-triangle-1-n').addClass('ui-icon-triangle-1-s');
+                            sortIcon.removeClass('fa-sort-asc').addClass('fa-sort-desc');
                         } 
                         else if (order === 1) {
-                            sortIcon.removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-n');
+                            sortIcon.removeClass('fa-sort-desc').addClass('fa-sort-asc');
                         }
                     });
                 };

@@ -23,6 +23,17 @@
 			]
 		},
 		{
+			"widget": "puiDialog",
+			"label": "Dialog",
+			"controller": "DialogController",
+			"defaultPath": "dialog/dialogOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "dialog/dialogOverview" },
+		        { "label": "Default", "path": "dialog/dialogDefault" },
+				{ "label": "Confirm Dialog", "path": "dialog/dialogConfirmDialog" }
+			]
+		},
+/*		{
 			"widget": "puiDropdown",
 			"label": "Dropdown",
 			"controller": "DropdownController",
@@ -41,7 +52,7 @@
 				{ "label": "Custom Content", "path": "dropdown/dropdownCustomContent" },
 				{ "label": "Table Content", "path": "dropdown/dropdownTableContent" }
 			]
-		},
+		},*/
  {
      "widget": "puiButton",
      "label": "Button",
