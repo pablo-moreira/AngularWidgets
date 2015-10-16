@@ -21,7 +21,7 @@
         };
     }
 
-    function WidgetDialog($compile, $timeout, $parse, $window, $document, $http, widgetBase, widgetFacet) {
+	function WidgetDialog($compile, $timeout, $parse, $window, $document, $http, widgetBase, widgetFacet) {
 
         var widget = {};
         
