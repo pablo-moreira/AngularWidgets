@@ -23,6 +23,16 @@
 			]
 		},
 		{
+			"widget": "InputNumber",
+			"label": "InputNumber",
+			"controller": "InputNumberController",
+			"defaultPath": "inputNumber/inputNumberOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "inputNumber/inputNumberOverview" },
+		        { "label": "Default", "path": "inputNumber/inputNumberDefault" }
+			]
+		},
+		{
 			"widget": "puiDropdown",
 			"label": "Dropdown",
 			"controller": "DropdownController",
