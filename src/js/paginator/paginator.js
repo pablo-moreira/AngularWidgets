@@ -147,7 +147,7 @@
 
         puiPaginatorTemplate.addTemplate('{FirstPageLink}', {
         	
-        	markup: '<span class="pui-paginator-first pui-paginator-element ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-first">p</span></span>',
+        	markup: '<span class="pui-paginator-first pui-paginator-element ui-state-default ui-corner-all"><span class="fa fa-step-backward"></span></span>',
 
         	create: function (paginator) {
 
@@ -178,7 +178,7 @@
 
         puiPaginatorTemplate.addTemplate('{PreviousPageLink}', {
                 
-        	markup: '<span class="pui-paginator-prev pui-paginator-element ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-prev">p</span></span>',
+        	markup: '<span class="pui-paginator-prev pui-paginator-element ui-state-default ui-corner-all"><span class="fa fa-backward"></span></span>',
 
         	create: function (paginator) {
                     
@@ -209,7 +209,7 @@
 
         puiPaginatorTemplate.addTemplate('{NextPageLink}', {
                 
-        	markup: '<span class="pui-paginator-next pui-paginator-element ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-next">p</span></span>',
+        	markup: '<span class="pui-paginator-next pui-paginator-element ui-state-default ui-corner-all"><span class="fa fa-forward"></span></span>',
 
         	create: function (paginator) {
             
@@ -241,7 +241,7 @@
 
         puiPaginatorTemplate.addTemplate('{LastPageLink}', {
         	
-        	markup: '<span class="pui-paginator-last pui-paginator-element ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-end">p</span></span>',
+        	markup: '<span class="pui-paginator-last pui-paginator-element ui-state-default ui-corner-all"><span class="fa fa-step-forward"></span></span>',
 
         	create: function (paginator) {
         		

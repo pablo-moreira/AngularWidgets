@@ -24,3 +24,19 @@ input.pui-inputtext {
     -webkit-transition:all linear 0.5s;
     transition:all linear 0.5s;
 }
+
+
+/* InputNumber */
+.pui-inputnumber input {
+    border: 0 none;
+    outline: medium none;
+    background-color: transparent;
+    margin: 0px;
+    padding: 4px 0px;
+    box-shadow: none;
+    font-weight: normal;
+    
+}
+.pui-inputnumber-symbol {
+    padding: 4px;
+}

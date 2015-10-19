@@ -1,0 +1,29 @@
+
+<pui-panel header="puiInputText">
+
+	<section>
+		<header>Default integration</header>
+
+		<pui-inputnumber id="default" value="inputNumberCtrl.integer"></pui-inputnumber><br/>
+		Controller value is : {{inputNumberCtrl.integer}}
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+    <pui-inputText id="default" value="value1"> </pui-inputText><br/>
+    Controller value is : <span id="defaultModel">{{value1}}</span>
+
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js" >
+$scope.value1 = 'Change me';
+
+$scope.numbers = 123;
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

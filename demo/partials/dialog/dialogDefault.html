@@ -1,0 +1,60 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Default integration</header>
+		
+		<pui-dialog id="default" title="{{dialogCtrl.title}}" binding="dialogCtrl.dialog">
+					
+			<p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+			His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+			Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+			kind and benevolent to those who give respect, 
+			but given to ruthless violence whenever anything stands against the good of the family.</p>
+
+			<pui-facet name="footer">
+				<pui-button value="Yes" icon="fa-check" action="dialogCtrl.dialog.hide()"></pui-button>
+				<pui-button value="No" icon="fa-close" action="dialogCtrl.dialog.hide()"></pui-button>
+			</pui-facet>
+		</pui-dialog>
+
+		<pui-button value="Show" icon="fa-external-link-square" action="dialogCtrl.dialog.show()"></pui-button>
+
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-dialog id="default" title="((dialogCtrl.title))" binding="dialogCtrl.dialog">
+
+	<p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
+	His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. 
+	Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, 
+	kind and benevolent to those who give respect, 
+	but given to ruthless violence whenever anything stands against the good of the family.</p>
+
+	<pui-facet name="footer">
+		<pui-button value="Yes" icon="fa-check" action="dialogCtrl.dialog.hide()"></pui-button>
+		<pui-button value="No" icon="fa-close" action="dialogCtrl.dialog.hide()"></pui-button>
+	</pui-facet>
+</pui-dialog>
+				
+<pui-button value="Show" icon="fa-external-link-square" action="dialogCtrl.dialog.show()"></pui-button>
+
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+function DialogController() {
+	
+	var vm = this;
+
+	vm.title = "Godfather I";
+	vm.dialog = null;
+
+}
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

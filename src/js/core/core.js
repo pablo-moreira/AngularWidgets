@@ -2,23 +2,55 @@
 
 (function(window, document, undefined) {
     "use strict";
+
+	String.prototype.firstToLowerCase = function() {
+		return this.charAt(0).toLowerCase() + this.slice(1);
+	}
+
+	String.prototype.firstToUpperCase = function() {
+		return this.charAt(0).toUpperCase() + this.slice(1);
+	}
+
+	Array.prototype.contains = function(obj) {
+    	var i = this.length;
+    	while (i--) {
+	        if (this[i] === obj) {
+	            return true;
+	        }
+	    }
+	    return false;
+	};
     
     window.AngularWidgets = {
     	version: "0.0.1",
-    	zindex: 100000,
+    	zindex: 10000,
     	widgets: {},
     	putWidget: function(id,widget) {
     		this.widgets[id] = widget;
     	},
     	getWidget: function(id) {
     		return this.widgets[id];
+    	},
+    	locales : {},
+    	locale : null,
+    	guid: function() {
+    		return Math.floor((1 + Math.random()) * 0x10000)
+    			.toString(16)
+    			.substring(1);
     	}
     };
-    
+        
     window.AW = function (id) {
        	return AngularWidgets.getWidget(id);
     };
-  
+  	
+	AngularWidgets.locales['en'] = {
+		yes: 'Yes',
+		no: 'No'
+	};
+
+	AngularWidgets.locale = AngularWidgets.locales['en'];
+
     AngularWidgets.classSelectorSelection = function(elements, classSelector) {
         var result = [];
         angular.forEach(elements, function (child) {
@@ -77,13 +109,7 @@
     };
 
     AngularWidgets.inArray = function(arr, item) {
-        for(var i = 0; i < arr.length; i++) {
-            if(arr[i] === item) {
-                return true;
-            }
-        }
-
-        return false;
+		return arr.contains(item);
     };
     
     angular.module('pje.ui.config', []).value('pje.ui.config', {
@@ -333,25 +359,31 @@
 		}
 		    
     	var widgetBase = {};
-    	
-    	widgetBase.guid = function() {
-    		return Math.floor((1 + Math.random()) * 0x10000)
-    			.toString(16)
-    			.substring(1);
-    	};
-    	
-    	widgetBase.createWidget = function (widgetChild) {
 
-    		var baseWidget = function (scope, element, options) {
-            	this.scope = scope;
-            	this.element = element;
-            	this.init(options);
-            };
-    		
-            baseWidget.prototype = widgetChild;
+    	widgetBase.verifyRequiredOptions = function(widget, requiredOptions) {
 
-    		return baseWidget;
+    		requiredOptions = angular.isArray(requiredOptions) ? requiredOptions : [requiredOptions];
+
+    		angular.forEach(requiredOptions, function(requiredOption) {
+    			if (!widget.element.attr(requiredOption)) {
+    				throw new Error('The attribute ' + requiredOption + ' is required!');
+    			}
+    		});
     	}
+    	    	
+    	widgetBase.createWidget = function (widgetChild) {
+			
+ 			var baseWidget = function(scope, element, options) {
+ 				this.scope = scope;
+ 				this.element = element;
+ 				this.init(options);
+ 				this.element.data('$widget', this);
+ 			};
+
+ 			baseWidget.prototype = widgetChild;
+
+ 			return baseWidget;
+     	};
     	
     	widgetBase.createBindAndAssignIfNecessary = function(widget, properties) {
 
@@ -379,11 +411,9 @@
     	
 			expressions = expressions !== undefined ? expressions : [];
     	
-        	var options = angular.copy(optionsInline);
-
-        	var dynamicOptions = options.options ? scope.$eval(options.options) : {};
+        	var dynamicOptions = optionsInline.options ? scope.$eval(optionsInline.options) : {};
         	
-        	widgetBase.extend(options, dynamicOptions);
+        	var options = angular.extend({}, optionsInline, dynamicOptions);
     		
         	// Equalize options names and types
     		for (var optName in optionsDefault) {
@@ -416,16 +446,18 @@
 				}
     		}
 
-    		widgetBase.extend(optionsDefault, options);
-    		
+			options = angular.extend({}, optionsDefault, options);
+			    		
     		if (fctOptions) {
 	    		for (var i=0, t=fctOptions.length; i<t; i++) {
 	    			var fctOption = fctOptions[i];
-	    			if (optionsDefault[fctOption] && angular.isString(optionsDefault[fctOption])) {
-    					optionsDefault[fctOption] =  scope.$eval(optionsDefault[fctOption]);
+	    			if (options[fctOption] && angular.isString(options[fctOption])) {
+    					options[fctOption] =  scope.$eval(options[fctOption]);
 	    			}
 	    		}
     		}
+
+    		return options;
     	};
 
     	widgetBase.determineDataLoader = function(value) {
@@ -601,6 +633,13 @@
         	element.show();
         	if (doneCallback) doneCallback();
         }
+
+        widgetBase.isVisible = function (element) {
+        	
+        	var elm = angular.element(element);
+
+        	return elm.css('display') !== 'none' && !elm.hasClass('ui-helper-hidden');
+        }
         
     	widgetBase.watchExpression = function(scope, expression, watchFunction) {
     		    			
@@ -622,18 +661,19 @@
 
         widgetBase.getExpression = function(element, property) {
            return element[0].attributes[property].value;
-        };
+        };        
 
         widgetBase.keyCode = {
             BACKSPACE: 8,
+            PLUS: 171,
             COMMA: 188,
-            DELETE: 46,
-            DOWN: 40,
-            END: 35,
+            MINUS: 189,
+            DOT: 190,
+            DELETE: 46,                        
             ENTER: 13,
             ESCAPE: 27,
             HOME: 36,
-            LEFT: 37,
+            END: 35,
             NUMPAD_ADD: 107,
             NUMPAD_DECIMAL: 110,
             NUMPAD_DIVIDE: 111,
@@ -642,11 +682,15 @@
             NUMPAD_SUBTRACT: 109,
             PAGE_DOWN: 34,
             PAGE_UP: 33,
-            PERIOD: 190,
-            RIGHT: 39,
+            PERIOD: 190,            
             SPACE: 32,
             TAB: 9,
-            UP: 38
+            ARROWS: [37,38,39,40],
+			LEFT: 37,
+            UP: 38,
+            RIGHT: 39,
+            DOWN: 40,
+            NUMERICS: [48,49,50,51,52,53,54,55,56,57, 96,97,98,99,100,101,102,103,104,105]
         };
 
         widgetBase.filterOperator = {
@@ -685,6 +729,9 @@
     angular.module('pje.ui').value('version', AngularWidgets.version);
 
     angular.forEach({
+    	uniqueId: function uniqueId(element) {
+			angular.element(element).attr('id', AngularWidgets.guid());
+    	},
         hover: function hoverFn(element, fnEnter, fnLeave) {
             angular.element(element).bind('mouseenter', fnEnter).bind('mouseleave', fnLeave ||fnEnter);
         },
@@ -866,7 +913,11 @@
                 
                 return {
                 	width: width,
-                	height: height
+                	height: height,
+                	offset: {
+                		top: 0,
+	                	left: 0
+                	}
                 };
         	}
         	else {        	
@@ -915,23 +966,49 @@
                 target = options.of;
 
             dimensions = this.getDimensions(target[0]);
+
             this.check(options);
 
             targetWidth = dimensions.width;
-            targetHeight = dimensions.height;
-			basePosition = dimensions.offset;			
+            targetHeight = dimensions.height;			
+			basePosition = dimensions.offset;
 
-			if (options.at[ 0 ] === "right") {
+			if (options.at[0] === "right") {
 				basePosition.left += targetWidth;
-			} else if (options.at[ 0 ] === "center") {
+			}
+			else if (options.at[0] === "center") {
 				basePosition.left += targetWidth / 2;
 			}
 
-			if (options.at[ 1 ] === "bottom") {
+			if (options.at[1] === "bottom") {
 				basePosition.top += targetHeight;
-			} else if (options.at[ 1 ] === "center") {
+			}
+			else if (options.at[1] === "center") {
 				basePosition.top += targetHeight / 2;
 			}	
+
+			if (options.my[0] !== "left" || options.my[1] !== "top") {
+				
+				var elm = angular.element(element).css({ 'visibility' : 'hidden', 'display' : 'block' });
+
+				var elementDimensions = this.getDimensions(element);
+
+				if (options.my[0] === "right") {
+					basePosition.left -= elementDimensions.width;
+				}
+				else if (options.my[0] === "center") {
+					basePosition.left -= elementDimensions.width / 2;
+				}
+
+				if (options.my[1] === "bottom") {
+					basePosition.top -= elementDimensions.height;
+				}
+				else if (options.my[1] === "center") {
+					basePosition.top -= elementDimensions.height / 2;
+				}
+
+				var elm = angular.element(element).css({ 'visibility' : 'visible', 'display' : 'block' });
+			}			
 
             element.style.position = "absolute";
             element.style.left = basePosition.left + "px";

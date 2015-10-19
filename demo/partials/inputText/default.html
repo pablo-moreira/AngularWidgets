@@ -1,38 +1,32 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
 
-<div id="content">
+	<section>
+		<header>Default integration</header>
 
-	<pui-panel header="puiInputText">
-		
+		<pui-inputText id="default" value="value1"> </pui-inputText><br/>
+		Controller value is : <span id="defaultModel">{{value1}}</span><br/>
+		<pui-inputText id="digits" type="number" value="numbers"> </pui-inputText><br/>
+		Controller value is : <span id="digitsModel">{{numbers}}</span>
+	</section>
 
-		<section>
-			<header>Default integration</header>
-
-			<pui-inputText id="default" value="value1"> </pui-inputText><br/>
-			Controller value is : <span id="defaultModel">{{value1}}</span><br/>
-			<pui-inputText id="digits" type="number" value="numbers"> </pui-inputText><br/>
-			Controller value is : <span id="digitsModel">{{numbers}}</span>
-		</section>
-
-		<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-            <pui-tabview id="sourceTabs" >
-                <pui-panel header="html" id="d_html">
-                    <pre pretty-print="html" >
-    <pui-inputText id="default" value="value1"> </pui-inputText><br/>
-    Controller value is : <span id="defaultModel">{{value1}}</span><br/>
-    <pui-inputText id="digits" type="number" value="numbers"> </pui-inputText><br/>
-    Controller value is : <span id="digitsModel">{{numbers}}</span>
-
-                    </pre>
-                </pui-panel>
-                <pui-panel header="controller" id="d_script">
-                    <pre pretty-print="js" >
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="html" id="d_html">
+				<pre pretty-print="html">
+<pui-inputText id="default" value="value1"> </pui-inputText><br/>
+Controller value is : <span id="defaultModel">{{value1}}</span><br/>
+<pui-inputText id="digits" type="number" value="numbers"> </pui-inputText><br/>
+Controller value is : <span id="digitsModel">{{numbers}}</span>
+				</pre>
+			</pui-tab>
+			<pui-panel header="controller" id="d_script">
+				<pre pretty-print="js">
 $scope.value1 = 'Change me';
 
 $scope.numbers = 123;
-                    </pre>
-                </pui-panel>
-			</pui-tabview>
-		</pui-fieldset>
-
-	</pui-panel>
-</div>
+				</pre>
+			</pui-panel>
+		</pui-tabview>
+	</pui-fieldset>
+	
+</pui-panel>

@@ -26,6 +26,13 @@
         };   
 
     	widget.Fieldset = widgetBase.createWidget({
+    		         		        
+			optionsDefault: {
+				toggleable: false,
+				toglleDuration: 'normal',
+				collapsed: false,
+				onToggle: null
+			},
     		        	
 			init: function (options) {
 				
@@ -59,16 +66,8 @@
 	            widgetBase.createBindAndAssignIfNecessary(this, "toggle,collapse,expand,isCollapsed,setLegend,getLegend");
         	},
         	
-	        determineOptions: function (options) {
-        		        
-	        	this.options = {
-	        		toggleable: false,
-		            toglleDuration: 'normal',
-		            collapsed: false,
-		            onToggle: null
-	        	};
-	        	
-	        	widgetBase.determineOptions(this.scope, this.options, options, ['onToggle']);	        	
+	        determineOptions: function (options) {        	
+	        	this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onToggle']);	        	
 			},		
 			
 			bindEvents: function() {

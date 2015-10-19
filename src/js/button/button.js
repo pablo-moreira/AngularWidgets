@@ -24,6 +24,13 @@
   
     	widget.Button = widgetBase.createWidget({
         	
+			optionsDefault: {
+				value: null,
+				icon: null,
+				iconPosition: 'left',
+				action: null,		        	
+			},
+        	
     		init: function(options) {
         		        		
         		this.determineOptions(options);
@@ -40,7 +47,7 @@
 	            this.element.addClass(styleClass).text('');
 	            
 	            if (this.options.icon) {
-	            	this.icon = angular.element('<span class="pui-button-icon-' + this.options.iconPosition + ' ui-icon ' + this.options.icon + '" />')
+	            	this.icon = angular.element('<span class="pui-button-icon-' + this.options.iconPosition + ' pui-icon fa fa-fw ' + this.options.icon + '" />')
 	            		.appendTo(this.element);
 	            }
 	            
@@ -90,15 +97,7 @@
         	},
         	
 	        determineOptions: function (options) {
-
-	        	this.options = {
-	        		value: null,
-		        	icon: null,
-		        	iconPosition: 'left',
-		        	action: null,		        	
-	        	};
-	        	
-	        	widgetBase.determineOptions(this.scope, this.options, options);	        	
+	        	this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options);
 			},
 			
 	        setValue: function(text) {
@@ -109,10 +108,12 @@
 	        		this.value.text(text);
 	        	}
 	        },
-	        
+	        	        
 	        click: function(e) {
-	        	this.scope.$eval(this.options.action);
-	        	this.scope.safeApply();
+	        	if (this.options.action) {
+	        		this.scope.$eval(this.options.action);
+	        		this.scope.safeApply();
+	        	}
 	        },
 	        
 	        enable: function() {

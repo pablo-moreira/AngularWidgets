@@ -1,4 +1,6 @@
-
+.ui-widget {
+    font-size: 95%;
+}
 
 
 .pui-inputtext, .ui-widget-content .pui-inputtext, .ui-widget-header .pui-inputtext {

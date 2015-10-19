@@ -18,74 +18,66 @@
 /*button text element */
 .pui-button .pui-button-text {
     display: block;
-    line-height: 1.4;
+    line-height: normal;  
 }
 
 .pui-button-text-only .pui-button-text {
-    padding: .2em 1em;
+    padding: .3em 1em; 
 }
 
 .pui-button-icon-only .pui-button-text {
-    padding: .2em;
+    padding: .3em; 
     text-indent: -9999999px;
 }
 
-.pui-button-text-icon-left .pui-button-text {
-    padding: .2em 1em .2em 2.1em;
+.pui-button-text-icon-left .pui-button-text { 
+    padding: .3em 1em .3em 2.1em; 
 }
 
-.pui-button-text-icon-right .pui-button-text {
-    padding: .2em 2.1em .2em 1em;
+.pui-button-text-icon-right .pui-button-text { 
+    padding: .3em 2.1em .3em 1em; 
 }
 
 /*button icon element(s) */
-.pui-button-icon-only .ui-icon,
-.pui-button-text-icon-left .ui-icon,
-.pui-button-text-icon-right .ui-icon {
-    position: absolute;
+.pui-button-icon-only .pui-icon, 
+.pui-button-text-icon-left .pui-icon, 
+.pui-button-text-icon-right .pui-icon { 
+    position: absolute; 
     top: 50%;
-    margin-top: -8px;
+    margin-top: -7px; 
 }
 
-.pui-button-icon-only .ui-icon {
-    left: 50%;
-    margin-left: -8px;
+.pui-button-icon-only .pui-icon { 
+    left: 50%; 
+    margin-left: -10px; 
 }
 
 .pui-button-icon-left {
-    left: .5em;
+    left: .5em; 
 }
 
 .pui-button-icon-right {
-    right: .5em;
+    right: .5em; 
 }
 
 /*button sets*/
-.pui-buttonset {
-    margin-right: 7px;
+.pui-buttonset { 
+    margin-right: 7px; 
 }
-.pui-buttonset .pui-button {
-    margin-left: 0;
+.pui-buttonset .pui-button { 
+    margin-left: 0; 
     margin-right: 0;
 }
 
 /* workarounds */
-button.pui-button::-moz-focus-inner {
+button.pui-button::-moz-focus-inner { 
     border: 0; padding: 0; /* reset extra padding in Firefox */
 }
 
-/* AngularJS Animation of hinding/showing content*/
-button.pui-button.pui-hide {
-    opacity:0;
-
+.pui-fluid .pui-button {
+    width: 100%;
 }
 
-button.pui-hidden {
-    display: none;
+.pui-fluid .ui-buttonset {
+    width: 100%;
 }
-
-button.pui-button {
-    -webkit-transition:all linear 0.5s;
-    transition:all linear 0.5s;
-}
-
