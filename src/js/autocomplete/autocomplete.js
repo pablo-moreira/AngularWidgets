@@ -815,6 +815,7 @@
             
             setValue: function (value, updateModel) {
             	
+            	/* TODO - Many Owners of TRUE, keep value only in the model  */
 				if (value === undefined) {
 					value = null;
 				}

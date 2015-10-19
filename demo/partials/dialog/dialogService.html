@@ -1,0 +1,40 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>ConfirmDialog is integrated with confirm behavior and used as a replacement for the javascript confirmation utility.</header>
+			
+		<pui-button value="Show Confirmation" action="dialogCtrl.showConfirmDialog()"></pui-button>
+		
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-button value="Show Confirmation" action="dialogCtrl.showConfirmDialog()"></pui-button>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+function DialogController(puiGrowl,$puiDialog) {
+	
+	var vm = this;
+
+	vm.showConfirmDialog = function() {
+		$puiDialog.showConfirmDialog('Destroy the World', 'Are you sure?')
+		.onYes(function(){
+			puiGrowl.showInfoMessage('World destroyed!', 'Error...');
+		})
+		.onNo(function(){
+			puiGrowl.showInfoMessage('World not destroyed!', 'Ops...');
+		})
+		.onDismiss(function() {
+			puiGrowl.showInfoMessage('Dismiss!', 'Ops...');
+		});
+	}	
+}
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

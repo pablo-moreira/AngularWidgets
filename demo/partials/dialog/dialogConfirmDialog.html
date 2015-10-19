@@ -6,7 +6,6 @@
 		<pui-confirmdialog binding="dialogCtrl.confirmDialog" title="Destroy the World" message="Are you sure?" yesAction="dialogCtrl.yesAction()" noAction="dialogCtrl.noAction()" dismissAction="dialogCtrl.dismissAction()"></pui-confirmdialog>
 		
 		<pui-button value="Destroy the World" action="dialogCtrl.confirmDialog.show()"></pui-button>
-		
 	</section>
 
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
@@ -20,13 +19,23 @@
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<pre pretty-print="js">
-function DialogController() {
+function DialogController(puiGrowl) {
 	
 	var vm = this;
 
-	vm.title = "Godfather I";
-	vm.dialog = null;
+	vm.confirmDialog = null;
 
+	vm.yesAction = function() {
+		puiGrowl.showInfoMessage('World destroyed!', 'Error...');
+	};
+
+	vm.noAction = function() {
+		puiGrowl.showInfoMessage('World not destroyed!', 'Ops...');
+	};
+
+	vm.dismissAction = function() {
+		puiGrowl.showInfoMessage('Dismiss!', 'Ops...');
+	};
 }
 				</pre>
 			</pui-tab>

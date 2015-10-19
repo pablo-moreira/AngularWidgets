@@ -6,7 +6,7 @@
 		.factory('widgetInputNumber', ['widgetBase', '$parse', '$locale', InputNumberWidget])
 		.directive('puiInputnumber', ['widgetInputNumber', InputNumberDirective]);
 
-	function InputNumberWidget(widgetBase, $parse, $locale) {
+	function InputNumberWidget(widgetBase, $parse) {
 
 		//         var linkFn = function (scope, element, attrs) {
 		//             var options = widgetInputText.determineOptions(scope, element, attrs),
@@ -82,13 +82,14 @@
 			determineOptions: function(options) {
 
 				var optionsDefault = angular.copy(this.optionsDefault),
-					type = options.type || optionsDefault.type;
-				
-				optionsDefault.decimalSeparator = $locale.NUMBER_FORMATS.DECIMAL_SEP;
-				optionsDefault.groupSeparator = $locale.NUMBER_FORMATS.GROUP_SEP;
+					type = options.type || optionsDefault.type,
+					locale = AngularWidgets.locales[options.locale] || AngularWidgets.locales.en;
+							
+				optionsDefault.decimalSeparator = locale.number.decimalSeparator;
+				optionsDefault.groupSeparator = locale.number.groupSeparator;
 
 				if (type === 'currency') {
-					optionsDefault.symbol = $locale.NUMBER_FORMATS.CURRENCY_SYM;
+					optionsDefault.symbol = locale.number.currencySymbol;
 					optionsDefault.decimalPrecision = 2;
 				}
 				else if (type === 'percent') {
@@ -106,11 +107,11 @@
 					
 					/* TODO */
 					var keyCodes = {
-						','	: widgetBase.keyCode.COMMA,
-						'.' : widgetBase.keyCode.DOT,
+						','	: [widgetBase.keyCode.COMMA],
+						'.' : [widgetBase.keyCode.DOT, widgetBase.keyCode.NUMPAD_DOT],
 					}
 					
-					this.options.decimalSeparatorKeyCode = keyCodes[this.options.decimalSeparator];
+					this.options.decimalSeparatorKeyCodes = keyCodes[this.options.decimalSeparator];
 				}
 			},
 
@@ -144,7 +145,27 @@
 
 			addBehaviour: function() {
 
-				widgetBase.hoverAndFocus(this.element);
+				var $this = this;
+				
+				this.input.hover(function() {
+					if (!$this.element.hasClass('ui-state-active') && !$this.element.hasClass('ui-state-disabled')) {
+                        $this.element.addClass('ui-state-hover');
+                    }
+				}, function () {
+                    if (!$this.element.hasClass('ui-state-active')) {
+                        $this.element.removeClass('ui-state-hover');
+                    }
+                });
+
+        		this.input.focus(function () {
+        			if (!$this.element.hasClass('ui-state-disabled')) {
+                        $this.element.addClass('ui-state-focus');
+                    }        			
+                });
+        		this.input.blur(function () {
+        			$this.element.removeClass('ui-state-focus');
+                });
+         				
 
 				//                 if (scope.puiDisabled !== undefined) {
 				//                     widgetBase.watchPuiDisabled(scope, inputData, widgetInputText.enableDisable);
@@ -186,38 +207,59 @@
 					e.preventDefault();
 				}
 
-				console.log(char);
+				console.log('onKeypress=' + char);
 			},
 
 			onKeydown: function(e) {
 
 				var KC = widgetBase.keyCode,
 					keyCode = e.which || e.keyCode,
-					keysSkip = KC.ARROWS.concat([KC.BACKSPACE, KC.DELETE, KC.HOME, KC.END, KC.TAB, KC.DELETE]),
+					keysSkip = KC.ARROWS.concat([KC.CTRL, KC.SHIFT, KC.BACKSPACE, KC.DELETE, KC.HOME, KC.END, KC.TAB, KC.DELETE]),
 					keysAllowed = KC.NUMERICS;
-
 				
-				console.log(keyCode);
+				console.log('onkeydown=' + keyCode);
 
-				if (keysSkip.contains(keyCode) 
-					|| (this.options.allowDecimal && this.options.decimalSeparatorKeyCode === keyCode)) {
+				if (keysSkip.contains(keyCode)) {
 					return;
 				}
+				// Decimal Separator
+				else if (this.options.allowDecimal && this.options.decimalSeparatorKeyCodes.contains(keyCode)) {
+					console.log('teste');
+					return ;
+				}
 				// Negative handle
-				else if (this.options.allowNegative && keyCode === KC.MINUS && this.input.val().indexOf('-') === -1) {					
-					this.input.val('-' + this.input.val())
+				else if (this.options.allowNegative && [KC.DASH, KC.NUMPAD_SUBTRACT].contains(keyCode) && this.input.val().indexOf('-') === -1) {
+					
+					if (this.input.val() === '') {
+						return;
+					}
+
+					this.input.val('-' + this.input.val())					
+
+					/* TODO - Keep de carret position */
+
 					e.preventDefault();
 				}
-				// Positve handle		
-				//else if (keyCode === KC.)
+				// Positve handle, keyCode 187 is key '='
+				else if (this.input.val().indexOf('-') !== -1 && 
+					( KC.NUMPAD_ADD === keyCode || (187 === keyCode && e.shiftKey)) ) {
+
+					this.input.val(this.input.val().replace('-', ''));
+
+					/* TODO - Keep de carret position */
+
+					e.preventDefault();
+				}
 				// Not numeric handle
 				else if (!keysAllowed.contains(keyCode)) {
 					e.preventDefault();
-				}
+				}				
 			},
 
 			onKeyup: function(e) {
 				
+				console.log('keyup=' + e.which || e.keyCode)
+
 				var val = this.input.val();
 				
 				this.setValue(this.options.decimalPrecision !== null ? parseFloat(val) : parseInt(val));

@@ -5,90 +5,178 @@
     "use strict";
 
 	angular.module('pje.ui')
-		.factory('widgetConfirmdialog', ['$compile', 'widgetDialog', ConfirmdialogWidget])
+		.factory('widgetConfirmdialog', ['$rootScope', '$compile', 'widgetBase', 'widgetDialog', ConfirmdialogWidget])
 		.directive('puiConfirmdialog', ['widgetConfirmdialog', ConfirmdialogDirective]); 
 	
-	function ConfirmdialogWidget($compile, widgetDialog) {
+	function ConfirmdialogWidget($rootScope, $compile, widgetBase, widgetDialog) {
 		
 		var widget = {};
 
 		widget.template = '<div class="pui-confirmdialog"></div>';
 		
-		widget.build = function(scope, element, options) {
+		widget.buildWidget = function(scope, element, options) {
+			return new widget.Confirmdialog(scope, element, options);  
+		};
 
-			// Validations
-			if (!element.attr('title')) {
-				throw new Error('The title options is required.');
+        widget.createWidget = function(scope, options, container) {
+        	
+			var confirmdialog = angular.element('<pui-confirmdialog></pui-confirmdialog>')
+				.attr(options);
+		
+			$compile(confirmdialog)(scope);
+
+			if (container) {
+				confirmdialog.appendTo(container);
 			}
 
-			if (!element.attr('message')) {
-				throw new Error('The message options is required.');
+			return confirmdialog.data('$widget');
+        };
+
+        widget.showConfirmDialog = function(title, message, icon, yesLabel, noLabel, parentScope) {
+
+			var yesCallback,
+				noCallback,
+				dismissCallback,
+				widget,
+				scope = parentScope != null ? parentScope.$new() : $rootScope.$new();
+			
+			scope.$yes = function yes() {				
+				if (yesCallback) { 
+					yesCallback()
+				}
+				destroy();
+			};
+			
+			scope.$no = function no() {				
+				if (noCallback) {
+					noCallback();
+				}
+				destroy();
+			};
+			
+			scope.$dismiss = function dismiss() {
+				if (dismissCallback) {
+					dismissCallback();
+				}
+				destroy();
+			};
+			
+			function destroy() {
+				widget.destroy();
+				scope.$destroy();
 			}
 
 			var options = {
-				'id': element.attr('id') || AngularWidgets.guid(),
-				'title': element.attr('title'),
-				'width': 'pui-dialog-sm',
-				'onDismiss' : '$dismissAction'
+				'title': title,
+				'message': message,
+				'icon': icon,
+				'yesAction': '$yes()',
+				'noAction': '$no()',
+				'dismissAction': '$dismiss()'
 			};
 
-			if (element.attr('binding')) {
-				options.binding = element.attr('binding');
+			if (yesLabel) {
+				options.yesLabel = yesLabel;
 			}
 
-			var yesLabel = element.attr('yesLabel') || AngularWidgets.locale.yes,
-				noLabel = element.attr('noLabel') || AngularWidgets.locale.no,
-				icon = element.attr('icon') || 'fa-exclamation-triangle';
+			if (noLabel) {
+				options.noLabel = noLabel;
+			}
 
-			scope.$noAction = function() {
+			widget = this.createWidget(scope, options, document.body);
 
-				AW(options.id).hide();
+			widget.show();
 
-				if (element.attr('noAction')) {
-					scope.$eval(element.attr('noAction'));
+			return {
+				onYes: function(fn) {
+					yesCallback = fn;
+					return this;
+				},
+				onNo: function(fn) {
+					noCallback = fn;
+					return this;
+				},
+				onDismiss: function(fn) {
+					dismissCallback = fn;
+					return this;
 				}
 			};
+        };
 
-			scope.$yesAction = function() {
+		widget.Confirmdialog = widgetBase.createWidget({
 
-				AW(options.id).hide();
-
-				if (element.attr('yesAction')) {
-					scope.$eval(element.attr('yesAction'));
-				}
-			};
-
-			scope.$dismissAction = function() {
-
-				if (element.attr('dismissAction')) {
-					scope.$eval(element.attr('dismissAction'));
-				}
-			};
-
-			var content =	'<span class="pui-confirm-dialog-severity pui-icon fa ' + icon + '"></span>' +
-							'<span class="pui-confirm-dialog-message">' + element.attr('message') + '</span>' +
-							'<pui-facet name="footer">' + 
-								'<pui-button value="' + yesLabel + '" icon="fa-check" action="$yesAction()"></pui-button>' +
-								'<pui-button value="' + noLabel + '" icon="fa-close" action="$noAction()"></pui-button>' +
-							'</pui-facet>';						
-
-			dialogWidget = widgetDialog.createWidget(scope, options, element, content);
-
-			element.data('$widget', {
+			init: function (options) {
 				
-			});
-        };
+				// Validations
+				widgetBase.verifyRequiredOptions(this, ['title', 'message']);
 
-        widget.createWidget = function(scope, options) {
-        	
-			var dialog = angular.element('<pui-confirmdialog></pui-confirmdialog>');
+				this.options = {
+					'id': this.element.attr('id') || AngularWidgets.guid(),
+					'title': this.element.attr('title'),
+					'width': 'pui-dialog-sm',
+					'onDismiss' : '$dismissAction'
+				};
 
-			dialog.attr(options);
+				if (this.element.attr('binding')) {
+					this.options.binding = this.element.attr('binding');
+				}
+
+				var yesLabel = this.element.attr('yesLabel') || AngularWidgets.locale.yesText,
+					noLabel = this.element.attr('noLabel') || AngularWidgets.locale.noText,
+					icon = this.element.attr('icon') || 'fa-exclamation-triangle';
+
+				this.changeScope();
+				
+				var content =	'<span class="pui-confirm-dialog-severity pui-icon fa ' + icon + '"></span>' +
+								'<span class="pui-confirm-dialog-message">' + this.element.attr('message') + '</span>' +
+								'<pui-facet name="footer">' + 
+									'<pui-button value="' + yesLabel + '" icon="fa-check" action="$yesAction()"></pui-button>' +
+									'<pui-button value="' + noLabel + '" icon="fa-close" action="$noAction()"></pui-button>' +
+								'</pui-facet>';
+
+				this.dialogWidget = widgetDialog.createWidget(this.scope, this.options, this.element, content);
+			},
+
+			changeScope: function() {
+
+				var $this = this;
 		
-			$compile(dialog)(scope);
+				this.scope.$noAction = function() {
 
-			return dialogElem.data('$widget');
-        };
+					AW($this.options.id).hide();
+
+					if ($this.element.attr('noAction')) {
+						$this.scope.$eval($this.element.attr('noAction'));
+					}
+				};
+
+				this.scope.$yesAction = function() {
+
+					AW($this.options.id).hide();
+
+					if ($this.element.attr('yesAction')) {
+						$this.scope.$eval($this.element.attr('yesAction'));
+					}
+				};
+
+				this.scope.$dismissAction = function() {
+
+					if ($this.element.attr('dismissAction')) {
+						$this.scope.$eval($this.element.attr('dismissAction'));
+					}
+				};
+			},
+
+			show: function() {
+				this.dialogWidget.show();
+			},
+
+			destroy: function() {
+				this.dialogWidget.destroy();
+				this.element.remove();
+				this.scope.$destroy();
+			}
+		});
   
     	return widget;
 	}
@@ -100,7 +188,7 @@
             template: widgetConfirmdialog.template,          
 			scope: true,
             link: function (scope, element, attrs) {
-				widgetConfirmdialog.build(scope, element, attrs);
+				widgetConfirmdialog.buildWidget(scope, element, attrs);
             }
         };
     };

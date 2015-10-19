@@ -1,0 +1,23 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Default integration</header>
+		
+		<pui-editor value="editorCtrl.text"></pui-editor>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs">
+			<pui-tab header="HTML" id="d_html">
+				<pre pretty-print="html">
+<pui-editor value="editorCtrl.text"></pui-editor>
+				</pre>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<pre pretty-print="js">
+
+				</pre>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>

@@ -44,12 +44,9 @@
        	return AngularWidgets.getWidget(id);
     };
   	
-	AngularWidgets.locales['en'] = {
-		yes: 'Yes',
-		no: 'No'
-	};
-
-	AngularWidgets.locale = AngularWidgets.locales['en'];
+	window.onload = function (e) {
+		AngularWidgets.locale = AngularWidgets.locales['en'];
+	}
 
     AngularWidgets.classSelectorSelection = function(elements, classSelector) {
         var result = [];
@@ -665,21 +662,23 @@
 
         widgetBase.keyCode = {
             BACKSPACE: 8,
+            SHIFT: 16,
+            CTRL: 17,
             PLUS: 171,
             COMMA: 188,
-            MINUS: 189,
+            DASH: 189,
             DOT: 190,
             DELETE: 46,                        
             ENTER: 13,
             ESCAPE: 27,
             HOME: 36,
             END: 35,
-            NUMPAD_ADD: 107,
-            NUMPAD_DECIMAL: 110,
-            NUMPAD_DIVIDE: 111,
-            NUMPAD_ENTER: 108,
             NUMPAD_MULTIPLY: 106,
+            NUMPAD_ADD: 107,
+            NUMPAD_ENTER: 108,
             NUMPAD_SUBTRACT: 109,
+            NUMPAD_DECIMAL: 110,
+            NUMPAD_DIVIDE: 111,            
             PAGE_DOWN: 34,
             PAGE_UP: 33,
             PERIOD: 190,            
@@ -714,7 +713,9 @@
     angular.module('pje.ui', ['pje.ui.config', 'angular.service']).run(['$rootScope', function ($rootScope) {
 
         $rootScope.safeApply = function (fn) {
-            var phase = this.$root.$$phase;
+
+			var phase = $rootScope.$$phase;
+            
             if (phase == '$apply' || phase == '$digest') {
                 if (fn && (typeof(fn) === 'function')) {
                     fn();
@@ -858,8 +859,7 @@
         		elem.addClass(styleClass);
         	}
         	return elem;
-        }
-        
+        }  
 
         
 

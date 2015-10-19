@@ -23,7 +23,7 @@
 			]
 		},
 		{
-			"widget": "InputNumber",
+			"widget": "puiInputNumber",
 			"label": "InputNumber",
 			"controller": "InputNumberController",
 			"defaultPath": "inputNumber/inputNumberOverview",
@@ -40,7 +40,19 @@
 			"subPages": [
 				{ "label": "Overview", "path": "dialog/dialogOverview" },
 		        { "label": "Default", "path": "dialog/dialogDefault" },
-				{ "label": "Confirm Dialog", "path": "dialog/dialogConfirmDialog" }
+				{ "label": "Confirm Dialog", "path": "dialog/dialogConfirmDialog" },
+				{ "label": "Service", "path": "dialog/dialogService" }
+			]
+		},
+		{
+			"widget": "puiEditor",
+			"label": "Editor",
+			"controller": "EditorController",
+			"defaultPath": "editor/editorOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "editor/editorOverview" },
+		        { "label": "Default", "path": "editor/editorDefault" },
+		        { "label": "Disabled", "path": "editor/editorDisabled" }
 			]
 		},
 /*		{

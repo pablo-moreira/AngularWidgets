@@ -1,7 +1,7 @@
 (function (window, document, undefined) {	
 	"use strict";
 
-	angular.module('demo').controller('DialogController', [ 'puiGrowl', function DialogController(puiGrowl) {
+	angular.module('demo').controller('DialogController', [ 'puiGrowl', '$puiDialog', function DialogController(puiGrowl, $puiDialog) {
    		
 		var vm = this;
    		
@@ -35,7 +35,20 @@
 
 		vm.dismissAction = function() {
 			puiGrowl.showInfoMessage('Dismiss!', 'Ops...');
-		};     	
+		};
+
+		vm.showConfirmDialog = function() {
+			$puiDialog.showConfirmDialog('Destroy the World', 'Are you sure?')
+			.onYes(function(){
+				puiGrowl.showInfoMessage('World destroyed!', 'Error...');
+			})
+			.onNo(function(){
+				puiGrowl.showInfoMessage('World not destroyed!', 'Ops...');
+			})
+			.onDismiss(function() {
+				puiGrowl.showInfoMessage('Dismiss!', 'Ops...');
+			});
+		}			
     }]);
 
 }(window, document));

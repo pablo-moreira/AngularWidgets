@@ -4,24 +4,12 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetDialog', ['$compile', '$timeout', '$parse', '$window', '$document', '$http', 'widgetBase', 'widgetFacet', WidgetDialog ]);
-    
-    angular.module('pje.ui').directive('puiDialog', ['widgetDialog', DialogDirective]);
+    angular.module('pje.ui')
+    	.factory('widgetDialog', ['$compile', '$timeout', '$parse', '$window', '$document', '$http', 'widgetBase', 'widgetFacet', DialogWidget ])
+    	.service('$puiDialog', ['widgetDialog', 'widgetConfirmdialog', DialogService ])
+    	.directive('puiDialog', ['widgetDialog', DialogDirective]);
 	
-	function DialogDirective(widgetDialog) {
-        return {
-            restrict: 'E',
-            replace: true,            
-			transclude: true,
-			scope: true,
-            template: widgetDialog.template,
-            link: function (scope, element, attrs) {
-            	widgetDialog.buildWidget(scope, element, attrs);
-            }
-        };
-    }
-
-	function WidgetDialog($compile, $timeout, $parse, $window, $document, $http, widgetBase, widgetFacet) {
+	function DialogWidget($compile, $timeout, $parse, $window, $document, $http, widgetBase, widgetFacet) {
 
         var widget = {};
         
@@ -38,16 +26,16 @@
 
         widget.createWidget = function(scope, options, container, content) {
 
-			var dialogElem = angular.element('<pui-dialog>' + content + '</pui-dialog>')
+			var dialog = angular.element('<pui-dialog>' + content + '</pui-dialog>')
 				.attr(options);			
 			
-			$compile(dialogElem)(scope);
+			$compile(dialog)(scope);
 
 			if (container) {
-				container.append(dialogElem);
+				container.append(dialog);
 			}
 
-			return dialogElem.data("$widget");
+			return dialog.data("$widget");
         }
                 
     	widget.Dialog = widgetBase.createWidget({
@@ -355,10 +343,35 @@
 
 			moveToTop: function() {
             	this.element.css('z-index',++AngularWidgets.zindex);
+        	},
+
+        	destroy: function() {
+        		this.element.remove();
+        		this.scope.$destroy();
         	}
     	});
                 
         return widget;
     }
+
+    function DialogDirective(widgetDialog) {
+        return {
+            restrict: 'E',
+            replace: true,            
+			transclude: true,
+			scope: true,
+            template: widgetDialog.template,
+            link: function (scope, element, attrs) {
+            	widgetDialog.buildWidget(scope, element, attrs);
+            }
+        };
+    }
+
+	function DialogService(widgetDialog, widgetConfirmdialog) {
+		
+		this.showConfirmDialog = function (title, message, icon, yesLabel, noLabel) {
+			return widgetConfirmdialog.showConfirmDialog(title, message, icon, yesLabel, noLabel);
+		};
+	}
 
 }(window, document));
