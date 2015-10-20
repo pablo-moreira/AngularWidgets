@@ -8,6 +8,128 @@
 
 	function InputNumberWidget(widgetBase, $parse) {
 
+		function setCaretPosition(input, pos) {
+ 			
+ 			// Input's hidden
+			if (!input || input.offsetWidth === 0 || input.offsetHeight === 0) {
+				return;
+			}
+
+			if (input.setSelectionRange) {
+				input.focus();
+				input.setSelectionRange(pos, pos);				
+			}
+			else if (input.createTextRange) {
+				
+				var range = input.createTextRange();
+				
+				range.collapse(true);
+				range.moveEnd('character', pos);
+				range.moveStart('character', pos);
+				range.select();
+			}
+		}
+
+		function setCursorPosition(elem, pos) {
+			
+			if (elem.setSelectionRange) {
+				elem.focus();
+				elem.setSelectionRange(pos, pos);
+			} 
+			else if (elem.createTextRange) {
+			
+				var range = elem.createTextRange();
+			
+				range.collapse(true);
+				range.moveEnd("character", pos);
+				range.moveStart("character", pos);
+				range.select();
+			}
+		}
+
+		function getInputSelection(el) {
+
+			var start = 0,
+				end = 0,
+				normalizedValue,
+				range,
+				textInputRange,
+				len,
+				endRange;
+
+			if (typeof el.selectionStart === "number" && typeof el.selectionEnd === "number") {
+				start = el.selectionStart;
+				end = el.selectionEnd;
+			} 
+			else {
+				range = document.selection.createRange();
+
+				if (range && range.parentElement() === el) {
+					len = el.value.length;
+					normalizedValue = el.value.replace(/\r\n/g, "\n");
+
+					// Create a working TextRange that lives only in the input
+					textInputRange = el.createTextRange();
+					textInputRange.moveToBookmark(range.getBookmark());
+
+					// Check if the start and end of the selection are at the very end
+					// of the input, since moveStart/moveEnd doesn't return what we want
+					// in those cases
+					endRange = el.createTextRange();
+					endRange.collapse(false);
+
+					if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
+						start = end = len;
+					} 
+					else {
+						start = -textInputRange.moveStart("character", -len);
+						start += normalizedValue.slice(0, start).split("\n").length - 1;
+
+						if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
+							end = len;
+						} else {
+							end = -textInputRange.moveEnd("character", -len);
+							end += normalizedValue.slice(0, end).split("\n").length - 1;
+						}
+					}
+				}
+			}
+
+			return {
+				start: start,
+				end: end
+			};
+		} // getInputSelection
+
+		function getCaretPosition(input) {
+		
+			if (!input)
+				return 0;
+			if (input.selectionStart !== undefined) {
+				return input.selectionStart;
+			} else if (document.selection) {
+				if (isFocused(iElement[0])) {
+					// Curse you IE
+					input.focus();
+					var selection = document.selection.createRange();
+					selection.moveStart('character', input.value ? -input.value.length : 0);
+					return selection.text.length;
+				}
+			}
+			return 0;
+		}
+
+		function preventDefault(e) {
+			//standard browsers
+			if (e.preventDefault) { 
+				e.preventDefault();
+			} 
+			// old internet explorer
+			else {
+				e.returnValue = false;
+			}
+		}
+
 		//         var linkFn = function (scope, element, attrs) {
 		//             var options = widgetInputText.determineOptions(scope, element, attrs),
 		//                 inputData = widgetInputText.buildWidget(element, attrs, options);
@@ -22,7 +144,7 @@
 			widget = {};
 
 		widget.template =	'<span class="pui-inputnumber pui-inputtext ui-widget ui-state-default ui-corner-all">' +
-								'<input type="number" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false">' +
+								'<input type="text" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false">' +
 							'</span>';
 
 		widget.buildWidget = function(scope, element, attrs) {
@@ -53,9 +175,9 @@
 				var $this = this;
 
 				this.input = this.element.childrenSelector('input');
-
+				
 				this.scope.$watch(this.element.attr('value'), function(value) {
-					$this.setValue(value, false);
+					$this.updateView(value);
 				});
 
 				this.renderSymbol();			
@@ -115,34 +237,6 @@
 				}
 			},
 
-			setValue: function(value, updateModel) {
-
-				if (value === undefined || isNaN(value)) {
-					value = null;
-				}
-			
-				if (this.value !== value) {
-					
-					this.value = value;
-					
-					if (this.input.val() !== (value !== null ? value.toString() : "")) {
-						this.input.val(value);	
-					}					
-
-					if (updateModel !== false) {
-						this.updateModel();
-					}	
-				}				
-			},
-
-			updateModel: function() {
-
-				var parseValue = $parse(this.options.value);
-				parseValue.assign(this.scope, this.value);
-
-				this.scope.safeApply();
-			},
-
 			addBehaviour: function() {
 
 				var $this = this;
@@ -188,81 +282,176 @@
 				this.input.bind('keyup', function(e) {
 					$this.onKeyup(e);
 				});
+				this.input.bind('blur', function(e) {
+					$this.onBlur(e);
+				});
 
 			},
 			
 			onKeypress: function (e) {
 
-				var char = '';
+				var char = '',
+					keyCode = e.which || e.keyCode,
+					char = String.fromCharCode(e.keyCode),
+					inputValue = this.input.val();
+
+ 				// Decimal Separator
+				if (this.options.allowDecimal && this.options.decimalSeparator === char) {
+ 					
+ 					console.log('decimal-separator pressed');			
+
+					var dsIndexOf = inputValue.indexOf(this.options.decimalSeparator);
+
+					// Verify if exists another decimal separator
+ 					if (dsIndexOf !== -1) { 						
+						
+						var caretPosition = getCaretPosition(this.input[0]); 					
+ 						
+ 						this.input.val(inputValue.replace(this.options.decimalSeparator, ''));
+
+ 						if (caretPosition > dsIndexOf) {
+ 							caretPosition--;
+ 						}
+
+ 						setCaretPosition(this.input[0], caretPosition);
+ 					}
+
+ 					return;
+ 				} 				
+ 				// Negative handle
+ 				else if (char === "-" && inputValue.indexOf('-') === -1 && this.options.allowNegative) {
+					
+					console.log('negative pressed');
+
+ 					if (inputValue === '') {
+ 						return;
+ 					}
+					
+					var caretPosition = getCaretPosition(this.input[0]);
+ 					
+ 					this.input.val('-' + this.input.val())					
+
+ 					setCaretPosition(this.input[0], ++caretPosition);
+
+ 					preventDefault(e);
+ 				}
+ 				// Positive handle
+ 				else if (char === "+" && inputValue.indexOf('-') !== -1) {
+
+					console.log('positive pressed');
+
+					var caretPosition = getCaretPosition(this.input[0]);
+ 					
+ 					this.input.val(this.input.val().replace('-', ''));
+
+ 					setCaretPosition(this.input[0], --caretPosition);
+
+ 					preventDefaultd(e);
+ 				}
+ 				// Not numeric handle
+				else if (/[^0-9]/.test(char)) {
+
+					console.log('not numeric pressed');
+
+					preventDefault(e);
+				}
+ 				else {
+ 					console.log('else=' + char);
+ 				}
 				
-				if (e.which == null)
-					char= String.fromCharCode(e.keyCode);    // old IE
-				else if (e.which != 0 && e.charCode != 0)
-					char= String.fromCharCode(e.which);	  // All others
-				else {
-					 // special key
-				}
-
-				if (char === this.options.decimalSeparator) {
-					e.preventDefault();
-				}
-
 				console.log('onKeypress=' + char);
+				console.log('which=' + e.which + ', keyCode=' + e.keyCode + ', charcode=' + e.charCode);
+				console.log('shift=' + e.shiftKey + ', ctrlkey=' + e.ctrlkey);
 			},
 
 			onKeydown: function(e) {
 
-				var KC = widgetBase.keyCode,
-					keyCode = e.which || e.keyCode,
-					keysSkip = KC.ARROWS.concat([KC.CTRL, KC.SHIFT, KC.BACKSPACE, KC.DELETE, KC.HOME, KC.END, KC.TAB, KC.DELETE]),
-					keysAllowed = KC.NUMERICS;
+				var keyCode = e.which || e.keyCode;					
 				
-				console.log('onkeydown=' + keyCode);
-
-				if (keysSkip.contains(keyCode)) {
-					return;
-				}
-				// Decimal Separator
-				else if (this.options.allowDecimal && this.options.decimalSeparatorKeyCodes.contains(keyCode)) {
-					console.log('teste');
-					return ;
-				}
-				// Negative handle
-				else if (this.options.allowNegative && [KC.DASH, KC.NUMPAD_SUBTRACT].contains(keyCode) && this.input.val().indexOf('-') === -1) {
-					
-					if (this.input.val() === '') {
-						return;
-					}
-
-					this.input.val('-' + this.input.val())					
-
-					/* TODO - Keep de carret position */
-
-					e.preventDefault();
-				}
-				// Positve handle, keyCode 187 is key '='
-				else if (this.input.val().indexOf('-') !== -1 && 
-					( KC.NUMPAD_ADD === keyCode || (187 === keyCode && e.shiftKey)) ) {
-
-					this.input.val(this.input.val().replace('-', ''));
-
-					/* TODO - Keep de carret position */
-
-					e.preventDefault();
-				}
-				// Not numeric handle
-				else if (!keysAllowed.contains(keyCode)) {
-					e.preventDefault();
-				}				
+				console.log('onkeydown=' + keyCode);	
 			},
 
 			onKeyup: function(e) {
+
+				var keyCode = e.which || e.keyCode;
+			
+				// Detect ctrl + v
+				if (e.ctrlKey && keyCode === 86) {
+									
+ 					var inputValue = this.input.val();
+					var sign = '';
+			
+ 					if (inputValue.indexOf('-') === 0) {
+						sign = '-';
+ 					}
+					
+					var dsPatt = new RegExp("[\\" + this.options.decimalSeparator + "]", "g");
+
+					// Remove decimal separator 
+					var count = (inputValue.match(dsPatt, "g") || []).length
+
+					while (count > 1) {
+						inputValue = inputValue.replace(this.options.decimalSeparator, '');
+						count--;
+					}						
+				
+					var patt = new RegExp("[^\\d\\" + this.options.decimalSeparator + "]", "g");
+
+					inputValue = sign + inputValue.replace(patt, '');
+					
+					console.log('paste=' + inputValue);
+					
+					this.input.val(inputValue);
+				}
 				
 				console.log('keyup=' + e.which || e.keyCode)
+				 								
+				this.updateModel();
+			},
 
-				var val = this.input.val();
+			onBlur: function(e) {
+
+				// Format number
+				var val = this.input.val(),
+					valueAsNumber = this.options.decimalPrecision !== null ? parseFloat(val).toFixed(this.options.decimalPrecision) : parseInt(val);
 				
-				this.setValue(this.options.decimalPrecision !== null ? parseFloat(val) : parseInt(val));
+				this.updateView(valueAsNumber);
+				this.updateModel();
+			},
+
+			updateView: function(value) {
+
+				if (value === undefined || isNaN(value)) {
+					value = null;
+				}
+					
+				if (value === null || value === undefined || isNaN(value)) {
+					this.input.val('');
+				}
+				else {
+					this.input.val(value.toString());
+				}
+			},
+
+			updateModel: function() {
+
+				var val = this.input.val(),
+					iof = val.indexOf(this.options.decimalSeparator),
+					fix = iof !== -1 ? val.substr(iof).length -1 : 0,
+					valueAsNumber = this.options.decimalPrecision !== null ? parseFloat(val).toFixed(fix) : parseInt(val);
+
+				if (isNaN(valueAsNumber)) {
+					valueAsNumber = null;
+				}
+
+				var parseValue = $parse(this.options.value);
+				parseValue.assign(this.scope, valueAsNumber);
+
+				this.scope.safeApply();
+			},
+
+			getValue: function() {
+				return this.scope.$eval(this.options.value);
 			}
 		});
 
