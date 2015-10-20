@@ -23,7 +23,7 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-fieldset legend="Integer">
 	<pui-inputnumber id="inInt" value="inputNumberCtrl.integer"></pui-inputnumber> Controller: ((inputNumberCtrl.integer))
 </pui-fieldset>
@@ -39,10 +39,10 @@
 <pui-fieldset legend="Percent" style="margin-top: 10px">
 	<pui-inputnumber id="inPercent" type="percent" value="inputNumberCtrl.percent"></pui-inputnumber> Controller: ((inputNumberCtrl.percent))
 </pui-fieldset>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 function InputNumberController() {
 	
 	var vm = this;
@@ -52,7 +52,7 @@ function InputNumberController() {
 	vm.percent = 6.38;
 	vm.currency = 3567.25;
 }
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

@@ -15,23 +15,23 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
         	<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html" >
+				<demo-source language="html">
 <pui-panel id="options" toggleable="true" closable="true" header="Callback" onToggle="onToggle" onClose="onClose">
 	The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
 	...
 	but given to ruthless violence whenever anything stands against the good of the family.
 </pui-panel>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.onToggle = function (panel) {
 	alert('User toggled the panel to ' + (panel.isCollapsed() ? 'collapse' : 'expand') + '!');
 };
 $scope.onClose = function(panel) {
 	alert('user closed the panel');
 };
- 				</pre>
+ 				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

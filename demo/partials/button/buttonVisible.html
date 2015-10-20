@@ -15,16 +15,16 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html" >
+				<demo-source language="html">
 <pui-button id="visible" action="showMessage('Initially hidden button clicked')" value="Now visible" visible="buttonVisible"></pui-button>
 <br/>
 <br/>
 <pui-button action="showButton()" ng-hide="buttonVisible" id="showBtn" value="Show Button"></pui-button>		
 <pui-button action="hideButton()" ng-show="buttonVisible" id="hideBtn" value="Hide Button"></pui-button>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.showMessage = function(msg) {
 	alert(msg);
 };
@@ -38,7 +38,7 @@ $scope.enableButton = function() {
 $scope.disableButton = function() {
 	$scope.buttonDisabled = true;
 };
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

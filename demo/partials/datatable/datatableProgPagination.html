@@ -20,7 +20,7 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-datatable id="progPaginatorSelection" 
 	binding="progPaginationBind"
 	paginator="true"
@@ -33,13 +33,13 @@
 Goto page: 
 <pui-inputText value="progPaginationPage" id="newSelectedPage"></pui-inputText> (0-based) 
 <pui-button actionListener="progPaginationBind.goToPage(progPaginationPage)" id="setPage" value="Go" ></pui-button>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.progPaginationBind = null;
 $scope.progPaginationPage = 0; 
-				</pre>
+				</demo-source>
         	</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

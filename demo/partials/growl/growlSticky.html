@@ -9,13 +9,13 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-button id="btnInfo" action="showStickyMessage()" value="Info"></pui-button>
 <pui-button id="btnReset" action="resetGrowlOptions()" value="Reset options"></pui-button>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.showStickyMessage = function() {
 	puiGrowl.setSticky(true);
 	puiGrowl.showInfoMessage('Message', "Message remains until close icon clicked or other message requested");
@@ -25,7 +25,7 @@ $scope.resetGrowlOptions = function() {
 	puiGrowl.setSticky(false);
 }
 
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

@@ -12,21 +12,21 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="html" id="d_html">
-				<pre pretty-print="html" >
+				<demo-source language="html">
 <pui-button id="dynamic" action="showMessage('Button variable title clicked')" value="{{buttonTitle}}"></pui-button>
 <br/>
 <br/>
 <input id="title" type="text" ng-model="buttonTitle" />
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="controller" id="d_script">
-				<pre pretty-print="js" >
+				<demo-source language="javascript">
 $scope.showMessage = function(msg) {
 	alert(msg);
 };
 
 $scope.buttonTitle = 'change me';
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

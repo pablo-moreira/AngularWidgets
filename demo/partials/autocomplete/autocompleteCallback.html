@@ -22,7 +22,7 @@
 	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-fieldset legend="Single">		
 	<pui-autocomplete id="acEvtSingle" value="country" completeMethod="countries" onItemSelect="onItemSelect"></pui-autocomplete>
 	<br/>
@@ -36,10 +36,10 @@
 	<br/>
 	Controller value is: ((countriesSelected))
 </pui-fieldset>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.country = null;
 $scope.countrySelecteds = [];
 $scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
@@ -51,7 +51,7 @@ $scope.onItemSelect = function(item) {
 $scope.onItemRemove = function(item) {
 	alert(item + ' removed')
 };
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

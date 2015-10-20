@@ -42,17 +42,23 @@ demo.config(['$routeProvider', 'widgets', function($routeProvider, widgets) {
     $routeProvider.otherwise({ redirectTo: '/main' });
 }]);
 
-demo.directive('prettyPrint', function () {
+demo.directive('demoSource', function () {
     return {
-        restrict: 'A',
-        priority: 1001,
+        restrict: 'E',
+        priority: 10000,
         terminal: true,
         compile: function (element, attrs) {
-        	element.removeAttr('pretty-print');
-            var content = element.html();
+        	
+        	var content = element.html();
             var encoded = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
                 .replace(/_[a-z]/g, function(s) {return s.charAt(1).toUpperCase()});
-            element.html(prettyPrintOne(encoded, attrs.prettyPrint));
+            
+        	var pre = angular.element('<pre class="' + attrs.language  + '"><code>' + encoded + '</code></pre>');
+        	
+        	element.html('');
+        	element.append(pre);
+
+            hljs.highlightBlock(pre[0]);
         }
     }
 });

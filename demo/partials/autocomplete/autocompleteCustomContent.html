@@ -48,7 +48,7 @@
 	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-fieldset legend="Single">
 	<pui-autocomplete 
 		id="acCustomContentSingle"
@@ -89,15 +89,15 @@
 	<br/>
 	Controller value is: <pre ng-show="carSelecteds != null">{ {carSelecteds | json}}</pre>
 </pui-fieldset>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.car = null;
 $scope.carSelecteds = [];
 $scope.httpDataLoaderSingle = new AngularWidgets.HttpDataLoader({ url: 'json/cars.json' });
 $scope.httpDataLoaderMultiple = new AngularWidgets.HttpDataLoader({ url: 'json/cars.json' });         
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

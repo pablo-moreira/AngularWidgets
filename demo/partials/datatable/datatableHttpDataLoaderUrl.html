@@ -24,7 +24,7 @@
 		<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-datatable		 
 	item="car" 
 	itemId="vin"
@@ -39,10 +39,10 @@
 	<pui-column value="year" headerText="Year" sortBy="year"></pui-column>			
 	<pui-column value="color" headerText="Color" sortBy="color"></pui-column>
 </pui-datatable>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.onRowSelect = function(event, data) {
 	puiGrowl.showInfoMessage('Row selection', 'Selected a ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
 }
@@ -51,7 +51,7 @@ $scope.onRowUnselect = function(event, data) {
 		puiGrowl.showInfoMessage('Row deselection', 'deselected the ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
 	}
 }
-				</pre>
+				</demo-source>
         	</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

@@ -10,14 +10,14 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-button id="infoBtn" action="showInfoGrowl()" value="Info"></pui-button>
 <pui-button id="errorBtn" action="showErrorGrowl()" value="Error"></pui-button>
 <pui-button id="warnBtn" action="showWarnGrowl()" value="Warn"></pui-button>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.showInfoGrowl = function() {
 	puiGrowl.showInfoMessage('Info message title', "Info detail message");
 };
@@ -29,7 +29,7 @@ $scope.showErrorGrowl = function() {
 $scope.showWarnGrowl = function() {
 	puiGrowl.showWarnMessage('Warn message title', "Warn detail message");
 }
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

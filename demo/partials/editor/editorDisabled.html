@@ -12,17 +12,17 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-editor value="editorCtrl.text" disabled="editorCtrl.disabled"></pui-editor>
 
 <pui-button action="enableButton()" ng-show="buttonDisabled" id="enableBtn" value="Enable button"></pui-button>
 <pui-button action="disableButton()" ng-hide="buttonDisabled" id="disableBtn" value="Disable button"></pui-button>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

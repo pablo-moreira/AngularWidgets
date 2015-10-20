@@ -19,7 +19,7 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-top:20px">
     	<pui-tabview id="sourceTabs" >
         	<pui-tab header="HTML" id="d_html">
-            	<pre pretty-print="html">
+            	<demo-source language="html">
 <pui-fieldset legend="Programmatic" binding="fieldsetBind" toggleable="true">
 	The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
     ...
@@ -28,12 +28,12 @@
 <button id="toggleBtn" ng-click="fieldsetBind.toggle()" type="button">Toggle</button>
 <button id="collapseBtn" ng-click="fieldsetBind.collapse()" type="button" ng-hide="fieldsetBind.isCollapsed()" >Collapse</button>
 <button id="expandBtn" ng-click="fieldsetBind.expand()" type="button" ng-show="fieldsetBind.isCollapsed()">Expand</button>
-				</pre>
+				</demo-source>
 			</pui-tab>
             <pui-tab header="Controller" id="d_script">
-            	<pre pretty-print="js" >
+            	<demo-source language="javascript">
 $scope.fieldsetBind;
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

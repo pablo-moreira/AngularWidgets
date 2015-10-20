@@ -35,7 +35,7 @@
 	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-fieldset legend="Single">		
 	<pui-autocomplete id="acCustomSingle" value="car" completeMethod="cars" item="car" itemLabel="brand" dropdown="true" paginator="true" rows="25">
 		<pui-column headerText="Vin" value="vin"></pui-column>
@@ -63,14 +63,14 @@
 	<br/>
 	Controller value is: <pre ng-show="carSelecteds != null">((carSelecteds | json))</pre>
 </pui-fieldset>	
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.car = null;
 $scope.carSelecteds = [];
 $scope.cars = [ {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'}, ... ];          
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

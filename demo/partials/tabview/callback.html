@@ -34,7 +34,7 @@
 	<pui-fieldset id="Source" lzgznd="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">        
+				<demo-source language="html">        
 <pui-tabview id="callback" ontabchange="onTabChange" ontabclose="onTabClose" closeable="true">
 	<pui-tab header="Tab 1" id="tab1">
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved son Michael has
@@ -52,17 +52,17 @@
         nearly succeeded in keeping his promise that his family would one day be completely legitimate.
     </pui-tab>
 </pui-tabview>	
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js" >
+				<demo-source language="javascript">
 $scope.onTabChange = function (tabView, index) {
 	alert('Tab with index '+ index + ' selected');
 };
 $scope.onTabClose = function (tabView, index) {
 	alert('Tab with index ' + index + ' is close - Tabs remains: ' + tabView.getLength());
 };
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

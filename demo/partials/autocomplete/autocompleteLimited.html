@@ -11,17 +11,17 @@
 	<pui-fieldset legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
                <pui-tab header="HTML" id="d_html">
-					<pre pretty-print="html">
+					<demo-source language="html">
 <pui-autocomplete id="limit" value="country" forceSelection="true" completeMethod="countries"></pui-autocomplete>
 <br/>
 Controller value is : {{country}}
-				    </pre>
+				    </demo-source>
                </pui-tab>
                <pui-tab header="Controller" id="d_script">
-					<pre pretty-print="js">
+					<demo-source language="javascript">
 $scope.country = null;
 $scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
-				   </pre>
+				   </demo-source>
 				</pui-tab>
 			</pui-tabview>
 	</pui-fieldset>

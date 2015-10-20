@@ -3,7 +3,11 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetTabview', ['$interpolate', '$compile', 'widgetBase', 'widgetTab', 'contentLoadingService', function($interpolate, $compile, widgetBase, widgetTab, contentLoadingService) {
+    angular.module('pje.ui')
+    	.factory('widgetTabview', ['$interpolate', '$compile', 'widgetBase', 'widgetTab', TabviewWidget ])
+		.directive('puiTabview', ['widgetTabview', TabviewDirective ]);
+
+	function TabviewWidget($interpolate, $compile, widgetBase, widgetTab) {
 
         var widget = {};
                 
@@ -13,7 +17,7 @@
         				  '</div>';
 
         widget.buildWidget = function(scope, element, attrs) {
-        	return new Tabview(scope, element, attrs);
+        	return new widget.Tabview(scope, element, attrs);
         };
 
         widget.create = function(scope, container, options) {
@@ -25,13 +29,18 @@
         	return new Tabview(scope, element, options);
         };
                 
-        function Tabview(scope, element, options) {
+        widget.Tabview = widgetBase.createWidget({
         	
-			this.constructor = function (scope, element, options) {
-				
-				this.element = element;
-				this.scope = scope;
+        	optionsDefault: {
+	                activeIndex: 0,
+	                orientation: 'top',
+	                closeable: false,
+	                onTabChange : null,
+	                onTabClose : null,
+	       	},
 
+			init: function (options) {
+				
 				this.navContainer = this.element.childrenSelector('ul');
 	            this.panelContainer = this.element.childrenSelector('div');
 
@@ -43,9 +52,9 @@
 				var $this = this;
 				
 				if (this.element.attr('activeIndex')) {
-					widgetBase.watchExpressionIfNecessary(this.scope, this.element.attr('activeindex'), function(value) {
+					widgetBase.watchExpression(this.scope, this.element.attr('activeindex'), function(value) {
 						$this.selectTab(value);
-					})
+					});
 				}
 				
 				for (var i=0, t=this.tabs.length; i<t; i++) {
@@ -68,14 +77,10 @@
 						tab.closer = angular.element('<span class="ui-icon ui-icon-close"></span>')
 							.appendTo(tab.nav);
 					}
-										
-					var content = tab.element.contents();
-
+								
                     tab.content = angular.element('<div class="pui-tabview-panel ui-widget-content ui-corner-bottom ui-helper-hidden"></div>')
 						.appendTo(this.panelContainer)
-						.append($compile(content)(this.scope));
-						
-					delete(tab.element);
+						.append(tab.transclude());
 				}
 				
 				this._selectTab(this.options.activeIndex);
@@ -83,35 +88,26 @@
 				this.bindEvents();
 				
 	            widgetBase.createBindAndAssignIfNecessary(this, "selectTab,closeTab,getActiveIndex,getLength");
-			};
+			},
 			
-	        this.determineOptions = function (options) {
-        		
-	        	this.options = {
-	                activeIndex: 0,
-	                orientation: 'top',
-	                closeable: false,
-	                onTabChange : null,
-	                onTabClose : null,
-	        	};
-	        		        	
-	        	widgetBase.determineOptions(this.scope, this.options, options, ['onTabChange','onTabClose']);
-			};
+	        determineOptions: function (options) {        			        		        		        	
+	        	this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onTabChange','onTabClose']);
+			},
 			
-			this.determineTransclude = function() {
+			determineTransclude: function() {
 	        	this.tabs = widgetTab.determineOptions(this.panelContainer);
-	        };
+	        },
 	        
-	        this.selectTab = function (index) {
+	        selectTab: function(index) {
 	        	
 	        	if (this.options.activeIndex == index) {
 	        		return;
 	        	}
 	        	
 	        	this._selectTab(index);
-	        }
+	        },
 	        
-	        this._selectTab = function(index) {
+	        _selectTab: function(index) {
 	        	
 	        	if (index in this.tabs) {
 	        	
@@ -162,9 +158,9 @@
 		            
 		            this.activeTab = newTab;
 	        	}
-	        };
+	        },
 	        
-	        this.showNewTabWithEffect = function (newTab) {
+	        showNewTabWithEffect: function (newTab) {
 	        	
 	        	var $this = this;
 	        	
@@ -176,14 +172,14 @@
 	            		$this.options.onTabChange($this.bindInstance, $this.options.activeIndex);
 	            	}
                 });
-	        };
+	        },
 	        
-	        this.showNewTabWithoutEffect = function (newTab) {
+	        showNewTabWithoutEffect: function (newTab) {
                 newTab.nav.removeClass('ui-state-hover').addClass('ap-tabview-selected ui-state-active');
                 newTab.content.show();	        	
-	        }
+	        },
 	        
-	        this.getTabIndex = function(tab) {
+	        getTabIndex: function(tab) {
 	        	
 	        	for (var i=0; i<this.tabs.length; i++) {
 	        		if (tab === this.tabs[i]) {
@@ -192,9 +188,9 @@
 	        	}
 	        	
 	        	return -1;
-	        }
+	        },
 	        
-	        this.bindEvents = function() {
+	        bindEvents: function() {
 	        	
 	        	var $this = this;
 	        	
@@ -240,9 +236,9 @@
 						}(tab));
 	                }	                
 	            }
-	        };
+	        },
 	        
-	        this.closeTab = function(index) {    
+	        closeTab: function(index) {    
 	            
 	        	if (index in this.tabs) {	
 	        		
@@ -266,44 +262,41 @@
 	        		
 	        		this.options.onTabClose && this.options.onTabClose(this.bindInstance, index);	        		
 	        	}
-	        };
+	        },
 	        
-	        this.getLength = function() {
+	        getLength: function() {
 	            return this.tabs.length;
-	        };
+	        },
 
-	        this.getActiveIndex = function() {
+	        getActiveIndex: function() {
 	            return this.options.activeIndex;
-	        };
+	        },
 	        
-	        this.markAsLoaded = function(panel) {
+	        markAsLoaded: function(panel) {
 	            panel.data('loaded', true);
-	        };
+	        },
 
-	        this.isLoaded = function(panel) {
+	        isLoaded: function(panel) {
 	            return panel.data('loaded') === true;
-	        };
+	        },
 
-	        this.disable = function(index) {
+	        disable: function(index) {
 	        	if (index in this.tabs) {
 	        		this.tabs[index].nav.addClass('ui-state-disabled');	
 	        	}	        	
-	        };
+	        },
 
-	        this.enable = function(index) {
+	        enable: function(index) {
 	        	if (index in this.tabs){
 	        		this.navContainer.children().eq(index).removeClass('ui-state-disabled');	
 	        	}
-	        };	
-	        
-			
-			this.constructor(scope, element, options);
-        };
+	        }
+        });
    
         return widget;
-    }]);
-    
-	angular.module('pje.ui').directive('puiTabview', ['widgetTabview', function (widgetTabview) {
+    };
+
+    function TabviewDirective(widgetTabview) {
 		return {
 			restrict: 'E',
 			replace: true,
@@ -314,20 +307,6 @@
 			},			
 		    template: widgetTabview.template
 		 };
-	}]);
-
-    angular.module('pje.ui').factory('contentLoadingService', ['$http', '$templateCache', '$log', function ($http, $templateCache, $log) {
-        return {
-            loadHtmlContents: function (url, callback) {
-                $http.get(url, {cache: $templateCache}).success(function (response) {
-                    callback(response);
-                }).error(function () {
-                        $log.error('Error loading file ' + url);
-                    });
-
-            }
-
-        };
-    }]);
-
+	}
+    
 }(window, document));

@@ -10,12 +10,12 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-button value="Show Confirmation" action="dialogCtrl.showConfirmDialog()"></pui-button>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 function DialogController(puiGrowl,$puiDialog) {
 	
 	var vm = this;
@@ -33,7 +33,7 @@ function DialogController(puiGrowl,$puiDialog) {
 		});
 	}	
 }
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

@@ -15,7 +15,7 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-datatable id="paginator" 
 	items="fixedData" 
 	itemId="vin"
@@ -24,10 +24,10 @@
 	selectionMode="single"
 	onRowSelect="onRowSelect">
 </pui-datatable>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.fixedData =  [
     {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
     {'brand':'Audi','year': 2011, 'color':'Black', 'vin':'gwregre345'},
@@ -44,7 +44,7 @@ $scope.fixedData =  [
 $scope.onRowSelect = function(event, data) {
 	puiGrowl.showInfoMessage('Row selection', 'Selected a ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
 }
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

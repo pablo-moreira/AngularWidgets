@@ -11,18 +11,18 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="html" id="d_html">
-				<pre pretty-print="html" >
+				<demo-source language="html">
 <pui-autocomplete id="default" value="country" complete_method="countries" dropdown="true" scroll_height="200"></pui-autocomplete>
 <br/>
 <br/>
 Controller value is : {{country}}
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="controller" id="d_script">
-				<pre pretty-print="js" >
+				<demo-source language="js">
 $scope.country = null;
 $scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

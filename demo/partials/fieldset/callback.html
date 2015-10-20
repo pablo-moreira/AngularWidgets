@@ -14,20 +14,20 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-top:20px">
     	<pui-tabview id="sourceTabs" >
         	<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html" >
+				<demo-source language="html">
 <pui-fieldset id="callback" legend="Callback" ontoggle="onToggle" toggleable="true">
     The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
     ...
     but given to ruthless violence whenever anything stands against the good of the family.
 </pui-fieldset>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.onToggle = function (e, fieldset) {
 	alert('User toggled the fieldset to ' + (fieldset.isCollapsed() ? 'collapse' : 'expand') + '!');            
 };
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

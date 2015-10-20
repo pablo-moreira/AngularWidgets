@@ -23,17 +23,18 @@
 		<link rel="stylesheet" href="../src/css/panel/panel.css">
 		<link rel="stylesheet" href="../src/css/tabview/tabview.css">
 	    
-	  	<link rel="stylesheet" href="css/app.css">
-	  	<link rel="stylesheet" href="css/prettify/prettify.css">
-	  	<link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css">
+	  	<link rel="stylesheet" href="css/app.css">	  	
+	  	<link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css">  	
 	  
 	    <script src="../node_modules/angular/angular.js"></script>
-	    <script src="../node_modules/angular-route/angular-route.js"></script>    
+	    <script src="node_modules/angular-route/angular-route.js"></script>
 	    <script src="../node_modules/angular-animate/angular-animate.js"></script>
 	    <script src="../node_modules/tinymce/tinymce.min.js"></script>
-
-		<script src="js/prettify/prettify.js"></script>
 		
+		<link rel="stylesheet" href="node_modules/highlight.js/styles/github.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+
 		<!-- Components -->
 	    <script src="../src/js/core/core.js"></script>
 		<script src="../src/js/autocomplete/autocomplete.js"></script>
@@ -87,11 +88,11 @@
 				</li>
 			</ul>
 		</nav>
-	
+
 		<div id="content">
 	    	<div class="ng-cloak" ng-cloak ng-view></div>    	
 		</div>
-		
+
 	    <!-- <footer>
 			Demo running on AngularJS version {{angularVersion.full}} aka {{angularVersion.codeName}}
 		</footer> -->

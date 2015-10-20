@@ -18,7 +18,7 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-autocomplete 
 	id="multiple" 
 	value="selectedsCountries" 
@@ -29,13 +29,13 @@
 <br/>
 	
 Selected values are : ((selectedsCountries))
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.selectedsCountries = [];
 $scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

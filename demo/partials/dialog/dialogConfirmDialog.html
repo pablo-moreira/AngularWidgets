@@ -11,14 +11,14 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-confirmdialog binding="dialogCtrl.confirmDialog" title="Destroy the World" message="Are you sure?" yesAction="dialogCtrl.yesAction()" noAction="dialogCtrl.noAction()" dismissAction="dialogCtrl.dismissAction()"></pui-confirmdialog>
 
 <pui-button value="Destroy the World" action="dialogCtrl.confirmDialog.show()"></pui-button>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 function DialogController(puiGrowl) {
 	
 	var vm = this;
@@ -37,7 +37,7 @@ function DialogController(puiGrowl) {
 		puiGrowl.showInfoMessage('Dismiss!', 'Ops...');
 	};
 }
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

@@ -12,16 +12,16 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+				<demo-source language="html">
 <pui-datatable options="multiSelectTableData">
 	<pui-column value="brand"></pui-column>
 	<pui-column value="year"></pui-column>
 	<pui-column value="color"></pui-column>
 </pui-datatable>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.fixedData =  [
     {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
     {'brand':'Audi','year': 2011, 'color':'Black', 'vin':'gwregre345'},
@@ -48,7 +48,7 @@ $scope.multiSelectTableData = {
         }
     }
 };
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

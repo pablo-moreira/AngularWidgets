@@ -11,14 +11,14 @@
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html" >
+				<demo-source language="html">
 <pui-autocomplete id="function"  value="value" complete_method="autoCompleteMethod"></pui-autocomplete>
 <br/>
 Controller value is : {{value}}
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js" >
+				<demo-source language="javascript">
 $scope.autoCompleteMethod = function (request, response) {
     
 	var data = [];
@@ -31,7 +31,7 @@ $scope.autoCompleteMethod = function (request, response) {
     
 	response(data);
 };
-				</pre>
+				</demo-source>
 			</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

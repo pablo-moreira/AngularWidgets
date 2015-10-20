@@ -7,14 +7,14 @@
     	
     	widget.determineOptions = function(container) {
     		
-    		var elemTabs = container.find('pui-tab'),
+    		var puiTabs = angular.element(container).findAllSelector('pui-tab'),
             	tabs = [];
             
-            angular.forEach(elemTabs, function(elemTab) {
-            	this.push(angular.element(elemTab).data('options'));
+            angular.forEach(puiTabs, function(puiTab) {
+            	this.push(angular.element(puiTab).data('options'));
             }, tabs);
             
-            elemTabs.remove();
+            puiTabs.remove();
 
             return tabs;
     	}
@@ -24,13 +24,15 @@
     .directive('puiTab', function () {
         return {
             restrict: 'E',
-            priority: 5,
-            link : function (scope, element, attrs) {
+            priority: 1000,
+            transclude: true,
+            link : function (scope, element, attrs, ctrl, $transclude) {
 
-            	var options = {
-            		header 		: attrs.header,
+            	var options = {            		
+            		scope		: scope,
             		element		: element,
-            		scope		: scope
+            		header 		: attrs.header,
+            		transclude  : $transclude
             	};
             	
                 element.data("options", options);

@@ -25,8 +25,8 @@
 	
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">
-				<pre pretty-print="html">
+			<pui-tab header="HTML" id="d_html">				
+				<demo-source language="html">
 <pui-datatable 
 	items="fixedData" 
 	item="car">	
@@ -45,14 +45,14 @@
 		<pui-button action="showInfo(car)" value="Show Info"></pui-button>
 	</pui-column>
 </pui-datatable>
-				</pre>
+				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js">
+				<demo-source language="javascript">
 $scope.showInfo = function (car) {
 	puiGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
 };
-				</pre>
+				</demo-source>
         	</pui-tab>
 		</pui-tabview>
 	</pui-fieldset>

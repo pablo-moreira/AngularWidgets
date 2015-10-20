@@ -18,7 +18,7 @@
 		<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
             <pui-tabview id="sourceTabs" >
                 <pui-panel header="html" id="d_html">
-						<pre pretty-print="html" >
+						<demo-source language="html">
     <div id="repeat" pui-tabview="includeList">
     </div>
     data field1: {{distributedData.field1}} <br/>
@@ -26,11 +26,11 @@
     data field3: {{distributedData.field3}} <br/>
     <button type="button" ng-click="addPanel()">Add panel</button>
 
-						</pre>
+						</demo-source>
 
                 </pui-panel>
                 <pui-panel header="controller" id="d_script">
-                        <pre pretty-print="js" >
+                        <demo-source language="javascript">
     $scope.includeList = ["partials/puiTabview/include/panel1.html"
        , "partials/puiTabview/include/panel2.html"];
 
@@ -43,7 +43,7 @@
     $scope.addPanel = function() {
         $scope.includeList.push("partials/puiTabview/include/panel3.html");
     }
-                        </pre>
+                        </demo-source>
 					</pui-panel>
 			</pui-tabview>
 		</pui-fieldset>
