@@ -9,7 +9,7 @@
             
             var widgetDatatable = {};
             
-            widgetDatatable.template = '<div class="pui-datatable ui-widget"><div class="pui-datatable-tablewrapper"><div ng-transclude></div><table><thead></thead><tbody class="pui-datatable-data"></tbody></table></div></div>';
+            widgetDatatable.template = '<div class="pui-datatable ui-widget pui-datatable-flip-scroll"><div class="pui-datatable-tablewrapper"><div ng-transclude></div><table><thead class="pui-datatable-data-head"></thead><tbody class="pui-datatable-data"></tbody></table></div></div>';
             
             widgetDatatable.buildWidget = function(scope, element, attrs) {
                 return new widgetDatatable.DataTable(scope, element, attrs);
@@ -111,8 +111,8 @@
                     for (var i = 0, t = this.columns.length; i < t; i++) {
                         
                         var column = this.columns[i], 
-                        columnInTable = angular.element('<table><tbody><tr><td/></tr></tbody></table>'), 
-                        td = columnInTable.findAllSelector('td');
+                        td = angular.element('<table><tbody><tr><td/></tr></tbody></table>').findAllSelector('td');
+                        td.attr('data-title', column.headerText || column.field);
                         
                         if (column.contents) {
                             td.append(column.contents);
@@ -172,26 +172,31 @@
                     if (this.columns) {
                         
                         var $this = this;
+
+                        var tr = angular.element('<table><thead><tr></tr></thead></table>')
+                                    .findAllSelector('tr');
                         
                         angular.forEach(this.columns, function(column) {
 
                             // Elements are created as child of div tag. And if not valid html, it is not created.
-                            var headerInTable = angular.element('<table><thead><th class="ui-state-default"/></thead></table>'), 
-                            header = headerInTable.findAllSelector('th');
+                            var th = angular.element('<table><thead><th class="ui-state-default"/></thead></table>')
+                                    .findAllSelector('th');
                             
-                            header.data('sortBy', column.sortBy);
+                            th.data('sortBy', column.sortBy);
                             
-                            $this.thead.append(header);
+                            tr.append(th);
                             
                             if (column.headerText) {
-                                header.text(column.headerText);
+                                th.text(column.headerText);
                             }
                             
                             if (column.sortable) {
-                                header.addClass('pui-sortable-column').append('<span class="pui-sortable-column-icon fa fa-fw fa-sort"></span>');
-                                header.data('order', 1);
+                                th.addClass('pui-sortable-column').append('<span class="pui-sortable-column-icon fa fa-fw fa-sort"></span>');
+                                th.data('order', 1);
                             }
                         });
+
+                        this.thead.append(tr);
                     }
                 };
                 

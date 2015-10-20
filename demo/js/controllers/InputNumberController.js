@@ -8,9 +8,10 @@
 
         var vm = this;
         
-        vm.integer = 350;
-        vm.thousands = 1000.00;
-        vm.decimal = 150.35;        
+        vm.integer = 1000000;
+        vm.float = 1350.25;
+        vm.percent = 6.38;
+        vm.currency = 3567.25;
 
         vm.fieldDisabled = true;
         

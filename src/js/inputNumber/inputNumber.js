@@ -130,15 +130,6 @@
 			}
 		}
 
-		//         var linkFn = function (scope, element, attrs) {
-		//             var options = widgetInputText.determineOptions(scope, element, attrs),
-		//                 inputData = widgetInputText.buildWidget(element, attrs, options);
-
-		//             widgetInputText.addBehaviour(scope, inputData);
-		//             widgetInputText.registerEvents(inputData);
-
-		//         };
-
 		var widgetInputText = {},
 			eventsHelper = {},
 			widget = {};
@@ -154,12 +145,12 @@
 		widget.InputNumber = widgetBase.createWidget({
 
 			optionsDefault: {
-				type: 'currency', // integer (default), float, currency, percent
+				type: 'integer', // integer (default), float, currency, percent
 				locale: null,
 				disabled: false,
 				readonly: false,
 				symbol: null, // locale for currency and % for percent
-				symbolLocation: 'before', // before (default) or after
+				symbolLocation: 'prefix', // prefix (default) or suffix
 				groupSeparator: null, // "locale"
 				decimalSeparator: null, // "locale"
 				decimalPrecision: null, 
@@ -167,7 +158,8 @@
 			},
 
 			init: function(options) {
-
+				
+				this.value = null;
 				this.determineOptions(options);
 
 				widgetBase.verifyRequiredOptions(this, ['value']);
@@ -188,11 +180,11 @@
 
 			renderSymbol: function() {
 				
-				if (!this.options.symbolLocation !== 'none') {
+				if (this.options.symbol !== null && this.options.symbolLocation !== null) {
 
 					this.symbolContainer = angular.element('<span class="pui-inputnumber-symbol">' + this.options.symbol + '</span>');
 
-					if (this.options.symbolLocation === 'before') {
+					if (this.options.symbolLocation === 'prefix') {
 						this.element.prepend(this.symbolContainer);
 					}
 					else {
@@ -210,30 +202,22 @@
 				optionsDefault.decimalSeparator = locale.number.decimalSeparator;
 				optionsDefault.groupSeparator = locale.number.groupSeparator;
 
-				if (type === 'currency') {
-					optionsDefault.symbol = locale.number.currencySymbol;
+				if (type === 'float') {
+					optionsDefault.decimalPrecision = 2;
+				}			
+				else if (type === 'currency') {
+					optionsDefault.symbol = locale.number.currencySymbol;					
 					optionsDefault.decimalPrecision = 2;
 				}
 				else if (type === 'percent') {
 					optionsDefault.symbol = '%';
+					optionsDefault.decimalPrecision = 2;
 				}
-				else if (type === 'float') {
 
-				}
-			
 				this.options = widgetBase.determineOptions(this.scope, optionsDefault, options, [], ['disabled']);
 
 				if (this.options.decimalPrecision > 0) {
-					
 					this.options.allowDecimal = true;
-					
-					/* TODO */
-					var keyCodes = {
-						','	: [widgetBase.keyCode.COMMA],
-						'.' : [widgetBase.keyCode.DOT, widgetBase.keyCode.NUMPAD_DOT],
-					}
-					
-					this.options.decimalSeparatorKeyCodes = keyCodes[this.options.decimalSeparator];
 				}
 			},
 
@@ -282,6 +266,9 @@
 				this.input.bind('keyup', function(e) {
 					$this.onKeyup(e);
 				});
+				this.input.bind('focus', function(e) {
+					$this.onFocus(e);
+				});			
 				this.input.bind('blur', function(e) {
 					$this.onBlur(e);
 				});
@@ -346,7 +333,7 @@
 
  					setCaretPosition(this.input[0], --caretPosition);
 
- 					preventDefaultd(e);
+ 					preventDefault(e);
  				}
  				// Not numeric handle
 				else if (/[^0-9]/.test(char)) {
@@ -373,150 +360,127 @@
 
 			onKeyup: function(e) {
 
-				var keyCode = e.which || e.keyCode;
+				var keyCode = e.which || e.keyCode,
+					KC = widgetBase.keyCode,
+					keysToSkip = KC.ARROWS.concat([KC.HOME,KC.END]);
+
+				console.log('keyup=' + e.which || e.keyCode)
 			
 				// Detect ctrl + v
 				if (e.ctrlKey && keyCode === 86) {
 									
- 					var inputValue = this.input.val();
-					var sign = '';
-			
- 					if (inputValue.indexOf('-') === 0) {
-						sign = '-';
- 					}
-					
-					var dsPatt = new RegExp("[\\" + this.options.decimalSeparator + "]", "g");
+ 					var value = this.input.val();
+										
+					console.log('paste=' + value);
 
-					// Remove decimal separator 
-					var count = (inputValue.match(dsPatt, "g") || []).length
-
-					while (count > 1) {
-						inputValue = inputValue.replace(this.options.decimalSeparator, '');
-						count--;
-					}						
-				
-					var patt = new RegExp("[^\\d\\" + this.options.decimalSeparator + "]", "g");
-
-					inputValue = sign + inputValue.replace(patt, '');
-					
-					console.log('paste=' + inputValue);
-					
-					this.input.val(inputValue);
+					this.input.val(this.clearValue(value));
 				}
+				else if (keysToSkip.contains(keyCode)) {
+					preventDefault(e);
+				}
+				else {
+					this.updateModel(this.getInputValueAsNumber());
+				}				
+			},
+
+			clearValue: function(value) {
+
+				var sign = '';
+			
+				if (value.indexOf('-') === 0) {
+					sign = '-';
+				}
+					
+				var dsPatt = new RegExp("[\\" + this.options.decimalSeparator + "]", "g");
+
+				// Remove decimal separator 
+				var count = (value.match(dsPatt, "g") || []).length
+
+				while (count > 1) {
+					value = value.replace(this.options.decimalSeparator, '');
+					count--;
+				}						
 				
-				console.log('keyup=' + e.which || e.keyCode)
-				 								
-				this.updateModel();
+				var patt = new RegExp("[^\\d\\" + this.options.decimalSeparator + "]", "g");
+
+				value = sign + value.replace(patt, '');
+					
+				return value
 			},
 
 			onBlur: function(e) {
 
-				// Format number
-				var val = this.input.val(),
-					valueAsNumber = this.options.decimalPrecision !== null ? parseFloat(val).toFixed(this.options.decimalPrecision) : parseInt(val);
+				var	value = this.getInputValueAsNumber(this.options.decimalPrecision);
 				
-				this.updateView(valueAsNumber);
-				this.updateModel();
+				this.updateModel(value);
+				this.input.val(this.format(value, this.options.decimalPrecision, this.options.decimalSeparator, this.options.groupSeparator));
 			},
 
-			updateView: function(value) {
-
-				if (value === undefined || isNaN(value)) {
-					value = null;
-				}
-					
-				if (value === null || value === undefined || isNaN(value)) {
-					this.input.val('');
-				}
-				else {
-					this.input.val(value.toString());
-				}
-			},
-
-			updateModel: function() {
+			getInputValueAsNumber: function(decimalPrecision) {
 
 				var val = this.input.val(),
 					iof = val.indexOf(this.options.decimalSeparator),
-					fix = iof !== -1 ? val.substr(iof).length -1 : 0,
-					valueAsNumber = this.options.decimalPrecision !== null ? parseFloat(val).toFixed(fix) : parseInt(val);
+					fix = decimalPrecision || (iof !== -1 ? val.substr(iof).length -1 : 0);
+					
+				return this.options.allowDecimal ? parseFloat(val).toFixed(fix) : parseInt(val);
+			},
 
-				if (isNaN(valueAsNumber)) {
-					valueAsNumber = null;
+			onFocus: function(e) {
+				this.input.val(this.clearValue(this.input.val()));
+			},
+
+			format: function(value, dp, ds, gs){
+				
+				var n = value, 
+    				s = n < 0 ? "-" : "", 
+    				i = parseInt(value = Math.abs(+value || 0).toFixed(dp)) + "", 
+    				j = (j = i.length) > 3 ? j % 3 : 0;
+
+				return s + (j ? i.substr(0, j) + gs : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + gs) + (dp ? ds + Math.abs(n - i).toFixed(dp).slice(2) : "");
+			},
+
+			updateView: function(value) {
+					
+				if (value === undefined || isNaN(value)) {
+					value = null;
+				}
+				
+				if (this.value !== value) {
+
+					this.value = value;
+
+					if (document.activeElement === this.input[0]) {
+						this.input.val(value.toString());
+					}
+					else {
+						this.input.val(this.format(value, this.options.decimalPrecision, this.options.decimalSeparator, this.options.groupSeparator));
+					}
+				}
+			},
+
+			updateModel: function(value) {
+				
+				if (isNaN(value)) {
+					value = null;
 				}
 
-				var parseValue = $parse(this.options.value);
-				parseValue.assign(this.scope, valueAsNumber);
+				if (this.value !== value) {
 
-				this.scope.safeApply();
+					this.value = value;
+
+					var parseValue = $parse(this.options.value);
+					parseValue.assign(this.scope, this.value);
+
+					this.scope.safeApply();	
+				}				
 			},
 
 			getValue: function() {
-				return this.scope.$eval(this.options.value);
+				return this.value;
 			}
 		});
 
-		widgetInputText.enableDisable = function(inputData, value) {
-			widgetInputText.enableDisableStatic(inputData.element, value);
-		};
-
-		widgetInputText.enableDisableStatic = function(inputElement, value) {
-			if (value === true) {
-				widgetBase.resetHoverAndFocus(inputElement);
-				inputElement.addClass('ui-state-disabled');
-				inputElement.attr('disabled', 'disabled');
-
-			} else {
-				inputElement.removeClass('ui-state-disabled');
-				widgetBase.hoverAndFocus(inputElement);
-				inputElement.removeAttr('disabled');
-			}
-		};
-
-
-		widgetInputText.showHide = function(inputData, value) {
-			if (value === true) {
-				inputData.element.removeClass("pui-hidden");
-				widgetBase.showWithAnimation(inputData.element);
-			} else {
-				widgetBase.hideWithAnimation(inputData.element, function() {
-					inputData.element.addClass("pui-hidden");
-				});
-			}
-		};
-
-
-
-		// TODO this should go in the core when used by more then 1 widget.
-
-		eventsHelper.handleEnterKey = function(element, callback) {
-			element.bind("keyup", function(e) {
-				var keyCode = widgetBase.keyCode,
-					key = e.which;
-
-				if (key === keyCode.ENTER) {
-					callback();
-					e.preventDefault();
-				}
-			});
-		};
-
-		widgetInputText.registerEvents = function(inputData) {
-			var _events = inputData.element.findAllSelector('pui-event');
-			angular.forEach(_events, function(event) {
-				var puiEventData = angular.element(event).data('puiEvent');
-
-				if (puiEventData.event === 'ngEnter') {
-					eventsHelper.handleEnterKey(inputData.element, puiEventData.callback);
-				}
-
-			});
-			_events.remove(); // As events aren't graphic, they don't need to stay oin the HTML (but is is OK it not done)
-
-
-		};
-
 		return widget;
-
 	};
 
 	function InputNumberDirective(widgetInputNumber) {

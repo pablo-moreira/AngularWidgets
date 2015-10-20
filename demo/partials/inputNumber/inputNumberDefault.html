@@ -1,27 +1,57 @@
-
 <pui-panel header="puiInputText">
 
 	<section>
 		<header>Default integration</header>
+		
+		<pui-fieldset legend="Integer">
+			<pui-inputnumber id="inInt" value="inputNumberCtrl.integer"></pui-inputnumber> Controller: {{inputNumberCtrl.integer}}
+		</pui-fieldset>
+	
+		<pui-fieldset legend="Float" style="margin-top: 10px">
+			<pui-inputnumber id="inFloat" type="float" value="inputNumberCtrl.float"></pui-inputnumber> Controller: {{inputNumberCtrl.float}}
+		</pui-fieldset>
 
-		<pui-inputnumber id="default" value="inputNumberCtrl.integer"></pui-inputnumber><br/>
-		Controller value is : {{inputNumberCtrl.integer}}
+		<pui-fieldset legend="Currency" style="margin-top: 10px">
+			<pui-inputnumber id="inCurrency" type="currency" value="inputNumberCtrl.currency"></pui-inputnumber> Controller: {{inputNumberCtrl.currency}}
+		</pui-fieldset>
+
+		<pui-fieldset legend="Percent" style="margin-top: 10px">
+			<pui-inputnumber id="inPercent" type="percent" value="inputNumberCtrl.percent"></pui-inputnumber> Controller: {{inputNumberCtrl.percent}}
+		</pui-fieldset>
 	</section>
 
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
 				<pre pretty-print="html">
-    <pui-inputText id="default" value="value1"> </pui-inputText><br/>
-    Controller value is : <span id="defaultModel">{{value1}}</span>
+<pui-fieldset legend="Integer">
+	<pui-inputnumber id="inInt" value="inputNumberCtrl.integer"></pui-inputnumber> Controller: ((inputNumberCtrl.integer))
+</pui-fieldset>
 
+<pui-fieldset legend="Float" style="margin-top: 10px">
+	<pui-inputnumber id="inFloat" type="float" value="inputNumberCtrl.float"></pui-inputnumber> Controller: ((inputNumberCtrl.float))
+</pui-fieldset>
+
+<pui-fieldset legend="Currency" style="margin-top: 10px">
+	<pui-inputnumber id="inCurrency" type="currency" value="inputNumberCtrl.currency"></pui-inputnumber> Controller: ((inputNumberCtrl.currency))
+</pui-fieldset>
+
+<pui-fieldset legend="Percent" style="margin-top: 10px">
+	<pui-inputnumber id="inPercent" type="percent" value="inputNumberCtrl.percent"></pui-inputnumber> Controller: ((inputNumberCtrl.percent))
+</pui-fieldset>
 				</pre>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
-				<pre pretty-print="js" >
-$scope.value1 = 'Change me';
-
-$scope.numbers = 123;
+				<pre pretty-print="js">
+function InputNumberController() {
+	
+	var vm = this;
+	
+	vm.integer = 1000000;
+	vm.float = 1350.25;
+	vm.percent = 6.38;
+	vm.currency = 3567.25;
+}
 				</pre>
 			</pui-tab>
 		</pui-tabview>

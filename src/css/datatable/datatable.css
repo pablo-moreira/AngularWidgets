@@ -15,6 +15,10 @@
     padding: 4px 10px;
 }
 
+.pui-datatable .pui-datatable-header {
+	border-bottom: 0px none;
+}
+
 .pui-datatable .pui-datatable-footer {
     border-top: 0px none;
 }
@@ -57,4 +61,53 @@
 
 .pui-datatable tr.ui-state-highlight {
     cursor: pointer;
+}
+
+@media only screen and (max-width: 800px) {
+	
+	/* Force table to not be like tables anymore */
+	.pui-datatable-reflow table, 
+	.pui-datatable-reflow thead, 
+	.pui-datatable-reflow tbody, 
+	.pui-datatable-reflow th, 
+	.pui-datatable-reflow td, 
+	.pui-datatable-reflow tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.pui-datatable-reflow thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	.pui-datatable-reflow tr { border: 1px solid #ccc; }
+ 
+	.pui-datatable-reflow table tbody td { 
+		
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	.pui-datatable-reflow td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/* Label the data */
+	.pui-datatable-reflow td:before { content: attr(data-title); }
 }
