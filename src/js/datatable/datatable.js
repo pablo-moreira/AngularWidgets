@@ -9,7 +9,7 @@
             
             var widgetDatatable = {};
             
-            widgetDatatable.template = '<div class="pui-datatable ui-widget pui-datatable-flip-scroll"><div class="pui-datatable-tablewrapper"><div ng-transclude></div><table><thead class="pui-datatable-data-head"></thead><tbody class="pui-datatable-data"></tbody></table></div></div>';
+            widgetDatatable.template = '<div class="pui-datatable ui-widget"><div class="pui-datatable-tablewrapper"><div ng-transclude></div><table><thead class="pui-datatable-data-head"></thead><tbody class="pui-datatable-data"></tbody></table></div></div>';
             
             widgetDatatable.buildWidget = function(scope, element, attrs) {
                 return new widgetDatatable.DataTable(scope, element, attrs);
@@ -37,6 +37,8 @@
                     
                     this.element = element;
                     this.scope = scope;
+
+                    this.table = this.element.findAllSelector('table');
                     
                     this.determineOptions(options);
                     
@@ -65,6 +67,10 @@
                     
                     if (!this.columns.length) {
                         this.determineColumnInfo();
+                    }
+
+                    if (this.options.responsive) {
+                        this.element.addClass('pui-datatable-reflow');
                     }
                     
                     this.buildFacets();
@@ -96,7 +102,7 @@
                 
                 this.buildBody = function() {
                     
-                    var tbody = this.element.findAllSelector("tbody");
+                    var tbody = this.table.childrenSelector("tbody");
                     
                     this.tbody = tbody;
                     
@@ -129,8 +135,9 @@
                 
                 this.buildCaption = function() {
                     if (this.options.caption) {
-                        var caption = angular.element('<table><caption class="pui-datatable-caption ui-widget-header">' + this.options.caption + '</caption></table>');
-                        this.element.findAllSelector('table').append(caption.childrenSelector('caption'));
+                        this.caption = angular.element('<table><caption class="pui-datatable-caption ui-widget-header">' + this.options.caption + '</caption></table>')
+                                    .childrenSelector('caption')
+                                    .prependTo(this.table);
                     }
                 };
                 
@@ -179,13 +186,11 @@
                         angular.forEach(this.columns, function(column) {
 
                             // Elements are created as child of div tag. And if not valid html, it is not created.
-                            var th = angular.element('<table><thead><th class="ui-state-default"/></thead></table>')
+                            var th = angular.element('<table><thead><tr><th class="ui-state-default"/></tr></thead></table>')
                                     .findAllSelector('th');
                             
                             th.data('sortBy', column.sortBy);
-                            
-                            tr.append(th);
-                            
+                                                        
                             if (column.headerText) {
                                 th.text(column.headerText);
                             }
@@ -194,6 +199,8 @@
                                 th.addClass('pui-sortable-column').append('<span class="pui-sortable-column-icon fa fa-fw fa-sort"></span>');
                                 th.data('order', 1);
                             }
+
+                            tr.append(th);
                         });
 
                         this.thead.append(tr);
@@ -266,7 +273,8 @@
                         rows: 10,
                         paginator: false,
                         onBuildRow: null,
-                        loadOnRender: true
+                        loadOnRender: true,
+                        responsive: false // reflow, todo flip-scroll
                     };
                     
                     this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onRowSelect', 'onRowUnselect']);
@@ -333,7 +341,7 @@
                 
                 this.initSorting = function() {
                     
-                    var sortableColumns = this.thead.childrenSelector('.pui-sortable-column');
+                    var sortableColumns = this.thead.childrenSelector('tr').childrenSelector('.pui-sortable-column');
                     
                     widgetBase.hoverAndFocus(sortableColumns);
                     

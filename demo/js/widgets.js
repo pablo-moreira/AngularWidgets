@@ -55,6 +55,40 @@
 		        { "label": "Disabled", "path": "editor/editorDisabled" }
 			]
 		},
+		{
+			"widget" : "puiButton",
+			"label" : "Button",
+			"controller" : "ButtonController",
+			"defaultPath" : "button/overview",
+			"subPages" : [
+				{ "label": "Overview", "path": "button/buttonOverview" },
+				{ "label": "Default", "path": "button/buttonDefault" },
+				{ "label": "Disabled", "path": "button/buttonDisabled" },
+				{ "label": "Icons", "path": "button/buttonIcons" },
+				{ "label": "Dynamic Text", "path": "button/buttonTitle" },
+				{ "label": "Visible", "path": "button/buttonVisible" }
+			]
+		},
+		{
+			"widget" : "puiDatatable",
+			"label" : "Datatable",
+			"controller" : "DatatableController",
+			"defaultPath" : "datatable/overview",
+			"subPages" : [ 
+				{ "label" : "Overview", "path" : "datatable/datatableOverview" }, 
+				{ "label" : "Default", "path" : "datatable/datatableDefault" }, 
+				{ "label" : "Columns", "path" : "datatable/datatableColumns" }, 
+				{ "label" : "Sort and Selection", "path" : "datatable/datatableSortSelection"}, 
+				{ "label" : "Paginator", "path" : "datatable/datatablePaginator" }, 
+				{ "label" : "Captions", "path" : "datatable/datatableCaptions" }, 
+				{ "label" : "Facets", "path" : "datatable/datatableFacets" }, 
+				{ "label" : "Multiselect", "path" : "datatable/datatableMultiSelection" }, 
+				{ "label" : "ProgPagination", "path" : "datatable/datatableProgPagination" }, 
+				{ "label" : "HttpDataLoader", "path" : "datatable/datatableHttpDataLoaderObject" },  
+				{ "label" : "Custom Column", "path" : "datatable/datatableCustomColumn" },
+				{ "label" : "Responsive", "path" : "datatable/datatableResponsive" }
+			]
+		},
 /*		{
 			"widget": "puiDropdown",
 			"label": "Dropdown",
@@ -75,94 +109,10 @@
 				{ "label": "Table Content", "path": "dropdown/dropdownTableContent" }
 			]
 		},*/
- {
-     "widget": "puiButton",
-     "label": "Button",
-     "controller": "ButtonController",
-     "defaultPath": "button/overview",
-     "subPages": [
-         {
-             "label": "Overview",
-             "path": "button/buttonOverview"
-         },
-         {
-             "label": "Default",
-             "path": "button/buttonDefault"
-         },
-         {
-             "label": "Disabled",
-             "path": "button/buttonDisabled"
-         },
-         {
-             "label": "Icons",
-             "path": "button/buttonIcons"
-         },
-         {
-             "label": "Dynamic Text",
-             "path": "button/buttonTitle"
-         },
-         {
-             "label": "Visible",
-             "path": "button/buttonVisible"
-         }
-     ]
- },
- {
-     "widget": "puiDatatable",
-     "label": "Datatable",
-     "controller": "DatatableController",
-     "defaultPath": "datatable/overview",
-     "subPages": [
-         {
-             "label": "Overview",
-             "path": "datatable/datatableOverview"
-         },
-         {
-             "label": "Default",
-             "path": "datatable/datatableDefault"
-         },
-         {
-             "label": "Columns",
-             "path": "datatable/datatableColumns"
-         },
-         {
-             "label": "Sort and Selection",
-             "path": "datatable/datatableSortSelection"
-         },
-         {
-             "label": "Paginator",
-             "path": "datatable/datatablePaginator"
-         },
-         {
-             "label": "Captions",
-             "path": "datatable/datatableCaptions"
-         },
-         {
-             "label": "Facets",
-             "path": "datatable/datatableFacets"
-         },
-         {
-             "label": "Multiselect",
-             "path": "datatable/datatableMultiSelection"
-         },
-         {
-             "label": "ProgPagination",
-             "path": "datatable/datatableProgPagination"
-         },
-         {
-             "label": "HttpDataLoader",
-             "path": "datatable/datatableHttpDataLoaderObject"
-         },
-         {
-             "label": "HttpDataLoader - URL",
-             "path": "datatable/datatableHttpDataLoaderUrl"
-         },
-         {
-             "label": "Custom Column",
-             "path": "datatable/datatableCustomColumn"
-         }
-     ]
- },
+
+
+
+ 	
  {
      "widget": "puiEvent",
      "label": "Event",

@@ -44,10 +44,10 @@
     display: block;
 }
 
-.pui-tabview .pui-tabview-nav li .ui-icon {
-    float: left;
-    margin: 0.4em 0.2em 0 0;
-    cursor: pointer;
+.pui-tabview .pui-tabview-nav li .fa {
+    float: left; 
+    margin: 0.6em 0.3em 0 0; 
+    cursor: pointer; 
 }
 
 /* per orientation settings */
@@ -121,4 +121,11 @@
 .pui-tabview.pui-tabview-right > .pui-tabview-nav li {
     margin:0 0.2em 1px 0;
     border-left:0 none;
+}
+
+@media only screen and (max-width: 768px) {
+        
+    .pui-tabview.pui-tabview-top > .pui-tabview-nav li {
+        width: 100%;
+    }
 }

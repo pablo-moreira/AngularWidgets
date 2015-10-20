@@ -10,16 +10,6 @@
 	String.prototype.firstToUpperCase = function() {
 		return this.charAt(0).toUpperCase() + this.slice(1);
 	}
-
-	Array.prototype.contains = function(obj) {
-    	var i = this.length;
-    	while (i--) {
-	        if (this[i] === obj) {
-	            return true;
-	        }
-	    }
-	    return false;
-	};
     
     window.AngularWidgets = {
     	version: "0.0.1",
@@ -105,8 +95,14 @@
         }
     };
 
-    AngularWidgets.inArray = function(arr, item) {
-		return arr.contains(item);
+    AngularWidgets.inArray = function(a, item) {
+		var i = a.length;
+    	while (i--) {
+	        if (a[i] === obj) {
+	            return true;
+	        }
+	    }
+	    return false;
     };
     
     angular.module('pje.ui.config', []).value('pje.ui.config', {

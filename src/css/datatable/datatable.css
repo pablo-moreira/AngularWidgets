@@ -67,6 +67,7 @@
 	
 	/* Force table to not be like tables anymore */
 	.pui-datatable-reflow table, 
+	.pui-datatable-reflow table caption, 
 	.pui-datatable-reflow thead, 
 	.pui-datatable-reflow tbody, 
 	.pui-datatable-reflow th, 
@@ -110,4 +111,6 @@
  
 	/* Label the data */
 	.pui-datatable-reflow td:before { content: attr(data-title); }
+	
+	.pui-datatable-reflow span.pui-paginator-pages { display: none; }
 }
