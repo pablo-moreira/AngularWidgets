@@ -2,30 +2,35 @@
 
 	<section>
 		<header>Text on button can be dynamic</header>
-
-		<pui-button id="dynamic" action="showMessage('Button variable title clicked')" value="{{buttonTitle}}"></pui-button>
+		
+		<pui-button id="dynamic" action="buttonCtrl.showMessage('Button variable title clicked')" value="{{buttonCtrl.buttonTitle}}"></pui-button>
 		<br/>
 		<br/>
-		<input id="title" type="text" ng-model="buttonTitle" />
+		<pui-inputtext id="title" type="text" value="buttonCtrl.buttonTitle"></pui-inputtext>
 	</section>
 
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="html" id="d_html">
 				<demo-source language="html">
-<pui-button id="dynamic" action="showMessage('Button variable title clicked')" value="{{buttonTitle}}"></pui-button>
+<pui-button id="dynamic" action="buttonCtrl.showMessage('Button variable title clicked')" value="{{buttonCtrl.buttonTitle}}"></pui-button>
 <br/>
 <br/>
-<input id="title" type="text" ng-model="buttonTitle" />
+<pui-inputtext id="title" type="text" value="buttonCtrl.buttonTitle"></pui-inputtext>
 				</demo-source>
 			</pui-tab>
 			<pui-tab header="controller" id="d_script">
 				<demo-source language="javascript">
-$scope.showMessage = function(msg) {
-	alert(msg);
-};
+function ButtonController($puiGrowl) {
+  		
+	var vm = this;
+	      
+	vm.showMessage = function(msg) {
+		$puiGrowl.showInfoMessage('Message', msg);
+	};
 
-$scope.buttonTitle = 'change me';
+	vm.buttonTitle = 'Change me';
+}
 				</demo-source>
 			</pui-tab>
 		</pui-tabview>

@@ -3,29 +3,34 @@
 	<section>
 		<header>Icons can be placed on button</header>
 
-		<pui-button id="left" action="showMessage('Button left icon clicked')" icon="fa-check" value="Left Icon"></pui-button>
+		<pui-button id="left" action="buttonCtrl.showMessage('Button left icon clicked')" icon="fa-check" value="Left Icon"></pui-button>
 
-		<pui-button id="right" action="showMessage('Button right icon clicked')" icon="fa-close" iconPosition ="right" value="Right icon"></pui-button>
+		<pui-button id="right" action="buttonCtrl.showMessage('Button right icon clicked')" icon="fa-close" iconPosition ="right" value="Right icon"></pui-button>
 
-		<pui-button id="iconOnly" action="showMessage('icon only clicked')" icon="fa-save"></pui-button>
+		<pui-button id="iconOnly" action="buttonCtrl.showMessage('icon only clicked')" icon="fa-save"></pui-button>
 	</section>
 
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-button id="left" action="showMessage('Button left icon clicked')" icon="fa-check" value="Left Icon"></pui-button>
+<pui-button id="left" action="buttonCtrl.showMessage('Button left icon clicked')" icon="fa-check" value="Left Icon"></pui-button>
 
-<pui-button id="right" action="showMessage('Button right icon clicked')" icon="fa-close" iconPosition ="right" value="Right icon"></pui-button>
+<pui-button id="right" action="buttonCtrl.showMessage('Button right icon clicked')" icon="fa-close" iconPosition ="right" value="Right icon"></pui-button>
 
-<pui-button id="iconOnly" action="showMessage('icon only clicked')" icon="fa-save"></pui-button>
+<pui-button id="iconOnly" action="buttonCtrl.showMessage('icon only clicked')" icon="fa-save"></pui-button>
 				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.showMessage = function(msg) {
-	alert(msg);
-};
+function ButtonController($puiGrowl) {
+   		
+	var vm = this;
+	      
+	vm.showMessage = function(msg) {
+		$puiGrowl.showInfoMessage('Message', msg);
+	};
+}
 				</demo-source>
 			</pui-tab>
 		</pui-tabview>

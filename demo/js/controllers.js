@@ -33,36 +33,8 @@
 			this.widget = widget;
 			this.path = path;
 		};
-	}])    
-    .controller('ButtonController', ['$scope',  'version', function ($scope) {
-        
-        $scope.showMessage = function(msg) {
-            alert(msg);
-        };
-
-        $scope.buttonDisabled = true;
-
-        $scope.enableButton = function() {
-            $scope.buttonDisabled = false;
-        };
-
-        $scope.disableButton = function() {
-            $scope.buttonDisabled =  true;
-        };
-
-        $scope.buttonTitle = 'Change me';
-
-        $scope.buttonVisible = false;
-
-        $scope.showButton = function() {
-            $scope.buttonVisible = true;
-        };
-
-        $scope.hideButton = function() {
-            $scope.buttonVisible =  false;
-        };
-
-    } ])
+	}])   
+    
     .controller('PanelController', [ '$scope',  function ($scope) {
         
 		$scope.panelBind;

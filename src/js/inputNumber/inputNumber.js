@@ -8,128 +8,6 @@
 
 	function InputNumberWidget(widgetBase, $parse) {
 
-		function setCaretPosition(input, pos) {
- 			
- 			// Input's hidden
-			if (!input || input.offsetWidth === 0 || input.offsetHeight === 0) {
-				return;
-			}
-
-			if (input.setSelectionRange) {
-				input.focus();
-				input.setSelectionRange(pos, pos);				
-			}
-			else if (input.createTextRange) {
-				
-				var range = input.createTextRange();
-				
-				range.collapse(true);
-				range.moveEnd('character', pos);
-				range.moveStart('character', pos);
-				range.select();
-			}
-		}
-
-		function setCursorPosition(elem, pos) {
-			
-			if (elem.setSelectionRange) {
-				elem.focus();
-				elem.setSelectionRange(pos, pos);
-			} 
-			else if (elem.createTextRange) {
-			
-				var range = elem.createTextRange();
-			
-				range.collapse(true);
-				range.moveEnd("character", pos);
-				range.moveStart("character", pos);
-				range.select();
-			}
-		}
-
-		function getInputSelection(el) {
-
-			var start = 0,
-				end = 0,
-				normalizedValue,
-				range,
-				textInputRange,
-				len,
-				endRange;
-
-			if (typeof el.selectionStart === "number" && typeof el.selectionEnd === "number") {
-				start = el.selectionStart;
-				end = el.selectionEnd;
-			} 
-			else {
-				range = document.selection.createRange();
-
-				if (range && range.parentElement() === el) {
-					len = el.value.length;
-					normalizedValue = el.value.replace(/\r\n/g, "\n");
-
-					// Create a working TextRange that lives only in the input
-					textInputRange = el.createTextRange();
-					textInputRange.moveToBookmark(range.getBookmark());
-
-					// Check if the start and end of the selection are at the very end
-					// of the input, since moveStart/moveEnd doesn't return what we want
-					// in those cases
-					endRange = el.createTextRange();
-					endRange.collapse(false);
-
-					if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
-						start = end = len;
-					} 
-					else {
-						start = -textInputRange.moveStart("character", -len);
-						start += normalizedValue.slice(0, start).split("\n").length - 1;
-
-						if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
-							end = len;
-						} else {
-							end = -textInputRange.moveEnd("character", -len);
-							end += normalizedValue.slice(0, end).split("\n").length - 1;
-						}
-					}
-				}
-			}
-
-			return {
-				start: start,
-				end: end
-			};
-		} // getInputSelection
-
-		function getCaretPosition(input) {
-		
-			if (!input)
-				return 0;
-			if (input.selectionStart !== undefined) {
-				return input.selectionStart;
-			} else if (document.selection) {
-				if (isFocused(iElement[0])) {
-					// Curse you IE
-					input.focus();
-					var selection = document.selection.createRange();
-					selection.moveStart('character', input.value ? -input.value.length : 0);
-					return selection.text.length;
-				}
-			}
-			return 0;
-		}
-
-		function preventDefault(e) {
-			//standard browsers
-			if (e.preventDefault) { 
-				e.preventDefault();
-			} 
-			// old internet explorer
-			else {
-				e.returnValue = false;
-			}
-		}
-
 		var widgetInputText = {},
 			eventsHelper = {},
 			widget = {};
@@ -279,92 +157,107 @@
 
 				var char = '',
 					keyCode = e.which || e.keyCode,
-					char = String.fromCharCode(e.keyCode),
+					char = String.fromCharCode(keyCode),
+					KC = widgetBase.keyCode,
 					inputValue = this.input.val();
+				
+				this.log('onKeypress=' + char);
+				this.log('which=' + e.which + ', keyCode=' + e.keyCode + ', charcode=' + e.charCode);
+				this.log('shift=' + e.shiftKey + ', ctrlkey=' + e.ctrlkey);
 
- 				// Decimal Separator
-				if (this.options.allowDecimal && this.options.decimalSeparator === char) {
- 					
- 					console.log('decimal-separator pressed');			
+				// Decimal handle
+				if (this.options.decimalSeparator === char) {
 
-					var dsIndexOf = inputValue.indexOf(this.options.decimalSeparator);
+					if (this.options.allowDecimal) {
 
-					// Verify if exists another decimal separator
- 					if (dsIndexOf !== -1) { 						
-						
-						var caretPosition = getCaretPosition(this.input[0]); 					
- 						
- 						this.input.val(inputValue.replace(this.options.decimalSeparator, ''));
+						this.log('decimal-separator pressed');			
 
- 						if (caretPosition > dsIndexOf) {
- 							caretPosition--;
- 						}
+						var dsIndexOf = inputValue.indexOf(this.options.decimalSeparator);
 
- 						setCaretPosition(this.input[0], caretPosition);
- 					}
+						// Verify if exists another decimal separator
+						if (dsIndexOf !== -1) { 						
 
- 					return;
- 				} 				
+							var cursorPosition = AngularWidgets.getCursorPosition(this.input[0]);
+
+							this.input.val(inputValue.replace(this.options.decimalSeparator, ''));
+
+							if (cursorPosition > dsIndexOf) {
+								cursorPosition--;
+							}
+
+							AngularWidgets.setCursorPosition(this.input[0], cursorPosition);
+						}
+					}
+					else {
+						AngularWidgets.preventDefault(e);
+					}
+				} 				
  				// Negative handle
- 				else if (char === "-" && inputValue.indexOf('-') === -1 && this.options.allowNegative) {
-					
-					console.log('negative pressed');
+ 				else if (char === "-") {
 
- 					if (inputValue === '') {
- 						return;
+ 					if (inputValue.indexOf('-') === -1 && this.options.allowNegative) {
+					
+						this.log('negative pressed');
+
+						if (inputValue === '') {
+							return;
+						}
+
+						var cursorPosition = AngularWidgets.getCursorPosition(this.input[0]);
+
+						this.input.val('-' + this.input.val())					
+
+						AngularWidgets.setCursorPosition(this.input[0], ++cursorPosition);
  					}
-					
-					var caretPosition = getCaretPosition(this.input[0]);
- 					
- 					this.input.val('-' + this.input.val())					
 
- 					setCaretPosition(this.input[0], ++caretPosition);
-
- 					preventDefault(e);
+ 					AngularWidgets.preventDefault(e);
  				}
  				// Positive handle
- 				else if (char === "+" && inputValue.indexOf('-') !== -1) {
+ 				else if (char === "+") {
 
-					console.log('positive pressed');
+ 					if (inputValue.indexOf('-') !== -1) {
 
-					var caretPosition = getCaretPosition(this.input[0]);
- 					
- 					this.input.val(this.input.val().replace('-', ''));
+						this.log('positive pressed');
 
- 					setCaretPosition(this.input[0], --caretPosition);
+						var cursorPosition = AngularWidgets.getCursorPosition(this.input[0]);
 
- 					preventDefault(e);
+						this.input.val(this.input.val().replace('-', ''));
+
+						AngularWidgets.setCursorPosition(this.input[0], --cursorPosition);
+ 					}
+
+ 					AngularWidgets.preventDefault(e);
  				}
+ 				// Ctrl V, firefox
+ 				else if (e.ctrlKey && char === 'v'){
+					return;					
+ 				}
+ 				else if (this.isKeyCodeAllowed(keyCode)) {
+ 					return ;
+ 				}			
  				// Not numeric handle
 				else if (/[^0-9]/.test(char)) {
 
-					console.log('not numeric pressed');
+					this.log('not numeric pressed');
 
-					preventDefault(e);
+					AngularWidgets.preventDefault(e);
 				}
- 				else {
- 					console.log('else=' + char);
- 				}
-				
-				console.log('onKeypress=' + char);
-				console.log('which=' + e.which + ', keyCode=' + e.keyCode + ', charcode=' + e.charCode);
-				console.log('shift=' + e.shiftKey + ', ctrlkey=' + e.ctrlkey);
 			},
 
 			onKeydown: function(e) {
 
 				var keyCode = e.which || e.keyCode;					
 				
-				console.log('onkeydown=' + keyCode);	
+				this.log('onkeydown=' + keyCode);	
 			},
 
 			onKeyup: function(e) {
 
-				var keyCode = e.which || e.keyCode,
+				var keyCode = e.which || e.keyCode,				
 					KC = widgetBase.keyCode,
-					keysToSkip = KC.ARROWS.concat([KC.HOME,KC.END]);
+					keysCodeAllowed = KC.ARROWS.concat([KC.TAB,KC.HOME,KC.END,KC.ENTER, KC.NUMPAD_ENTER]);
 
-				console.log('keyup=' + e.which || e.keyCode)
+				this.log('keyup=' + e.which || e.keyCode)
 			
 				// Detect ctrl + v
 				if (e.ctrlKey && keyCode === 86) {
@@ -375,14 +268,26 @@
 
 					this.input.val(this.clearValue(value));
 				}
-				else if (keysToSkip.contains(keyCode)) {
-					preventDefault(e);
+				else if (AngularWidgets.inArray(keysCodeAllowed, keyCode)) {
+					return;
 				}
 				else {
 					this.updateModel(this.getInputValueAsNumber());
 				}				
 			},
 
+			log: function(str) {
+				console.log(str);
+			},
+
+			isKeyCodeAllowed: function(keyCode) {
+
+				var KC = widgetBase.keyCode,
+					keysCodeAllowed = KC.ARROWS.concat([KC.BACKSPACE,KC.TAB,KC.HOME,KC.END,KC.DELETE,KC.ENTER,KC.NUMPAD_ENTER]);
+
+				return AngularWidgets.inArray(keysCodeAllowed, keyCode);
+			},
+			
 			clearValue: function(value) {
 
 				var sign = '';

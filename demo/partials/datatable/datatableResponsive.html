@@ -13,7 +13,7 @@
 		   	responsive="true"
 			onRowSelect="onRowSelect"
 			onRowUnselect="onRowUnselect">
-	    	<pui-column value="brand" headerText="Brand"></pui-column>			
+			<pui-column value="brand" headerText="Brand"></pui-column>			
 			<pui-column value="year" headerText="Year" sortBy="year"></pui-column>			
 			<pui-column value="color" headerText="Color" sortBy="color"></pui-column>
 		</pui-datatable>
@@ -24,17 +24,18 @@
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-datatable	 
-	item="car" 
+<pui-datatable			 
+	item="car"
 	itemId="vin"
 	items="httpDataLoaderObject" 
 	caption="Http Data Loader With Paginator"
 	selectionMode="multiple"			
 	paginator="true"
-   	rows="4"
+	rows="4"
+	responsive="true"
 	onRowSelect="onRowSelect"
 	onRowUnselect="onRowUnselect">
-   	<pui-column value="brand" headerText="Brand"></pui-column>			
+	<pui-column value="brand" headerText="Brand"></pui-column>			
 	<pui-column value="year" headerText="Year" sortBy="year"></pui-column>			
 	<pui-column value="color" headerText="Color" sortBy="color"></pui-column>
 </pui-datatable>
@@ -42,7 +43,7 @@
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.httpDataLoaderObject = new PJeUI.HttpDataLoader({
+$scope.httpDataLoaderObject = new AngularWidgets.HttpDataLoader({
 	url: 'json/cars.json'
 });	
 $scope.onRowSelect = function(event, data) {

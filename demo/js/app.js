@@ -11,6 +11,11 @@ var demo = angular.module('demo', ['ngRoute', 'pje.ui']);
 
 demo.config(['$routeProvider', 'widgets', function($routeProvider, widgets) {
 
+    // Configure highlightjs
+    hljs.configure({
+      tabReplace: '    ', // 4 spaces
+    })
+
     angular.forEach(widgets, function(widget) {
     	angular.forEach(widget.subPages, function (widgetPage) {
 
@@ -49,16 +54,21 @@ demo.directive('demoSource', function () {
         terminal: true,
         compile: function (element, attrs) {
         	
-        	var content = element.html();
-            var encoded = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                .replace(/_[a-z]/g, function(s) {return s.charAt(1).toUpperCase()});
+        	var content = element.html(),
+                encoded = content
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/_[a-z]/g, function(s) {return s.charAt(1).toUpperCase()});
             
-        	var pre = angular.element('<pre class="' + attrs.language  + '"><code>' + encoded + '</code></pre>');
-        	
-        	element.html('');
-        	element.append(pre);
+            element.html('');
 
-            hljs.highlightBlock(pre[0]);
+            var div = angular.element('<div class="demo-source"><pre><code class="' + attrs.language  + '">' + encoded + '</code></pre></div>')
+                .appendTo(element);
+            
+            var code = div.findAllSelector('code');
+        	
+            hljs.highlightBlock(code[0]);
         }
     }
 });

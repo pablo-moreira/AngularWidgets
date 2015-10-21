@@ -2,21 +2,26 @@
 
 	<section>
 		<header>Default integration</header>
-		<pui-button id="default" action="showMessage('Button clicked')" value="AngularWidgets"></pui-button>
+		<pui-button id="default" action="buttonCtrl.showMessage('Button clicked')" value="AngularWidgets"></pui-button>
 	</section>
 
 	<pui-fieldset legend="Source" id="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-button id="default" action="showMessage('Button clicked')" value="AngularWidgets"></pui-button>
+<pui-button id="default" action="buttonCtrl.showMessage('Button clicked')" value="AngularWidgets"></pui-button>
 				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.showMessage = function(msg) {
-	alert(msg);
-};
+function ButtonController($puiGrowl) {
+   		
+	var vm = this;
+	      
+	vm.showMessage = function(msg) {
+		$puiGrowl.showInfoMessage('Message', msg);
+	};
+}
 				</demo-source>
 			</pui-tab>
 		</pui-tabview>

@@ -3,41 +3,48 @@
 	<section>
 		<header>Support for rendered</header>
 
-		<pui-button id="visible" action="showMessage('Initially hidden button clicked')" value="Now visible" visible="buttonVisible"></pui-button>
+		<pui-button id="visible" action="buttonCtrl.showMessage('Initially hidden button clicked')" value="Now visible" visible="buttonCtrl.buttonVisible"></pui-button>
 
 		<br/>
 		<br/>
 		
-		<pui-button action="showButton()" ng-hide="buttonVisible" id="showBtn" value="Show Button"></pui-button>		
-		<pui-button action="hideButton()" ng-show="buttonVisible" id="hideBtn" value="Hide Button"></pui-button>
+		<pui-button action="buttonCtrl.showButton()" ng-hide="buttonCtrl.buttonVisible" id="showBtn" value="Show Button"></pui-button>		
+		<pui-button action="buttonCtrl.hideButton()" ng-show="buttonCtrl.buttonVisible" id="hideBtn" value="Hide Button"></pui-button>
 	</section>
 
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs" >
 			<pui-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-button id="visible" action="showMessage('Initially hidden button clicked')" value="Now visible" visible="buttonVisible"></pui-button>
+<pui-button id="visible" action="buttonCtrl.showMessage('Initially hidden button clicked')" value="Now visible" visible="buttonCtrl.buttonVisible"></pui-button>
+
 <br/>
 <br/>
-<pui-button action="showButton()" ng-hide="buttonVisible" id="showBtn" value="Show Button"></pui-button>		
-<pui-button action="hideButton()" ng-show="buttonVisible" id="hideBtn" value="Hide Button"></pui-button>
+
+<pui-button action="buttonCtrl.showButton()" ng-hide="buttonCtrl.buttonVisible" id="showBtn" value="Show Button"></pui-button>		
+<pui-button action="buttonCtrl.hideButton()" ng-show="buttonCtrl.buttonVisible" id="hideBtn" value="Hide Button"></pui-button>
 				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.showMessage = function(msg) {
-	alert(msg);
-};
-
-$scope.buttonDisabled = true;
-
-$scope.enableButton = function() {
-	$scope.buttonDisabled = false;
-};
-
-$scope.disableButton = function() {
-	$scope.buttonDisabled = true;
-};
+function ButtonController($puiGrowl) {
+   		
+	var vm = this;
+	      
+	vm.showMessage = function(msg) {
+		$puiGrowl.showInfoMessage('Message', msg);
+	};
+	
+	vm.buttonDisabled = true;
+	
+	vm.enableButton = function() {
+		vm.buttonDisabled = false;
+	};
+	
+	vm.disableButton = function() {
+		vm.buttonDisabled = true;
+	};
+}
 				</demo-source>
 			</pui-tab>
 		</pui-tabview>

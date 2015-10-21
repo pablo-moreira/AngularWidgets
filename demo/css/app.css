@@ -109,3 +109,16 @@ tr.pui-datatable-odd {
 	margin-left: 20px;
 	float: left;
 }
+
+.demo-source {
+  	width: 100% !important;
+	position: relative !important;
+	display: block;
+}
+.demo-source pre {	
+  	margin:0;
+}
+.demo-source code {
+	padding: 0;
+	white-space: pre-wrap;
+}

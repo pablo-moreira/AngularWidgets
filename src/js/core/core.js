@@ -98,12 +98,66 @@
     AngularWidgets.inArray = function(a, item) {
 		var i = a.length;
     	while (i--) {
-	        if (a[i] === obj) {
+	        if (a[i] === item) {
 	            return true;
 	        }
 	    }
 	    return false;
     };
+
+	AngularWidgets.setCursorPosition = function (input, pos) {
+ 			
+		// Input's hidden
+		if (!input || input.offsetWidth === 0 || input.offsetHeight === 0) {
+			return;
+		}
+
+		if (input.setSelectionRange) {
+			input.focus();
+			input.setSelectionRange(pos, pos);				
+		}
+		else if (input.createTextRange) {
+
+			var range = input.createTextRange();
+
+			range.collapse(true);
+			range.moveEnd('character', pos);
+			range.moveStart('character', pos);
+			range.select();
+		}
+	}
+
+	AngularWidgets.getCursorPosition = function(input) {
+
+		if (!input)
+			return 0;
+
+		if (input.selectionStart !== undefined) {
+			return input.selectionStart;
+		} 
+		else if (document.selection) {
+			if (isFocused(iElement[0])) {
+				// Curse you IE
+				input.focus();
+				var selection = document.selection.createRange();
+				selection.moveStart('character', input.value ? -input.value.length : 0);
+				return selection.text.length;
+			}
+		}
+
+		return 0;
+	}
+
+	AngularWidgets.preventDefault =	function(e) {
+		//standard browsers
+		if (e.preventDefault) { 
+			e.preventDefault();
+		} 
+		// old internet explorer
+		else {
+			e.returnValue = false;
+		}
+	}
     
     angular.module('pje.ui.config', []).value('pje.ui.config', {
             labelPrefix: 'lbl'
@@ -658,6 +712,7 @@
 
         widgetBase.keyCode = {
             BACKSPACE: 8,
+            TAB: 9,
             SHIFT: 16,
             CTRL: 17,
             PLUS: 171,
@@ -679,7 +734,6 @@
             PAGE_UP: 33,
             PERIOD: 190,            
             SPACE: 32,
-            TAB: 9,
             ARROWS: [37,38,39,40],
 			LEFT: 37,
             UP: 38,

@@ -1,73 +1,75 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+	
+	<pui-fieldset id="description"  style="margin-bottom:20px" legend="Description">
+		Button provides styling over native button elements.
+	</pui-fieldset>
+	
+	<pui-fieldset id="supports" style="margin-bottom:20px" legend="Supports">
+		<ul>
+			<li>Themeable buttons</li>
+			<li>Button can be disabled</li>
+			<li>Support for 'visible', showing and hiding field.</li>
+			<li>Support for icons</li>
+			<li>Dynamic value using Angular Expressions</li>
+			<li>Showing/hiding and enable/disable field can be animated.</li>
+		</ul>
+	</pui-fieldset>
+	
+	<pui-fieldset id="issues" style="margin-bottom:20px" legend="Known issues">
+	</pui-fieldset>
+	
+	<pui-fieldset id="planned" style="margin-bottom:20px" legend="Planned">
+	</pui-fieldset>
 
-<div id="content">
-
-	<pui-panel header="puiButton">
-		
-
-		<pui-fieldset id="description"  style="margin-bottom:20px" legend="Description">
-			Button provides styling over native button elements.
-		</pui-fieldset>
-		<pui-fieldset id="supports" style="margin-bottom:20px" legend="Supports">
-			<ul>
-				<li>Themeable buttons</li>
-				<li>Button can be disabled</li>
-                <li>Support for 'rendered', showing and hiding field.</li>
-				<li>Support for icons</li>
-				<li>Dynamic value using Angular Expressions</li>
-                <li>Showing/hiding and enable/disable field can be animated.</li>
-            </ul>
-		</pui-fieldset>
-		<pui-fieldset id="issues" style="margin-bottom:20px" legend="Known issues">
-		</pui-fieldset>
-		<pui-fieldset id="planned" style="margin-bottom:20px" legend="Planned">
-		</pui-fieldset>
-
-		<pui-fieldset id="Configuration" style="margin-bottom:20px" legend="Configuration">
-			<table class="doc-table">
-				<thead>
+	<pui-fieldset id="Configuration" style="margin-bottom:20px" legend="Configuration">
+		<table class="doc-table">
+			<thead>
 				<tr>
 					<th class="ui-state-default">Name</th>
 					<th class="ui-state-default">Type</th>
 					<th class="ui-state-default">Default</th>
 					<th class="ui-state-default">Description</th>
 				</tr>
-				</thead>
-				<tbody>
+			</thead>
+			<tbody>
 				<tr class="ui-widget-content">
 					<td>value</td>
 					<td>String</td>
 					<td>null</td>
-					<td>text displayed on the button.</td>
+					<td>Text displayed on the button.</td>
 				</tr>
 				<tr class="ui-widget-content">
-					<td>actionListener</td>
+					<td>action</td>
 					<td>String -> function()</td>
 					<td>null</td>
 					<td>Method linked to the controller which is executed when clicked on the button.</td>
 				</tr>
-                <tr class="ui-widget-content">
-                    <td>pui-disabled</td>
-                    <td>String</td>
-                    <td>undefined</td>
-                    <td>Link to scope variable which defines if the field is disabled or not.
-                    </td>
-                </tr>
+				<tr class="ui-widget-content">
+	            	<td>disabled</td>
+	                <td>boolean</td>
+	                <td>false</td>
+	                <td>Link to scope variable which defines if the field is disabled or not.</td>
+				</tr>
 				<tr class="ui-widget-content">
 					<td>icon</td>
 					<td>String</td>
 					<td>null</td>
-					<td>Defines the icon of the button. (from theme)</td>
+					<td>Defines the icon of the button. (from font awesome)</td>
 				</tr>
 				<tr class="ui-widget-content">
-					<td>iconPos</td>
+					<td>iconPosition</td>
 					<td>String</td>
 					<td>left</td>
 					<td>Position of the icon, valid values are "left" and "right".</td>
 				</tr>
-				</tbody>
-			</table>
-		</pui-fieldset>
-
-
-	</pui-panel>
-</div>
+				<tr class="ui-widget-content">
+					<td>visible</td>
+					<td>boolean</td>
+					<td>left</td>
+					<td>Link to scope variable which defines if the field is visible or not.</td>
+				</tr>
+			</tbody>
+		</table>
+	</pui-fieldset>
+	
+</pui-panel>
