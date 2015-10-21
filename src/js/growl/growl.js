@@ -1,157 +1,191 @@
 /*globals angular AngularWidgets */
 
 (function(window, document, undefined) {
-    "use strict";
+	"use strict";
 
-    angular.module('pje.ui').factory('puiGrowl', ['$timeout', 'widgetBase', function ($timeout, widgetBase) {
-       
-    	var growlInternal = {};
+	angular.module('pje.ui')
+		.constant('puiGrowlConfig', new AngularWidgets.WidgetConfig({
+			appendTo: null,
+			sticky: false,
+			life: 3000
+		}))
+		.factory('puiGrowl', ['widgetBase', 'puiGrowlConfig', '$timeout', GrowlWidget])
+		.factory('$puiGrowl', ['puiGrowl', GrowlService]);
+	
+	function GrowlWidget(widgetBase, puiGrowlConfig, $timeout) {
+		
+		var growl = {
 
-        growlInternal.data =  {
-            growlElement : undefined,
-            options : {
-                sticky: false,
-                life: 3000
-            }
-        };
+			options: puiGrowlConfig.getConfiguration(),
+			initialized: false,
 
-        growlInternal.widget = function(_growlElement) {
-            this.data.growlElement = angular.element(_growlElement);
-            this.data.growlElement.addClass("pui-growl ui-widget");
-            angular.element(document.getElementsByTagName('body')).append(this.data.growlElement);
-        };
+			init: function (){
 
-        growlInternal.show = function(msgs) {
+				var parent;
 
-            angular.forEach(msgs, function(msg) {
-                growlInternal.renderMessage(msg);
-            });
+				if (this.options.appendTo !== null) {
 
-        };
+					parent = angular.element(this.options.appendTo);
 
-        growlInternal.renderMessage = function(msg) {
-            var markup = '<div class="pui-growl-item-container ui-state-highlight ui-corner-all ui-helper-hidden" aria-live="polite">';
-            markup += '<div class="pui-growl-item pui-shadow">';
-            markup += '<div class="pui-growl-icon-close ui-icon ui-icon-closethick" style="display:none"></div>';
-            markup += '<span class="pui-growl-image pui-growl-image-' + msg.severity + '" ></span>';
-            markup += '<div class="pui-growl-message">';
-            markup += '<span class="pui-growl-title">' + msg.summary + '</span>';
-            markup += '<p>' + msg.detail + '</p>';
-            markup += '</div><div style="clear: both;"></div></div></div>';
+					if (parent.length === 1) {
+						throw new Error('The element declared in options.appendTo is not found!');
+					}
+				}
+				else {
+					parent = angular.element(document.body);
+				}
 
-            var message = angular.element(markup);
+				this.container = angular.element('<div id="growl" class="pui-growl ui-widget"></div>')
+					.appendTo(parent);
 
-            this.bindMessageEvents(message);
+				this.initialized = true;
+			},
+					   
+			initIfNecessarily: function () {				
+				if (this.initialized === false) {
+					this.init();					
+				}				
+			},
 
-            this.data.growlElement.append(message);
-            message.showAsBlock();
-            // fadein()  //TODO;
-        };
+			show: function(msgs) {
+				
+				var $this = this;
 
-        growlInternal.bindMessageEvents = function(message) {
-            var closer = message.findAllSelector(".pui-growl-icon-close");
-            message.hover(function(e) {
-                //message.childrenSelector(".pui-growl-icon-close").showAsBlock();
-                closer.showAsBlock();
-            }, function (e) {
-                //message.childrenSelector(".pui-growl-icon-close").hide();
-                closer.hide();
-            });
+				angular.forEach(msgs, function(msg) {
+					$this.renderMessage(msg);
+				});
+			},
 
-            message.click(function(e) {
-                e.preventDefault();
-                growlInternal.removeMessage(message);
-            });
+			renderMessage: function(msg) {
+				
+				var severity = {
+					warn: 'fa-exclamation-triangle',
+					info: 'fa-info-circle',
+					error: 'fa-times-circle',
+				};
 
-            if (!growlInternal.data.options.sticky) {
-                this.setRemovalTimeout(message);
-            }
-        };
+				var icon = severity[msg.severity] ? severity[msg.severity] : 'fa-info-circle';
 
-        growlInternal.setRemovalTimeout = function(message) {
-            var messageTimer = $timeout(function() {
-                    growlInternal.removeMessage(message);
-                }, growlInternal.data.options.life);
+				var html =	'<div class="pui-growl-item-container ui-state-highlight ui-corner-all ui-helper-hidden" aria-live="polite">' +
+								'<div class="pui-growl-item pui-shadow">' +
+									'<div class="pui-growl-icon-close fa fa-close" style="display:none"></div>' +
+									'<span class="pui-growl-image fa ' + icon + ' fa-2x" ></span>' +
+									'<div class="pui-growl-message">' +
+										'<span class="pui-growl-title">' + msg.summary + '</span>' +
+										'<p>' + msg.detail + '</p>' +
+									'</div>' +
+									'<div style="clear: both;"></div>'+
+								'</div>' + 
+							'</div>';
 
-            message.data('timer', messageTimer);
-        };
+				msg.element = angular.element(html);
 
-        growlInternal.removeMessage = function(message) {
-            widgetBase.hideWithAnimation(message, function () {
-                message.remove();
-            });
-        };
+				this.bindMessageEvents(msg);
 
-        growlInternal.clear = function()  {
-            angular.forEach(this.data.growlElement.findAllSelector('.pui-growl-item-container'), function(message) {
-                growlInternal.removeMessage(angular.element(message));
-            });
-        };
+				this.container.append(msg.element);
 
-        var growl = {};
+				msg.element.showAsBlock();
+			},
 
-        var initializeGrowl = function () {
-            var _growlElement = growlInternal.data.growlElement;
-            if (_growlElement === undefined) {
+			bindMessageEvents: function(message) {
 
-                   angular.element(document.getElementsByTagName('body')).append('<div id="growl"></div>');
-                    _growlElement = document.getElementById('growl');
-                growlInternal.widget(_growlElement);
-            }
-        };
+				var closer = message.element.findAllSelector(".pui-growl-icon-close");
 
-        growl.showInfoMessage = function (title, msg) {
-            initializeGrowl();
-            growlInternal.show([
-                {severity: 'info', summary: title, detail: msg}
-            ]);
-        };
+				message.element.hover(function(e) {
+					closer.show();
+				}, 
+				function (e) {
+					closer.hide();
+				});
 
-        growl.showWarnMessage = function (title, msg) {
-            initializeGrowl();
-            growlInternal.show([
-                {severity: 'warn', summary: title, detail: msg}
-            ]);
-        };
+				var $this = this;
 
-        growl.showErrorMessage = function (title, msg) {
-            initializeGrowl();
-            growlInternal.show([
-                {severity: 'error', summary: title, detail: msg}
-            ]);
-        };
+				closer.click(function(e) {
+					e.preventDefault();
+					$this.removeMessage(message.element);
+				});
+				
+				if (!(message.sticky === true || this.options.sticky === true)) {
+					this.setRemovalTimeout(message);
+				}
+			},
 
-        growl.setSticky = function(sticky) {
-            if ( typeof sticky !== 'boolean') {
-                throw new Error('Only boolean allowed as parameter of setSticky function');
-            }
-            growlInternal.data.options.sticky = sticky;
-        };
+			setRemovalTimeout: function(message) {
+				
+				var $this = this;
 
-        growl.setStickyRememberOption = function() {
-            growlInternal.data.options.previousStickyValue = AngularWidgets.puiGrowl.options.sticky;
-            this.setSticky(true);
-        };
+				var messageTimer = $timeout(function() {
+					$this.removeMessage(message.element, true);
+				}, message.life || this.options.life);
 
-        growl.resetStickyOption = function() {
-            this.setSticky(growlInternal.data.options.previousStickyValue);
-        };
+				message.element.data('timer', messageTimer);
+			},
+		   
+			removeMessage: function(message, removedByTimer) {
+				if (!removedByTimer) {
+					$timeout.cancel(message.data('timer'));
+				}
+				message.hide();
+				message.remove();
+			},
 
-        growl.setLife = function(time) {
-            if ( typeof time !== 'int') {
-                throw new Error('Only int allowed as parameter of setSticky function');
-            }
-            growlInternal.data.options.life = time;
-            initializeGrowl();
-        };
+			clearMessages: function()  {
 
-        growl.clear = function() {
-            initializeGrowl();
-            growlInternal.clear();
-        };
+				this.initIfNecessarily();
+				
+				angular.forEach(this.container.findAllSelector('.pui-growl-item-container'), function(item) {
+					growl.removeMessage(angular.element(item));
+				});
+			},
 
-        return growl;
+			showInfoMessage: function (title, msg, options) {
+				this.initIfNecessarily();
+				this.show([this.createMessageItem('info', title, msg, options)]);
+			},
 
-    }]);
+			showWarnMessage: function (title, msg, options) {
+				this.initIfNecessarily();
+				this.show([this.createMessageItem('warn', title, msg, options)]);
+			},
+
+			showErrorMessage: function (title, msg, options) {
+				this.initIfNecessarily();
+				this.show([this.createMessageItem('error', title, msg, options)]);
+			},
+
+			createMessageItem: function (severity, title, msg, options) {				
+				
+				var item = {
+					severity: severity, 
+					summary: title, 
+					detail: msg
+				};
+
+				options = options || {};
+
+				return angular.extend(item, options);
+			}
+		};
+
+
+		return growl;
+	}
+		
+	function GrowlService(puiGrowl) {
+		return {
+			showInfoMessage: function(title, msg, options) {
+				puiGrowl.showInfoMessage(title, msg, options);
+			},
+			showWarnMessage: function(title, msg, options) {
+				puiGrowl.showWarnMessage(title, msg, options);
+			},
+			showErrorMessage: function(title, msg, options) {
+				puiGrowl.showErrorMessage(title, msg, options);
+			},
+			clearMessages: function() {
+				puiGrowl.clearMessages();
+			}
+		}
+	}
 
 }(window, document));

@@ -2,33 +2,38 @@
 		
 	<section>
 		<header>Default integration</header>
-		<pui-button id="infoBtn" action="showInfoGrowl()" value="Info"></pui-button>
-		<pui-button id="errorBtn" action="showErrorGrowl()" value="Error"></pui-button>
-		<pui-button id="warnBtn" action="showWarnGrowl()" value="Warn"></pui-button>
+		<pui-button id="infoBtn" value="Info" action="growlCtrl.showInfoGrowl()" icon="fa-info-circle"></pui-button>
+		<pui-button id="errorBtn" value="Error" action="growlCtrl.showErrorGrowl()" icon="fa-times-circle" ></pui-button>
+		<pui-button id="warnBtn" value="Warn" action="growlCtrl.showWarnGrowl()" icon="fa-exclamation-triangle" ></pui-button>
 	</section>
 
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-button id="infoBtn" action="showInfoGrowl()" value="Info"></pui-button>
-<pui-button id="errorBtn" action="showErrorGrowl()" value="Error"></pui-button>
-<pui-button id="warnBtn" action="showWarnGrowl()" value="Warn"></pui-button>
+<pui-button id="infoBtn" value="Info" action="growlCtrl.showInfoGrowl()" icon="fa-info-circle"></pui-button>
+<pui-button id="errorBtn" value="Error" action="growlCtrl.showErrorGrowl()" icon="fa-times-circle" ></pui-button>
+<pui-button id="warnBtn" value="Warn" action="growlCtrl.showWarnGrowl()" icon="fa-exclamation-triangle" ></pui-button>
 				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.showInfoGrowl = function() {
-	puiGrowl.showInfoMessage('Info message title', "Info detail message");
-};
+function GrowlController($puiGrowl) {
 
-$scope.showErrorGrowl = function() {
-	puiGrowl.showErrorMessage('Error message title', "Error detail message");
-};
+	var vm = this;
 
-$scope.showWarnGrowl = function() {
-	puiGrowl.showWarnMessage('Warn message title', "Warn detail message");
-}
+	vm.showInfoGrowl = function() {
+		$puiGrowl.showInfoMessage('Info message title', "Info detail message");
+	};
+
+	vm.showErrorGrowl = function() {
+		$puiGrowl.showErrorMessage('Error message title', "Error detail message");
+	};
+
+	vm.showWarnGrowl = function() {
+		$puiGrowl.showWarnMessage('Warn message title', "Warn detail message");
+	};	
+};
 				</demo-source>
 			</pui-tab>
 		</pui-tabview>

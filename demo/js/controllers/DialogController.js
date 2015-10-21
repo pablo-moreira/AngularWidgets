@@ -1,7 +1,7 @@
 (function (window, document, undefined) {	
 	"use strict";
 
-	angular.module('demo').controller('DialogController', [ 'puiGrowl', '$puiDialog', function DialogController(puiGrowl, $puiDialog) {
+	angular.module('demo').controller('DialogController', [ '$puiGrowl', '$puiDialog', function DialogController(puiGrowl, $puiDialog) {
    		
 		var vm = this;
    		

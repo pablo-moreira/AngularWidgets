@@ -1,7 +1,7 @@
 (function (window, document, undefined) {	
 	"use strict";
 
-	angular.module('demo').controller('FieldsetController', [ 'puiGrowl', FieldsetController ]);
+	angular.module('demo').controller('FieldsetController', [ '$puiGrowl', FieldsetController ]);
 
 	function FieldsetController($puiGrowl) {
    		

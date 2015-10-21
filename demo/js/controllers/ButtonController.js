@@ -1,7 +1,7 @@
 (function (window, document, undefined) {	
 	"use strict";
 
-	angular.module('demo').controller('ButtonController', [ 'puiGrowl', ButtonController ]);
+	angular.module('demo').controller('ButtonController', [ '$puiGrowl', ButtonController ]);
 
 	function ButtonController($puiGrowl) {
    		

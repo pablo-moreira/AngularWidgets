@@ -23,6 +23,20 @@
 			]
 		},
 		{
+			"widget" : "puiButton",
+			"label" : "Button",
+			"controller" : "ButtonController",
+			"defaultPath" : "button/overview",
+			"subPages" : [
+				{ "label": "Overview", "path": "button/buttonOverview" },
+				{ "label": "Default", "path": "button/buttonDefault" },
+				{ "label": "Disabled", "path": "button/buttonDisabled" },
+				{ "label": "Icons", "path": "button/buttonIcons" },
+				{ "label": "Dynamic Text", "path": "button/buttonTitle" },
+				{ "label": "Visible", "path": "button/buttonVisible" }
+			]
+		},
+		{
 			"widget": "puiInputNumber",
 			"label": "InputNumber",
 			"controller": "InputNumberController",
@@ -56,19 +70,16 @@
 			]
 		},
 		{
-			"widget" : "puiButton",
-			"label" : "Button",
-			"controller" : "ButtonController",
-			"defaultPath" : "button/overview",
-			"subPages" : [
-				{ "label": "Overview", "path": "button/buttonOverview" },
-				{ "label": "Default", "path": "button/buttonDefault" },
-				{ "label": "Disabled", "path": "button/buttonDisabled" },
-				{ "label": "Icons", "path": "button/buttonIcons" },
-				{ "label": "Dynamic Text", "path": "button/buttonTitle" },
-				{ "label": "Visible", "path": "button/buttonVisible" }
+			"widget": "puiGrowl",
+			"label": "Growl",
+			"controller": "GrowlController",
+			"defaultPath": "growl/growlOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "growl/growlOverview" },
+				{ "label": "Default", "path": "growl/growlDefault" },
+				{ "label": "Options", "path": "growl/growlOptions" }
 			]
-		},
+		},		
 		{
 			"widget" : "puiDatatable",
 			"label" : "Datatable",
@@ -140,27 +151,6 @@
          {
              "label": "default",
              "path": "event/default"
-         }
-     ]
- },
- 
- {
-     "widget": "puiGrowl",
-     "label": "Growl",
-     "controller": "GrowlController",
-     "defaultPath": "growl/growlOverview",
-     "subPages": [
-         {
-             "label": "Overview",
-             "path": "growl/growlOverview"
-         },
-         {
-             "label": "Default",
-             "path": "growl/growlDefault"
-         },
-         {
-             "label": "Sticky",
-             "path": "growl/growlSticky"
          }
      ]
  },

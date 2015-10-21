@@ -1,43 +1,28 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
 
-<div id="content">
+	<pui-fieldset id="description" legend="Description" style="margin-bottom:20px">
+		The Mac's growl info like messages.
+	</pui-fieldset>
 
-	<pui-panel header="puiGrowl">
-		
+	<pui-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
+		<ul>
+			<li>Show a skinnable message on the right top for a certain time.</li>
+			<li>Messages can be made sticky</li>
+		</ul>
+	</pui-fieldset>
 
-		<pui-fieldset id="description" legend="Description" style="margin-bottom:20px">
-			The Mac's growl info like messages.
-		</pui-fieldset>
-		<pui-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
-			<ul>
-				<li>Show a skinnable message on the right top for a certain time.</li>
-				<li>Messages can be made sticky</li>
-			</ul>
-		</pui-fieldset>
-		<pui-fieldset id="issues" legend="Known issues" style="margin-bottom:20px">
-			<ul>
-				<li>Icon images must be specified in application</li>
-			</ul>
-			<pre>
-			.pui-growl-image {
-			    background: url("../demo/images/messages.png") no-repeat;
-			}
-			</demo-source>
-		</pui-fieldset>
+	<pui-fieldset id="issues" legend="Known issues" style="margin-bottom:20px">
+	</pui-fieldset>
 
-		<pui-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
-		</pui-fieldset>
+	<pui-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
+	</pui-fieldset>
 
-		<pui-fieldset id="Configuration" legend="Configuration" style="margin-bottom:20px">
-			puiGrowl is a service that can be used to show 'growl' messages. <br/>
-            showInfoMessage = function(title, mesg) <br/>
-            showWarnMessage = function(title, mesg) <br/>
-            showErrorMessage = function(title, mesg) <br/>
-            clear = function() -> remove messages<br/>
-            setSticky = function(sticky) -> Keep messages<br/>
-            setLife = function(time) -> How long are the messages visible (milliseconds, default 3000)<br/>
-
-		</pui-fieldset>
-
-
-	</pui-panel>
-</div>
+	<pui-fieldset id="Configuration" legend="Configuration" style="margin-bottom:20px">
+		puiGrowl is a service that can be used to show 'growl' messages. <br/>
+		showInfoMessage = function(title, msg, [options]) <br/>
+		showWarnMessage = function(title, msg, [options]) <br/>
+		showErrorMessage = function(title, msg, [options]) <br/>
+		clearMessages = function() -> remove messages
+	</pui-fieldset>
+	
+</pui-panel>

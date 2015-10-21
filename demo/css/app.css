@@ -68,10 +68,6 @@ section {
     font-weight: bold;
 }
 
-.pui-growl-image {
-    background: url("../img/messages.png") no-repeat;
-}
-
 pre {
     font-size: 0.7em;
     border: 0px !important;

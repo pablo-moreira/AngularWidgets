@@ -52,6 +52,19 @@
         return result;
     };
 
+    AngularWidgets.WidgetConfig = function(configurationDefault) {
+
+		var configuration = configurationDefault;
+
+    	this.configure = function(configs) {
+    		configuration = angular.extend(configuration, configs);
+    	}
+
+    	this.getConfiguration = function() {
+    		return configuration;
+    	}
+    };
+
     AngularWidgets.tagSelectorSelection = function(elements, tagSelector) {
         var result = [];
         angular.forEach(elements, function (child) {

@@ -123,7 +123,7 @@
 
 				var yesLabel = this.element.attr('yesLabel') || AngularWidgets.locale.yesText,
 					noLabel = this.element.attr('noLabel') || AngularWidgets.locale.noText,
-					icon = this.element.attr('icon') || 'fa-exclamation-triangle';
+					icon = this.element.attr('icon') || 'fa-question-circle';
 
 				this.changeScope();
 				

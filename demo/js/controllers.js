@@ -107,7 +107,7 @@
             $scope.fieldVisible =  false;
         };
     } ])
-    .controller('DatatableController', [ '$scope', '$http',  'puiGrowl', function($scope, $http, puiGrowl) {      
+    .controller('DatatableController', [ '$scope', '$http',  '$puiGrowl', function($scope, $http, puiGrowl) {      
     	
         $scope.fixedData =  [
             {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
@@ -206,31 +206,6 @@
         	puiGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
         };
     }])
-    .controller('GrowlController', [ '$scope',  'puiGrowl', function($scope, puiGrowl) {
-        
-
-        $scope.showInfoGrowl = function() {
-            puiGrowl.showInfoMessage('Info message title', "Info detail message");
-        };
-
-        $scope.showErrorGrowl = function() {
-            puiGrowl.showErrorMessage('Error message title', "Error detail message");
-        };
-
-        $scope.showWarnGrowl = function() {
-            puiGrowl.showWarnMessage('Warn message title', "Warn detail message");
-        };
-
-        $scope.showStickyMessage = function() {
-            puiGrowl.setSticky(true);
-            puiGrowl.clear();
-            puiGrowl.showInfoMessage('Message', "Message remains until close icon clicked or other message requested");
-        };
-
-        $scope.resetGrowlOptions = function() {
-            puiGrowl.setSticky(false);
-        }
-    } ])
     .controller('AutocompleteController', [ '$scope',   function($scope) {			
    	
         $scope.country = null;

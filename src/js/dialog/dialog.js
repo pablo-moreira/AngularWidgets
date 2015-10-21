@@ -5,8 +5,8 @@
     "use strict";
 
     angular.module('pje.ui')
-    	.factory('widgetDialog', ['$compile', '$timeout', '$parse', '$window', '$document', '$http', 'widgetBase', 'widgetFacet', DialogWidget ])
-    	.service('$puiDialog', ['widgetDialog', 'widgetConfirmdialog', DialogService ])
+    	.factory('widgetDialog', ['$compile', '$timeout', '$parse', '$window', '$document', '$http', 'widgetBase', 'widgetFacet', DialogWidget])
+    	.service('$puiDialog', ['widgetDialog', 'widgetConfirmdialog', DialogService])
     	.directive('puiDialog', ['widgetDialog', DialogDirective]);
 	
 	function DialogWidget($compile, $timeout, $parse, $window, $document, $http, widgetBase, widgetFacet) {

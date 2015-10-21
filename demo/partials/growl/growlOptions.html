@@ -1,0 +1,48 @@
+<pui-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Options message example</header>
+		<pui-button id="btnSticky" 	value="Sticky" 			action="growlCtrl.showStickyMessage()"></pui-button>
+		<pui-button id="btnLife5"	value="Life 500 ms" 	action="growlCtrl.showLife500Message()"></pui-button>
+		<pui-button id="btnLife6"	value="Life 6000 ms"	action="growlCtrl.showLife6000Message()"></pui-button>
+		<pui-button id="btnClear" 	value="Clear messages" 	action="growlCtrl.clearMessages()"></pui-button>
+	</section>
+
+	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<pui-tabview id="sourceTabs" >
+			<pui-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<pui-button id="btnSticky" 	value="Sticky" 			action="growlCtrl.showStickyMessage()"></pui-button>
+<pui-button id="btnLife500"	value="Life 500 ms" 	action="growlCtrl.showLife500Message()"></pui-button>
+<pui-button id="btnLife500"	value="Life 6 s"		action="growlCtrl.showLife6000Message()"></pui-button>
+<pui-button id="btnClear" 	value="Clear messages" 	action="growlCtrl.clearMessages()"></pui-button>
+				</demo-source>
+			</pui-tab>
+			<pui-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function GrowlController($puiGrowl) {
+  		
+	var vm = this;
+	      
+	vm.showStickyMessage = function() {
+		$puiGrowl.showInfoMessage('Message', "Message remains until close icon clicked", { stick: true });
+	};
+
+	vm.showLife500Message = function() {
+		$puiGrowl.showInfoMessage('Message', "Message with options life 500 ms", { life: 500 } );
+	}
+
+	vm.showLife6000Message = function() {
+		$puiGrowl.showInfoMessage('Message', "Message with options life 6000 ms", { life: 6000 } );
+	}
+
+	vm.clearMessages = function() {
+		$puiGrowl.clear();
+	}
+};
+
+				</demo-source>
+			</pui-tab>
+		</pui-tabview>
+	</pui-fieldset>
+</pui-panel>
