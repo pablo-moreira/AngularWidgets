@@ -112,5 +112,6 @@
 	/* Label the data */
 	.pui-datatable-reflow td:before { content: attr(data-title); }
 	
-	.pui-datatable-reflow span.pui-paginator-pages { display: none; }
+	.pui-datatable-reflow span.pui-paginator-page { display: none; }
+	.pui-datatable-reflow span.pui-paginator-page.ui-state-active { display: inline-block; }
 }
