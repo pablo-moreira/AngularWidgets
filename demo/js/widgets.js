@@ -89,6 +89,20 @@
 				{ "label" : "Responsive", "path" : "datatable/datatableResponsive" }
 			]
 		},
+		{
+			"widget": "puiFieldset",
+			"label": "Fieldset",
+			"controller": "FieldsetController",
+			"defaultPath": "fieldset/fieldsetOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "fieldset/fieldsetOverview" },
+				{ "label": "Default", "path": "fieldset/fieldsetDefault" },
+				{ "label": "Toggle", "path": "fieldset/fieldsetToggle" },
+				{ "label": "Prog Collapse", "path": "fieldset/fieldsetProgCollapse" },
+				{ "label": "Callback", "path": "fieldset/fieldsetCallback" },
+				{ "label": "Dynamic Legend", "path": "fieldset/fieldsetLegend" }
+		     ]
+		 },
 /*		{
 			"widget": "puiDropdown",
 			"label": "Dropdown",
@@ -129,38 +143,7 @@
          }
      ]
  },
- {
-     "widget": "puiFieldset",
-     "label": "Fieldset",
-     "controller": "FieldsetController",
-     "defaultPath": "fieldset/overview",
-     "subPages": [
-         {
-             "label": "Overview",
-             "path": "fieldset/overview"
-         },
-         {
-             "label": "Default",
-             "path": "fieldset/default"
-         },
-         {
-             "label": "Toggle",
-             "path": "fieldset/toggle"
-         },
-         {
-             "label": "Prog Collapse",
-             "path": "fieldset/progCollapse"
-         },
-         {
-             "label": "Callback",
-             "path": "fieldset/callback"
-         },
-         {
-             "label": "Dynamic Legend",
-             "path": "fieldset/legend"
-         }
-     ]
- },
+ 
  {
      "widget": "puiGrowl",
      "label": "Growl",

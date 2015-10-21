@@ -306,17 +306,6 @@
         	alert(item + ' removed')
         };
     }])
-    .controller('FieldsetController', [ '$scope',   function($scope) {
-        
-    	$scope.fieldsetBind;
-
-        $scope.onToggle = function (e, fieldset) {
-        	alert('User toggled the fieldset to ' + (fieldset.isCollapsed() ? 'collapse' : 'expand') + '!');            
-        };
-
-        $scope.fieldsetName = 'Change me';
-        
-    }])
     .controller('EventController', ['$scope',   function($scope) {
         
         $scope.value1 = '';

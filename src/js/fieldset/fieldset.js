@@ -3,7 +3,11 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetFieldset', ['widgetBase', function(widgetBase) {
+    angular.module('pje.ui')
+    	.factory('widgetFieldset', ['widgetBase', FieldsetWidget])
+    	.directive('puiFieldset', ['widgetFieldset', FieldsetDirective]);
+    
+    function FieldsetWidget(widgetBase) {
         
         var widget = {};
         
@@ -51,15 +55,15 @@
 				
 	            if(this.options.toggleable) {
 	                this.element.addClass('pui-fieldset-toggleable');
-	                this.toggler = angular.element('<span class="pui-fieldset-toggler ui-icon" />').prependTo(this.legend);
+	                this.toggler = angular.element('<span class="pui-fieldset-toggler fa fa-fw" />').prependTo(this.legend);
 	                this.bindEvents();
 
 	                if(this.options.collapsed) {
 	                    this.content.hide();
-	                    this.toggler.addClass('ui-icon-plusthick');
+	                    this.toggler.addClass('fa-plus');
 	                }
 	                else {
-	                    this.toggler.addClass('ui-icon-minusthick');
+	                    this.toggler.addClass('fa-minus');
 	                }
 	            }
 	            
@@ -88,11 +92,11 @@
 	        	var $this = this;
 	            
 	            if(this.options.collapsed) {
-	                this.toggler.removeClass('ui-icon-plusthick').addClass('ui-icon-minusthick');
+	                this.toggler.removeClass('fa-plus').addClass('fa-minus');
 	                this.content.show();
 	            } 
 	            else {
-	                this.toggler.removeClass('ui-icon-minusthick').addClass('ui-icon-plusthick');
+	                this.toggler.removeClass('fa-minus').addClass('fa-plus');
 	                this.content.hide();
 	            }
 	            
@@ -129,9 +133,9 @@
         });
 
         return widget;
-    }]);
-
-    angular.module('pje.ui').directive('puiFieldset', ['widgetFieldset', function (widgetFieldset) {
+    }
+    
+    function FieldsetDirective(widgetFieldset) {
     	return {
     		restrict: 'E',
     		transclude: true,
@@ -142,6 +146,6 @@
 			replace: true,
 			template: widgetFieldset.template
     	};
-    }]);
+    }
     
 }(window, document));
