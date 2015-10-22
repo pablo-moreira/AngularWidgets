@@ -1,0 +1,139 @@
+/* @charset "utf-8";
+/* CSS Document */
+
+body {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+	font-family:Arial, Helvetica, sans-serif;
+    background: #FFF;
+}
+
+pre{
+	font-size:1em;
+}
+
+.clearfix:after,
+.clearfix:before{
+	content:"";
+	display:table;
+}
+
+.clearfix:after{
+	clear:both;
+}
+
+header#cabecalho {
+    background: #2b5e93;
+    padding: 0.5em;
+    margin-bottom: 0;
+}
+
+header#cabecalho h1, header#cabecalho h2 {
+    width: auto;
+    float: left;
+    font-weight: normal;
+}
+
+header#cabecalho h1 {
+    font-size: 2.5em;
+    padding: 0;
+    margin: 0;
+}
+
+header#cabecalho h2 {
+    font-size: 1.5em;
+    margin: 0.65em 0 0 1em;
+    padding: 0;
+    font-weight: bold;
+}
+
+nav#menu {
+    width: 18%;
+    height: calc(100% - 66px);
+    display: block;
+    background: #f1f5f8;
+    rgba(163,164,165,0.5) 5px 2px 16px;
+    font-size: 1.2em;
+	z-index:10;
+    box-shadow: rgba(18,49,37,0.4) 1px 0 19px;
+}
+
+nav#menu ul li {
+    width: 100%;
+    min-height: 2em;
+    display: block;
+    float: left;
+}
+
+nav#menu ul li a {
+    margin: 0;
+    padding: 0 0 0 3em;
+    line-height: 2em;
+    vertical-align: middle;
+    display: block;
+    float: left;
+    width: calc(100% - 3em);
+    height: 2em;
+    box-sizing: content-box;
+    color: #60717d;
+    font-weight: bold;
+    border-top: #F1F5F8 solid 1px;
+    border-bottom: #f1f5f8 solid 1px;
+    transition: border-color 0.25s ease-in-out, color 0.5s ease-in-out;
+}
+
+nav#menu ul li a:hover {
+    text-decoration: none;
+    color: #363E44;
+	border-color: #363E49;
+    transition: border-color 0.25s ease-in-out, color 0.5s ease-in-out;
+}
+
+nav#menu ul li a + ul {
+    background: #fff;
+    display: block;
+    float: left;
+    margin: 0;
+    width: 100%;
+	padding: 0.5em 0;
+	border-top: rgba(182,182,183,0.4) solid 1px;
+    border-bottom: rgba(182,182,183,0.4) solid 1px;
+}
+
+nav#menu ul li a + ul li a {
+    border-top: #fff solid 1px;
+    border-bottom: #fff solid 1px;
+    width: calc(100% - 4em);
+    padding-left: 4em;
+    border-left: none;
+    border-right: none;
+	font-weight:normal;
+}
+
+nav#menu ul li a + ul li a:hover {
+    background: #f6f9fb;
+    border-color: #e7f5fc;
+    font-weight: bold;
+}
+
+
+nav#menu + div#content {
+    width: calc(82% - 1em);
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    height: calc(100% - 66px);
+    float: left;
+    display: block;
+    position: relative;
+}
+
+nav#menu + div#content > div.ng-scope {
+    width: calc(100% - 2em);
+    height: calc(100% - 1em);
+    padding: 1em 1em 0 1em;
+	margin-left: 1em;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

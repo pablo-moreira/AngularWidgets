@@ -43,7 +43,7 @@
     		init: function(options) {
 
     			this.value = null;
-    			this.cachedResult = [];
+    			this.cachedResults = [];
     			this.childrenScope = [];
     			this.firstLoad = true;
 				this.mouseDownOnPanelHappened = false;

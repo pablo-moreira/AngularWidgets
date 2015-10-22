@@ -109,7 +109,7 @@
 	        	}
 	        },
 	        	        
-	        click: function(e) {
+	        click: function() {
 	        	if (this.options.action) {
 	        		this.scope.$eval(this.options.action);
 	        		this.scope.safeApply();
@@ -159,12 +159,12 @@
 	            
 	        	widgetBase.hoverAndFocus(this.element);
 	        	widgetBase.mouseDownAndUp(this.element, function(e) {
-	        		$this.click(e);
+	        		$this.click();
 	        	});
 	        	
 	        	widgetBase.onKeydownEnterOrSpace(this.element, function(e) {
 	        		$this.element.addClass('ui-state-active');
-	        		$this.click(e);
+	        		$this.click();
 	        	})
 	        	
 	        	this.element.bind('keyup', function(e){ 

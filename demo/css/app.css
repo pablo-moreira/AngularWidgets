@@ -2,7 +2,6 @@
     font-size: 95%;
 }
 
-
 .pui-inputtext, .ui-widget-content .pui-inputtext, .ui-widget-header .pui-inputtext {
     -moz-box-shadow: 0 2px 2px #8F8F8F inset;
     background: none repeat scroll 0 0 #FFFFFF;
@@ -31,19 +30,6 @@ body {
 
 .doc-table {
     border-collapse: collapse;
-}
-
-#page {
-    width:1200px;
-}
-
-#widgetList {
-    float:left;
-    width:170px;
-}
-
-.widgetSelection {
-    width: 150px;
 }
 
 header {
@@ -95,11 +81,11 @@ tr.pui-datatable-odd {
 
 #menu {
 	float: left;
-	margin-right: 20px;	
 }
 #content {	
 	float: left;
-	width: 80%
+	margin-left: 20px;
+	width:900px;
 }
 
 .demo-source {
