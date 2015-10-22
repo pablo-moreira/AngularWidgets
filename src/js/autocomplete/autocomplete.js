@@ -4,7 +4,7 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetAutocomplete', ['$compile', '$timeout', '$parse', '$document', '$http', 'widgetBase', 'widgetInputText', 'widgetDatatable', 'widgetColumn', 'widgetPaginator', 'widgetFacet',
+    angular.module('angularWidgets').factory('widgetAutocomplete', ['$compile', '$timeout', '$parse', '$document', '$http', 'widgetBase', 'widgetInputText', 'widgetDatatable', 'widgetColumn', 'widgetPaginator', 'widgetFacet',
                       function ($compile, $timeout, $parse, $document, $http, widgetBase, widgetInputText, widgetDatatable, widgetColumn, widgetPaginator, widgetFacet) {
 
         var widget = {};
@@ -932,7 +932,7 @@
         return widget;
     }]);
     
-    angular.module('pje.ui').directive('puiAutocomplete', ['widgetAutocomplete', function (widgetAutocomplete) {
+    angular.module('angularWidgets').directive('wgAutocomplete', ['widgetAutocomplete', function (widgetAutocomplete) {
         return {
             restrict: 'E',
             replace: true,            

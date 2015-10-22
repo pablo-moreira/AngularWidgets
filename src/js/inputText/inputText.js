@@ -3,7 +3,7 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetInputText', ['$interpolate', 'widgetBase', function ($interpolate, widgetBase) {
+    angular.module('angularWidgets').factory('widgetInputText', ['$interpolate', 'widgetBase', function ($interpolate, widgetBase) {
 
 
         var widgetInputText = {},
@@ -89,7 +89,7 @@
         widgetInputText.registerEvents = function (inputData) {
             var _events = inputData.element.findAllSelector('pui-event');
             angular.forEach(_events, function (event) {
-                var puiEventData = angular.element(event).data('puiEvent');
+                var puiEventData = angular.element(event).data('wgEvent');
                 if (puiEventData.event === 'ngEnter') {
 
                     eventsHelper.handleEnterKey(inputData.element, puiEventData.callback);
@@ -106,7 +106,7 @@
     }]);
 
 
-    angular.module('pje.ui').directive('puiInputtext', ['widgetInputText', function (widgetInputText) {
+    angular.module('angularWidgets').directive('wgInputtext', ['widgetInputText', function (widgetInputText) {
         var linkFn = function (scope, element, attrs) {
             var options = widgetInputText.determineOptions(scope, element, attrs),
                 inputData = widgetInputText.buildWidget(element, attrs, options);

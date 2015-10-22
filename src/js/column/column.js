@@ -1,7 +1,7 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui')
+    angular.module('angularWidgets')
     .factory('widgetColumn', function () {
     	
     	var widgetColumn = {}
@@ -22,7 +22,7 @@
     	
     	return widgetColumn;
     })
-	.directive('puiColumn', function () {
+	.directive('wgColumn', function () {
         return {
         	priority: 1000,
         	restrict: 'E',

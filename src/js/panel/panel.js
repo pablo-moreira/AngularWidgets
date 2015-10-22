@@ -1,7 +1,7 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetPanel', ['widgetBase', function (widgetBase) {
+    angular.module('angularWidgets').factory('widgetPanel', ['widgetBase', function (widgetBase) {
 
         var widget = {};
         
@@ -195,7 +195,7 @@
         return widget;
     }]);
     
-    angular.module('pje.ui').directive('puiPanel', ['widgetPanel', function (widgetPanel) {
+    angular.module('angularWidgets').directive('wgPanel', ['widgetPanel', function (widgetPanel) {
         return {
             restrict: 'E',
 			transclude: true,

@@ -3,9 +3,9 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui')
+    angular.module('angularWidgets')
     	.factory('widgetTabview', ['$interpolate', '$compile', 'widgetBase', 'widgetTab', TabviewWidget ])
-		.directive('puiTabview', ['widgetTabview', TabviewDirective ]);
+		.directive('wgTabview', ['widgetTabview', TabviewDirective ]);
 
 	function TabviewWidget($interpolate, $compile, widgetBase, widgetTab) {
 

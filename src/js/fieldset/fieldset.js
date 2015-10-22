@@ -3,9 +3,9 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui')
+    angular.module('angularWidgets')
     	.factory('widgetFieldset', ['widgetBase', FieldsetWidget])
-    	.directive('puiFieldset', ['widgetFieldset', FieldsetDirective]);
+    	.directive('wgFieldset', ['widgetFieldset', FieldsetDirective]);
     
     function FieldsetWidget(widgetBase) {
         

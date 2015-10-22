@@ -4,7 +4,7 @@
 (function(window, document, undefined) {
     "use strict";
     
-    angular.module('pje.ui')
+    angular.module('angularWidgets')
     .factory('widgetFacet', function () {
     	
     	var widgetFacet = {}
@@ -29,7 +29,7 @@
     	
     	return widgetFacet;
     })
-    .directive('puiFacet', function () {
+    .directive('wgFacet', function () {
         return {
         	restrict: 'E',
         	priority: 1000, 

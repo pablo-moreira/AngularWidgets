@@ -199,7 +199,7 @@
         };
 
     } ])
-    .controller('puiPanel', [ function() {
+    .controller('wgPanel', [ function() {
 
     }]);
     

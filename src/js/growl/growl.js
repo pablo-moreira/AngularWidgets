@@ -3,14 +3,14 @@
 (function(window, document, undefined) {
 	"use strict";
 
-	angular.module('pje.ui')
-		.constant('puiGrowlConfig', new AngularWidgets.WidgetConfig({
+	angular.module('angularWidgets')
+		.constant('wgGrowlConfig', new AngularWidgets.WidgetConfig({
 			appendTo: null,
 			sticky: false,
 			life: 3000
 		}))
-		.factory('puiGrowl', ['widgetBase', 'puiGrowlConfig', '$timeout', GrowlWidget])
-		.factory('$puiGrowl', ['puiGrowl', GrowlService]);
+		.factory('wgGrowl', ['widgetBase', 'wgGrowlConfig', '$timeout', GrowlWidget])
+		.factory('$puiGrowl', ['wgGrowl', GrowlService]);
 	
 	function GrowlWidget(widgetBase, puiGrowlConfig, $timeout) {
 		

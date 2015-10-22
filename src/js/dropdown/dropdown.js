@@ -4,7 +4,7 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetDropdown', ['$compile', '$timeout', '$parse', '$document', '$http', 'widgetBase', 'widgetInputText', 'widgetDatatable', 'widgetColumn', 'widgetPaginator', 'widgetFacet',
+    angular.module('angularWidgets').factory('widgetDropdown', ['$compile', '$timeout', '$parse', '$document', '$http', 'widgetBase', 'widgetInputText', 'widgetDatatable', 'widgetColumn', 'widgetPaginator', 'widgetFacet',
                       function ($compile, $timeout, $parse, $document, $http, widgetBase, widgetInputText, widgetDatatable, widgetColumn, widgetPaginator, widgetFacet) {
 
         var widget = {};
@@ -970,7 +970,7 @@
         return widget;
     }]);
     
-    angular.module('pje.ui').directive('puiDropdown', ['widgetDropdown', function (widgetAutocomplete) {
+    angular.module('angularWidgets').directive('wgDropdown', ['widgetDropdown', function (widgetAutocomplete) {
         return {
             restrict: 'E',
             replace: true,            

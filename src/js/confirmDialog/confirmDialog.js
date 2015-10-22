@@ -4,9 +4,9 @@
 (function(window, document, undefined) {
     "use strict";
 
-	angular.module('pje.ui')
+	angular.module('angularWidgets')
 		.factory('widgetConfirmdialog', ['$rootScope', '$compile', 'widgetBase', 'widgetDialog', ConfirmdialogWidget])
-		.directive('puiConfirmdialog', ['widgetConfirmdialog', ConfirmdialogDirective]); 
+		.directive('wgConfirmdialog', ['widgetConfirmdialog', ConfirmdialogDirective]); 
 	
 	function ConfirmdialogWidget($rootScope, $compile, widgetBase, widgetDialog) {
 		

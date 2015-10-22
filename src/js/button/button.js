@@ -3,7 +3,7 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetButton', ['$interpolate', 'widgetBase', function ($interpolate, widgetBase) {
+    angular.module('angularWidgets').factory('widgetButton', ['$interpolate', 'widgetBase', function ($interpolate, widgetBase) {
 
     	var widget = {};
 
@@ -180,7 +180,7 @@
         return widget;
     }]);
 
-    angular.module('pje.ui').directive('puiButton', ['widgetButton', function (widgetButton) {       
+    angular.module('angularWidgets').directive('wgButton', ['widgetButton', function (widgetButton) {       
         return {
             restrict: 'E',
             priority: 10,

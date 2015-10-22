@@ -4,7 +4,7 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetAutocomplete', ['$timeout', '$parse', '$document', 'widgetBase', 'widgetInputText',
+    angular.module('angularWidgets').factory('widgetAutocomplete', ['$timeout', '$parse', '$document', 'widgetBase', 'widgetInputText',
                       function ($timeout, $parse, $document, widgetBase, widgetInputText) {
 
         var widgetAutocomplete = {};
@@ -454,7 +454,7 @@
 
     }]);
 
-        angular.module('pje.ui').directive('puiAutocomplete', ['widgetAutocomplete', function (widgetAutocomplete) {
+        angular.module('angularWidgets').directive('wgAutocomplete', ['widgetAutocomplete', function (widgetAutocomplete) {
         var linkFn = function (scope, element, attrs) {
             var options = widgetAutocomplete.determineOptions(scope, element, attrs),
                 autocompleteData = widgetAutocomplete.buildWidget(element, attrs, options);

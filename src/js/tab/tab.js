@@ -1,7 +1,7 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetTab', function() {
+    angular.module('angularWidgets').factory('widgetTab', function() {
     	
     	var widget = {}
     	
@@ -21,7 +21,7 @@
     	
     	return widget;
     })
-    .directive('puiTab', function () {
+    .directive('wgTab', function () {
         return {
             restrict: 'E',
             priority: 1000,

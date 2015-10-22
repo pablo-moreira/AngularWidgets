@@ -3,7 +3,7 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetPaginator',  ['widgetBase', 'puiPaginatorTemplate', function (widgetBase, puiPaginatorTemplate) {
+    angular.module('angularWidgets').factory('widgetPaginator',  ['widgetBase', 'wgPaginatorTemplate', function (widgetBase, puiPaginatorTemplate) {
         
     	var widget = {};
 
@@ -126,7 +126,7 @@
 		return widget;
 	}]);
 
-    angular.module('pje.ui').factory('puiPaginatorTemplate', function () {
+    angular.module('angularWidgets').factory('wgPaginatorTemplate', function () {
         
         var elementHandlers = {},
 
@@ -143,7 +143,7 @@
         return puiPaginatorTemplate;
     });
 
-    angular.module('pje.ui').run(['puiPaginatorTemplate', 'widgetBase', function (puiPaginatorTemplate, widgetBase) {
+    angular.module('angularWidgets').run(['wgPaginatorTemplate', 'widgetBase', function (puiPaginatorTemplate, widgetBase) {
 
         puiPaginatorTemplate.addTemplate('{FirstPageLink}', {
         	

@@ -1,9 +1,9 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui')
+    angular.module('angularWidgets')
     	.factory('widgetEditor', ['$compile', '$timeout', '$parse', 'widgetBase', EditorWidget])
-    	.directive('puiEditor', ['widgetEditor', EditorDirective]);    	
+    	.directive('wgEditor', ['widgetEditor', EditorDirective]);    	
                       
     function EditorWidget($compile, $timeout, $parse, widgetBase) {
 

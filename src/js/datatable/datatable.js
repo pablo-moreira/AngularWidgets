@@ -1,10 +1,10 @@
 (function(window, document, undefined) {
 	"use strict";
 	
-	angular.module('pje.ui')
+	angular.module('angularWidgets')
 			.factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', DatatableWidget])
-			.directive('puiDatatable', ['widgetDatatable', DatatableDirective])
-			.directive('puiRowBuild', RowBuildDirective);
+			.directive('wgDatatable', ['widgetDatatable', DatatableDirective])
+			.directive('wgRowBuild', RowBuildDirective);
 
 	function DatatableWidget($compile, $http, widgetBase, widgetColumn, widgetPaginator, widgetFacet) {
 			

@@ -2,9 +2,9 @@
 
 	"use strict";
 
-	angular.module('pje.ui')
+	angular.module('angularWidgets')
 		.factory('widgetInputNumber', ['widgetBase', '$parse', '$locale', InputNumberWidget])
-		.directive('puiInputnumber', ['widgetInputNumber', InputNumberDirective]);
+		.directive('wgInputnumber', ['widgetInputNumber', InputNumberDirective]);
 
 	function InputNumberWidget(widgetBase, $parse) {
 

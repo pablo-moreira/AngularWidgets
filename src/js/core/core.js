@@ -773,7 +773,7 @@
         return widgetBase;
     }]);
 
-    angular.module('pje.ui', ['pje.ui.config', 'angular.service']).run(['$rootScope', function ($rootScope) {
+    angular.module('angularWidgets', ['pje.ui.config', 'angular.service']).run(['$rootScope', function ($rootScope) {
 
         $rootScope.safeApply = function (fn) {
 
@@ -790,7 +790,7 @@
 
     }]);
 
-    angular.module('pje.ui').value('version', AngularWidgets.version);
+    angular.module('angularWidgets').value('version', AngularWidgets.version);
 
     angular.forEach({
     	uniqueId: function uniqueId(element) {

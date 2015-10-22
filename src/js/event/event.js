@@ -3,7 +3,7 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('pje.ui').factory('widgetEvent', [ function () {
+    angular.module('angularWidgets').factory('widgetEvent', [ function () {
 
         var widgetEvent = {};
 
@@ -27,7 +27,7 @@
     }]);
 
 
-    angular.module('pje.ui').directive('puiEvent', ['widgetEvent', function (widgetEvent) {
+    angular.module('angularWidgets').directive('wgEvent', ['widgetEvent', function (widgetEvent) {
         var linkFn = function (scope, element, attrs) {
             widgetEvent.determineOptions(scope, element, attrs);
 

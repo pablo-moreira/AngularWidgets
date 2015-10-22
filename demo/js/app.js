@@ -7,9 +7,9 @@
  *
  * @type {angular.Module}
  */
-var demo = angular.module('demo', ['ngRoute', 'pje.ui']);
+var demo = angular.module('demo', ['ngRoute', 'angularWidgets']);
 
-demo.config(['$routeProvider', 'widgets', 'puiGrowlConfig', function($routeProvider, widgets, puiGrowlConfig) {
+demo.config(['$routeProvider', 'widgets', 'wgGrowlConfig', function($routeProvider, widgets, puiGrowlConfig) {
 
     // Configure highlightjs
     hljs.configure({
