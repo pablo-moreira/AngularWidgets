@@ -7,7 +7,7 @@
     	
     	widget.determineOptions = function(container) {
     		
-    		var puiTabs = angular.element(container).findAllSelector('pui-tab'),
+    		var puiTabs = angular.element(container).findAllSelector('wg-tab'),
             	tabs = [];
             
             angular.forEach(puiTabs, function(puiTab) {

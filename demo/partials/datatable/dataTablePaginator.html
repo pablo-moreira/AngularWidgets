@@ -79,7 +79,7 @@
 		
 		
 		
-		<pui-datatable value="ctrl.getCars()" item="car" itemId="vin" caption="Paginator" 
+		<wg-datatable value="ctrl.getCars()" item="car" itemId="vin" caption="Paginator" 
 			selectionMode="multiple"
 			onRowSelect="ctrl.onRowSelect"
 			onRowUnselect="ctrl.onRowUnselect"
@@ -87,23 +87,23 @@
     		rows="4"
 			style="margin-top: 10px">
 			
-	    	<pui-column value="brand" headerText="Brand">
+	    	<wg-column value="brand" headerText="Brand">
 	    		<input type="text" ng-model="car.brand" />
-	    	</pui-column>
-			<pui-column headerText="Year" sortBy="year">			
+	    	</wg-column>
+			<wg-column headerText="Year" sortBy="year">			
 				{{car.year}}
-			</pui-column>
-			<pui-column headerText="Color" sortBy="color">
+			</wg-column>
+			<wg-column headerText="Color" sortBy="color">
 				<div>
 					<div style="border: 1px solid #000; height: 16px; width: 16px; background-color: {{car.color}}"></div>
 					{{car.color}}
 					
 				</div>					
-			</pui-column>
-			<pui-column>
+			</wg-column>
+			<wg-column>
 				<button ng-click="ctrl.showVin(car)">Show Vin</button>
-			</pui-column>
-	    </pui-datatable>
+			</wg-column>
+	    </wg-datatable>
 		
 		<button ng-click="ctrl.changeData()">Change Data</button>
 		

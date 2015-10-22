@@ -1,32 +1,32 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 	
 	<section>
 		<header>Paginator </header>
-		<pui-datatable id="paginator"
+		<wg-datatable id="paginator"
 			items="datatableCtrl.fixedData"
 			itemId="vin"
 			paginator="true"
 			rows="4"
 			selectionMode="single"
 			onRowSelect="datatableCtrl.onRowSelect">
-		</pui-datatable>
+		</wg-datatable>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-datatable id="paginator"
+<wg-datatable id="paginator"
 	items="datatableCtrl.fixedData"
 	itemId="vin"
 	paginator="true"
 	rows="4"
 	selectionMode="single"
 	onRowSelect="datatableCtrl.onRowSelect">
-</pui-datatable>
+</wg-datatable>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function DatatableController($puiGrowl) {
 
@@ -50,7 +50,7 @@ function DatatableController($puiGrowl) {
     };
 };
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

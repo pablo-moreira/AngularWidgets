@@ -1,47 +1,47 @@
-<pui-panel header="puiInputText">
+<wg-panel header="puiInputText">
 
 	<section>
 		<header>Default integration</header>
 		
-		<pui-fieldset legend="Integer">
-			<pui-inputnumber id="inInt" value="inputNumberCtrl.integer"></pui-inputnumber> Controller: {{inputNumberCtrl.integer}}
-		</pui-fieldset>
+		<wg-fieldset legend="Integer">
+			<wg-inputnumber id="inInt" value="inputNumberCtrl.integer"></wg-inputnumber> Controller: {{inputNumberCtrl.integer}}
+		</wg-fieldset>
 	
-		<pui-fieldset legend="Float" style="margin-top: 10px">
-			<pui-inputnumber id="inFloat" type="float" value="inputNumberCtrl.float"></pui-inputnumber> Controller: {{inputNumberCtrl.float}}
-		</pui-fieldset>
+		<wg-fieldset legend="Float" style="margin-top: 10px">
+			<wg-inputnumber id="inFloat" type="float" value="inputNumberCtrl.float"></wg-inputnumber> Controller: {{inputNumberCtrl.float}}
+		</wg-fieldset>
 
-		<pui-fieldset legend="Currency" style="margin-top: 10px">
-			<pui-inputnumber id="inCurrency" type="currency" value="inputNumberCtrl.currency"></pui-inputnumber> Controller: {{inputNumberCtrl.currency}}
-		</pui-fieldset>
+		<wg-fieldset legend="Currency" style="margin-top: 10px">
+			<wg-inputnumber id="inCurrency" type="currency" value="inputNumberCtrl.currency"></wg-inputnumber> Controller: {{inputNumberCtrl.currency}}
+		</wg-fieldset>
 
-		<pui-fieldset legend="Percent" style="margin-top: 10px">
-			<pui-inputnumber id="inPercent" type="percent" value="inputNumberCtrl.percent"></pui-inputnumber> Controller: {{inputNumberCtrl.percent}}
-		</pui-fieldset>
+		<wg-fieldset legend="Percent" style="margin-top: 10px">
+			<wg-inputnumber id="inPercent" type="percent" value="inputNumberCtrl.percent"></wg-inputnumber> Controller: {{inputNumberCtrl.percent}}
+		</wg-fieldset>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-fieldset legend="Integer">
-	<pui-inputnumber id="inInt" value="inputNumberCtrl.integer"></pui-inputnumber> Controller: ((inputNumberCtrl.integer))
-</pui-fieldset>
+<wg-fieldset legend="Integer">
+	<wg-inputnumber id="inInt" value="inputNumberCtrl.integer"></wg-inputnumber> Controller: ((inputNumberCtrl.integer))
+</wg-fieldset>
 
-<pui-fieldset legend="Float" style="margin-top: 10px">
-	<pui-inputnumber id="inFloat" type="float" value="inputNumberCtrl.float"></pui-inputnumber> Controller: ((inputNumberCtrl.float))
-</pui-fieldset>
+<wg-fieldset legend="Float" style="margin-top: 10px">
+	<wg-inputnumber id="inFloat" type="float" value="inputNumberCtrl.float"></wg-inputnumber> Controller: ((inputNumberCtrl.float))
+</wg-fieldset>
 
-<pui-fieldset legend="Currency" style="margin-top: 10px">
-	<pui-inputnumber id="inCurrency" type="currency" value="inputNumberCtrl.currency"></pui-inputnumber> Controller: ((inputNumberCtrl.currency))
-</pui-fieldset>
+<wg-fieldset legend="Currency" style="margin-top: 10px">
+	<wg-inputnumber id="inCurrency" type="currency" value="inputNumberCtrl.currency"></wg-inputnumber> Controller: ((inputNumberCtrl.currency))
+</wg-fieldset>
 
-<pui-fieldset legend="Percent" style="margin-top: 10px">
-	<pui-inputnumber id="inPercent" type="percent" value="inputNumberCtrl.percent"></pui-inputnumber> Controller: ((inputNumberCtrl.percent))
-</pui-fieldset>
+<wg-fieldset legend="Percent" style="margin-top: 10px">
+	<wg-inputnumber id="inPercent" type="percent" value="inputNumberCtrl.percent"></wg-inputnumber> Controller: ((inputNumberCtrl.percent))
+</wg-fieldset>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function InputNumberController() {
 	
@@ -53,7 +53,7 @@ function InputNumberController() {
 	vm.currency = 3567.25;
 }
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

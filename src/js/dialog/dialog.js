@@ -26,7 +26,7 @@
 
         widget.createWidget = function(scope, options, container, content) {
 
-			var dialog = angular.element('<pui-dialog>' + content + '</pui-dialog>')
+			var dialog = angular.element('<wg-dialog>' + content + '</wg-dialog>')
 				.attr(options);			
 			
 			$compile(dialog)(scope);

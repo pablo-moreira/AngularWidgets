@@ -1,22 +1,22 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 		
 	<section>
 		<header>Default integration</header>
-		<pui-button id="infoBtn" value="Info" action="growlCtrl.showInfoGrowl()" icon="fa-info-circle"></pui-button>
-		<pui-button id="errorBtn" value="Error" action="growlCtrl.showErrorGrowl()" icon="fa-times-circle" ></pui-button>
-		<pui-button id="warnBtn" value="Warn" action="growlCtrl.showWarnGrowl()" icon="fa-exclamation-triangle" ></pui-button>
+		<wg-button id="infoBtn" value="Info" action="growlCtrl.showInfoGrowl()" icon="fa-info-circle"></wg-button>
+		<wg-button id="errorBtn" value="Error" action="growlCtrl.showErrorGrowl()" icon="fa-times-circle" ></wg-button>
+		<wg-button id="warnBtn" value="Warn" action="growlCtrl.showWarnGrowl()" icon="fa-exclamation-triangle" ></wg-button>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs">
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-button id="infoBtn" value="Info" action="growlCtrl.showInfoGrowl()" icon="fa-info-circle"></pui-button>
-<pui-button id="errorBtn" value="Error" action="growlCtrl.showErrorGrowl()" icon="fa-times-circle" ></pui-button>
-<pui-button id="warnBtn" value="Warn" action="growlCtrl.showWarnGrowl()" icon="fa-exclamation-triangle" ></pui-button>
+<wg-button id="infoBtn" value="Info" action="growlCtrl.showInfoGrowl()" icon="fa-info-circle"></wg-button>
+<wg-button id="errorBtn" value="Error" action="growlCtrl.showErrorGrowl()" icon="fa-times-circle" ></wg-button>
+<wg-button id="warnBtn" value="Warn" action="growlCtrl.showWarnGrowl()" icon="fa-exclamation-triangle" ></wg-button>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function GrowlController($puiGrowl) {
 
@@ -35,7 +35,7 @@ function GrowlController($puiGrowl) {
 	};	
 };
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

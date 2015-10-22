@@ -1,42 +1,42 @@
-<pui-panel header="{{mainCtrl.widget.label}}">		
+<wg-panel header="{{mainCtrl.widget.label}}">		
 
 	<section>
 		<header>Multiple values integration</header>
 
-		<pui-autocomplete 
+		<wg-autocomplete 
 			id="multiple" 
 			value="selectedsCountries" 
 			completeMethod="countries"
 			multiple="true">
-		</pui-autocomplete>
+		</wg-autocomplete>
 		
 		<br/>
 			
 		Selected values are : {{selectedsCountries}}
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-autocomplete 
+<wg-autocomplete 
 	id="multiple" 
 	value="selectedsCountries" 
 	completeMethod="countries"
 	multiple="true">
-</pui-autocomplete>
+</wg-autocomplete>
 
 <br/>
 	
 Selected values are : ((selectedsCountries))
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 $scope.selectedsCountries = [];
 $scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

@@ -1,27 +1,27 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
 		<header>Icons can be placed on button</header>
 
-		<pui-button id="left" action="buttonCtrl.showMessage('Button left icon clicked')" icon="fa-check" value="Left Icon"></pui-button>
+		<wg-button id="left" action="buttonCtrl.showMessage('Button left icon clicked')" icon="fa-check" value="Left Icon"></wg-button>
 
-		<pui-button id="right" action="buttonCtrl.showMessage('Button right icon clicked')" icon="fa-close" iconPosition ="right" value="Right icon"></pui-button>
+		<wg-button id="right" action="buttonCtrl.showMessage('Button right icon clicked')" icon="fa-close" iconPosition ="right" value="Right icon"></wg-button>
 
-		<pui-button id="iconOnly" action="buttonCtrl.showMessage('icon only clicked')" icon="fa-save"></pui-button>
+		<wg-button id="iconOnly" action="buttonCtrl.showMessage('icon only clicked')" icon="fa-save"></wg-button>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs">
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-button id="left" action="buttonCtrl.showMessage('Button left icon clicked')" icon="fa-check" value="Left Icon"></pui-button>
+<wg-button id="left" action="buttonCtrl.showMessage('Button left icon clicked')" icon="fa-check" value="Left Icon"></wg-button>
 
-<pui-button id="right" action="buttonCtrl.showMessage('Button right icon clicked')" icon="fa-close" iconPosition ="right" value="Right icon"></pui-button>
+<wg-button id="right" action="buttonCtrl.showMessage('Button right icon clicked')" icon="fa-close" iconPosition ="right" value="Right icon"></wg-button>
 
-<pui-button id="iconOnly" action="buttonCtrl.showMessage('icon only clicked')" icon="fa-save"></pui-button>
+<wg-button id="iconOnly" action="buttonCtrl.showMessage('icon only clicked')" icon="fa-save"></wg-button>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function ButtonController($puiGrowl) {
    		
@@ -32,7 +32,7 @@ function ButtonController($puiGrowl) {
 	};
 }
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

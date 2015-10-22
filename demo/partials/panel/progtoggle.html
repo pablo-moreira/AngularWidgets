@@ -1,15 +1,15 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 	
 	<section>
 		<header>Programmatic collapse,expand,open,close</header>
 		
-		<pui-panel id="progToggle" binding="panelBind" header="Programmatic control" toggleable="true" closable="true">
+		<wg-panel id="progToggle" binding="panelBind" header="Programmatic control" toggleable="true" closable="true">
 		    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
 		    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
 		    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
 	    	kind and benevolent to those who give respect,
 		    but given to ruthless violence whenever anything stands against the good of the family.
-		</pui-panel>
+		</wg-panel>
 		
 		<div style="margin-top:20px">				
 			<button id="toggleBtn" ng-click="panelBind.toggle()" type="button">Toggle</button>
@@ -20,15 +20,15 @@
 		</div>	
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-        	<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+        	<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-panel id="progToggle" binding="panelBind" header="Programmatic control" toggleable="true" closable="true">
+<wg-panel id="progToggle" binding="panelBind" header="Programmatic control" toggleable="true" closable="true">
 	The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
 	...
 	but given to ruthless violence whenever anything stands against the good of the family.
-</pui-panel>
+</wg-panel>
 
 <button id="toggleBtn" ng-click="panelBind.toggle()" type="button">Toggle</button>
 <button id="collapseBtn" ng-click="panelBind.collapse()" type="button" ng-hide="panelBind.isCollapsed()">Collapse</button>
@@ -36,12 +36,12 @@
 <button id="openBtn" ng-click="panelBind.open()" type="button" ng-show="panelBind.isClosed()">Open</button>
 <button id="closeBtn" ng-click="panelBind.close()" type="button" ng-hide="panelBind.isClosed()">Close</button>
 				</demo-source>
-			</pui-tab>
-            <pui-tab header="Controller" id="d_script">
+			</wg-tab>
+            <wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 $scope.panelBind;
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

@@ -882,10 +882,10 @@
             		this.renderSelectedItem(item);
             		
                 	this.scope.safeApply();
-	                	
-                    if (this.options.itemSelect) {
-                    	this.options.itemSelect(item);
-                    }
+                    
+                	if (this.options.onItemSelect) {
+                        this.options.onItemSelect(item);
+                    }                   
             	}
             },
             

@@ -1,26 +1,26 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
 		<header>Sorting of rows and selection </header>
-		<pui-datatable id="sortSelection" items="datatableCtrl.fixedData" itemId="vin" selectionMode="single" onRowSelect="datatableCtrl.onRowSelect">
-			<pui-column value="brand"></pui-column>
-			<pui-column value="year" sortable="true"></pui-column>
-			<pui-column value="color"></pui-column>
-		</pui-datatable>
+		<wg-datatable id="sortSelection" items="datatableCtrl.fixedData" itemId="vin" selectionMode="single" onRowSelect="datatableCtrl.onRowSelect">
+			<wg-column value="brand"></wg-column>
+			<wg-column value="year" sortable="true"></wg-column>
+			<wg-column value="color"></wg-column>
+		</wg-datatable>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs">
-			<pui-tab id="d_html" header="HTML">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab id="d_html" header="HTML">
 				<demo-source language="html">
-<pui-datatable id="sortSelection" items="datatableCtrl.fixedData" itemId="vin" selectionMode="single" onRowSelect="datatableCtrl.onRowSelect">
-	<pui-column value="brand"></pui-column>
-	<pui-column value="year" sortable="true"></pui-column>
-	<pui-column value="color"></pui-column>
-</pui-datatable>
+<wg-datatable id="sortSelection" items="datatableCtrl.fixedData" itemId="vin" selectionMode="single" onRowSelect="datatableCtrl.onRowSelect">
+	<wg-column value="brand"></wg-column>
+	<wg-column value="year" sortable="true"></wg-column>
+	<wg-column value="color"></wg-column>
+</wg-datatable>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function DatatableController($puiGrowl) {
 
@@ -44,7 +44,7 @@ function DatatableController($puiGrowl) {
     };
 };
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>                
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>                
+	</wg-fieldset>
+</wg-panel>

@@ -1,14 +1,14 @@
-<pui-panel header="{{mainwidget.label}}">
+<wg-panel header="{{mainwidget.label}}">
 
 	<div>
 		<label>Array - Simple: </label>
-		<pui-autocomplete value="value01" completeMethod="countries"></pui-autocomplete>
+		<wg-autocomplete value="value01" completeMethod="countries"></wg-autocomplete>
 		<br/> Controller value is: <span ng-bind="value01"></span>
 	</div>
 	
 	<div>
 		<label>Array - Object: </label>
-		<pui-autocomplete value="value02" completeMethod="objects" itemLabel="brand" dropdown="true"></pui-autocomplete>
+		<wg-autocomplete value="value02" completeMethod="objects" itemLabel="brand" dropdown="true"></wg-autocomplete>
 		<br/> Controller value is: 
 		<ul>
 			<li ng-bind="value02.brand"></li>
@@ -20,23 +20,23 @@
 			
 	<div>
 		<label>Array - Object - Custom Content: </label>
-		<pui-autocomplete value="value03" completeMethod="objects" item="car" itemId="vin" itemLabel="brand" dropdown="true">
-			<pui-column headerText="Brand" sortBy="brand">
+		<wg-autocomplete value="value03" completeMethod="objects" item="car" itemId="vin" itemLabel="brand" dropdown="true">
+			<wg-column headerText="Brand" sortBy="brand">
 				<span ng-bind="car.brand"></span>
-			</pui-column>
-			<pui-column headerText="Year" sortBy="year">
+			</wg-column>
+			<wg-column headerText="Year" sortBy="year">
 				<span ng-bind="car.year"></span>
-			</pui-column>
-			<pui-column headerText="Color" sortBy="color">
+			</wg-column>
+			<wg-column headerText="Color" sortBy="color">
 				<div>
 					<div style="border: 1px solid #000; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>
 					<span ng-bind="car.color"></span>					
 				</div>
-			</pui-column>
-			<pui-column headerText="Vin">
+			</wg-column>
+			<wg-column headerText="Vin">
 				<span ng-bind="car.vin"></span>
-			</pui-column>
-		</pui-autocomplete>
+			</wg-column>
+		</wg-autocomplete>
 		<br/> Controller value is: 
 		<ul>
 			<li ng-bind="value03.brand"></li>
@@ -48,27 +48,27 @@
 			
 	<div>
 		<label>Array - Object - Custom Content - Pagination: </label>
-		<pui-autocomplete value="value04" completeMethod="objects" item="car" itemId="vin" itemLabel="brand" dropdown="true"
+		<wg-autocomplete value="value04" completeMethod="objects" item="car" itemId="vin" itemLabel="brand" dropdown="true"
 			paginator="true"
 	  		rows="4"
 	  		panelWidth="800">
 	  		
-			<pui-column headerText="Brand" sortBy="brand">
+			<wg-column headerText="Brand" sortBy="brand">
 				<span ng-bind="car.brand"></span>
-			</pui-column>
-			<pui-column headerText="Year" sortBy="year">
+			</wg-column>
+			<wg-column headerText="Year" sortBy="year">
 				<span ng-bind="car.year"></span>
-			</pui-column>
-			<pui-column headerText="Color" sortBy="color">
+			</wg-column>
+			<wg-column headerText="Color" sortBy="color">
 				<div>
 					<div style="border: 1px solid #000; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>
 					<span ng-bind="car.color"></span>					
 				</div>
-			</pui-column>
-			<pui-column headerText="Vin">
+			</wg-column>
+			<wg-column headerText="Vin">
 				<span ng-bind="car.vin"></span>
-			</pui-column>
-		</pui-autocomplete>
+			</wg-column>
+		</wg-autocomplete>
 		<br/> Controller value is: 
 		<ul>
 			<li ng-bind="value04.brand"></li>
@@ -77,4 +77,4 @@
 			<li ng-bind="value04.vin"></li>
 		</ul>
 	</div>
-</pui-panel>
+</wg-panel>

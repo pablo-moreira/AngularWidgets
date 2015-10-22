@@ -1,50 +1,50 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 	
 	<section>
 		<header>Autocomplete object value</header>
 
-		<pui-fieldset legend="Single">		
-			<pui-autocomplete id="acObjectSingle" value="car" completeMethod="cars" itemLabel="brand" dropdown="true"></pui-autocomplete>
+		<wg-fieldset legend="Single">		
+			<wg-autocomplete id="acObjectSingle" value="car" completeMethod="cars" itemLabel="brand" dropdown="true"></wg-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: <pre ng-show="car != null">{{car | json}}</pre>
-		</pui-fieldset>
+		</wg-fieldset>
 	
-		<pui-fieldset legend="Multiple" style="margin-top: 10px">
-			<pui-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true"></pui-autocomplete>
+		<wg-fieldset legend="Multiple" style="margin-top: 10px">
+			<wg-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true"></wg-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: <pre ng-show="carSelecteds != null">{{carSelecteds | json}}</pre>
-		</pui-fieldset>
+		</wg-fieldset>
 	</section>
 	
-	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs">
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-fieldset legend="Single">		
-	<pui-autocomplete id="acObjectSingle" value="car" completeMethod="cars" itemLabel="brand" dropdown="true"></pui-autocomplete>
+<wg-fieldset legend="Single">		
+	<wg-autocomplete id="acObjectSingle" value="car" completeMethod="cars" itemLabel="brand" dropdown="true"></wg-autocomplete>
 	<br/>
 	<br/>
 	Controller value is: <pre ng-show="car != null">{ {car | json}}</pre>
-</pui-fieldset>
+</wg-fieldset>
 
-<pui-fieldset legend="Multiple" style="margin-top: 10px">
-	<pui-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true"></pui-autocomplete>
+<wg-fieldset legend="Multiple" style="margin-top: 10px">
+	<wg-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true"></wg-autocomplete>
 	<br/>
 	<br/>
 	Controller value is: <pre ng-show="carSelecteds != null">{ {carSelecteds | json}}</pre>
-</pui-fieldset>
+</wg-fieldset>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 $scope.car = null;
 $scope.carSelecteds = [];
 $scope.cars = [ {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'}, ... ];          
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
 		
-</pui-panel>
+</wg-panel>

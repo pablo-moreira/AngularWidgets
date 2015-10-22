@@ -1,29 +1,29 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
 		<header>Support for disabled</header>
 		
-		<pui-editor value="editorCtrl.text" disabled="editorCtrl.disabled"></pui-editor>
+		<wg-editor value="editorCtrl.text" disabled="editorCtrl.disabled"></wg-editor>
 		
-		<pui-button action="editorCtrl.disabled = false" ng-show="editorCtrl.disabled" id="btnEnable" value="Enable Editor"></pui-button>
-		<pui-button action="editorCtrl.disabled = true" ng-hide="editorCtrl.disabled" id="btnDisable" value="Disable Editor"></pui-button>
+		<wg-button action="editorCtrl.disabled = false" ng-show="editorCtrl.disabled" id="btnEnable" value="Enable Editor"></wg-button>
+		<wg-button action="editorCtrl.disabled = true" ng-hide="editorCtrl.disabled" id="btnDisable" value="Disable Editor"></wg-button>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs">
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-editor value="editorCtrl.text" disabled="editorCtrl.disabled"></pui-editor>
+<wg-editor value="editorCtrl.text" disabled="editorCtrl.disabled"></wg-editor>
 
-<pui-button action="enableButton()" ng-show="buttonDisabled" id="enableBtn" value="Enable button"></pui-button>
-<pui-button action="disableButton()" ng-hide="buttonDisabled" id="disableBtn" value="Disable button"></pui-button>
+<wg-button action="enableButton()" ng-show="buttonDisabled" id="enableBtn" value="Enable button"></wg-button>
+<wg-button action="disableButton()" ng-hide="buttonDisabled" id="disableBtn" value="Disable button"></wg-button>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

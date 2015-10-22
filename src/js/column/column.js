@@ -8,7 +8,7 @@
     	
     	widgetColumn.determineColumnsOptions = function(container) {
     		
-    		var puiColumns = angular.element(container).findAllSelector('pui-column'),
+    		var puiColumns = angular.element(container).findAllSelector('wg-column'),
             	columns = [];
             
             angular.forEach(puiColumns, function(puiColumn) {

@@ -1,10 +1,10 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 	
 	<section>
-		<header>Autocomplete Http Data Loader</header>
+		<header>Autocomplete Http Data Source</header>
 	
-		<pui-fieldset legend="Single">
-			<pui-autocomplete 
+		<wg-fieldset legend="Single">
+			<wg-autocomplete 
 				id="acHttpPaginatorSingle"
 				value="car" 
 				completeMethod="httpDataSourceSingle" 
@@ -12,14 +12,14 @@
 				dropdown="true" 
 				paginator="true"
 				rows="30">
-			</pui-autocomplete>
+			</wg-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: <pre ng-show="car != null">{{car | json}}</pre>
-		</pui-fieldset>
+		</wg-fieldset>
 
-		<pui-fieldset legend="Multiple" style="margin-top: 10px">
-			<pui-autocomplete 
+		<wg-fieldset legend="Multiple" style="margin-top: 10px">
+			<wg-autocomplete 
 				id="acHttpPaginatorMultiple"
 				value="carSelecteds"
 				completeMethod="httpDataSourceMultiple"
@@ -28,19 +28,19 @@
 				paginator="true"
 				rows="30"
 				multiple="true">
-			</pui-autocomplete>
+			</wg-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: <pre ng-show="carSelecteds != null">{{carSelecteds | json}}</pre>
-		</pui-fieldset>
+		</wg-fieldset>
 	</section>
 	
-	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs">
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-fieldset legend="Single">
-	<pui-autocomplete 
+<wg-fieldset legend="Single">
+	<wg-autocomplete 
 		id="acHttpPaginatorSingle"
 		value="car" 
 		completeMethod="httpDataSourceSingle" 
@@ -48,14 +48,14 @@
 		dropdown="true" 
 		paginator="true"
 		rows="30">
-	</pui-autocomplete>
+	</wg-autocomplete>
 	<br/>
 	<br/>
 	Controller value is: <pre ng-show="car != null">{{car | json}}</pre>
-</pui-fieldset>
+</wg-fieldset>
 
-<pui-fieldset legend="Multiple" style="margin-top: 10px">
-	<pui-autocomplete 
+<wg-fieldset legend="Multiple" style="margin-top: 10px">
+	<wg-autocomplete 
 		id="acHttpPaginatorMultiple"
 		value="carSelecteds"
 		completeMethod="httpDataSourceMultiple"
@@ -64,22 +64,22 @@
 		paginator="true"
 		rows="30"
 		multiple="true">
-	</pui-autocomplete>
+	</wg-autocomplete>
 	<br/>
 	<br/>
 	Controller value is: <pre ng-show="carSelecteds != null">{{carSelecteds | json}}</pre>
-</pui-fieldset>
+</wg-fieldset>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 $scope.car = null;
 $scope.carSelecteds = [];
 $scope.httpDataSourceSingle = new AngularWidgets.HttpDataSource({ url: 'json/cars.json' });
 $scope.httpDataSourceMultiple = new AngularWidgets.HttpDataSource({ url: 'json/cars.json' });
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
 		
-</pui-panel>
+</wg-panel>

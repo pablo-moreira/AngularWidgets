@@ -87,7 +87,7 @@
         };
 
         widgetInputText.registerEvents = function (inputData) {
-            var _events = inputData.element.findAllSelector('pui-event');
+            var _events = inputData.element.findAllSelector('wg-event');
             angular.forEach(_events, function (event) {
                 var puiEventData = angular.element(event).data('wgEvent');
                 if (puiEventData.event === 'ngEnter') {

@@ -1,41 +1,41 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 	
 	<section>
 		<header>Programmatic changing the current page</header>
             
-		<pui-datatable id="progPaginatorSelection" 
+		<wg-datatable id="progPaginatorSelection" 
 			binding="datatableCtrl.progPaginationBind"
 			paginator="true"
 			rows="4"            	 
 			items="datatableCtrl.fixedData">
-		</pui-datatable>
+		</wg-datatable>
 
 		<br/>
 
 		Goto page:
-		<pui-inputText id="newSelectedPage" value="datatableCtrl.progPaginationPage"></pui-inputText> (0-based)
-		<pui-button id="btnSetPage" action="datatableCtrl.progPaginationBind.goToPage(datatableCtrl.progPaginationPage)" value="Go"></pui-button>
+		<wg-inputText id="newSelectedPage" value="datatableCtrl.progPaginationPage"></wg-inputText> (0-based)
+		<wg-button id="btnSetPage" action="datatableCtrl.progPaginationBind.goToPage(datatableCtrl.progPaginationPage)" value="Go"></wg-button>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-datatable id="progPaginatorSelection" 
+<wg-datatable id="progPaginatorSelection" 
 	binding="datatableCtrl.progPaginationBind"
 	paginator="true"
 	rows="4"            	 
 	items="datatableCtrl.fixedData">
-</pui-datatable>
+</wg-datatable>
           
 <br/>
                       
 Goto page: 
-<pui-inputText id="newSelectedPage" value="datatableCtrl.progPaginationPage"></pui-inputText> (0-based)
-<pui-button id="btnSetPage" action="datatableCtrl.progPaginationBind.goToPage(datatableCtrl.progPaginationPage)" value="Go"></pui-button>
+<wg-inputText id="newSelectedPage" value="datatableCtrl.progPaginationPage"></wg-inputText> (0-based)
+<wg-button id="btnSetPage" action="datatableCtrl.progPaginationBind.goToPage(datatableCtrl.progPaginationPage)" value="Go"></wg-button>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function DatatableController($puiGrowl) {
 
@@ -60,7 +60,7 @@ function DatatableController($puiGrowl) {
 };
 
 				</demo-source>
-        	</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+        	</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

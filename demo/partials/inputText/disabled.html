@@ -1,35 +1,30 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
 
-<div id="content">
+	<section>
+		<header>Support for pui-disabled</header>
 
-	<pui-panel header="puiInputText">
-		
+		<wg-inputText id="disabled" value="value1" pui-disabled="fieldDisabled"></wg-inputText>
+		<br/>
+		<br/>
+		Controller value is : <span id="modelValue">{{value1}}</span><br/>
+		<button ng-click="enableField()" type="button" ng-show="fieldDisabled" id="enableBtn">Enable</button>
+		<button ng-click="disableField()" type="button" ng-hide="fieldDisabled" id="disableBtn">Disable</button>
+	</section>
 
-		<section>
-			<header>Support for pui-disabled</header>
-
-			<pui-inputText id="disabled" value="value1" pui-disabled="fieldDisabled"></pui-inputText><br/>
-			<br/>
-            Controller value is : <span id="modelValue">{{value1}}</span><br/>
-			<button ng-click="enableField()" type="button" ng-show="fieldDisabled" id="enableBtn">Enable</button>
-			<button ng-click="disableField()" type="button" ng-hide="fieldDisabled" id="disableBtn">Disable</button>
-
-
-		</section>
-
-		<pui-fieldset id="Source"legend="Source" style="margin-bottom:20px">
-            <pui-tabview id="sourceTabs" >
-                <pui-panel header="html" id="d_html">
-                    <demo-source language="html">
-    <pui-inputText id="disabled" value="value1" pui-disabled="fieldDisabled"></pui-inputText><br/>
-    <br/>
-    Controller value is : <span id="modelValue">{{value1}}</span><br/>
-    <button ng-click="enableField()" type="button" ng-show="fieldDisabled" id="enableBtn">Enable</button>
-    <button ng-click="disableField()" type="button" ng-hide="fieldDisabled" id="disableBtn">Disable</button>
-
-                    </demo-source>
-                </pui-panel>
-                <pui-panel header="controller" id="d_script">
-                    <demo-source language="javascript">
+	<wg-fieldset id="Source"legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="html" id="d_html">
+				<demo-source language="html">
+<wg-inputText id="disabled" value="value1" pui-disabled="fieldDisabled"></wg-inputText>
+<br/>
+<br/>
+Controller value is : <span id="modelValue">{{value1}}</span><br/>
+<button ng-click="enableField()" type="button" ng-show="fieldDisabled" id="enableBtn">Enable</button>
+<button ng-click="disableField()" type="button" ng-hide="fieldDisabled" id="disableBtn">Disable</button>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
 $scope.fieldDisabled = true;
 
 $scope.enableField = function() {
@@ -39,10 +34,8 @@ $scope.enableField = function() {
 $scope.disableField = function() {
     $scope.fieldDisabled =  true;
 };
-                    </demo-source>
-                </pui-panel>
-			</pui-tabview>
-		</pui-fieldset>
-
-	</pui-panel>
-</div>
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

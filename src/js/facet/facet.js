@@ -11,7 +11,7 @@
     	
     	widgetFacet.determineFacetsOptions = function(container) {
     		
-    		var puiFacets = angular.element(container).findAllSelector('pui-facet'),            	
+    		var puiFacets = angular.element(container).findAllSelector('wg-facet'),            	
             	facets = {};
             
             angular.forEach(puiFacets, function(puiFacet) {

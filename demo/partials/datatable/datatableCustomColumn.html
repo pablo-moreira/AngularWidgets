@@ -1,53 +1,53 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 				
 	<section>
 		<header>Custom Column</header>
-		<pui-datatable 
+		<wg-datatable 
 			items="datatableCtrl.fixedData" 
 			item="car">				
-			<pui-column value="brand" headerText="Brand">
-				<pui-inputtext value="car.brand"></pui-inputtext>
-	    	</pui-column>
+			<wg-column value="brand" headerText="Brand">
+				<wg-inputtext value="car.brand"></wg-inputtext>
+	    	</wg-column>
 			
-			<pui-column value="year" headerText="Year" sortBy="year">			
-			</pui-column>
+			<wg-column value="year" headerText="Year" sortBy="year">			
+			</wg-column>
 			
-			<pui-column headerText="Color" sortBy="color">
+			<wg-column headerText="Color" sortBy="color">
 				<div style="border: 1px solid #666; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>				
-			</pui-column>
+			</wg-column>
 			
-			<pui-column>
-				<pui-button action="datatableCtrl.showInfo(car)" value="Show Info"></pui-button>
-			</pui-column>
-		</pui-datatable>
+			<wg-column>
+				<wg-button action="datatableCtrl.showInfo(car)" value="Show Info"></wg-button>
+			</wg-column>
+		</wg-datatable>
 	</section>
 	
 	
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">				
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">				
 				<demo-source language="html">
-<pui-datatable 
+<wg-datatable 
 	items="datatableCtrl.fixedData" 
 	item="car">				
-	<pui-column value="brand" headerText="Brand">
-		<pui-inputtext value="car.brand"></pui-inputtext>
-	</pui-column>
+	<wg-column value="brand" headerText="Brand">
+		<wg-inputtext value="car.brand"></wg-inputtext>
+	</wg-column>
 
-	<pui-column value="year" headerText="Year" sortBy="year">			
-	</pui-column>
+	<wg-column value="year" headerText="Year" sortBy="year">			
+	</wg-column>
 
-	<pui-column headerText="Color" sortBy="color">
+	<wg-column headerText="Color" sortBy="color">
 		<div style="border: 1px solid #666; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>				
-	</pui-column>
+	</wg-column>
 
-	<pui-column>
-		<pui-button action="datatableCtrl.showInfo(car)" value="Show Info"></pui-button>
-	</pui-column>
-</pui-datatable>
+	<wg-column>
+		<wg-button action="datatableCtrl.showInfo(car)" value="Show Info"></wg-button>
+	</wg-column>
+</wg-datatable>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function DatatableController($puiGrowl) {
 
@@ -71,7 +71,7 @@ function DatatableController($puiGrowl) {
 	};
 };
 				</demo-source>
-        	</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+        	</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

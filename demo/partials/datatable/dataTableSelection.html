@@ -74,39 +74,39 @@
 <body ng-app="teste">
 	<div ng-controller="DatatableController as ctrl">
 
-		<pui-datatable value="ctrl.getPhones()"	item="phone" itemId="vin" caption="Single Selection" 
+		<wg-datatable value="ctrl.getPhones()"	item="phone" itemId="vin" caption="Single Selection" 
 			selectionMode="single" 
 			onRowSelect="ctrl.onRowSelect"
 			onRowUnselect="ctrl.onRowUnselect">
 		
-	    	<pui-column value="brand" headerText="Brand"></pui-column>
-			<pui-column headerText="Year" sortBy="year">			
+	    	<wg-column value="brand" headerText="Brand"></wg-column>
+			<wg-column headerText="Year" sortBy="year">			
 				{{phone.year}}
-			</pui-column>
-			<pui-column value="model" headerText="Model"></pui-column>
-			<pui-column value="color" headerText="Color"></pui-column>
-			<pui-column>
+			</wg-column>
+			<wg-column value="model" headerText="Model"></wg-column>
+			<wg-column value="color" headerText="Color"></wg-column>
+			<wg-column>
 				<button ng-click="ctrl.showVin(phone)">Show Vin</button>
-			</pui-column>
-	    </pui-datatable>
+			</wg-column>
+	    </wg-datatable>
 		
-		<pui-datatable value="ctrl.getCars()" item="car" caption="Multiple Selection" 
+		<wg-datatable value="ctrl.getCars()" item="car" caption="Multiple Selection" 
 			rowkey="vin" selectionMode="multiple"
 			onRowSelect="ctrl.onRowSelect"
 			onRowUnselect="ctrl.onRowUnselect"			
 			style="margin-top: 10px">
 			
-	    	<pui-column value="brand" headerText="Brand">
+	    	<wg-column value="brand" headerText="Brand">
 	    		<input type="text" ng-model="car.brand" />
-	    	</pui-column>
-			<pui-column headerText="Year" sortBy="year">			
+	    	</wg-column>
+			<wg-column headerText="Year" sortBy="year">			
 				{{car.year}}
-			</pui-column>
-			<pui-column value="color" headerText="Color"></pui-column>
-			<pui-column>
+			</wg-column>
+			<wg-column value="color" headerText="Color"></wg-column>
+			<wg-column>
 				<button ng-click="ctrl.showVin(car)">Show Vin</button>
-			</pui-column>
-	    </pui-datatable>
+			</wg-column>
+	    </wg-datatable>
 
 		<button ng-click="ctrl.changeData()">Change Data</button>
 		

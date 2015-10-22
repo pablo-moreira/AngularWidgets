@@ -1,10 +1,10 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
-	<pui-fieldset id="description" legend="Description" style="margin-bottom:20px">
+	<wg-fieldset id="description" legend="Description" style="margin-bottom:20px">
 		Autocomplete functionality for input element.  Allows also the selection of multiple items.
-	</pui-fieldset>
+	</wg-fieldset>
 	
-	<pui-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
+	<wg-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
 		<ul>
 			<li>Selection from a fix list</li>
 			<li>JavaScript function which determines the proposed values</li>
@@ -12,15 +12,15 @@
 			<li>Show multiple selected values</li>
 			<li>Limit the allowed values to fix list</li>
 		</ul>
-	</pui-fieldset>
+	</wg-fieldset>
 
-	<pui-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
+	<wg-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
 		<ul>
 			<li>Custom content/layout of proposed values</li>
 		</ul>
-	</pui-fieldset>
+	</wg-fieldset>
 
-	<pui-fieldset id="Configuration" legend="Configuration" style="margin-bottom:20px">
+	<wg-fieldset id="Configuration" legend="Configuration" style="margin-bottom:20px">
 
 		<table class="doc-table">
 			<thead>
@@ -80,6 +80,6 @@
            completMethod = function(request,response) <br/>
            <b>request.query</b> return the characters entered by the user in the field. <br/>
            <b>response.call(this, data); </b> shows the items in the data array in a selection panel.
-	</pui-fieldset>
+	</wg-fieldset>
 
-</pui-panel>
+</wg-panel>

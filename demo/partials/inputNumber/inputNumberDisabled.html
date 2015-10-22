@@ -1,13 +1,13 @@
 
 <div id="content">
 
-	<pui-panel header="puiInputText">
+	<wg-panel header="puiInputText">
 		
 
 		<section>
 			<header>Support for pui-disabled</header>
 
-			<pui-inputText id="disabled" value="value1" pui-disabled="fieldDisabled"></pui-inputText><br/>
+			<wg-inputText id="disabled" value="value1" pui-disabled="fieldDisabled"></wg-inputText><br/>
 			<br/>
             Controller value is : <span id="modelValue">{{value1}}</span><br/>
 			<button ng-click="enableField()" type="button" ng-show="fieldDisabled" id="enableBtn">Enable</button>
@@ -16,19 +16,19 @@
 
 		</section>
 
-		<pui-fieldset id="Source"legend="Source" style="margin-bottom:20px">
-            <pui-tabview id="sourceTabs" >
-                <pui-panel header="html" id="d_html">
+		<wg-fieldset id="Source"legend="Source" style="margin-bottom:20px">
+            <wg-tabview id="sourceTabs" >
+                <wg-panel header="html" id="d_html">
                     <demo-source language="html">
-    <pui-inputText id="disabled" value="value1" pui-disabled="fieldDisabled"></pui-inputText><br/>
+    <wg-inputText id="disabled" value="value1" pui-disabled="fieldDisabled"></wg-inputText><br/>
     <br/>
     Controller value is : <span id="modelValue">{{value1}}</span><br/>
     <button ng-click="enableField()" type="button" ng-show="fieldDisabled" id="enableBtn">Enable</button>
     <button ng-click="disableField()" type="button" ng-hide="fieldDisabled" id="disableBtn">Disable</button>
 
                     </demo-source>
-                </pui-panel>
-                <pui-panel header="controller" id="d_script">
+                </wg-panel>
+                <wg-panel header="controller" id="d_script">
                     <demo-source language="javascript">
 $scope.fieldDisabled = true;
 
@@ -40,9 +40,9 @@ $scope.disableField = function() {
     $scope.fieldDisabled =  true;
 };
                     </demo-source>
-                </pui-panel>
-			</pui-tabview>
-		</pui-fieldset>
+                </wg-panel>
+			</wg-tabview>
+		</wg-fieldset>
 
-	</pui-panel>
+	</wg-panel>
 </div>

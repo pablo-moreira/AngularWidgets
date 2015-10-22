@@ -1,18 +1,18 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
 		<header>Default integration</header>
-		<pui-button id="default" action="buttonCtrl.showMessage('Button clicked')" value="AngularWidgets"></pui-button>
+		<wg-button id="default" action="buttonCtrl.showMessage('Button clicked')" value="AngularWidgets"></wg-button>
 	</section>
 
-	<pui-fieldset legend="Source" id="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset legend="Source" id="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-button id="default" action="buttonCtrl.showMessage('Button clicked')" value="AngularWidgets"></pui-button>
+<wg-button id="default" action="buttonCtrl.showMessage('Button clicked')" value="AngularWidgets"></wg-button>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function ButtonController($puiGrowl) {
    		
@@ -23,8 +23,8 @@ function ButtonController($puiGrowl) {
 	};
 }
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
 	
-</pui-panel>
+</wg-panel>

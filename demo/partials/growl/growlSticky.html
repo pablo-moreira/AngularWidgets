@@ -1,20 +1,20 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
 		<header>Sticky message example</header>
-		<pui-button id="btnInfo" action="showStickyMessage()" value="Info"></pui-button>
-		<pui-button id="btnReset" action="resetGrowlOptions()" value="Reset options"></pui-button>
+		<wg-button id="btnInfo" action="showStickyMessage()" value="Info"></wg-button>
+		<wg-button id="btnReset" action="resetGrowlOptions()" value="Reset options"></wg-button>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-button id="btnInfo" action="showStickyMessage()" value="Info"></pui-button>
-<pui-button id="btnReset" action="resetGrowlOptions()" value="Reset options"></pui-button>
+<wg-button id="btnInfo" action="showStickyMessage()" value="Info"></wg-button>
+<wg-button id="btnReset" action="resetGrowlOptions()" value="Reset options"></wg-button>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 $scope.showStickyMessage = function() {
 	puiGrowl.setSticky(true);
@@ -26,7 +26,7 @@ $scope.resetGrowlOptions = function() {
 }
 
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

@@ -1,44 +1,44 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
 		<header>Callback when user selects from proposed list</header>
 
-		<pui-fieldset legend="Single">		
-			<pui-autocomplete id="acEvtSingle" value="country" completeMethod="countries" onItemSelect="onItemSelect"></pui-autocomplete>
+		<wg-fieldset legend="Single">		
+			<wg-autocomplete id="acEvtSingle" value="country" completeMethod="countries" onItemSelect="onItemSelect"></wg-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: {{country}}
-		</pui-fieldset>
+		</wg-fieldset>
 	
-		<pui-fieldset legend="Multiple" style="margin-top: 10px">			
-			<pui-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" onItemSelect="onItemSelect" onItemRemove="onItemRemove" multiple="true"></pui-autocomplete>
+		<wg-fieldset legend="Multiple" style="margin-top: 10px">			
+			<wg-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" onItemSelect="onItemSelect" onItemRemove="onItemRemove" multiple="true"></wg-autocomplete>
 			<br/>
 			<br/>
 			Controller value is: {{countriesSelected}}
-		</pui-fieldset>
+		</wg-fieldset>
 
 	</section>
 
-	<pui-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs">
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-fieldset legend="Single">		
-	<pui-autocomplete id="acEvtSingle" value="country" completeMethod="countries" onItemSelect="onItemSelect"></pui-autocomplete>
+<wg-fieldset legend="Single">		
+	<wg-autocomplete id="acEvtSingle" value="country" completeMethod="countries" onItemSelect="onItemSelect"></wg-autocomplete>
 	<br/>
 	<br/>
 	Controller value is: ((country))
-</pui-fieldset>
+</wg-fieldset>
 
-<pui-fieldset legend="Multiple" style="margin-top: 10px">			
-	<pui-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" onItemSelect="onItemSelect" onItemRemove="onItemRemove" multiple="true"></pui-autocomplete>
+<wg-fieldset legend="Multiple" style="margin-top: 10px">			
+	<wg-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" onItemSelect="onItemSelect" onItemRemove="onItemRemove" multiple="true"></wg-autocomplete>
 	<br/>
 	<br/>
 	Controller value is: ((countriesSelected))
-</pui-fieldset>
+</wg-fieldset>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 $scope.country = null;
 $scope.countrySelecteds = [];
@@ -52,7 +52,7 @@ $scope.onItemRemove = function(item) {
 	alert(item + ' removed')
 };
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

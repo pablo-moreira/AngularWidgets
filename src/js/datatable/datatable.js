@@ -109,7 +109,7 @@
 					
 					tbody.data("dataTable", this);
 					
-					tbody.html('<tr class="ui-widget-content" ng-repeat="' + this.options.item + ' in $getData()" pui-row-build />');
+					tbody.html('<tr class="ui-widget-content" ng-repeat="' + this.options.item + ' in $getData()" wg-row-build />');
 					
 					var row = tbody.findAllSelector('tr');
 					

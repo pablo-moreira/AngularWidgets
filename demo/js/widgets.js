@@ -17,7 +17,7 @@
 				{ "label": "Force selection", "path": "autocomplete/autocompleteLimited" },
 				{ "label": "Callback", "path": "autocomplete/autocompleteCallback" },
 				{ "label": "Object", "path": "autocomplete/autocompleteObject" },
-				{ "label": "Http Data Loader", "path": "autocomplete/autocompleteHttpDataSource" },
+				{ "label": "Http Data Source", "path": "autocomplete/autocompleteHttpDataSource" },
 				{ "label": "Custom Content", "path": "autocomplete/autocompleteCustomContent" },
 				{ "label": "Table Content", "path": "autocomplete/autocompleteTableContent" }
 			]
@@ -134,27 +134,7 @@
 				{ "label": "Custom Content", "path": "dropdown/dropdownCustomContent" },
 				{ "label": "Table Content", "path": "dropdown/dropdownTableContent" }
 			]
-		},*/
-
-
-
- 	
- {
-     "widget": "puiEvent",
-     "label": "Event",
-     "controller": "EventController",
-     "defaultPath": "event/overview",
-     "subPages": [
-         {
-             "label": "overview",
-             "path": "event/overview"
-         },
-         {
-             "label": "default",
-             "path": "event/default"
-         }
-     ]
- },
+		},*/ 
  {
      "widget": "puiInputText",
      "label": "InputText",

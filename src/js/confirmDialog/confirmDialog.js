@@ -20,7 +20,7 @@
 
         widget.createWidget = function(scope, options, container) {
         	
-			var confirmdialog = angular.element('<pui-confirmdialog></pui-confirmdialog>')
+			var confirmdialog = angular.element('<wg-confirmdialog></wg-confirmdialog>')
 				.attr(options);
 		
 			$compile(confirmdialog)(scope);
@@ -129,10 +129,10 @@
 				
 				var content =	'<span class="pui-confirm-dialog-severity pui-icon fa ' + icon + '"></span>' +
 								'<span class="pui-confirm-dialog-message">' + this.element.attr('message') + '</span>' +
-								'<pui-facet name="footer">' + 
-									'<pui-button value="' + yesLabel + '" icon="fa-check" action="$yesAction()"></pui-button>' +
-									'<pui-button value="' + noLabel + '" icon="fa-close" action="$noAction()"></pui-button>' +
-								'</pui-facet>';
+								'<wg-facet name="footer">' + 
+									'<wg-button value="' + yesLabel + '" icon="fa-check" action="$yesAction()"></wg-button>' +
+									'<wg-button value="' + noLabel + '" icon="fa-close" action="$noAction()"></wg-button>' +
+								'</wg-facet>';
 
 				this.dialogWidget = widgetDialog.createWidget(this.scope, this.options, this.element, content);
 			},

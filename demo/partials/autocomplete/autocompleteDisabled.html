@@ -1,27 +1,27 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
 		<header>Disabled autocomplete</header>
 
-		<pui-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></pui-autocomplete><br/>
+		<wg-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></wg-autocomplete><br/>
 		Controller value is : {{country}}
 		<br/>
-		<pui-button action="enableField()" disabled="!fieldDisabled" value="Enable"></pui-button>
-		<pui-button action="disableField()" disabled="fieldDisabled" value="Disable"></pui-button>
+		<wg-button action="enableField()" disabled="!fieldDisabled" value="Enable"></wg-button>
+		<wg-button action="disableField()" disabled="fieldDisabled" value="Disable"></wg-button>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></pui-autocomplete><br/>
+<wg-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></wg-autocomplete><br/>
 Controller value is : {{country}}
 <br/>
-<pui-button action="enableField()" disabled="!fieldDisabled" value="Enable"></pui-button>
-<pui-button action="disableField()" disabled="fieldDisabled" value="Disable"></pui-button>
+<wg-button action="enableField()" disabled="!fieldDisabled" value="Enable"></wg-button>
+<wg-button action="disableField()" disabled="fieldDisabled" value="Disable"></wg-button>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 $scope.country = null;
 $scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
@@ -36,7 +36,7 @@ $scope.disableField = function() {
 	$scope.fieldDisabled =  true;
 };
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

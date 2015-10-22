@@ -1,20 +1,20 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
 		<header>ConfirmDialog is integrated with confirm behavior and used as a replacement for the javascript confirmation utility.</header>
 			
-		<pui-button value="Show Confirmation" action="dialogCtrl.showConfirmDialog()"></pui-button>
+		<wg-button value="Show Confirmation" action="dialogCtrl.showConfirmDialog()"></wg-button>
 		
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs">
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-button value="Show Confirmation" action="dialogCtrl.showConfirmDialog()"></pui-button>
+<wg-button value="Show Confirmation" action="dialogCtrl.showConfirmDialog()"></wg-button>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function DialogController(puiGrowl,$puiDialog) {
 	
@@ -34,7 +34,7 @@ function DialogController(puiGrowl,$puiDialog) {
 	}	
 }
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

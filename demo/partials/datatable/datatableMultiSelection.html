@@ -1,36 +1,36 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 	
 	<section>
 		<header>Multi row selection </header>
-        <pui-datatable id="multi" 
+        <wg-datatable id="multi" 
         	items="datatableCtrl.fixedData" 
         	itemId="vin" 
         	selectionMode="multiple" 
         	onRowSelect="datatableCtrl.onRowSelect" 
         	onRowUnselect="datatableCtrl.onRowUnselect">
-			<pui-column value="brand"></pui-column>
-			<pui-column value="year"></pui-column>
-			<pui-column value="color"></pui-column>
-		</pui-datatable>
+			<wg-column value="brand"></wg-column>
+			<wg-column value="year"></wg-column>
+			<wg-column value="color"></wg-column>
+		</wg-datatable>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs" >
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-datatable id="multi" 
+<wg-datatable id="multi" 
 	items="datatableCtrl.fixedData" 
 	itemId="vin" 
 	selectionMode="multiple" 
 	onRowSelect="datatableCtrl.onRowSelect" 
 	onRowUnselect="datatableCtrl.onRowUnselect">
-	<pui-column value="brand"></pui-column>
-	<pui-column value="year"></pui-column>
-	<pui-column value="color"></pui-column>
-</pui-datatable>
+	<wg-column value="brand"></wg-column>
+	<wg-column value="year"></wg-column>
+	<wg-column value="color"></wg-column>
+</wg-datatable>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function DatatableController($puiGrowl) {
 
@@ -60,7 +60,7 @@ function DatatableController($puiGrowl) {
 	};
 };
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

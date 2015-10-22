@@ -1,23 +1,23 @@
-<pui-panel header="{{mainCtrl.widget.label}}">
+<wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
 		<header>ConfirmDialog is integrated with confirm behavior and used as a replacement for the javascript confirmation utility.</header>
 		
-		<pui-confirmdialog binding="dialogCtrl.confirmDialog" title="Destroy the World" message="Are you sure?" yesAction="dialogCtrl.yesAction()" noAction="dialogCtrl.noAction()" dismissAction="dialogCtrl.dismissAction()"></pui-confirmdialog>
+		<wg-confirmdialog binding="dialogCtrl.confirmDialog" title="Destroy the World" message="Are you sure?" yesAction="dialogCtrl.yesAction()" noAction="dialogCtrl.noAction()" dismissAction="dialogCtrl.dismissAction()"></wg-confirmdialog>
 		
-		<pui-button value="Destroy the World" action="dialogCtrl.confirmDialog.show()"></pui-button>
+		<wg-button value="Destroy the World" action="dialogCtrl.confirmDialog.show()"></wg-button>
 	</section>
 
-	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-		<pui-tabview id="sourceTabs">
-			<pui-tab header="HTML" id="d_html">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-confirmdialog binding="dialogCtrl.confirmDialog" title="Destroy the World" message="Are you sure?" yesAction="dialogCtrl.yesAction()" noAction="dialogCtrl.noAction()" dismissAction="dialogCtrl.dismissAction()"></pui-confirmdialog>
+<wg-confirmdialog binding="dialogCtrl.confirmDialog" title="Destroy the World" message="Are you sure?" yesAction="dialogCtrl.yesAction()" noAction="dialogCtrl.noAction()" dismissAction="dialogCtrl.dismissAction()"></wg-confirmdialog>
 
-<pui-button value="Destroy the World" action="dialogCtrl.confirmDialog.show()"></pui-button>
+<wg-button value="Destroy the World" action="dialogCtrl.confirmDialog.show()"></wg-button>
 				</demo-source>
-			</pui-tab>
-			<pui-tab header="Controller" id="d_script">
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
 function DialogController(puiGrowl) {
 	
@@ -38,7 +38,7 @@ function DialogController(puiGrowl) {
 	};
 }
 				</demo-source>
-			</pui-tab>
-		</pui-tabview>
-	</pui-fieldset>
-</pui-panel>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

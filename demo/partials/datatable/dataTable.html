@@ -58,35 +58,35 @@
 <body ng-app="teste">
 	<div ng-controller="DatatableController as ctrl">
 
-		<pui-datatable value="ctrl.getCars()" item="car">
+		<wg-datatable value="ctrl.getCars()" item="car">
 			
-	    	<pui-column value="brand" headerText="Brand">
+	    	<wg-column value="brand" headerText="Brand">
 	    		<input type="text" ng-model="car.brand" />
-	    	</pui-column>
-			<pui-column headerText="Year" sortBy="year">			
+	    	</wg-column>
+			<wg-column headerText="Year" sortBy="year">			
 				{{car.year}}
-			</pui-column>
-			<pui-column value="color" headerText="Color"></pui-column>
-			<pui-column headerText="Ação">
+			</wg-column>
+			<wg-column value="color" headerText="Color"></wg-column>
+			<wg-column headerText="Ação">
 				<button ng-click="ctrl.showVin(car)">Show Vin</button>
-			</pui-column>
-	    </pui-datatable>
+			</wg-column>
+	    </wg-datatable>
 
-		<pui-datatable value="ctrl.getCars2()" item="car" style="margin-top: 10px">
+		<wg-datatable value="ctrl.getCars2()" item="car" style="margin-top: 10px">
 			
-	    	<pui-column value="brand" headerText="Brand"></pui-column>
-			<pui-column headerText="Year" sortBy="year">			
+	    	<wg-column value="brand" headerText="Brand"></wg-column>
+			<wg-column headerText="Year" sortBy="year">			
 				{{car.year}}
-			</pui-column>
-			<pui-column value="color" headerText="Color"></pui-column>
-			<pui-column headerText="Ação"> 
+			</wg-column>
+			<wg-column value="color" headerText="Color"></wg-column>
+			<wg-column headerText="Ação"> 
 				<button ng-click="ctrl.showVin(car)">Show Vin</button>
-			</pui-column>
-	    </pui-datatable>
+			</wg-column>
+	    </wg-datatable>
 		
 		<button ng-click="ctrl.changeData()">Change Data</button>
 				
-		<pui-datatable value="ctrl.fixedData" item="car">
-		</pui-datatable>
+		<wg-datatable value="ctrl.fixedData" item="car">
+		</wg-datatable>
 	</div>
 </body>

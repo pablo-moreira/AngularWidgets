@@ -1,13 +1,13 @@
 
 <div id="content">
 
-	<pui-panel header="puiInputText">
+	<wg-panel header="puiInputText">
 		
 
 		<section>
 			<header>Support for rendered</header>
 
-			<pui-inputText id="visible" value="value1" rendered="fieldVisible"></pui-inputText><br/>
+			<wg-inputText id="visible" value="value1" rendered="fieldVisible"></wg-inputText><br/>
 			<br/>
             Controller value is : <span id="modelValue">{{value1}}</span><br/>
 			<button ng-click="showField()" type="button" ng-hide="fieldVisible" id="showBtn">Show</button>
@@ -16,19 +16,19 @@
 
 		</section>
 
-		<pui-fieldset id="Source"legend="Source" style="margin-bottom:20px">
-            <pui-tabview id="sourceTabs" >
-                <pui-panel header="html" id="d_html">
+		<wg-fieldset id="Source"legend="Source" style="margin-bottom:20px">
+            <wg-tabview id="sourceTabs" >
+                <wg-panel header="html" id="d_html">
                     <demo-source language="html">
-    <pui-inputText id="visible" value="value1" rendered="fieldVisible"></pui-inputText><br/>
+    <wg-inputText id="visible" value="value1" rendered="fieldVisible"></wg-inputText><br/>
     <br/>
     Controller value is : <span id="modelValue">{{value1}}</span><br/>
     <button ng-click="showField()" type="button" ng-hide="fieldVisible" id="showBtn">Show</button>
     <button ng-click="hideField()" type="button" ng-show="fieldVisible" id="hideBtn">Hide</button>
 
                     </demo-source>
-                </pui-panel>
-                <pui-panel header="controler" id="d_script">
+                </wg-panel>
+                <wg-panel header="controler" id="d_script">
                     <demo-source language="javascript">
 $scope.fieldDisabled = true;
 
@@ -42,7 +42,7 @@ $scope.disableField = function() {
                     </demo-source>
                 </div>
 			</div>
-		</pui-fieldset>
+		</wg-fieldset>
 
-	</pui-panel>
+	</wg-panel>
 </div>

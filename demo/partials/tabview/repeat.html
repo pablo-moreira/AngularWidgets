@@ -1,23 +1,23 @@
 
 <div id="content">
 
-	<pui-panel header="puiTabview">
+	<wg-panel header="puiTabview">
 		
 		<section>
 			<header>Tab panels included</header>
 
 
-			<pui-tabview id="repeat" dynamic="includeList">
-			</pui-tabview>
+			<wg-tabview id="repeat" dynamic="includeList">
+			</wg-tabview>
             data field1: <span id="field1Value"> {{distributedData.field1}}</span> <br/>
             data field2: <span id="field2Value"> {{distributedData.field2}}</span> <br/>
             data field3: <span id="field3Value"> {{distributedData.field3}}</span> <br/>
             <button type="button" ng-click="addPanel()" id="addPanel">Add panel</button>
 		</section>
 
-		<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
-            <pui-tabview id="sourceTabs" >
-                <pui-panel header="html" id="d_html">
+		<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+            <wg-tabview id="sourceTabs" >
+                <wg-panel header="html" id="d_html">
 						<demo-source language="html">
     <div id="repeat" pui-tabview="includeList">
     </div>
@@ -28,8 +28,8 @@
 
 						</demo-source>
 
-                </pui-panel>
-                <pui-panel header="controller" id="d_script">
+                </wg-panel>
+                <wg-panel header="controller" id="d_script">
                         <demo-source language="javascript">
     $scope.includeList = ["partials/puiTabview/include/panel1.html"
        , "partials/puiTabview/include/panel2.html"];
@@ -44,9 +44,9 @@
         $scope.includeList.push("partials/puiTabview/include/panel3.html");
     }
                         </demo-source>
-					</pui-panel>
-			</pui-tabview>
-		</pui-fieldset>
+					</wg-panel>
+			</wg-tabview>
+		</wg-fieldset>
 
-	</pui-panel>
+	</wg-panel>
 </div>
