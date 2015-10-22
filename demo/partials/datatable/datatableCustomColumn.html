@@ -3,10 +3,10 @@
 	<section>
 		<header>Custom Column</header>
 		<pui-datatable 
-			items="fixedData" 
+			items="datatableCtrl.fixedData" 
 			item="car">				
-	    	<pui-column value="brand" headerText="Brand">
-	    		<input type="text" ng-model="car.brand" />
+			<pui-column value="brand" headerText="Brand">
+				<pui-inputtext value="car.brand"></pui-inputtext>
 	    	</pui-column>
 			
 			<pui-column value="year" headerText="Year" sortBy="year">			
@@ -17,7 +17,7 @@
 			</pui-column>
 			
 			<pui-column>
-				<pui-button action="showInfo(car)" value="Show Info"></pui-button>
+				<pui-button action="datatableCtrl.showInfo(car)" value="Show Info"></pui-button>
 			</pui-column>
 		</pui-datatable>
 	</section>
@@ -28,29 +28,47 @@
 			<pui-tab header="HTML" id="d_html">				
 				<demo-source language="html">
 <pui-datatable 
-	items="fixedData" 
-	item="car">	
-   	<pui-column value="brand" headerText="Brand">
-   		<input type="text" ng-model="car.brand" />
-   	</pui-column>
-	
+	items="datatableCtrl.fixedData" 
+	item="car">				
+	<pui-column value="brand" headerText="Brand">
+		<pui-inputtext value="car.brand"></pui-inputtext>
+	</pui-column>
+
 	<pui-column value="year" headerText="Year" sortBy="year">			
 	</pui-column>
-	
+
 	<pui-column headerText="Color" sortBy="color">
 		<div style="border: 1px solid #666; height: 16px; width: 16px;" ng-style="{ backgroundColor: car.color }"></div>				
 	</pui-column>
-	
+
 	<pui-column>
-		<pui-button action="showInfo(car)" value="Show Info"></pui-button>
+		<pui-button action="datatableCtrl.showInfo(car)" value="Show Info"></pui-button>
 	</pui-column>
 </pui-datatable>
 				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.showInfo = function (car) {
-	puiGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
+function DatatableController($puiGrowl) {
+
+	var vm = this;
+
+	vm.fixedData = [
+		{'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
+		{'brand':'Audi','year': 2011, 'color':'Black', 'vin':'gwregre345'},
+		{'brand':'Renault','year': 2005, 'color':'Gray', 'vin':'h354htr'},
+		{'brand':'Bmw','year': 2003, 'color':'Blue', 'vin':'j6w54qgh'},
+		{'brand':'Mercedes','year': 1995, 'color':'White', 'vin':'hrtwy34'},
+		{'brand':'Opel','year': 2005, 'color':'Black', 'vin':'jejtyj'},
+		{'brand':'Honda','year': 2012, 'color':'Yellow', 'vin':'g43gr'},
+		{'brand':'Chevrolet','year': 2013, 'color':'White', 'vin':'greg34'},
+		{'brand':'Opel','year': 2000, 'color':'Black', 'vin':'h54hw5'},
+		{'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
+	];
+	
+	vm.showInfo = function (car) {
+		$puiGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
+	};
 };
 				</demo-source>
         	</pui-tab>

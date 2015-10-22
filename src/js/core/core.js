@@ -180,7 +180,7 @@
 
     angularService.factory('widgetBase', ['$parse', '$interpolate', '$animate', '$q', '$http', function ($parse, $interpolate, $animate, $q, $http) {
     
-		AngularWidgets.FunctionDatasource = function (fctLoader) {
+		AngularWidgets.FunctionDataSource = function (fctLoader) {
 
 			// public 
 			this.load = load;
@@ -225,7 +225,7 @@
 			}
 		}
 
-		AngularWidgets.ArrayDatasource = function (allData) {
+		AngularWidgets.ArrayDataSource = function (allData) {
       	
 			// public
 			this.load = load
@@ -331,7 +331,7 @@
 			}
 		};
 		
-		AngularWidgets.HttpDatasource = function (options) {
+		AngularWidgets.HttpDataSource = function (options) {
     
 			// public
 			this.url = options.url;
@@ -378,7 +378,7 @@
 			}
 		};
 
-		AngularWidgets.FakeHttpDatasource = function (options) {
+		AngularWidgets.FakeHttpDataSource = function (options) {
 
 			options.parseResponse = function(data, request) {
 

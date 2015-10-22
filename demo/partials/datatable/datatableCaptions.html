@@ -2,7 +2,7 @@
 	
 	<section>
 		<header>Captions </header>
-		<pui-datatable options="{ items: fixedData, caption: 'Car data'}" id="caption">
+		<pui-datatable id="caption" items="datatableCtrl.fixedData" caption="Car data">
 			<pui-column value="brand" headerText="Brand column"></pui-column>
 			<pui-column value="year" headerText="Year column"></pui-column>
 			<pui-column value="color" headerText="Color column"></pui-column>
@@ -13,27 +13,32 @@
 		<pui-tabview id="sourceTabs">
 			<pui-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<pui-datatable options="{ items: fixedData, caption: 'Car data'}">
-	<pui-column value="brand" header_text="Brand column"></pui-column>
-	<pui-column value="year" header_text="Year column"></pui-column>
-	<pui-column value="color" header_text="Color column"></pui-column>
+<pui-datatable id="caption" items="datatableCtrl.fixedData" caption="Car data">
+	<pui-column value="brand" headerText="Brand column"></pui-column>
+	<pui-column value="year" headerText="Year column"></pui-column>
+	<pui-column value="color" headerText="Color column"></pui-column>
 </pui-datatable>
 				</demo-source>
 			</pui-tab>
-			<pui-tab header="controller" id="d_script">
+			<pui-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.fixedData =  [
-    {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
-    {'brand':'Audi','year': 2011, 'color':'Black', 'vin':'gwregre345'},
-    {'brand':'Renault','year': 2005, 'color':'Gray', 'vin':'h354htr'},
-    {'brand':'Bmw','year': 2003, 'color':'Blue', 'vin':'j6w54qgh'},
-    {'brand':'Mercedes','year': 1995, 'color':'White', 'vin':'hrtwy34'},
-    {'brand':'Opel','year': 2005, 'color':'Black', 'vin':'jejtyj'},
-    {'brand':'Honda','year': 2012, 'color':'Yellow', 'vin':'g43gr'},
-    {'brand':'Chevrolet','year': 2013, 'color':'White', 'vin':'greg34'},
-    {'brand':'Opel','year': 2000, 'color':'Black', 'vin':'h54hw5'},
-    {'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
-];
+function DatatableController($puiGrowl) {
+
+	var vm = this;
+
+	vm.fixedData = [
+		{'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
+		{'brand':'Audi','year': 2011, 'color':'Black', 'vin':'gwregre345'},
+		{'brand':'Renault','year': 2005, 'color':'Gray', 'vin':'h354htr'},
+		{'brand':'Bmw','year': 2003, 'color':'Blue', 'vin':'j6w54qgh'},
+		{'brand':'Mercedes','year': 1995, 'color':'White', 'vin':'hrtwy34'},
+		{'brand':'Opel','year': 2005, 'color':'Black', 'vin':'jejtyj'},
+		{'brand':'Honda','year': 2012, 'color':'Yellow', 'vin':'g43gr'},
+		{'brand':'Chevrolet','year': 2013, 'color':'White', 'vin':'greg34'},
+		{'brand':'Opel','year': 2000, 'color':'Black', 'vin':'h54hw5'},
+		{'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
+	];
+};
 				</demo-source>
 			</pui-tab>
 		</pui-tabview>

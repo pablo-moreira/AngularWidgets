@@ -37,13 +37,23 @@
 			]
 		},
 		{
-			"widget": "puiInputNumber",
-			"label": "InputNumber",
-			"controller": "InputNumberController",
-			"defaultPath": "inputNumber/inputNumberOverview",
-			"subPages": [
-				{ "label": "Overview", "path": "inputNumber/inputNumberOverview" },
-		        { "label": "Default", "path": "inputNumber/inputNumberDefault" }
+			"widget" : "puiDatatable",
+			"label" : "Datatable",
+			"controller" : "DatatableController",
+			"defaultPath" : "datatable/overview",
+			"subPages" : [ 
+				{ "label" : "Overview", "path" : "datatable/datatableOverview" }, 
+				{ "label" : "Default", "path" : "datatable/datatableDefault" }, 
+				{ "label" : "Columns", "path" : "datatable/datatableColumns" }, 
+				{ "label" : "Sort and Selection", "path" : "datatable/datatableSortSelection"}, 
+				{ "label" : "Paginator", "path" : "datatable/datatablePaginator" }, 
+				{ "label" : "Captions", "path" : "datatable/datatableCaptions" }, 
+				{ "label" : "Facets", "path" : "datatable/datatableFacets" }, 
+				{ "label" : "Multiselect", "path" : "datatable/datatableMultiSelection" }, 
+				{ "label" : "ProgPagination", "path" : "datatable/datatableProgPagination" }, 
+				{ "label" : "HttpDataSource", "path" : "datatable/datatableHttpDataSource" },  
+				{ "label" : "Custom Column", "path" : "datatable/datatableCustomColumn" },
+				{ "label" : "Responsive", "path" : "datatable/datatableResponsive" }
 			]
 		},
 		{
@@ -79,27 +89,18 @@
 				{ "label": "Default", "path": "growl/growlDefault" },
 				{ "label": "Options", "path": "growl/growlOptions" }
 			]
-		},		
-		{
-			"widget" : "puiDatatable",
-			"label" : "Datatable",
-			"controller" : "DatatableController",
-			"defaultPath" : "datatable/overview",
-			"subPages" : [ 
-				{ "label" : "Overview", "path" : "datatable/datatableOverview" }, 
-				{ "label" : "Default", "path" : "datatable/datatableDefault" }, 
-				{ "label" : "Columns", "path" : "datatable/datatableColumns" }, 
-				{ "label" : "Sort and Selection", "path" : "datatable/datatableSortSelection"}, 
-				{ "label" : "Paginator", "path" : "datatable/datatablePaginator" }, 
-				{ "label" : "Captions", "path" : "datatable/datatableCaptions" }, 
-				{ "label" : "Facets", "path" : "datatable/datatableFacets" }, 
-				{ "label" : "Multiselect", "path" : "datatable/datatableMultiSelection" }, 
-				{ "label" : "ProgPagination", "path" : "datatable/datatableProgPagination" }, 
-				{ "label" : "HttpDataSource", "path" : "datatable/datatableHttpDataSourceObject" },  
-				{ "label" : "Custom Column", "path" : "datatable/datatableCustomColumn" },
-				{ "label" : "Responsive", "path" : "datatable/datatableResponsive" }
-			]
 		},
+		{
+			"widget": "puiInputNumber",
+			"label": "InputNumber",
+			"controller": "InputNumberController",
+			"defaultPath": "inputNumber/inputNumberOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "inputNumber/inputNumberOverview" },
+		        { "label": "Default", "path": "inputNumber/inputNumberDefault" }
+			]
+		},		
+
 		{
 			"widget": "puiFieldset",
 			"label": "Fieldset",

@@ -106,106 +106,7 @@
         $scope.hideField = function() {
             $scope.fieldVisible =  false;
         };
-    } ])
-    .controller('DatatableController', [ '$scope', '$http',  '$puiGrowl', function($scope, $http, puiGrowl) {      
-    	
-        $scope.fixedData =  [
-            {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
-            {'brand':'Audi','year': 2011, 'color':'Black', 'vin':'gwregre345'},
-            {'brand':'Renault','year': 2005, 'color':'Gray', 'vin':'h354htr'},
-            {'brand':'Bmw','year': 2003, 'color':'Blue', 'vin':'j6w54qgh'},
-            {'brand':'Mercedes','year': 1995, 'color':'White', 'vin':'hrtwy34'},
-            {'brand':'Opel','year': 2005, 'color':'Black', 'vin':'jejtyj'},
-            {'brand':'Honda','year': 2012, 'color':'Yellow', 'vin':'g43gr'},
-            {'brand':'Chevrolet','year': 2013, 'color':'White', 'vin':'greg34'},
-            {'brand':'Opel','year': 2000, 'color':'Black', 'vin':'h54hw5'},
-            {'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
-        ];
-	
-	    $scope.remoteData = function (callback) {
-            $http.get('json/cars.json')
-                .then(function(response){
-                    $scope.safeApply(  // external changes aren't picked up by angular
-                        callback.call(this, response.data)
-                    )
-                });
-        };
-
-        $scope.carTableData = {
-            items : $scope.fixedData
-            , itemId : 'vin'
-            , selectionMode : 'single'            
-            , onRowSelect: function(event, data) {
-                puiGrowl.showInfoMessage('Row selection', 'Selected a '+data.color+ ' '+data.brand+ ' of '+data.year +' (id = '+data.vin+')');
-            }
-        };
-
-        $scope.multiSelectTableData = {
-            items : $scope.fixedData
-            , itemId : 'vin'
-            , selectionMode : 'multiple'            
-            , onRowSelect: function(event, data) {
-                puiGrowl.showInfoMessage('Row selection', 'Selected a '+data.color+ ' '+data.brand+ ' of '+data.year +' (id = '+data.vin+')');
-            }
-            , onRowUnselect: function(event, data) {
-                if (data) {
-                    puiGrowl.showInfoMessage('Row deselection', 'deselected the '+data.color+ ' '+data.brand+ ' of '+data.year +' (id = '+data.vin+')');
-                }
-            }
-        };        
-
-        $scope.data = {};
-        $scope.data.rowIndex = null;
-
-        $scope.progPaginatedData = {
-            value : $scope.fixedData
-            , rows : 4
-            , paginator : true
-            , selectedPage: 0
-            , onPage : function(event, data) {
-                $scope.safeApply(function() {
-                    $scope.progPaginatedData.selectedPage = data;
-                });
-            }
-        };
-
-        // Prog Pagination
-        $scope.progPaginationBind = null;
-        $scope.progPaginationPage = 0;        
-         
-        // HttpDataSource
-        $scope.httpDataSourceObject = new AngularWidgets.HttpDataSource({
-        	url: 'json/cars.json',
-        	parseResponse: function (data, request) {
-        		
-				var arrayDataSource = new AngularWidgets.ArrayDataSource(data.rows);
-				
-				var result = { 'rowCount': data.rowCount, 'rows': null };
-				
-				arrayDataSource.load(request)
-				.success(function(request) {
-
-					result.rows = arrayDataSource.getData();
-				
-				});
-
-        		return result;
-        	}
-        });        
-        
-        // Common
-        $scope.onRowSelect = function(event, data) {
-            puiGrowl.showInfoMessage('Row selection', 'Selected a ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
-        }
-        $scope.onRowUnselect = function(event, data) {
-			if (data) {
-            	puiGrowl.showInfoMessage('Row deselection', 'deselected the ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
-            }
-        }        	        
-        $scope.showInfo = function (car) {
-        	puiGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
-        };
-    }])
+    } ])   
     .controller('AutocompleteController', [ '$scope',   function($scope) {			
    	
         $scope.country = null;
@@ -298,11 +199,6 @@
         };
 
     } ])
-    .controller('DialogController', ['$scope', function($scope) {
-
-    	$scope.basicDialog = null;    
-    	
-    }])
     .controller('puiPanel', [ function() {
 
     }]);

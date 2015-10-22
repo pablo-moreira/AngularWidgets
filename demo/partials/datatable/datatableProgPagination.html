@@ -4,17 +4,17 @@
 		<header>Programmatic changing the current page</header>
             
 		<pui-datatable id="progPaginatorSelection" 
-			binding="progPaginationBind"
+			binding="datatableCtrl.progPaginationBind"
 			paginator="true"
 			rows="4"            	 
-			items="fixedData">
+			items="datatableCtrl.fixedData">
 		</pui-datatable>
-            
+
 		<br/>
-                        
-		Goto page: 
-		<pui-inputText value="progPaginationPage" id="newSelectedPage"></pui-inputText> (0-based)
-		<pui-button action="progPaginationBind.goToPage(progPaginationPage)" id="setPage" value="Go" ></pui-button>
+
+		Goto page:
+		<pui-inputText id="newSelectedPage" value="datatableCtrl.progPaginationPage"></pui-inputText> (0-based)
+		<pui-button id="btnSetPage" action="datatableCtrl.progPaginationBind.goToPage(datatableCtrl.progPaginationPage)" value="Go"></pui-button>
 	</section>
 
 	<pui-fieldset id="Source" legend="Source" style="margin-bottom:20px">
@@ -22,23 +22,43 @@
 			<pui-tab header="HTML" id="d_html">
 				<demo-source language="html">
 <pui-datatable id="progPaginatorSelection" 
-	binding="progPaginationBind"
+	binding="datatableCtrl.progPaginationBind"
 	paginator="true"
 	rows="4"            	 
-	items="fixedData">
+	items="datatableCtrl.fixedData">
 </pui-datatable>
           
 <br/>
                       
 Goto page: 
-<pui-inputText value="progPaginationPage" id="newSelectedPage"></pui-inputText> (0-based) 
-<pui-button actionListener="progPaginationBind.goToPage(progPaginationPage)" id="setPage" value="Go" ></pui-button>
+<pui-inputText id="newSelectedPage" value="datatableCtrl.progPaginationPage"></pui-inputText> (0-based)
+<pui-button id="btnSetPage" action="datatableCtrl.progPaginationBind.goToPage(datatableCtrl.progPaginationPage)" value="Go"></pui-button>
 				</demo-source>
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.progPaginationBind = null;
-$scope.progPaginationPage = 0; 
+function DatatableController($puiGrowl) {
+
+	var vm = this;
+
+	vm.fixedData = [
+		{'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'},
+		{'brand':'Audi','year': 2011, 'color':'Black', 'vin':'gwregre345'},
+		{'brand':'Renault','year': 2005, 'color':'Gray', 'vin':'h354htr'},
+		{'brand':'Bmw','year': 2003, 'color':'Blue', 'vin':'j6w54qgh'},
+		{'brand':'Mercedes','year': 1995, 'color':'White', 'vin':'hrtwy34'},
+		{'brand':'Opel','year': 2005, 'color':'Black', 'vin':'jejtyj'},
+		{'brand':'Honda','year': 2012, 'color':'Yellow', 'vin':'g43gr'},
+		{'brand':'Chevrolet','year': 2013, 'color':'White', 'vin':'greg34'},
+		{'brand':'Opel','year': 2000, 'color':'Black', 'vin':'h54hw5'},
+		{'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
+	];
+	
+	vm.progPaginationBind = null;
+	vm.progPaginationPage = 0; 
+		
+};
+
 				</demo-source>
         	</pui-tab>
 		</pui-tabview>
