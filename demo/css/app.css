@@ -42,11 +42,6 @@ body {
     width:170px;
 }
 
-#content {
-    float:right;
-    width: 80%;
-}
-
 .widgetSelection {
     width: 150px;
 }
@@ -100,9 +95,9 @@ tr.pui-datatable-odd {
 
 #menu {
 	float: left;
+	margin-right: 20px;	
 }
-#content {
-	margin-left: 20px;
+#content {	
 	float: left;
 }
 

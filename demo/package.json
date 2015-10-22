@@ -4,7 +4,6 @@
   "description": "AngularWidgetsDemo",
   "dependencies": {
     "angular-route": "~1.4.7",
-    "angular-highlightjs": "~0.4.3",
     "highlight.js": "~8.9.1"
   }
 }
