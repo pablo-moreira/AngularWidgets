@@ -17,7 +17,7 @@
 				{ "label": "Force selection", "path": "autocomplete/autocompleteLimited" },
 				{ "label": "Callback", "path": "autocomplete/autocompleteCallback" },
 				{ "label": "Object", "path": "autocomplete/autocompleteObject" },
-				{ "label": "Http Data Loader", "path": "autocomplete/autocompleteHttpDataLoader" },
+				{ "label": "Http Data Loader", "path": "autocomplete/autocompleteHttpDataSource" },
 				{ "label": "Custom Content", "path": "autocomplete/autocompleteCustomContent" },
 				{ "label": "Table Content", "path": "autocomplete/autocompleteTableContent" }
 			]
@@ -95,7 +95,7 @@
 				{ "label" : "Facets", "path" : "datatable/datatableFacets" }, 
 				{ "label" : "Multiselect", "path" : "datatable/datatableMultiSelection" }, 
 				{ "label" : "ProgPagination", "path" : "datatable/datatableProgPagination" }, 
-				{ "label" : "HttpDataLoader", "path" : "datatable/datatableHttpDataLoaderObject" },  
+				{ "label" : "HttpDataSource", "path" : "datatable/datatableHttpDataSourceObject" },  
 				{ "label" : "Custom Column", "path" : "datatable/datatableCustomColumn" },
 				{ "label" : "Responsive", "path" : "datatable/datatableResponsive" }
 			]
@@ -129,7 +129,7 @@
 				{ "label": "Force selection", "path": "dropdown/dropdownLimited" },
 				{ "label": "Callback", "path": "dropdown/dropdownCallback" },
 				{ "label": "Object", "path": "dropdown/dropdownObject" },
-				{ "label": "Http Data Loader", "path": "dropdown/dropdownHttpDataLoader" },
+				{ "label": "Http Data Loader", "path": "dropdown/dropdownHttpDataSource" },
 				{ "label": "Custom Content", "path": "dropdown/dropdownCustomContent" },
 				{ "label": "Table Content", "path": "dropdown/dropdownTableContent" }
 			]

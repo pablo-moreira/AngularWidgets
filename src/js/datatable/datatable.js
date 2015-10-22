@@ -159,7 +159,7 @@
                 }
                 
                 this.determineColumnInfo = function() {
-                    if (!this.isHttpDataLoader()) {
+                    if (!this.isHttpDataSource()) {
                         for (var property in this.items.allData[0]) {
                             this.columns.push({
                                 element: null,
@@ -395,8 +395,8 @@
                     });
                 };
                 
-                this.isHttpDataLoader = function() {
-                    return this.items instanceof window.AngularWidgets.HttpDataLoader;
+                this.isHttpDataSource = function() {
+                    return this.items instanceof window.AngularWidgets.HttpDataSource;
                 };
                 
                 this.isSingleSelection = function() {
@@ -503,7 +503,7 @@
                 };
                 
                 this.setItems = function(value) {
-                    this.items = widgetBase.determineDataLoader(value);
+                    this.items = widgetBase.determineDataSource(value);
                 };
                 
                 this.sort = function(field, order) {

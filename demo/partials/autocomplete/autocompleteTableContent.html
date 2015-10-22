@@ -4,7 +4,7 @@
 		<header>Custom content</header>
 
 		<pui-fieldset legend="Single">		
-			<pui-autocomplete id="acCustomSingle" value="car" completeMethod="httpDataLoaderSingle" item="car" itemLabel="brand" dropdown="true" paginator="true" rows="25">
+			<pui-autocomplete id="acCustomSingle" value="car" completeMethod="httpDataSourceSingle" item="car" itemLabel="brand" dropdown="true" paginator="true" rows="25">
 				<pui-column headerText="Vin" value="vin"></pui-column>
 				<pui-column headerText="Brand" value="brand"></pui-column>
 				<pui-column headerText="Year" value="year"></pui-column>
@@ -18,7 +18,7 @@
 		</pui-fieldset>
 	
 		<pui-fieldset legend="Multiple" style="margin-top: 10px">
-			<pui-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="httpDataLoaderMultiple" item="car" itemLabel="brand" dropdown="true" multiple="true" paginator="true" rows="25">
+			<pui-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="httpDataSourceMultiple" item="car" itemLabel="brand" dropdown="true" multiple="true" paginator="true" rows="25">
 				<pui-column headerText="Vin" value="vin"></pui-column>
 				<pui-column headerText="Brand" value="brand"></pui-column>
 				<pui-column headerText="Year" value="year"></pui-column>

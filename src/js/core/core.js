@@ -180,7 +180,7 @@
 
     angularService.factory('widgetBase', ['$parse', '$interpolate', '$animate', '$q', '$http', function ($parse, $interpolate, $animate, $q, $http) {
     
-		AngularWidgets.FunctionDataLoader = function (fctLoader) {
+		AngularWidgets.FunctionDatasource = function (fctLoader) {
 
 			// public 
 			this.load = load;
@@ -225,7 +225,7 @@
 			}
 		}
 
-		AngularWidgets.ArrayDataLoader = function (allData) {
+		AngularWidgets.ArrayDatasource = function (allData) {
       	
 			// public
 			this.load = load
@@ -331,7 +331,7 @@
 			}
 		};
 		
-		AngularWidgets.HttpDataLoader = function (options) {
+		AngularWidgets.HttpDatasource = function (options) {
     
 			// public
 			this.url = options.url;
@@ -378,21 +378,21 @@
 			}
 		};
 
-		AngularWidgets.FakeHttpDataLoader = function (options) {
+		AngularWidgets.FakeHttpDatasource = function (options) {
 
 			options.parseResponse = function(data, request) {
 
-				var arrayDataLoader = new AngularWidgets.ArrayDataLoader(data.rows);
+				var arrayDataSource = new AngularWidgets.ArrayDataSource(data.rows);
 
-				arrayDataLoader.load(request)
+				arrayDataSource.load(request)
 							
 				return { 
-					'rowCount': arrayDataLoader.getRowCount(), 
-					'rows': arrayDataLoader.getData() 
+					'rowCount': arrayDataSource.getRowCount(), 
+					'rows': arrayDataSource.getData() 
 				};
 			}
 
-			return new AngularWidgets.HttpDataLoader(options);
+			return new AngularWidgets.HttpDataSource(options);
 		}
 
 		function customPromise(promise) {
@@ -520,24 +520,24 @@
     		return options;
     	};
 
-    	widgetBase.determineDataLoader = function(value) {
+    	widgetBase.determineDataSource = function(value) {
 			
 			var dataLoader;
 
     		if (angular.isString(value)) {
-				dataLoader = new AngularWidgets.HttpDataLoader({url: value});
+				dataLoader = new AngularWidgets.HttpDataSource({url: value});
 			} 
 			else if (angular.isFunction(value)) {
-				dataLoader = new AngularWidgets.FunctionDataLoader(value);
+				dataLoader = new AngularWidgets.FunctionDataSource(value);
 			} 
-			else if (value instanceof AngularWidgets.HttpDataLoader || value instanceof AngularWidgets.ArrayDataLoader) {
+			else if (value instanceof AngularWidgets.HttpDataSource || value instanceof AngularWidgets.ArrayDataSource) {
 				dataLoader = value;
 			} 
 			else if (angular.isArray(value)) {
-				dataLoader = new AngularWidgets.ArrayDataLoader(value);
+				dataLoader = new AngularWidgets.ArrayDataSource(value);
 			} 
 			else {
-				dataLoader = new AngularWidgets.ArrayDataLoader([value]);
+				dataLoader = new AngularWidgets.ArrayDataSource([value]);
 			}
 
 			return dataLoader;

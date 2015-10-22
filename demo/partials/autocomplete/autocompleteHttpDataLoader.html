@@ -7,7 +7,7 @@
 			<pui-autocomplete 
 				id="acHttpPaginatorSingle"
 				value="car" 
-				completeMethod="httpDataLoaderSingle" 
+				completeMethod="httpDataSourceSingle" 
 				itemLabel="brand" 
 				dropdown="true" 
 				paginator="true"
@@ -22,7 +22,7 @@
 			<pui-autocomplete 
 				id="acHttpPaginatorMultiple"
 				value="carSelecteds"
-				completeMethod="httpDataLoaderMultiple"
+				completeMethod="httpDataSourceMultiple"
 				itemLabel="brand"
 				dropdown="true"
 				paginator="true"
@@ -43,7 +43,7 @@
 	<pui-autocomplete 
 		id="acHttpPaginatorSingle"
 		value="car" 
-		completeMethod="httpDataLoaderSingle" 
+		completeMethod="httpDataSourceSingle" 
 		itemLabel="brand" 
 		dropdown="true" 
 		paginator="true"
@@ -58,7 +58,7 @@
 	<pui-autocomplete 
 		id="acHttpPaginatorMultiple"
 		value="carSelecteds"
-		completeMethod="httpDataLoaderMultiple"
+		completeMethod="httpDataSourceMultiple"
 		itemLabel="brand"
 		dropdown="true"
 		paginator="true"
@@ -75,8 +75,8 @@
 				<demo-source language="javascript">
 $scope.car = null;
 $scope.carSelecteds = [];
-$scope.httpDataLoaderSingle = new AngularWidgets.HttpDataLoader({ url: 'json/cars.json' });
-$scope.httpDataLoaderMultiple = new AngularWidgets.HttpDataLoader({ url: 'json/cars.json' });
+$scope.httpDataSourceSingle = new AngularWidgets.HttpDataSource({ url: 'json/cars.json' });
+$scope.httpDataSourceMultiple = new AngularWidgets.HttpDataSource({ url: 'json/cars.json' });
 				</demo-source>
 			</pui-tab>
 		</pui-tabview>

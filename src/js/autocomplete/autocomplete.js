@@ -124,7 +124,7 @@
             },
             
             setItems: function (value) {				
-				this.items = widgetBase.determineDataLoader(value);    			
+				this.items = widgetBase.determineDataSource(value);    			
             },
             
     		determineTransclude: function () {

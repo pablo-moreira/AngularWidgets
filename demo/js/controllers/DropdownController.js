@@ -55,8 +55,8 @@
        		response(data);
        	};
 
-        vm.httpDataLoaderSingle = new AngularWidgets.FakeHttpDataLoader({ url: 'json/cars.json' });
-        vm.httpDataLoaderMultiple = new AngularWidgets.FakeHttpDataLoader({ url: 'json/cars.json' });
+        vm.httpDataSourceSingle = new AngularWidgets.FakeHttpDataSource({ url: 'json/cars.json' });
+        vm.httpDataSourceMultiple = new AngularWidgets.FakeHttpDataSource({ url: 'json/cars.json' });
         
         vm.fieldDisabled = true;
 

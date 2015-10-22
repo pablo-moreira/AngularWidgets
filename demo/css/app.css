@@ -99,6 +99,7 @@ tr.pui-datatable-odd {
 }
 #content {	
 	float: left;
+	width: 80%
 }
 
 .demo-source {

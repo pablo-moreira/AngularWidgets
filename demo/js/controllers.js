@@ -173,19 +173,19 @@
         $scope.progPaginationBind = null;
         $scope.progPaginationPage = 0;        
          
-        // HttpDataLoader
-        $scope.httpDataLoaderObject = new AngularWidgets.HttpDataLoader({
+        // HttpDataSource
+        $scope.httpDataSourceObject = new AngularWidgets.HttpDataSource({
         	url: 'json/cars.json',
         	parseResponse: function (data, request) {
         		
-				var arrayDataLoader = new AngularWidgets.ArrayDataLoader(data.rows);
+				var arrayDataSource = new AngularWidgets.ArrayDataSource(data.rows);
 				
 				var result = { 'rowCount': data.rowCount, 'rows': null };
 				
-				arrayDataLoader.load(request)
+				arrayDataSource.load(request)
 				.success(function(request) {
 
-					result.rows = arrayDataLoader.getData();
+					result.rows = arrayDataSource.getData();
 				
 				});
 
@@ -258,8 +258,8 @@
        		response(data);
        	};
 
-        $scope.httpDataLoaderSingle = new AngularWidgets.FakeHttpDataLoader({ url: 'json/cars.json' });
-        $scope.httpDataLoaderMultiple = new AngularWidgets.FakeHttpDataLoader({ url: 'json/cars.json' });
+        $scope.httpDataSourceSingle = new AngularWidgets.FakeHttpDataSource({ url: 'json/cars.json' });
+        $scope.httpDataSourceMultiple = new AngularWidgets.FakeHttpDataSource({ url: 'json/cars.json' });
         
         $scope.fieldDisabled = true;
 

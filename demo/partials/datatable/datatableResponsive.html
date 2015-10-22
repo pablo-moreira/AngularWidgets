@@ -1,11 +1,11 @@
 <pui-panel header="{{mainCtrl.widget.label}}">
 				
 	<section>
-		<header>HttpDataLoader - Object</header>
+		<header>HttpDataSource - Object</header>
 		<pui-datatable			 
 			item="car" 
 			itemId="vin"
-			items="httpDataLoaderObject" 
+			items="httpDataSourceObject" 
 			caption="Http Data Loader With Paginator"
 			selectionMode="multiple"			
 			paginator="true"
@@ -27,7 +27,7 @@
 <pui-datatable			 
 	item="car"
 	itemId="vin"
-	items="httpDataLoaderObject" 
+	items="httpDataSourceObject" 
 	caption="Http Data Loader With Paginator"
 	selectionMode="multiple"			
 	paginator="true"
@@ -43,7 +43,7 @@
 			</pui-tab>
 			<pui-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.httpDataLoaderObject = new AngularWidgets.HttpDataLoader({
+$scope.httpDataSourceObject = new AngularWidgets.HttpDataSource({
 	url: 'json/cars.json'
 });	
 $scope.onRowSelect = function(event, data) {
