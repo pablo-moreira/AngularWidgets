@@ -45,6 +45,42 @@ demo.config(['$routeProvider', 'widgets', 'wgGrowlConfig', function($routeProvid
     });
     
     $routeProvider.otherwise({ redirectTo: '/main' });
+
+    angular.element(window).bind('load', function() {
+
+        var btn = angular.element(document.querySelector('#nav-toggle'));
+        var nav = angular.element(document.querySelector('#nav-container'));
+        var body = angular.element(window.document.body);
+
+        var onBodyClick = function(e) {
+                
+            if (nav.css('display') !== 'none') {
+                
+                var clickOnNav = AngularWidgets.isRelative(event.target, nav[0]);
+                var clickOnNavToggle = AngularWidgets.isRelative(event.target, btn[0]);
+
+                if (!clickOnNav && !clickOnNavToggle) {
+                    nav.hide();
+                    body.unbind('click', onBodyClick);
+                }
+
+            }                
+        };
+
+        btn.click(function (e) {
+            
+            if (nav.css('display') !== 'none') {
+                nav.hide();
+                body.unbind('click', onBodyClick);
+            }
+            else {
+                nav.show();
+                body.bind('click', onBodyClick);
+            }            
+        });
+
+        
+    });
 }]);
 
 demo.directive('demoSource', function () {
@@ -81,3 +117,4 @@ demo.directive('version', function () {
         }
     }
 });
+

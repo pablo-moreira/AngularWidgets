@@ -386,18 +386,7 @@
             },
             
             isRelative: function (element, parent) {
-            	
-            	var elemParent = angular.element(element).parent()[0];
-            	
-            	if (elemParent == undefined) {
-            		return false;
-            	}
-            	else if (elemParent == parent) {
-            		return true;
-            	}
-            	else {
-            		return this.isRelative(elemParent, parent);
-            	}            	
+            	return AngularWidgets.isRelative(element, parent);            	          	
             },
             
             unbindEvents: function() {

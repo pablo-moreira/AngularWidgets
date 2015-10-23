@@ -14,6 +14,7 @@
 body {
     font-size: 14px;
     background-color: #F7F7F7;
+    padding-top: 50px;
 }
 
 .ui-widget-content {
@@ -30,14 +31,6 @@ body {
 
 .doc-table {
     border-collapse: collapse;
-}
-
-header {
-    display: block;
-    background-color: grey;
-    color: white;
-    padding: 5px 5px 5px 5px;
-    margin-bottom: 10px;
 }
 
 section {
@@ -82,11 +75,6 @@ tr.pui-datatable-odd {
 #menu {
 	float: left;
 }
-#content {	
-	float: left;
-	margin-left: 20px;
-	width:900px;
-}
 
 .demo-source {
   	width: 100% !important;
@@ -99,4 +87,79 @@ tr.pui-datatable-odd {
 .demo-source code {
 	padding: 0;
 	white-space: pre-wrap;
+}
+
+.header {
+	position: fixed;
+	right: 0;
+	left: 0;
+	top: 0;
+	z-index: 50;
+	height: 50px;
+	background-color: #2b5e93;
+	color: #FFF;
+	-moz-box-shadow: 0px 0x 0px 3px #999;
+	-webkit-box-shadow: 0px 0px 0px 3px #999;
+}
+
+.header h1 {
+    width: auto;
+    float: left;
+    font-weight: normal;
+    font-size: 2.0em;
+    padding: 0.27em;
+    margin: 0;
+}
+
+#nav-toggle {
+	display: none;
+}
+
+#content {	
+	float: left;
+	margin-left: 20px;
+	width:900px;
+}
+
+
+@media screen and (max-width:767px) {
+
+	#nav-toggle {
+		display: block;
+		position: relative;
+		float: left;
+		padding: 0.2em;
+		margin: 0.5em;
+		background: transparent none;
+		border: 1px solid transparent;
+		border-radius: 4px;
+		border-color: #ddd;
+		-webkit-appearance: button;
+		cursor: pointer;		
+		color: #FFF;
+		font-weight: normal;
+	}
+
+	#content {	
+		clear: both;		
+		width: 100%;
+		padding: 0;
+		margin: 0;
+	}
+
+	#nav-container {
+		display: none;
+		position: fixed;
+		z-index: 50;
+		top: 50px;
+		left: 0px;
+		width: 45%;
+		bottom: 0px;
+		padding: 0.8em;
+		background-color: #DDD;
+		border-right: 1px solid #999;
+		overflow-y: auto;
+	    -moz-box-shadow: 0px 0x 3px #aaa;
+	    -webkit-box-shadow: 0px 0px 3px #aaa;
+	}
 }
