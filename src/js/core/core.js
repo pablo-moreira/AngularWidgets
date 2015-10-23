@@ -185,6 +185,17 @@
 			return this.isRelative(elemParent, parent);
 		} 
 	}
+
+	AngularWidgets.isVisible = function(element, parent) {
+		
+		var elm = element;
+		
+		if (element.length) {
+			elm = element[0];
+		}
+		
+		return elm.offsetWidth > 0 || elm.offsetHeight > 0;
+	}
     
     angular.module('pje.ui.config', []).value('pje.ui.config', {
             labelPrefix: 'lbl'
@@ -709,11 +720,9 @@
         }
 
         widgetBase.isVisible = function (element) {
-        	
-        	var elm = angular.element(element);
+        	return AngularWidgets.isVisible(element);
+		}
 
-        	return elm.css('display') !== 'none' && !elm.hasClass('ui-helper-hidden');
-        }
         
     	widgetBase.watchExpression = function(scope, expression, watchFunction) {
     		    			

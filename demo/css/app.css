@@ -13,8 +13,9 @@
 
 body {
     font-size: 14px;
-    background-color: #F7F7F7;
-    padding-top: 50px;
+    background-color: #F7F7F7;    
+    padding:0;
+    margin: 50px 0 0 0;
 }
 
 .ui-widget-content {
@@ -53,28 +54,38 @@ tr.pui-datatable-odd {
 }
 
 
-#menu ul {
+#nav-container {
+	float: left;
+	background-color: #e3e3e3;
+	border-right: 1px solid #999;
+	padding: 20px 0;
+	width: 200px;
+}
+#nav-container ul {
 	padding:0px;
 	margin:0px;
 	list-style:none;
 }
-#menu ul li a {	
-	padding: 4px 10px;
+#nav-container ul li a {	
+	padding: 4px 15px;
 	display: inline-block; 
 	text-decoration: none;
 	color: #666;
+	border-right: 3px solid #e3e3e3;
+	display: block;
 }
-#menu ul li a:hover {
-	text-decoration: underline;
-	color: #333;
+#nav-container ul li a:hover {
+	color: #222;
+	border-right: 3px solid #2b5e93;
 }
-#menu ul li ul {
-	margin-left: 30px
+#nav-container ul li ul li a {
+	padding-left: 30px;
 }
 
-#menu {
-	float: left;
+#nav-container ul li ul li a.nav-selected {
+	border-right: 3px solid #2b5e93;
 }
+
 
 .demo-source {
   	width: 100% !important;
@@ -140,10 +151,13 @@ tr.pui-datatable-odd {
 		font-weight: normal;
 	}
 
+	body {
+		padding: 0.5em;
+	}
+
 	#content {	
 		clear: both;		
 		width: 100%;
-		padding: 0;
 		margin: 0;
 	}
 
@@ -155,11 +169,38 @@ tr.pui-datatable-odd {
 		left: 0px;
 		width: 45%;
 		bottom: 0px;
-		padding: 0.8em;
-		background-color: #DDD;
-		border-right: 1px solid #999;
 		overflow-y: auto;
-	    -moz-box-shadow: 0px 0x 3px #aaa;
-	    -webkit-box-shadow: 0px 0px 3px #aaa;
+	}
+
+	#menu {
+		padding: 10px 0;
+	}
+	#menu ul {
+		padding:0px;
+		margin:0px;
+		list-style:none;
+	}
+	#menu ul li a {	
+		border-left: 2px solid #2b5e93;
+		padding: 4px 10px;
+		display: block; 
+		text-decoration: none;
+		color: #666;	
+	}
+
+	#menu ul li ul {
+		margin: 0;
+		padding: 0
+	}
+
+	#menu ul li a:hover {
+		color: #333;
+	}
+	#menu ul li ul a {
+		padding-left: 30px
+	}
+
+	#menu {
+		float: left;
 	}
 }

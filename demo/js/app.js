@@ -54,22 +54,21 @@ demo.config(['$routeProvider', 'widgets', 'wgGrowlConfig', function($routeProvid
 
         var onBodyClick = function(e) {
                 
-            if (nav.css('display') !== 'none') {
+            if (AngularWidgets.isVisible(nav[0])) {
                 
                 var clickOnNav = AngularWidgets.isRelative(event.target, nav[0]);
                 var clickOnNavToggle = AngularWidgets.isRelative(event.target, btn[0]);
 
-                if (!clickOnNav && !clickOnNavToggle) {
+                if (!clickOnNavToggle && !clickOnNav || (clickOnNav && event.target !== nav[0])) {
                     nav.hide();
                     body.unbind('click', onBodyClick);
                 }
-
-            }                
+            }
         };
 
         btn.click(function (e) {
             
-            if (nav.css('display') !== 'none') {
+            if (AngularWidgets.isVisible(nav[0])) {
                 nav.hide();
                 body.unbind('click', onBodyClick);
             }

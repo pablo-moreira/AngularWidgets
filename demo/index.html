@@ -86,19 +86,17 @@
 			<h1>AngularWidgets</h1>			
 		</header>
 		
-		<nav id="menu">
-			<div id="nav-container">
-				<ul>
-					<li ng-repeat="widget in mainCtrl.widgets">			
-						<a href="#{{widget.defaultPath}}" ng-click="mainCtrl.selectWidget(widget,widget.defaultPath)"><span ng-bind="widget.label"></span></a>
-						<ul ng-show="mainCtrl.widget == widget">
-							<li ng-repeat="item in widget.subPages">
-								<a href="#{{item.path}}" ng-click="mainCtrl.selectWidget(widget,item.path)"><span ng-bind="item.label"></span></a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
+		<nav id="nav-container">
+			<ul>
+				<li ng-repeat="widget in mainCtrl.widgets">			
+					<a href="#{{widget.defaultPath}}" ng-click="mainCtrl.selectWidget(widget,widget.defaultPath)"><span ng-bind="widget.label"></span></a>
+					<ul ng-show="mainCtrl.widget == widget">
+						<li ng-repeat="item in widget.subPages">
+							<a href="#{{item.path}}" ng-click="mainCtrl.selectWidget(widget,item)" ng-class="{'nav-selected': mainCtrl.isSelected(item)}"><span ng-bind="item.label"></span></a>
+						</li>
+					</ul>
+				</li>
+			</ul>			
 		</nav>
 
 		<div id="content">

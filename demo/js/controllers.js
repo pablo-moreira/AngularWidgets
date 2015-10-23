@@ -2,36 +2,41 @@
     "use strict";
 
     angular.module('demo').controller('MainController', ['$location', '$rootScope', 'widgets', 'version',  function($location, $rootScope, widgets, version) {
-    		
-    	this.widgets = widgets;
-        this.version = version;
-        this.angularVersion = angular.version;
+    	
+    	var vm = this;
+
+    	vm.widgets = widgets;
+        vm.version = version;
+        vm.angularVersion = angular.version;
                 
     	var url = $location.absUrl();
 
-		this.widget = null;
+		vm.widget = null;
 	    	    	
-		for (var i=0, t=this.widgets.length; i<t; i++) {
+		for (var i=0, t=vm.widgets.length; i<t; i++) {
 			    		
-			for (var j=0, l=this.widgets[i].subPages.length; j<l; j++) {    			
+			for (var j=0, l=vm.widgets[i].subPages.length; j<l; j++) {    			
 				
-				var pg = this.widgets[i].subPages[j];
+				var pg = vm.widgets[i].subPages[j];
 				
 				if (url.indexOf(pg.path) != -1) {
-					this.widget = this.widgets[i];
-					this.path = pg.path;
+					vm.widget = vm.widgets[i];
+					vm.path = pg.path;
 	    			break;	
 				}
 			}
 			
-			if (this.widget) {
+			if (vm.widget) {
 				break;
 			}
 		};
 		
-		this.selectWidget = function(widget, path) {
-			this.widget = widget;
-			this.path = path;
+		vm.isSelected = function(item) {
+			return vm.item === item;
+		};
+		vm.selectWidget = function(widget, item) {
+			vm.widget = widget;
+			vm.item = item;
 		};
 	}])   
     
