@@ -79,16 +79,17 @@
 	</head>
 	<body ng-app="demo" ng-controller="MainController as mainCtrl">
 		
-		<header class="header">			
+		<header id="header" class="header">
 			<button id="nav-toggle" type="button">
 				<i class="fa fa-bars fa-2x"></i>
 			</button>			
 			<h1>AngularWidgets</h1>			
 		</header>
 		
-		<nav id="nav-container">
+		<div id="nav-overlay" class="pui-dialog-modal ui-widget-overlay" style="z-index: 999999; display: none"></div>
+		<nav id="nav-container">		
 			<ul>
-				<li ng-repeat="widget in mainCtrl.widgets">			
+				<li ng-repeat="widget in mainCtrl.widgets">
 					<a href="#{{widget.defaultPath}}" ng-click="mainCtrl.selectWidget(widget,widget.defaultPath)"><span ng-bind="widget.label"></span></a>
 					<ul ng-show="mainCtrl.widget == widget">
 						<li ng-repeat="item in widget.subPages">
@@ -103,8 +104,9 @@
 	    	<div class="ng-cloak" ng-cloak ng-view></div>    	
 		</div>
 
+
 	    <!-- <footer>
 			Demo running on AngularJS version {{angularVersion.full}} aka {{angularVersion.codeName}}
-		</footer> -->
+		</footer> -->		
 	</body>
 </html>

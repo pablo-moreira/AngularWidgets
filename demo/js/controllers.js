@@ -21,7 +21,7 @@
 				
 				if (url.indexOf(pg.path) != -1) {
 					vm.widget = vm.widgets[i];
-					vm.path = pg.path;
+					vm.item = pg;
 	    			break;	
 				}
 			}

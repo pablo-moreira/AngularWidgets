@@ -48,9 +48,11 @@ demo.config(['$routeProvider', 'widgets', 'wgGrowlConfig', function($routeProvid
 
     angular.element(window).bind('load', function() {
 
-        var btn = angular.element(document.querySelector('#nav-toggle'));
-        var nav = angular.element(document.querySelector('#nav-container'));
-        var body = angular.element(window.document.body);
+        var btn = angular.element(document.querySelector('#nav-toggle')),
+            nav = angular.element(document.querySelector('#nav-container')),
+            navOverlay = angular.element(document.querySelector("#nav-overlay")),
+            body = angular.element(window.document.body),
+            header = angular.element(document.querySelector('#header'));
 
         var onBodyClick = function(e) {
                 
@@ -60,8 +62,7 @@ demo.config(['$routeProvider', 'widgets', 'wgGrowlConfig', function($routeProvid
                 var clickOnNavToggle = AngularWidgets.isRelative(event.target, btn[0]);
 
                 if (!clickOnNavToggle && !clickOnNav || (clickOnNav && event.target !== nav[0])) {
-                    nav.hide();
-                    body.unbind('click', onBodyClick);
+                    hide();
                 }
             }
         };
@@ -69,16 +70,30 @@ demo.config(['$routeProvider', 'widgets', 'wgGrowlConfig', function($routeProvid
         btn.click(function (e) {
             
             if (AngularWidgets.isVisible(nav[0])) {
-                nav.hide();
-                body.unbind('click', onBodyClick);
+                hide();    
             }
             else {
-                nav.show();
-                body.bind('click', onBodyClick);
+                show();    
             }            
         });
 
-        
+        function hide() {  
+            header.css('zIndex', 50);
+            nav.hide();
+            navOverlay.hide();
+            body.removeClass('pui-modal-open');
+            body.unbind('click', onBodyClick);
+        }
+
+        function show() {
+            header.css('zIndex', AngularWidgets.zindex + 3);
+            nav.css('zIndex', AngularWidgets.zindex + 2);
+            navOverlay.css('zIndex', AngularWidgets.zindex + 1);
+            nav.show();
+            navOverlay.show();
+            body.addClass('pui-modal-open');
+            body.bind('click', onBodyClick);
+        }
     });
 }]);
 

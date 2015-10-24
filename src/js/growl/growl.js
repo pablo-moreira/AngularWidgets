@@ -81,7 +81,8 @@
 				msg.element = angular.element(html);
 
 				this.bindMessageEvents(msg);
-
+				
+				this.container.css('zIndex', ++AngularWidgets.zindex);
 				this.container.append(msg.element);
 
 				msg.element.showAsBlock();

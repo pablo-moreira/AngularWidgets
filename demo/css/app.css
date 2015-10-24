@@ -11,13 +11,6 @@
     -moz-box-shadow: 0 0 5px #85B2CB, 0 2px 2px #8F8F8F inset;
 }
 
-body {
-    font-size: 14px;
-    background-color: #F7F7F7;    
-    padding:0;
-    margin: 50px 0 0 0;
-}
-
 .ui-widget-content {
     /*background-color: #F7F7F7 !important; TODO see conflict with datatable ??*/
     border: 1px solid #A8A8A8;  /* Otherwise, some borders are removed */
@@ -53,13 +46,44 @@ tr.pui-datatable-odd {
     background: none repeat scroll 0 0 #F2F5F9;
 }
 
+body {
+    font-size: 14px;
+    background-color: #F7F7F7;    
+    padding: 60px 10px 0 210px;
+    margin: 0;
+}
+
+.header {
+	position: fixed;
+	right: 0;
+	left: 0;
+	top: 0;
+	z-index: 50;
+	height: 50px;
+	background-color: #2b5e93;
+	color: #FFF;
+	   -moz-box-shadow: 0px 1px 10px rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0px 1px 10px rgba(0,0,0,0.8);
+    box-shadow: 0px 1px 10px rgba(0,0,0,0.8);
+}
+
+.header h1 {
+    width: auto;    
+    font-weight: normal;
+    font-size: 1.6em;
+    padding: 0.5em;
+    margin: 0;
+}
 
 #nav-container {
-	float: left;
-	background-color: #e3e3e3;
+	position: fixed;
+	left:0px;
+	bottom: 0px;
+	top:50px;	
 	border-right: 1px solid #999;
 	padding: 20px 0;
-	width: 200px;
+	min-width: 200px;
+	overflow-y: auto;
 }
 #nav-container ul {
 	padding:0px;
@@ -71,7 +95,7 @@ tr.pui-datatable-odd {
 	display: inline-block; 
 	text-decoration: none;
 	color: #666;
-	border-right: 3px solid #e3e3e3;
+	border-right: 3px solid ##F7F7F7;
 	display: block;
 }
 #nav-container ul li a:hover {
@@ -86,50 +110,12 @@ tr.pui-datatable-odd {
 	border-right: 3px solid #2b5e93;
 }
 
-
-.demo-source {
-  	width: 100% !important;
-	position: relative !important;
-	display: block;
-}
-.demo-source pre {	
-  	margin:0;
-}
-.demo-source code {
-	padding: 0;
-	white-space: pre-wrap;
-}
-
-.header {
-	position: fixed;
-	right: 0;
-	left: 0;
-	top: 0;
-	z-index: 50;
-	height: 50px;
-	background-color: #2b5e93;
-	color: #FFF;
-	-moz-box-shadow: 0px 0x 0px 3px #999;
-	-webkit-box-shadow: 0px 0px 0px 3px #999;
-}
-
-.header h1 {
-    width: auto;
-    float: left;
-    font-weight: normal;
-    font-size: 2.0em;
-    padding: 0.27em;
-    margin: 0;
-}
-
 #nav-toggle {
 	display: none;
 }
 
-#content {	
-	float: left;
-	margin-left: 20px;
-	width:900px;
+#content {
+	width:100%;
 }
 
 
@@ -152,7 +138,8 @@ tr.pui-datatable-odd {
 	}
 
 	body {
-		padding: 0.5em;
+		padding: 60px 0.5em 0 0.5em;
+		margin: 0;
 	}
 
 	#content {	
@@ -164,43 +151,33 @@ tr.pui-datatable-odd {
 	#nav-container {
 		display: none;
 		position: fixed;
-		z-index: 50;
+		z-index: 1000000;
+		background-color: #FFF;
 		top: 50px;
 		left: 0px;
 		width: 45%;
+		min-width: 200px;
 		bottom: 0px;
 		overflow-y: auto;
 	}
 
-	#menu {
+	#nav-container {
+		font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, freesans, sans-serif;
 		padding: 10px 0;
 	}
-	#menu ul {
-		padding:0px;
-		margin:0px;
-		list-style:none;
-	}
-	#menu ul li a {	
-		border-left: 2px solid #2b5e93;
-		padding: 4px 10px;
-		display: block; 
-		text-decoration: none;
-		color: #666;	
-	}
+	
+}
 
-	#menu ul li ul {
-		margin: 0;
-		padding: 0
-	}
 
-	#menu ul li a:hover {
-		color: #333;
-	}
-	#menu ul li ul a {
-		padding-left: 30px
-	}
-
-	#menu {
-		float: left;
-	}
+.demo-source {
+  	width: 100% !important;
+	position: relative !important;
+	display: block;
+}
+.demo-source pre {	
+  	margin:0;
+}
+.demo-source code {
+	padding: 0;
+	white-space: pre-wrap;
 }
