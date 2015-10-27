@@ -53,6 +53,12 @@
 .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}
 
 
+.pui-fluid * {
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}
+
 .pui-shadow {
     -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
     -webkit-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
