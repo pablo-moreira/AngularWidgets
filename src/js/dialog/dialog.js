@@ -1,14 +1,33 @@
-
-/*globals angular AngularWidgets*/
-
 (function(window, document, undefined) {
     "use strict";
 
     angular.module('angularWidgets')
-    	.factory('widgetDialog', ['$compile', '$timeout', '$parse', '$window', '$document', '$http', 'widgetBase', 'widgetFacet', DialogWidget])
-    	.service('$puiDialog', ['widgetDialog', 'widgetConfirmdialog', DialogService])
-    	.directive('wgDialog', ['widgetDialog', DialogDirective]);
+    	.config(['$wgConfigProvider', DialogConfig])
+    	.factory('widgetDialog', ['$compile', '$timeout', '$parse', '$window', '$document', '$http', 'widgetBase', 'widgetFacet', DialogWidget])    	
+    	.directive('wgDialog', ['widgetDialog', DialogDirective])
+    	.service('$puiDialog', ['widgetDialog', 'widgetConfirmdialog', DialogService]);
 	
+	function DialogConfig($wgConfigProvider) {
+		$wgConfigProvider.configureWidget('dialog', {
+			width: null,
+			visible: false,
+			showEffect: null,
+			hideEffect: null,
+			effectOptions: {},
+			effectSpeed: 'normal',
+			closeOnEscape: true,
+			rtl: false,
+			closable: true,
+			buttons: null,
+			appendTo: null,
+			onAfterHide: null, 
+			onAfterShow: null,	            
+			onBeforeHide: null,
+			onBeforeShow: null,
+			onDismiss: null
+		});	
+	};
+
 	function DialogWidget($compile, $timeout, $parse, $window, $document, $http, widgetBase, widgetFacet) {
 
         var widget = {};
@@ -39,25 +58,6 @@
         }
                 
     	widget.Dialog = widgetBase.createWidget({
-        	
-			optionsDefault: {
-				width: null,
-	            visible: false,
-	            showEffect: null,
-	            hideEffect: null,
-	            effectOptions: {},
-	            effectSpeed: 'normal',
-	            closeOnEscape: true,
-	            rtl: false,
-	            closable: true,
-	            buttons: null,
-	            appendTo: null,
-	            onAfterHide: null, 
-	            onAfterShow: null,	            
-	            onBeforeHide: null,
-	            onBeforeShow: null,
-	            onDismiss: null
-			},
 
 			init: function(options) {
 			
@@ -134,7 +134,7 @@
 			},
 
         	determineOptions: function (options) {
-        		this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onAfterHide', 'onBeforeHide', 'onBeforeShow', 'onDismiss'], []);
+        		this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.dialog, options, ['onAfterHide', 'onBeforeHide', 'onBeforeShow', 'onDismiss'], []);
             },
 
             determineTransclude: function () {    		    				
@@ -367,8 +367,7 @@
         };
     }
 
-	function DialogService(widgetDialog, widgetConfirmdialog) {
-		
+	function DialogService(widgetDialog, widgetConfirmdialog) {		
 		this.showConfirmDialog = function (title, message, icon, yesLabel, noLabel) {
 			return widgetConfirmdialog.showConfirmDialog(title, message, icon, yesLabel, noLabel);
 		};

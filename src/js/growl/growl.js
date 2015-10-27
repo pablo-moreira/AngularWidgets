@@ -1,22 +1,24 @@
-/*globals angular AngularWidgets */
-
 (function(window, document, undefined) {
 	"use strict";
 
 	angular.module('angularWidgets')
-		.constant('wgGrowlConfig', new AngularWidgets.WidgetConfig({
+		.config(['$wgConfigProvider', GrowlConfig])
+		.factory('wgGrowl', ['widgetBase', '$timeout', GrowlWidget])
+		.factory('$wgGrowl', ['wgGrowl', GrowlService]);
+	
+	function GrowlConfig($wgConfigProvider) {		
+		$wgConfigProvider.configureWidget('growl', {
 			appendTo: null,
 			sticky: false,
 			life: 3000
-		}))
-		.factory('wgGrowl', ['widgetBase', 'wgGrowlConfig', '$timeout', GrowlWidget])
-		.factory('$puiGrowl', ['wgGrowl', GrowlService]);
-	
-	function GrowlWidget(widgetBase, puiGrowlConfig, $timeout) {
+		});
+	}
+
+	function GrowlWidget(widgetBase, $timeout) {
 		
 		var growl = {
 
-			options: puiGrowlConfig.getConfiguration(),
+			options: widgetBase.getConfiguration().widgets.growl,
 			initialized: false,
 
 			init: function (){

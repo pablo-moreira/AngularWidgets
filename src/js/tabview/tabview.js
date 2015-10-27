@@ -4,9 +4,20 @@
     "use strict";
 
     angular.module('angularWidgets')
+    	.config(['$wgConfigProvider', TabviewConfig])
     	.factory('widgetTabview', ['$interpolate', '$compile', 'widgetBase', 'widgetTab', TabviewWidget ])
 		.directive('wgTabview', ['widgetTabview', TabviewDirective ]);
 
+	function TabviewConfig($wgConfigProvider) {
+		$wgConfigProvider.configureWidget('tabview', {
+			activeIndex: 0,
+			orientation: 'top',
+			closeable: false,
+			onTabChange : null,
+			onTabClose : null
+		});
+	}
+	
 	function TabviewWidget($interpolate, $compile, widgetBase, widgetTab) {
 
         var widget = {};
@@ -30,14 +41,6 @@
         };
                 
         widget.Tabview = widgetBase.createWidget({
-        	
-        	optionsDefault: {
-	                activeIndex: 0,
-	                orientation: 'top',
-	                closeable: false,
-	                onTabChange : null,
-	                onTabClose : null,
-	       	},
 
 			init: function (options) {
 				
@@ -91,7 +94,7 @@
 			},
 			
 	        determineOptions: function (options) {        			        		        		        	
-	        	this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onTabChange','onTabClose']);
+	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.tabview, options, ['onTabChange','onTabClose']);
 			},
 			
 			determineTransclude: function() {

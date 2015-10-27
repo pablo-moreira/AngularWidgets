@@ -203,7 +203,7 @@
 
     var angularService = angular.module('angular.service', ['ngAnimate']);
 
-    angularService.factory('widgetBase', ['$parse', '$interpolate', '$animate', '$q', '$http', function ($parse, $interpolate, $animate, $q, $http) {
+    angularService.factory('widgetBase', ['$parse', '$interpolate', '$animate', '$q', '$http', '$wgConfig', function ($parse, $interpolate, $animate, $q, $http, $wgConfig) {
     
 		AngularWidgets.FunctionDataSource = function (fctLoader) {
 
@@ -444,6 +444,10 @@
 		}
 		    
     	var widgetBase = {};
+
+    	widgetBase.getConfiguration = function() {
+    		return $wgConfig;
+    	}
 
     	widgetBase.verifyRequiredOptions = function(widget, requiredOptions) {
 
@@ -813,7 +817,38 @@
 
     }]);
 
-    angular.module('angularWidgets').value('version', AngularWidgets.version);
+    angular.module('angularWidgets')
+    	.value('version', AngularWidgets.version)
+    	.provider('$wgConfig', WgConfigProvider);
+
+       
+    function WgConfigProvider() {
+
+		var configuration = {
+			widgets: {}
+		};
+
+    	this.configure = function(configs) {
+    		configuration = angular.merge(configuration, configs);
+    	}
+
+    	this.configureWidget = function(widgetName, configs) {
+    		
+    		var newConfigs = { widgets: {} };
+    		
+    		newConfigs.widgets[widgetName] = configs;
+
+    		this.configure(newConfigs);
+    	}
+
+    	this.getConfiguration = function() {
+    		return configuration;
+    	}
+
+		this.$get = function unicornLauncherFactory() {
+			return configuration;
+		}
+  	};
 
     angular.forEach({
     	uniqueId: function uniqueId(element) {

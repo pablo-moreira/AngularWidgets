@@ -1,11 +1,11 @@
-
-/*globals angular event AngularWidgets */
-
 (function(window, document, undefined) {
     "use strict";
     
     angular.module('angularWidgets')
-    .factory('widgetFacet', function () {
+        .factory('widgetFacet', FacetWidget)
+        .directive('wgFacet', FacetDirective);
+
+    function FacetWidget() {
     	
     	var widgetFacet = {}
     	
@@ -28,8 +28,9 @@
     	}
     	
     	return widgetFacet;
-    })
-    .directive('wgFacet', function () {
+    }
+    
+    function FacetDirective() {
         return {
         	restrict: 'E',
         	priority: 1000, 
@@ -46,6 +47,6 @@
                 $element.data("options", options);
         	}
         };
-    });
+    }
     
 }(window, document));

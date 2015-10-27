@@ -1,7 +1,28 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('angularWidgets').factory('widgetPanel', ['widgetBase', function (widgetBase) {
+    angular.module('angularWidgets')
+    	.config(['$wgConfigProvider', PanelConfig])
+    	.factory('widgetPanel', ['widgetBase', PanelWidget])
+    	.directive('wgPanel', ['widgetPanel', PanelDirective]);
+
+	function PanelConfig($wgConfigProvider) {
+		$wgConfigProvider.configureWidget('panel', {
+			toggleable: false,
+			toggleDuration: 'normal',
+			collapsed: false,
+			closed: false,
+			closable: false,
+			closeDuration: 'normal',
+			openDuration: 'normal',
+			header: ' ',
+			onOpen: null,
+			onToggle: null,
+			onClose: null,					
+		});
+	}
+
+    function PanelWidget(widgetBase) {
 
         var widget = {};
         
@@ -76,23 +97,8 @@
 	            widgetBase.createBindAndAssignIfNecessary(this, "toggle,collapse,expand,isCollapsed,getHeader,setHeader,close,open,isClosed");
         	};
         	
-	        this.determineOptions = function (options) {
-        		
-	        	this.options = {
-					toggleable: false,
-					toggleDuration: 'normal',
-					collapsed: false,
-					closed: false,
-					closable: false,
-					closeDuration: 'normal',
-					openDuration: 'normal',
-					header: ' ',
-					onOpen: null,
-					onToggle: null,
-					onClose: null,					
-	        	};
-	        		        	
-	        	widgetBase.determineOptions(this.scope, this.options, options, ['onToggle','onClose','onOpen']);
+	        this.determineOptions = function (options) {	        		        	
+	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.panel, options, ['onToggle','onClose','onOpen']);
 			};		
 			
 	        this.bindEvents = function() {
@@ -193,9 +199,9 @@
        	}
         
         return widget;
-    }]);
+    }
     
-    angular.module('angularWidgets').directive('wgPanel', ['widgetPanel', function (widgetPanel) {
+    function PanelDirective(widgetPanel) {
         return {
             restrict: 'E',
 			transclude: true,
@@ -206,6 +212,6 @@
             template: widgetPanel.template,
             replace: true,
         };
-    }]);
+    }
     
 }(window, document));

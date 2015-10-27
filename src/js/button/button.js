@@ -1,9 +1,21 @@
-/*globals angular */
-
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('angularWidgets').factory('widgetButton', ['$interpolate', 'widgetBase', function ($interpolate, widgetBase) {
+    angular.module('angularWidgets')
+    	.config(['$wgConfigProvider', ButtonConfig])
+    	.factory('widgetButton', ['$interpolate', 'widgetBase', ButtonWidget])
+		.directive('wgButton', ['widgetButton', ButtonDirective]);
+		
+	function ButtonConfig($wgConfigProvider) {
+		$wgConfigProvider.configureWidget('button', {
+			value: null,
+			icon: null,
+			iconPosition: 'left',
+			action: null
+		});
+	}
+	
+	function ButtonWidget($interpolate, widgetBase) {
 
     	var widget = {};
 
@@ -23,14 +35,7 @@
         };
   
     	widget.Button = widgetBase.createWidget({
-        	
-			optionsDefault: {
-				value: null,
-				icon: null,
-				iconPosition: 'left',
-				action: null,		        	
-			},
-        	
+        	        	
     		init: function(options) {
         		        		
         		this.determineOptions(options);
@@ -97,7 +102,7 @@
         	},
         	
 	        determineOptions: function (options) {
-	        	this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options);
+	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.button, options);
 			},
 			
 	        setValue: function(text) {
@@ -178,9 +183,9 @@
         });
         
         return widget;
-    }]);
+    };
 
-    angular.module('angularWidgets').directive('wgButton', ['widgetButton', function (widgetButton) {       
+    function ButtonDirective(widgetButton) {       
         return {
             restrict: 'E',
             priority: 10,
@@ -191,6 +196,6 @@
             replace: true,
             template: widgetButton.template
         };
-    }]);
+    };
     
 }(window, document));

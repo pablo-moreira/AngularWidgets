@@ -9,7 +9,11 @@
  */
 var demo = angular.module('demo', ['ngRoute', 'angularWidgets']);
 
-demo.config(['$routeProvider', 'widgets', 'wgGrowlConfig', function($routeProvider, widgets, puiGrowlConfig) {
+demo.config(['$routeProvider', '$wgConfigProvider', 'widgets', function($routeProvider, $wgConfigProvider, widgets) {
+
+    $wgConfigProvider.configure({
+        teste: 'xpto'
+    })
 
     // Configure highlightjs
     hljs.configure({
