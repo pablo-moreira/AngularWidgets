@@ -24,12 +24,12 @@
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-function FieldsetController($puiGrowl) {
+function FieldsetController($wgGrowl) {
   		
 	var vm = this;
 
 	vm.onToggle = function (evt, fieldset) {
-		$puiGrowl.showInfoMessage('Message', 'User toggled the fieldset to ' + (fieldset.isCollapsed() ? 'collapse' : 'expand') + '!');
+		$wgGrowl.showInfoMessage('Message', 'User toggled the fieldset to ' + (fieldset.isCollapsed() ? 'collapse' : 'expand') + '!');
 	};
 }
 				</demo-source>

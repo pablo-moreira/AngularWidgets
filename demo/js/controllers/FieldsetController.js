@@ -1,16 +1,16 @@
 (function (window, document, undefined) {	
 	"use strict";
 
-	angular.module('demo').controller('FieldsetController', [ '$puiGrowl', FieldsetController ]);
+	angular.module('demo').controller('FieldsetController', [ '$wgGrowl', FieldsetController ]);
 
-	function FieldsetController($puiGrowl) {
+	function FieldsetController($wgGrowl) {
    		
 		var vm = this;
 		
 		vm.bind;
 
         vm.onToggle = function (evt, fieldset) {
-        	$puiGrowl.showInfoMessage('Message', 'User toggled the fieldset to ' + (fieldset.isCollapsed() ? 'collapse' : 'expand') + '!');
+        	$wgGrowl.showInfoMessage('Message', 'User toggled the fieldset to ' + (fieldset.isCollapsed() ? 'collapse' : 'expand') + '!');
         };
 
         vm.fieldsetName = 'Change me';

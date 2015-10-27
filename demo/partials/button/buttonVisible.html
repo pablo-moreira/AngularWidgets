@@ -27,12 +27,12 @@
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-function ButtonController($puiGrowl) {
+function ButtonController($wgGrowl) {
    		
 	var vm = this;
 	      
 	vm.showMessage = function(msg) {
-		$puiGrowl.showInfoMessage('Message', msg);
+		$wgGrowl.showInfoMessage('Message', msg);
 	};
 	
 	vm.buttonDisabled = true;

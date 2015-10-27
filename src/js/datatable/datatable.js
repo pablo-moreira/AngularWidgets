@@ -2,9 +2,28 @@
 	"use strict";
 	
 	angular.module('angularWidgets')
+			.config(['$wgConfigProvider', DatatableConfig])
 			.factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', DatatableWidget])
 			.directive('wgDatatable', ['widgetDatatable', DatatableDirective])
 			.directive('wgRowBuild', RowBuildDirective);
+
+	function DatatableConfig($wgConfigProvider) {
+		$wgConfigProvider.configureWidget('datatable', {
+			item: 'item',
+			itemId: null,
+			items: [],
+			value: [],
+			caption: null,
+			selectionMode: null,
+			onRowSelect: null,
+			onRowUnselect: null,
+			rows: 10,
+			paginator: false,
+			onBuildRow: null,
+			loadOnRender: true,
+			responsive: false // reflow, todo flip-scroll
+		});
+	}
 
 	function DatatableWidget($compile, $http, widgetBase, widgetColumn, widgetPaginator, widgetFacet) {
 			
@@ -259,26 +278,9 @@
 					}
 				};
 				
-				this.determineOptions = function(options) {
-					
-					this.optionsDefault = {
-						item: 'item',
-						itemId: null,
-						items: [],
-						itemsBind: angular.isString(options.items),
-						value: [],
-						caption: null,
-						selectionMode: null,
-						onRowSelect: null,
-						onRowUnselect: null,
-						rows: 10,
-						paginator: false,
-						onBuildRow: null,
-						loadOnRender: true,
-						responsive: false // reflow, todo flip-scroll
-					};
-					
-					this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onRowSelect', 'onRowUnselect']);
+				this.determineOptions = function(options) {					
+					this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.datatable, options, ['onRowSelect', 'onRowUnselect']);
+					this.options.itemsBind = angular.isString(options.items);
 				};
 				
 				this.getFirst = function() {

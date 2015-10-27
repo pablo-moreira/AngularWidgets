@@ -1,9 +1,9 @@
 (function (window, document, undefined) {	
 	"use strict";
 
-	angular.module('demo').controller('DialogController', ['$puiDialog', '$puiGrowl', DialogController]);
+	angular.module('demo').controller('DialogController', ['$puiDialog', '$wgGrowl', DialogController]);
 
-	function DialogController($puiDialog, $puiGrowl) {
+	function DialogController($puiDialog, $wgGrowl) {
    		
 		var vm = this;
 
@@ -13,27 +13,27 @@
 		vm.confirmDialog = null;
 
 		vm.yesAction = function() {
-			$puiGrowl.showInfoMessage('World destroyed!', 'Error...');
+			$wgGrowl.showInfoMessage('World destroyed!', 'Error...');
 		};
 		
 		vm.noAction = function() {
-			$puiGrowl.showInfoMessage('World not destroyed!', 'Ops...');
+			$wgGrowl.showInfoMessage('World not destroyed!', 'Ops...');
 		};
 
 		vm.dismissAction = function() {
-			$puiGrowl.showInfoMessage('Dismiss!', 'Ops...');
+			$wgGrowl.showInfoMessage('Dismiss!', 'Ops...');
 		};
 
 		vm.showConfirmDialog = function() {
 			$puiDialog.showConfirmDialog('Destroy the World', 'Are you sure?')
 			.onYes(function(){
-				$puiGrowl.showInfoMessage('World destroyed!', 'Error...');
+				$wgGrowl.showInfoMessage('World destroyed!', 'Error...');
 			})
 			.onNo(function(){
-				$puiGrowl.showInfoMessage('World not destroyed!', 'Ops...');
+				$wgGrowl.showInfoMessage('World not destroyed!', 'Ops...');
 			})
 			.onDismiss(function() {
-				$puiGrowl.showInfoMessage('Dismiss!', 'Ops...');
+				$wgGrowl.showInfoMessage('Dismiss!', 'Ops...');
 			});
 		}			
     }

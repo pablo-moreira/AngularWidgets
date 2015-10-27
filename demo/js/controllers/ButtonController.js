@@ -1,14 +1,14 @@
 (function (window, document, undefined) {	
 	"use strict";
 
-	angular.module('demo').controller('ButtonController', [ '$puiGrowl', ButtonController ]);
+	angular.module('demo').controller('ButtonController', [ '$wgGrowl', ButtonController ]);
 
-	function ButtonController($puiGrowl) {
+	function ButtonController($wgGrowl) {
    		
 		var vm = this;
 		      
 		vm.showMessage = function(msg) {
-			$puiGrowl.showInfoMessage('Message', msg);
+			$wgGrowl.showInfoMessage('Message', msg);
 		};
 
         vm.buttonDisabled = true;

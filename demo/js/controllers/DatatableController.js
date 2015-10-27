@@ -1,9 +1,9 @@
 (function (window, document, undefined) {	
 	"use strict";
 
-	angular.module('demo').controller('DatatableController', ['$http', '$puiGrowl', DatatableController]);
+	angular.module('demo').controller('DatatableController', ['$http', '$wgGrowl', DatatableController]);
 
-	function DatatableController($http, $puiGrowl) {      
+	function DatatableController($http, $wgGrowl) {      
 		
 		var vm = this;
 		
@@ -22,17 +22,17 @@
 		];
 
 		vm.onRowSelect = function(event, data) {
-			$puiGrowl.showInfoMessage('Row selection', 'Selected a ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
+			$wgGrowl.showInfoMessage('Row selection', 'Selected a ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
 		};
 
 		vm.onRowUnselect = function(event, data) {
 			if (data) {
-				$puiGrowl.showInfoMessage('Row deselection', 'deselected the ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
+				$wgGrowl.showInfoMessage('Row deselection', 'deselected the ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
 			}
 		};
 
 		vm.showInfo = function (car) {
-			$puiGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
+			$wgGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
 		};
 
 		// Prog Pagination

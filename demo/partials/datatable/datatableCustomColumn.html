@@ -49,7 +49,7 @@
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-function DatatableController($puiGrowl) {
+function DatatableController($wgGrowl) {
 
 	var vm = this;
 
@@ -67,7 +67,7 @@ function DatatableController($puiGrowl) {
 	];
 	
 	vm.showInfo = function (car) {
-		$puiGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
+		$wgGrowl.showInfoMessage('Car Information', 'Car Vin: ' + car.vin + ' Brand: ' + car.brand );
 	};
 };
 				</demo-source>
