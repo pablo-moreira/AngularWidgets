@@ -1,10 +1,11 @@
-/*globals window document angular */
-
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('angularWidgets').factory('widgetInputText', ['$interpolate', 'widgetBase', function ($interpolate, widgetBase) {
-
+    angular.module('angularWidgets')
+        .factory('widgetInputText', ['$interpolate', 'widgetBase', InputTextWidget])
+        .directive('wgInputtext', ['widgetInputText', InputTextDirective]);
+        
+    function InputTextWidget($interpolate, widgetBase) {
 
         var widgetInputText = {},
             eventsHelper = {};
@@ -102,11 +103,10 @@
         };
 
         return widgetInputText;
+    };
 
-    }]);
-
-
-    angular.module('angularWidgets').directive('wgInputtext', ['widgetInputText', function (widgetInputText) {
+    function InputTextDirective(widgetInputText) {
+    
         var linkFn = function (scope, element, attrs) {
             var options = widgetInputText.determineOptions(scope, element, attrs),
                 inputData = widgetInputText.buildWidget(element, attrs, options);
@@ -115,6 +115,7 @@
             widgetInputText.registerEvents(inputData);
 
         };
+    
         return {
             restrict: 'E',
             scope: {
@@ -127,6 +128,6 @@
             template: '<input ng-model="value" class="pui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false" ng-transclude> ',
             link: linkFn
         };
+    }
 
-    }]);
 }(window, document));

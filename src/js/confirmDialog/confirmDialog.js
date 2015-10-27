@@ -1,6 +1,3 @@
-
-/*globals angular AngularWidgets*/
-
 (function(window, document, undefined) {
     "use strict";
 

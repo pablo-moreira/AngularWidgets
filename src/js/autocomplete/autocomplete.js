@@ -4,8 +4,33 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('angularWidgets').factory('widgetAutocomplete', ['$compile', '$timeout', '$parse', '$document', '$http', 'widgetBase', 'widgetInputText', 'widgetDatatable', 'widgetColumn', 'widgetPaginator', 'widgetFacet',
-                      function ($compile, $timeout, $parse, $document, $http, widgetBase, widgetInputText, widgetDatatable, widgetColumn, widgetPaginator, widgetFacet) {
+    angular.module('angularWidgets')
+    	.config(['$wgConfigProvider', AutocompleteConfig])
+    	.factory('widgetAutocomplete', ['$compile', '$timeout', '$parse', '$document', 'widgetBase', 'widgetInputText', 'widgetColumn', 'widgetPaginator', 'widgetFacet', AutocompleteWidget])
+    	.directive('wgAutocomplete', ['widgetAutocomplete', AutocompleteDirective]);
+
+	function AutocompleteConfig($wgConfigProvider) {
+		$wgConfigProvider.configureWidget('autocomplete', {
+			caseSensitive	: false, 
+			minQueryLength	: 2,
+			forceSelection	: true,
+			multiple 		: false,
+			dropdown 		: false,
+			scrollHeight	: 300,
+			item 			: 'item',
+			itemLabel 		: null,
+			paginator 		: false,
+			rows			: 30,
+			panelWidth		: null,
+			disabled		: false,
+			completeMethod	: null,
+			onItemSelect	: null,
+			onItemRemove	: null,
+			pageLinks		: 1
+		});
+	}
+
+	function AutocompleteWidget($compile, $timeout, $parse, $document, widgetBase, widgetInputText, widgetColumn, widgetPaginator, widgetFacet) {
 
         var widget = {};
         
@@ -20,26 +45,7 @@
         };
         
     	widget.Autocomplete = widgetBase.createWidget({
-        	
-        	optionsDefault: {
-				caseSensitive	: false, 
-				minQueryLength	: 2,
-				forceSelection	: true,
-				multiple 		: false,
-				dropdown 		: false,
-				scrollHeight	: 300,
-				item 			: 'item',
-				itemLabel 		: null,        			
-				paginator 		: false,
-				rows			: 30,
-				panelWidth		: null,
-				disabled		: false,
-				completeMethod	: null,
-				onItemSelect	: null,
-				onItemRemove	: null,
-				pageLinks		: 1
-			},
-    		
+        	    		
     		init: function(options) {
 
     			this.value = null;
@@ -120,7 +126,7 @@
         	},
         	        	
         	determineOptions: function (options) {
-        		this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onItemSelect', 'onItemRemove'], ['disabled']);
+        		this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.autocomplete, options, ['onItemSelect', 'onItemRemove'], ['disabled']);
             },
             
             setItems: function (value) {				
@@ -919,9 +925,9 @@
         });
                 
         return widget;
-    }]);
+    };
     
-    angular.module('angularWidgets').directive('wgAutocomplete', ['widgetAutocomplete', function (widgetAutocomplete) {
+	function AutocompleteDirective(widgetAutocomplete) {
         return {
             restrict: 'E',
             replace: true,            
@@ -931,6 +937,6 @@
             	widgetAutocomplete.buildWidget(scope, element, attrs);
             }
         };
-    }]);
+    }
 
 }(window, document));

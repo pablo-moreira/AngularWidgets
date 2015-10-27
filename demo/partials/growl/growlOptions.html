@@ -20,27 +20,26 @@
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-function GrowlController($puiGrowl) {
+function GrowlController($wgGrowl) {
   		
 	var vm = this;
 	      
 	vm.showStickyMessage = function() {
-		$puiGrowl.showInfoMessage('Message', "Message remains until close icon clicked", { stick: true });
+		$wgGrowl.showInfoMessage('Message', "Message remains until close icon clicked", { stick: true });
 	};
 
 	vm.showLife500Message = function() {
-		$puiGrowl.showInfoMessage('Message', "Message with options life 500 ms", { life: 500 } );
+		$wgGrowl.showInfoMessage('Message', "Message with options life 500 ms", { life: 500 } );
 	}
 
 	vm.showLife6000Message = function() {
-		$puiGrowl.showInfoMessage('Message', "Message with options life 6000 ms", { life: 6000 } );
+		$wgGrowl.showInfoMessage('Message', "Message with options life 6000 ms", { life: 6000 } );
 	}
 
 	vm.clearMessages = function() {
-		$puiGrowl.clear();
+		$wgGrowl.clear();
 	}
 };
-
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>

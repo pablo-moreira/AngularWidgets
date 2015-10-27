@@ -1,7 +1,11 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('angularWidgets').factory('widgetTab', function() {
+    angular.module('angularWidgets')
+        .factory('widgetTab', TabWidget)
+        .directive('wgTab', TabDirective);
+    
+    function TabWidget() {
     	
     	var widget = {}
     	
@@ -20,8 +24,9 @@
     	}
     	
     	return widget;
-    })
-    .directive('wgTab', function () {
+    }
+
+    function TabDirective() {
         return {
             restrict: 'E',
             priority: 1000,
@@ -38,6 +43,6 @@
                 element.data("options", options);
             }
         };
-    });
-    
+    }
+        
 }(window, document));

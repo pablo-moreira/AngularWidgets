@@ -1,11 +1,19 @@
-/*globals angular */
-
 (function(window, document, undefined) {
     "use strict";
 
     angular.module('angularWidgets')
+    	.config(['$wgConfigProvider', FieldsetConfig])
     	.factory('widgetFieldset', ['widgetBase', FieldsetWidget])
     	.directive('wgFieldset', ['widgetFieldset', FieldsetDirective]);
+
+	function FieldsetConfig($wgConfigProvider) {
+		$wgConfigProvider.configureWidget('fieldset', {
+			toggleable: false,
+			toglleDuration: 'normal',
+			collapsed: false,
+			onToggle: null
+		});	
+	};
     
     function FieldsetWidget(widgetBase) {
         
@@ -30,14 +38,7 @@
         };   
 
     	widget.Fieldset = widgetBase.createWidget({
-    		         		        
-			optionsDefault: {
-				toggleable: false,
-				toglleDuration: 'normal',
-				collapsed: false,
-				onToggle: null
-			},
-    		        	
+
 			init: function (options) {
 				
 	            this.legend = this.element.childrenSelector('.pui-fieldset-legend');
@@ -71,7 +72,7 @@
         	},
         	
 	        determineOptions: function (options) {        	
-	        	this.options = widgetBase.determineOptions(this.scope, this.optionsDefault, options, ['onToggle']);	        	
+	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.fieldset, options, ['onToggle']);
 			},		
 			
 			bindEvents: function() {

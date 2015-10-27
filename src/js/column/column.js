@@ -2,27 +2,10 @@
     "use strict";
 
     angular.module('angularWidgets')
-    .factory('widgetColumn', function () {
-    	
-    	var widgetColumn = {}
-    	
-    	widgetColumn.determineColumnsOptions = function(container) {
-    		
-    		var puiColumns = angular.element(container).findAllSelector('wg-column'),
-            	columns = [];
-            
-            angular.forEach(puiColumns, function(puiColumn) {
-            	this.push(angular.element(puiColumn).data('options'));
-            }, columns);
-            
-            puiColumns.remove();
+    	.factory('widgetColumn', ColumnWidget)
+		.directive('wgColumn', ColumnDirective);
 
-            return columns;
-    	}
-    	
-    	return widgetColumn;
-    })
-	.directive('wgColumn', function () {
+	function ColumnDirective() {
         return {
         	priority: 1000,
         	restrict: 'E',
@@ -47,6 +30,27 @@
                 }
         	}
         };
-    });
+    }
+
+    function ColumnWidget() {
+    	
+		var widgetColumn = {}
+
+		widgetColumn.determineColumnsOptions = function(container) {
+
+			var puiColumns = angular.element(container).findAllSelector('wg-column'),
+				columns = [];
+
+			angular.forEach(puiColumns, function(puiColumn) {
+				this.push(angular.element(puiColumn).data('options'));
+			}, columns);
+
+			puiColumns.remove();
+
+			return columns;
+		}
+
+		return widgetColumn;
+	}
     
 }(window, document));
