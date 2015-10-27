@@ -5,24 +5,32 @@ module.exports = function(grunt) {
 		pkg : grunt.file.readJSON('package.json'),
 		concat : {
 			js : {
-				src: ['src/js/**/*.js'],
-				dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
+				src: ['src/js/core/core.js', 'src/js/**/*.js', '!src/js/locale/*.js', 'src/js/locale/angular-widgets_en.js'],
+				dest: 'dist/<%= pkg.name %>.js'
 			},
 			css : {
 				src: ['src/css/**/*.css'],
-				dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.css'
-			},
+				dest: 'dist/<%= pkg.name %>.css'
+			}
 		},
 		uglify: {
 			dist: {
-				src: 'dist/<%= pkg.name %>-<%= pkg.version %>.js',
-				dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'			
+				src: 'dist/<%= pkg.name %>.js',
+				dest: 'dist/<%= pkg.name %>.min.js'			
+			},
+			locale: {
+				files: [{
+					expand: true,
+					src: '**/*.js',
+					dest: 'dist/locale',
+					cwd: 'src/js/locale'
+				}]
 			}
 		},
 		cssmin: {
 			dist: {
-				src: 'dist/<%= pkg.name %>-<%= pkg.version %>.css',
-				dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.min.css'
+				src: 'dist/<%= pkg.name %>.css',
+				dest: 'dist/<%= pkg.name %>.min.css'
 			}
 		}
 	});
