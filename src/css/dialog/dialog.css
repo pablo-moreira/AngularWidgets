@@ -44,24 +44,20 @@
     left: 0;
     display: none;
     overflow: auto;
-    overflow-y: scroll;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     outline: 0;
 }
-.pui-dialog-modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
+
 .pui-dialog {       
     width: auto;
     margin: 10px;
 }
+
 .pui-dialog-open {
     overflow: hidden;
 }
+
 @media (min-width: 768px) {
     .pui-dialog {
         width: 600px;

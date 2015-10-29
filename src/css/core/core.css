@@ -28,7 +28,8 @@
 ----------------------------------*/
 
 /* Overlays */
-.ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.ui-widget-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; }
+
 
 /*!
  * jQuery UI Resizable 1.9.2
@@ -76,31 +77,44 @@
 	min-height: 0;
 }
 
-.pui-hide.ng-leave {
-	
+@-webkit-keyframes ui-widget-overlay-fadeIn {
+    from { 
+        opacity: 0;
+    }
 }
 
-.pui-slide.ng-enter, .pui-slide.ng-leave {
-	-webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-	-moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-	-o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-	transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+@keyframes ui-widget-overlay-fadeIn {
+    from { 
+        opacity: 0;
+    }
 }
 
-.pui-slide.ng-enter.ng-enter-active {
-	position: absolute;
- 	left: 1300px;
+@-webkit-keyframes ui-widget-overlay-fadeOut {
+    to {
+        opacity: 0;
+    }
 }
 
-.pui-slide.ng-enter {
- 	left: 0;
+@keyframes ui-widget-overlay-fadeOut {
+    to {
+        opacity: 0;
+    }
 }
 
-.pui-slide.ng-leave.ng-leave-active {
-	position: absolute;
-	left: -1700px;
+.ui-widget-overlay-fadeIn {
+    -webkit-animation-name: ui-widget-overlay-fadeIn;
+    animation-name: ui-widget-overlay-fadeIn;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
-
-.pui-slide-animate.ng-leave {
- 	right: 0;
- }
+ 
+.ui-widget-overlay-fadeOut {
+    -webkit-animation-name: ui-widget-overlay-fadeOut;
+    animation-name: ui-widget-overlay-fadeOut;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
