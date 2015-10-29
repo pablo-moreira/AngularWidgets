@@ -13,9 +13,10 @@
   },
   "description": "AngularWidgets",
   "dependencies": {
-    "angular": "~1.4.7",    
+    "angular": "~1.4.7",
     "angular-animate": "~1.4.7",
     "font-awesome": "~4.4.0",
-    "tinymce": "~4.2.6"
+    "tinymce": "~4.2.6",
+    "animate.css": "~3.4.0"
   }
 }

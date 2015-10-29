@@ -11,8 +11,8 @@
 		AngularWidgets.configureWidget('dialog', {
 			width: null,
 			visible: false,
-			showEffect: null,
-			hideEffect: null,
+			showEffect: 'bounceInDown',
+			hideEffect: 'bounceOutUp',
 			effectOptions: {},
 			effectSpeed: 'normal',
 			closeOnEscape: true,
@@ -184,11 +184,19 @@
 					
 					var $this = this;
 
-					this.element.show(this.options.showEffect, this.options.effectOptions, this.options.effectSpeed, function() {
+					this.dialog.addClass('animated').addClass(this.options.showEffect);
+					this.dialog.onAnimationEnd(function() {
+						$this.dialog.removeClass($this.options.showEffect);
 						$this.postShow();
 					});
-				}    
-				else {
+					this.element.removeClass('fadeOut').addClass('animated fadeIn');
+					this.element.show();
+
+// 					this.element.show(this.options.showEffect, this.options.effectOptions, this.options.effectSpeed, function() {
+// 						$this.postShow();
+// 					});	
+				}
+				else {					
 					this.element.show();
 
 					this.postShow();
@@ -225,10 +233,19 @@
 				if(this.options.hideEffect) {
 					
 					var $this = this;
-
-					this.element.hide(this.options.hideEffect, this.options.effectOptions, this.options.effectSpeed, function() {
+					
+					this.dialog.addClass('animated').addClass(this.options.hideEffect);
+					this.dialog.onAnimationEnd(function() {						
+						$this.dialog.removeClass($this.options.hideEffect);
+						$this.element.hide();
 						$this.postHide();
-					});
+						
+					})
+					this.element.removeClass('fadeIn').addClass('animated fadeOut');
+
+// 					this.element.hide(this.options.hideEffect, this.options.effectOptions, this.options.effectSpeed, function() {
+// 						$this.postHide();
+// 					});
 				}
 				else {
 					this.element.hide();
