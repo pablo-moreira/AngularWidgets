@@ -104,17 +104,9 @@
 .ui-widget-overlay-fadeIn {
     -webkit-animation-name: ui-widget-overlay-fadeIn;
     animation-name: ui-widget-overlay-fadeIn;
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
 }
  
 .ui-widget-overlay-fadeOut {
     -webkit-animation-name: ui-widget-overlay-fadeOut;
     animation-name: ui-widget-overlay-fadeOut;
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
 }

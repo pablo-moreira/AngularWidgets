@@ -299,7 +299,7 @@
 					
 					var $this = this;
 
-					this.modality.addClass('ui-widget-overlay-fadeIn');
+					this.modality.addClass('animated ui-widget-overlay-fadeIn');
 					this.modality.onAnimationEnd(function() {
 						$this.modality.removeClass('ui-widget-overlay-fadeIn');
 					});
