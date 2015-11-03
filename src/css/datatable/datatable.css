@@ -95,7 +95,7 @@
 		white-space: normal;
 		text-align:left;
 	}
- 
+
 	.pui-datatable-reflow td:before { 
 		/* Now like a table header */
 		position: absolute;
@@ -107,6 +107,10 @@
 		white-space: nowrap;
 		text-align:left;
 		font-weight: bold;
+	}
+
+	.pui-datatable-reflow table tbody tr.pui-datatable-empty-message td { 
+		padding: 6px;
 	}
  
 	/* Label the data */
