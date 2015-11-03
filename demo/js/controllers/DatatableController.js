@@ -21,6 +21,8 @@
 			{'brand':'Mazda','year': 2013, 'color':'Red', 'vin':'245t2s'}
 		];
 
+		vm.emptyData = [];
+
 		vm.onRowSelect = function(event, data) {
 			$wgGrowl.showInfoMessage('Row selection', 'Selected a ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
 		};

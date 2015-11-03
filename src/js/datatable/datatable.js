@@ -9,13 +9,14 @@
 
 	function DatatableConfig($wgConfigProvider) {
 		$wgConfigProvider.configureWidget('datatable', {
+			emptyMessage: 'No rows found.',
 			item: 'item',
 			itemId: null,
 			items: [],
 			value: [],
 			caption: null,
 			selectionMode: null,
-			onRowSelect: null,
+			onRowSelect: null,			
 			onRowUnselect: null,
 			rows: 10,
 			paginator: false,
@@ -128,11 +129,13 @@
 					
 					tbody.data("dataTable", this);
 					
-					tbody.html('<tr class="ui-widget-content" ng-repeat="' + this.options.item + ' in $getData()" wg-row-build />');
-					
-					var row = tbody.findAllSelector('tr');
-					
+					var row = angular.element('<tr class="ui-widget-content" ng-repeat="' + this.options.item + ' in $getData()" wg-row-build ng-show="$getData().length > 0" />');
+										
 					tbody.append(row);
+
+					var rowEmpty = angular.element('<tr class="ui-widget-content pui-datatable-empty-message" ng-show="$getData().length === 0"><td colspan="' + this.columns.length + '">' + this.options.emptyMessage + '</td></tr>');
+
+					tbody.append(rowEmpty);
 					
 					for (var i = 0, t = this.columns.length; i < t; i++) {
 						

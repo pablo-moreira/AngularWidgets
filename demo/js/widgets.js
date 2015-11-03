@@ -45,6 +45,7 @@
 				{ "label" : "Overview", "path" : "datatable/datatableOverview" }, 
 				{ "label" : "Default", "path" : "datatable/datatableDefault" }, 
 				{ "label" : "Columns", "path" : "datatable/datatableColumns" }, 
+				{ "label" : "Empty Message", "path" : "datatable/datatableEmptyMessage" },
 				{ "label" : "Sort and Selection", "path" : "datatable/datatableSortSelection"}, 
 				{ "label" : "Paginator", "path" : "datatable/datatablePaginator" }, 
 				{ "label" : "Captions", "path" : "datatable/datatableCaptions" }, 

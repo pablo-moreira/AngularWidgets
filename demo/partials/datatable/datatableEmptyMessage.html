@@ -1,0 +1,45 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		
+		<header>Empty messasge</header>
+		
+		<wg-datatable id="emptyDataDefault" items="datatableCtrl.emptyData" paginator="true" rows="10">
+			<wg-column value="brand" headerText="Brand"></wg-column>
+			<wg-column value="year" headerText="Year"></wg-column>
+		</wg-datatable>
+
+		<wg-datatable id="emptyDataCustom" items="datatableCtrl.emptyData" paginator="true" rows="10" emptyMessage="No cars found" style="margin-top: 10px" responsive="true">
+			<wg-column value="brand" headerText="Brand"></wg-column>
+			<wg-column value="year" headerText="Year"></wg-column>
+		</wg-datatable>
+	</section>
+
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<wg-datatable id="emptyDataDefault" items="datatableCtrl.emptyData" paginator="true" rows="10">
+	<wg-column value="brand" headerText="Brand"></wg-column>
+	<wg-column value="year" headerText="Year"></wg-column>
+</wg-datatable>
+
+<wg-datatable id="emptyDataCustom" items="datatableCtrl.emptyData" paginator="true" rows="10" emptyMessage="No cars found">
+	<wg-column value="brand" headerText="Brand"></wg-column>
+	<wg-column value="year" headerText="Year"></wg-column>
+</wg-datatable>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function DatatableController() {
+
+	var vm = this;
+
+	vm.emptyData = [];
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

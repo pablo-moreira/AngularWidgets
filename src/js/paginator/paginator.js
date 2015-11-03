@@ -286,12 +286,17 @@
 	                end = boundaries[1];
 	
 	            for (var i = start; i <= end; i++) {
+	                
 	                var pageLinkNumber = (i + 1),
 	                    pageLinkElement = angular.element('<span class="pui-paginator-page pui-paginator-element ui-state-default ui-corner-all">' + pageLinkNumber + "</span>");
 	
-	                if (i === paginator.getCurrentPage()) {
+					if (paginator.getRowCount() === 0) {
+	                	pageLinkElement.addClass('ui-state-disabled');
+	                }
+	                else if (i === paginator.getCurrentPage()) {
 	                    pageLinkElement.addClass('ui-state-active');
 	                }
+	                
 	
 	                element.append(pageLinkElement);
 	            }
@@ -331,9 +336,13 @@
 
                 	if (i <= end) {                    	
                     
-                        if((pageLinkNumber -1) === paginator.getCurrentPage()) {
+                    	if (paginator.getRowCount() === 0) {
+                    		pageLink.addClass('ui-state-disabled');
+                    	}
+                        else if((pageLinkNumber -1) === paginator.getCurrentPage()) {
                         	pageLink.addClass('ui-state-active');
                         }
+
                         
                         pageLink.text(pageLinkNumber);
                 	}
