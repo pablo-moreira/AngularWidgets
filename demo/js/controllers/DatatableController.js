@@ -41,6 +41,30 @@
 	 
 		// HttpDataSource
 		vm.httpDataSource = new AngularWidgets.FakeHttpDataSource({ url: 'json/cars.json' });
+			
+		// Restriction
+		vm.datatable = null;
+		
+ 		vm.simpleRestriction = new AngularWidgets.Restriction([
+ 			{ attribute: "year", value: 1998, operator: "GE" },
+ 			"color", 
+ 			{ attribute: "brand", operator: "START_WITH"} 			
+ 		]);
+
+ 		vm.complexRestriction = new AngularWidgets.Restriction({
+ 			expressions: [
+				{ attribute: "year", value: 1998, operator: "GE" },
+ 				"color", 
+ 				{ attribute: "brand", operator: "START_WITH" },
+ 				{
+ 					operator: 'OR',
+ 					expressions: [
+						{ id: "year_or", attribute: "year", value: 1998, operator: "EQUALS" },
+						{ id: "year_2", attribute: "year", value: 2015, operator: "EQUALS" }
+ 					]
+ 				}
+ 			]
+ 		});
 	}
 
 }(window, document));
