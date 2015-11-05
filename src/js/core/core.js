@@ -8,24 +8,73 @@
 	String.prototype.firstToUpperCase = function() {
 		return this.charAt(0).toUpperCase() + this.slice(1);
 	}
+	
+	var configuration = {
+		widgets: {}
+	};	
     
     window.AngularWidgets = {
-    	version: "0.0.1",
+    	
+    	version: "0.0.3",
+    	
     	zindex: 10000,
+    	
     	widgets: {},
+    	
     	putWidget: function(id,widget) {
     		this.widgets[id] = widget;
     	},
+    	
     	getWidget: function(id) {
     		return this.widgets[id];
     	},
+    	
     	locales : {},
+    	
     	locale : null,
+    	
     	guid: function() {
     		return Math.floor((1 + Math.random()) * 0x10000)
     			.toString(16)
     			.substring(1);
-    	}
+    	},
+    	
+    	configure: function(configs) {
+    		configuration = angular.merge(configuration, configs);
+    	},
+    	
+    	configureWidget: function(widgetName, configs) {
+    		
+    		var newConfigs = { widgets: {} };
+    		
+    		newConfigs.widgets[widgetName] = configs;
+
+    		this.configure(newConfigs);
+    	},
+    	
+    	getConfiguration: function() {
+    		return configuration;
+    	},
+
+    	isArray: function(array) {
+			return angular.isArray(array);
+		},
+
+		isString: function(str) {
+			return angular.isString(str);
+		},
+
+		isNumber: function(num) {
+			return angular.isNumber(num);
+		},
+
+		isFunction: function(fct) {
+			return angular.isFunction(fct);
+		},
+
+		equals: function(v1, v2) {
+			return angular.equals(v1, v2);
+		}
     };
         
     window.AW = function (id) {
@@ -324,9 +373,7 @@
 
     angular.module('angularWidgets', [])
     	.run(['$rootScope', AngularWidgetsRun])
-    	.config(['$wgConfigProvider', HttpDataSourceConfig])
-    	.value('version', AngularWidgets.version)
-    	.provider('$wgConfig', WgConfigProvider);
+    	.value('version', AngularWidgets.version);    	
 
 	function AngularWidgetsRun($rootScope) {
 
@@ -343,47 +390,5 @@
             }
         };
     }
-
-    function HttpDataSourceConfig($wgConfigProvider) {
-		$wgConfigProvider.configure({
-			httpDataSource: {
-				httpMethod : 'post',
-				parseRequest: function(request) {
-					return request;
-				},
-				parseResponse: function (data, request) {
-					return data;
-				}
-			}
-		});
-    }
-
-    function WgConfigProvider() {
-
-		var configuration = {
-			widgets: {}
-		};
-
-    	this.configure = function(configs) {
-    		configuration = angular.merge(configuration, configs);
-    	}
-
-    	this.configureWidget = function(widgetName, configs) {
-    		
-    		var newConfigs = { widgets: {} };
-    		
-    		newConfigs.widgets[widgetName] = configs;
-
-    		this.configure(newConfigs);
-    	}
-
-    	this.getConfiguration = function() {
-    		return configuration;
-    	}
-
-		this.$get = function unicornLauncherFactory() {
-			return configuration;
-		}
-  	};
     
 }(window, document));

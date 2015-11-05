@@ -2,12 +2,12 @@
     "use strict";
 
     angular.module('angularWidgets')
-    	.config(['$wgConfigProvider', PanelConfig])
     	.factory('widgetPanel', ['widgetBase', PanelWidget])
     	.directive('wgPanel', ['widgetPanel', PanelDirective]);
 
-	function PanelConfig($wgConfigProvider) {
-		$wgConfigProvider.configureWidget('panel', {
+    function PanelWidget(widgetBase) {
+
+		AngularWidgets.configureWidget('panel', {
 			toggleable: false,
 			toggleDuration: 'normal',
 			collapsed: false,
@@ -20,10 +20,7 @@
 			onToggle: null,
 			onClose: null,					
 		});
-	}
-
-    function PanelWidget(widgetBase) {
-
+    	
         var widget = {};
         
         widget.template = '<div class="pui-panel ui-widget ui-widget-content ui-corner-all">' +
@@ -98,7 +95,7 @@
         	};
         	
 	        this.determineOptions = function (options) {	        		        	
-	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.panel, options, ['onToggle','onClose','onOpen']);
+	        	this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.panel, options, ['onToggle','onClose','onOpen']);
 			};		
 			
 	        this.bindEvents = function() {

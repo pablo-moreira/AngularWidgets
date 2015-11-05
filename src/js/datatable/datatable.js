@@ -1,33 +1,30 @@
 (function(window, document, undefined) {
 	"use strict";
 	
-	angular.module('angularWidgets')
-			.config(['$wgConfigProvider', DatatableConfig])
-			.factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', DatatableWidget])
-			.directive('wgDatatable', ['widgetDatatable', DatatableDirective])
-			.directive('wgRowBuild', RowBuildDirective);
-
-	function DatatableConfig($wgConfigProvider) {
-		$wgConfigProvider.configureWidget('datatable', {
-			emptyMessage: 'No rows found.',
-			item: 'item',
-			itemId: null,
-			items: [],
-			value: [],
-			caption: null,
-			selectionMode: null,
-			onRowSelect: null,			
-			onRowUnselect: null,
-			rows: 10,
-			paginator: false,
-			onBuildRow: null,
-			loadOnRender: true,
-			responsive: false // reflow, todo flip-scroll
-		});
-	}
+	angular.module('angularWidgets')			
+		.factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', DatatableWidget])
+		.directive('wgDatatable', ['widgetDatatable', DatatableDirective])
+		.directive('wgRowBuild', RowBuildDirective);
 
 	function DatatableWidget($compile, $http, widgetBase, widgetColumn, widgetPaginator, widgetFacet) {
 			
+			AngularWidgets.configureWidget('datatable', {
+				emptyMessage: 'No rows found.',
+				item: 'item',
+				itemId: null,
+				items: [],
+				value: [],
+				caption: null,
+				selectionMode: null,
+				onRowSelect: null,			
+				onRowUnselect: null,
+				rows: 10,
+				paginator: false,
+				onBuildRow: null,
+				loadOnRender: true,
+				responsive: false // reflow, TODO flip-scroll
+			});
+
 			var widget = {};
 			
 			widget.template = '<div class="pui-datatable ui-widget"><div class="pui-datatable-tablewrapper"><div ng-transclude></div><table><thead class="pui-datatable-data-head"></thead><tbody class="pui-datatable-data"></tbody></table></div></div>';
@@ -286,7 +283,7 @@
 				};
 				
 				this.determineOptions = function(options) {					
-					this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.datatable, options, ['onRowSelect', 'onRowUnselect']);
+					this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.datatable, options, ['onRowSelect', 'onRowUnselect']);
 					this.options.itemsBind = angular.isString(options.items);
 				};
 				

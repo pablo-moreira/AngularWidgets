@@ -7,20 +7,34 @@
 
 		var queryWhere = null;
 		var querySort = new DataQuerySort(this);
+		var firstResult = -1;
+		var maxResults = -1;
 
 		this.getAttributeValueByPath = getAttributeValueByPath;
 		this.getData = getData;
+		this.getFirstResult = getFirstResult;
+		this.getMaxResults = getMaxResults;
 		this.where = where;
 		this.select = select;
+		this.setFirstResult = setFirstResult;
+		this.setMaxResults = setMaxResults;
 		this.sort = sort;
 
 		function getAttributeValueByPath(item, path) {
-			/* TODO - multiple obj */
+			/* TODO - item.subobj.subobj.value */
 			return item[path];
 		}
 
 		function getData() {
 			return data;
+		}
+
+		function getFirstResult() {
+			return firstResult;
+		}
+
+		function getMaxResults() {
+			return maxResults;
 		}
 
 		function where(operator) {
@@ -47,7 +61,7 @@
 
 			var processedData = null;
 
-			if (queryWhere !== undefined) {
+			if (queryWhere) {
 
 				processedData = [],
 				data = this.getData();
@@ -61,10 +75,39 @@
 			else {
 				processedData = this.getData();
 			}
+		
+			querySort.process(processedData);
 			
-			querySort.process(processedData);			
+			if (firstResult !== -1 || maxResults !== -1) {
 
-			return processedData;
+				var rowCount = processedData.length,
+					rows = maxResults !== -1 ? maxResults : rowCount,
+					first = firstResult !== -1 ? firstResult : 0,
+					pageLimit = first + rows;
+	
+				var pagedData = [];
+
+				for (var i = first; i < (pageLimit) && i < rowCount; i++) {
+					pagedData.push(processedData[i]);
+				}
+
+				return pagedData;
+			}
+			else {
+				return processedData;
+			}
+		}
+
+		function setFirstResult(v) {
+			if (AngularWidgets.isNumber(v)) {
+				firstResult = v;
+			}
+		}
+
+		function setMaxResults(v) {
+			if (AngularWidgets.isNumber(v)) {
+				maxResults = v;	
+			}			
 		}
 
 		function sort() {

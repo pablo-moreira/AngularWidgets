@@ -1,25 +1,20 @@
-/*globals angular AngularWidgets*/
-
 (function (window, document, undefined) {
     "use strict";
 
     angular.module('angularWidgets')
-    	.config(['$wgConfigProvider', TabviewConfig])
     	.factory('widgetTabview', ['$interpolate', '$compile', 'widgetBase', 'widgetTab', TabviewWidget ])
 		.directive('wgTabview', ['widgetTabview', TabviewDirective ]);
 
-	function TabviewConfig($wgConfigProvider) {
-		$wgConfigProvider.configureWidget('tabview', {
+	function TabviewWidget($interpolate, $compile, widgetBase, widgetTab) {
+
+		AngularWidgets.configureWidget('tabview', {
 			activeIndex: 0,
 			orientation: 'top',
 			closeable: false,
 			onTabChange : null,
 			onTabClose : null
-		});
-	}
-	
-	function TabviewWidget($interpolate, $compile, widgetBase, widgetTab) {
-
+		});		
+		
         var widget = {};
                 
         widget.template = '<div class="pui-tabview ui-widget ui-widget-content ui-corner-all ui-hidden-container"> ' +
@@ -94,7 +89,7 @@
 			},
 			
 	        determineOptions: function (options) {        			        		        		        	
-	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.tabview, options, ['onTabChange','onTabClose']);
+	        	this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.tabview, options, ['onTabChange','onTabClose']);
 			},
 			
 			determineTransclude: function() {

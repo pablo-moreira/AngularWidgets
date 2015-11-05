@@ -5,12 +5,12 @@
     "use strict";
 
     angular.module('angularWidgets')
-    	.config(['$wgConfigProvider', AutocompleteConfig])
     	.factory('widgetAutocomplete', ['$compile', '$timeout', '$parse', '$document', 'widgetBase', 'widgetInputText', 'widgetColumn', 'widgetPaginator', 'widgetFacet', AutocompleteWidget])
     	.directive('wgAutocomplete', ['widgetAutocomplete', AutocompleteDirective]);
 
-	function AutocompleteConfig($wgConfigProvider) {
-		$wgConfigProvider.configureWidget('autocomplete', {
+	function AutocompleteWidget($compile, $timeout, $parse, $document, widgetBase, widgetInputText, widgetColumn, widgetPaginator, widgetFacet) {
+
+		AngularWidgets.configureWidget('autocomplete', {
 			caseSensitive	: false, 
 			minQueryLength	: 2,
 			forceSelection	: true,
@@ -28,10 +28,7 @@
 			onItemRemove	: null,
 			pageLinks		: 1
 		});
-	}
-
-	function AutocompleteWidget($compile, $timeout, $parse, $document, widgetBase, widgetInputText, widgetColumn, widgetPaginator, widgetFacet) {
-
+		
         var widget = {};
         
         widget.template = 	'<div class="pui-autocomplete ui-widget">' +
@@ -126,7 +123,7 @@
         	},
         	        	
         	determineOptions: function (options) {
-        		this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.autocomplete, options, ['onItemSelect', 'onItemRemove'], ['disabled']);
+        		this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.autocomplete, options, ['onItemSelect', 'onItemRemove'], ['disabled']);
             },
             
             setItems: function (value) {				
@@ -424,13 +421,13 @@
                 
                 var $this = this;
 
-                this.items.load(this.buildRequest())
+                this.items.load(this.createRequest())
                 	.success(function(request) {
 	                   	$this.onLoadData();
 					})
 					.error(function(response) {
 						/* TODO - Tratar erros */
-						alert(response);
+						alert(response.error);
 					});
             },
             
@@ -764,36 +761,27 @@
                     }
                 }
             },
-            
-            buildQueryCriterion: function () {
-            	return {
-            		field : this.options.itemLabel || '*', 
-					operator : widgetBase.filterOperator.START_WITH,
-					value : this.query
-				};
-            },
 
 			getFirst: function() {
 				return this.options.paginator ? this.paginator.getFirst() : 0;
 			},
 
-            buildRequest: function () {
+            createRequest: function () {
             	
-            	var req = {
-    				first: this.getFirst(),
-    				sorts: [],
-    				query: this.query ? this.buildQueryCriterion() : null,
-    				filter: this.query ? {
-    					operator : widgetBase.predicateOperator.AND,
-    					predicates : [ this.buildQueryCriterion() ]
-    				} : null
-    			};
-            	
+            	var request = { first: this.getFirst() };
+
+            	if (this.query) {
+            		request.query = {
+            			attribute : this.options.itemLabel || '*', 
+            			value : this.query
+            		}
+            	}
+
             	if (this.paginator) {
-					req.pageSize = this.paginator.getRows();
+					request.pageSize = this.paginator.getRows();
 				}
-            	
-            	return req;
+
+            	return request;
             },
 
             updateModel: function(value) {

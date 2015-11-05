@@ -2,20 +2,17 @@
     "use strict";
 
     angular.module('angularWidgets')
-    	.config(['$wgConfigProvider', ButtonConfig])
     	.factory('widgetButton', ['$interpolate', 'widgetBase', ButtonWidget])
 		.directive('wgButton', ['widgetButton', ButtonDirective]);
+
+	function ButtonWidget($interpolate, widgetBase) {
 		
-	function ButtonConfig($wgConfigProvider) {
-		$wgConfigProvider.configureWidget('button', {
+		AngularWidgets.configureWidget('button', {
 			value: null,
 			icon: null,
 			iconPosition: 'left',
 			action: null
 		});
-	}
-	
-	function ButtonWidget($interpolate, widgetBase) {
 
     	var widget = {};
 
@@ -102,7 +99,7 @@
         	},
         	
 	        determineOptions: function (options) {
-	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.button, options);
+	        	this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.button, options);
 			},
 			
 	        setValue: function(text) {
