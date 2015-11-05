@@ -55,7 +55,8 @@
 				{ "label" : "HttpDataSource", "path" : "datatable/datatableHttpDataSource" },  
 				{ "label" : "Custom Column", "path" : "datatable/datatableCustomColumn" },
 				{ "label" : "Responsive", "path" : "datatable/datatableResponsive" },
-				{ "label" : "Simple Restrictions", "path" : "datatable/datatableSimpleRestriction" }
+				{ "label" : "Simple Restrictions", "path" : "datatable/datatableSimpleRestriction" },
+				{ "label" : "Complex Restrictions", "path" : "datatable/datatableComplexRestriction" }
 			]
 		},
 		{

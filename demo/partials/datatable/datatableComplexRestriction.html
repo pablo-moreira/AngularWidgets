@@ -1,17 +1,18 @@
 <wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
-		<header>Simple Restriction</header>
+		<header>Complex Restriction</header>
 		
 		<wg-fieldset legend="Filters">
+			
 			<labe for="itBrand">Brand:</label> 
-			<wg-inputtext id="itBrand" value="datatableCtrl.simpleRestriction.r.brand.value"></wg-inputtext>
+			<wg-inputtext id="itBrand" value="datatableCtrl.complexRestriction.r.brand.value"></wg-inputtext>
 
 			<label for="itColor">Color:</label>
-			<wg-inputtext id="itColor" value="datatableCtrl.simpleRestriction.r.color.value"></wg-inputtext>
+			<wg-inputtext id="itColor" value="datatableCtrl.complexRestriction.r.color.value"></wg-inputtext>
 
 			<span>Year:</span>
-			<span ng-bind="datatableCtrl.simpleRestriction.r.year.value"></span>
+			<span ng-bind="datatableCtrl.complexRestriction.r.year.value"></span>
 
 			<wg-button action="datatableCtrl.datatable.refresh()" value="Search"></wg-button>
 		</wg-fieldset>
@@ -20,10 +21,10 @@
 			binding="datatableCtrl.datatable"
 			item="car"
 			itemId="vin"
-			items="datatableCtrl.httpDataSource"
-			restriction="datatableCtrl.simpleRestriction"
+			items="datatableCtrl.fixedData"
+			restriction="datatableCtrl.complexRestriction"
 			paginator="true"
-		   	rows="4">
+		   	rows="10">
 			<wg-column value="brand" headerText="Brand"></wg-column>			
 			<wg-column value="year" headerText="Year" sortBy="year"></wg-column>			
 			<wg-column value="color" headerText="Color" sortBy="color"></wg-column>

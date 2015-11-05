@@ -54,17 +54,17 @@
  		]);
 
  		vm.complexRestriction = new AngularWidgets.Restriction({
+ 			operator: 'AND',
  			expressions: [
-				{ attribute: "year", value: 1998, operator: "GE" },
- 				"color", 
- 				{ attribute: "brand", operator: "START_WITH" },
- 				{
- 					operator: 'OR',
- 					expressions: [
-						{ id: "year_or", attribute: "year", value: 1998, operator: "EQUALS" },
-						{ id: "year_2", attribute: "year", value: 2015, operator: "EQUALS" }
- 					]
- 				}
+				{ attribute: 'year', operator: 'GT', value: 2010 },
+				{ attribute: 'brand', operator: 'CONTAINS' },
+				{
+					operator: 'OR',
+					expressions: [
+						{ id: 'color_1', attribute: 'color', operator: 'EQUALS', value: 'White' },
+						{ id: 'color_2', attribute: 'color', operator: 'EQUALS', value: 'Red' }
+					]				
+				}
  			]
  		});
 	}

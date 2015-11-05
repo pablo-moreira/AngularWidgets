@@ -213,10 +213,6 @@
 					value = value.toUpperCase();
 				}
 
-				if (operator === 'EQUALS') {
-					console.log('teste');
-				}
-
 				if (operator === 'START_WITH' && data.indexOf(value) === 0) {
 					return true;
 				}
