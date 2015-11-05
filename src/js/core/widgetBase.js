@@ -50,6 +50,26 @@
 			}
 		}
 
+		AngularWidgets.isArray = function(array) {
+			return angular.isArray(array);
+		}
+
+		AngularWidgets.isString = function(str) {
+			return angular.isString(str);
+		}
+
+		AngularWidgets.isNumber = function(num) {
+			return angular.isNumber(num);
+		}
+
+		AngularWidgets.isFunction = function(fct) {
+			return angular.isFunction(fct);
+		}
+
+		AngularWidgets.equals = function(v1, v2) {
+			return angular.equals(v1, v2);
+		}
+
 		AngularWidgets.ArrayDataSource = function (allData) {
       	
 			// public
@@ -57,10 +77,34 @@
 			this.allData = allData;
 			this.getRowCount = getRowCount;
 			this.getData = getData;
+			this.processRestrictions = processRestrictions;
 
 			// private
 			var data = [];
-			var filteredData = allData;			
+			var filteredData = allData;		
+
+			function processRestrictions(query, queryExpression, expressions) {
+
+				angular.forEach(expressions, function(expression) {
+
+					if (expression.restrictions) {
+						if (expression.operator === 'AND') {
+							this.processRestrictions(queryExpression.addAnd(), expression.restrictions);
+						}
+						else {
+							this.processRestrictions(queryExpression.addOr(), expression.restrictions);
+						}
+					}
+					else {
+						queryExpression.add(function(item) {
+
+							var attributeValue = query.getAttributeValueByPath(item, expression.attribute);
+
+							return AngularWidgets.DataFilter.check(attributeValue, expression.value, expression.operator, expression.sensitive);
+						});
+					}					
+				})	
+			}	
 
 			function load(request) {
 				
@@ -72,7 +116,49 @@
 
 					var filterDataCurrent = this.allData;
 
-					if (request.filter) {        	
+					if (request.restriction)  {
+
+						var query = new AngularWidgets.DataQuery(this.allData),
+							queryExpression = null,
+							restrictions = null;
+
+						// Simple restriction
+						if (angular.isArray(request.restriction)) {
+							queryExpression = query.where('AND');
+							restrictions = request.restriction;
+						}
+						else {
+							queryExpression = query.where(request.restriction.operator === 'AND' ? 'AND' : 'OR');
+							restrictions = request.restriction.restrictions;
+						}
+
+						this.processRestrictions(query, queryExpression, restrictions);
+
+						if (request.sorts && request.sorts.length) {
+
+							for (var i=0, l=request.sorts.length; i < l; i++)  {
+								
+								var sort = request.sorts[i];
+
+								if (sort.order === 'ASC') {
+									query.sort().asc(sort.attribute);
+								}	
+								else {
+									query.sort().desc(sort.attribute);
+								}
+							}
+
+							request.sorts = null;
+						}
+
+						filteredData = query.select();
+
+						var rowCount = filteredData.length,
+						rows = request.pageSize || filteredData.length,    		
+						page = request.first + rows;
+					}
+					// TODO - Refactor so utilizar restriction ou request.query para o autocomplete
+					else if (request.filter) {        	
 
 						// TODO - Implement more one predicates
 						var filter = request.filter.predicates[0];
@@ -95,10 +181,7 @@
 								filteredData.push(item);
 							}
 							else {
-								if (filter.operator == 'start_with' && itemFieldValue.indexOf(filter.value) === 0) {
-									filteredData.push(item);
-								}
-								else if (filter.operator == 'contains' && itemFieldValue.indexOf(filter.value) != -1) {
+								if (AngularWidgets.DataFilter.check(itemFieldValue, filter.value, filter.operator)) {
 									filteredData.push(item);
 								}
 							}
@@ -117,7 +200,7 @@
 							page = request.first + rows;
 
 						filteredData = this.allData;
-					}            
+					}
 
 					if (request.sorts && request.sorts.length) {
 

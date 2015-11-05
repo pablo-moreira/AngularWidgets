@@ -65,10 +65,14 @@
 					
 					this.setItems(this.options.itemsBind ? this.scope.$eval(this.options.items) : this.options.items);
 					
+					var $this = this;
+
+					if (this.options.restriction) {
+						this.restriction = this.scope.$eval(this.options.restriction);                		
+					}
+					
 					if (this.options.paginator) {
-						
-						var $this = this;
-								  
+														  
 						this.paginator = widgetPaginator.buildWidget(this.scope, null, {
 							rows: this.options.rows,
 							dataLoader: this.items,
@@ -102,7 +106,7 @@
 						this.initSorting();
 					}
 					
-					widgetBase.createBindAndAssignIfNecessary(this, "getCurrentPage,goToPage");
+					widgetBase.createBindAndAssignIfNecessary(this, "getCurrentPage,goToPage,refresh");
 					
 					if (this.options.loadOnRender) {
 						this.refresh();
@@ -294,19 +298,30 @@
 					return this.options.paginator ? this.paginator.getRows() : this.items.getRowCount();
 				}
 				
-				this.getParams = function() {
+				this.createRequest = function() {
 					
-					var params = {
+					var request = {
 						first: this.getFirst(),
-						sorts: this.sorts,
-						filter: null
+						sorts: this.sorts
 					};
-					
+										
+					if (this.restriction) {
+
+						request.restriction = this.restriction.createRequest();
+
+						if (!AngularWidgets.equals(this.lastRestriction, request.restriction)) {
+							request.first = 0;
+							this.paginator.page = 0;
+						}				
+							
+						this.lastRestriction = request.restriction;
+					}
+
 					if (this.paginator) {
-						params.pageSize = this.paginator.getRows();
+						request.pageSize = this.paginator.getRows();
 					}
 					
-					return params;
+					return request;
 				}
 				
 				this.initSelection = function(row) {
@@ -385,7 +400,7 @@
 							});
 						}
 						
-						$this.sort(sortBy, order == 1 ? 'asc' : 'desc');
+						$this.sort(sortBy, order == 1 ? 'ASC' : 'DESC');
 
 						//update state
 						column.data('order', -1 * order);
@@ -447,7 +462,7 @@
 					var $this = this;
 					
 					if (this.items != null) {
-						this.items.load(this.getParams())
+						this.items.load(this.createRequest())
 						.success(function(request) {
 							$this.onLoadData();
 						})
@@ -512,12 +527,9 @@
 					this.items = widgetBase.determineDataSource(value);
 				};
 				
-				this.sort = function(field, order) {
+				this.sort = function(attribute, order) {
 					
-					this.sorts = [{
-							field: field,
-							order: order
-						}];
+					this.sorts = [{ attribute: attribute, order: order }];
 					
 					this.refresh();
 				};
