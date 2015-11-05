@@ -66,6 +66,10 @@
 			return angular.isFunction(fct);
 		}
 
+		AngularWidgets.equals = function(v1, v2) {
+			return angular.equals(v1, v2);
+		}
+
 		AngularWidgets.ArrayDataSource = function (allData) {
       	
 			// public

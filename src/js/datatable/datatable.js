@@ -306,7 +306,15 @@
 					};
 										
 					if (this.restriction) {
+
 						request.restriction = this.restriction.createRequest();
+
+						if (!AngularWidgets.equals(this.lastRestriction, request.restriction)) {
+							request.first = 0;
+							this.paginator.page = 0;
+						}				
+							
+						this.lastRestriction = request.restriction;
 					}
 
 					if (this.paginator) {

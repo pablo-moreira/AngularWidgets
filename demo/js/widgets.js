@@ -56,7 +56,7 @@
 				{ "label" : "Custom Column", "path" : "datatable/datatableCustomColumn" },
 				{ "label" : "Responsive", "path" : "datatable/datatableResponsive" },
 				{ "label" : "Simple Restrictions", "path" : "datatable/datatableSimpleRestriction" },
-				{ "label" : "Complex Restrictions", "path" : "datatable/datatableComplexRestriction" }
+				//{ "label" : "Complex Restrictions", "path" : "datatable/datatableComplexRestriction" }
 			]
 		},
 		{
