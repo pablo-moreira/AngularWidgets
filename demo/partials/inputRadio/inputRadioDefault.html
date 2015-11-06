@@ -1,0 +1,68 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Default integration</header>
+		
+		<wg-fieldset legend="Simple">
+			<div ng-repeat="consoleOption in inputRadioCtrl.consoleOptions">		
+				<label for="console-{{$index}}">{{consoleOption}}</label>
+
+				<wg-inputradio
+					id="console-{{$index}}"
+					value="inputRadioCtrl.console"
+					option="consoleOption">
+				</wg-inputradio>
+			</div>
+
+			<label for="console-10">Atari</label>
+			<wg-inputradio
+				id="console-10"
+				value="inputRadioCtrl.console"
+				option="'Atari'">
+			</wg-inputradio>
+
+			<label for="console-11">Mega</label>
+			<wg-inputradio
+				id="console-11"				
+				value="inputRadioCtrl.console"
+				option="inputRadioCtrl.mega">
+			</wg-inputradio>
+
+			<p>Controller value is: {{inputRadioCtrl.console}}</p>
+		</wg-fieldset>
+
+		<wg-fieldset legend="Object">
+			<div ng-repeat="cityOption in inputRadioCtrl.cityOptions">		
+				<label for="city-{{cityOption.id}}">{{cityOption.name}}</label>
+
+				<wg-inputradio
+					id="city-{{cityOption.id}}"
+					value="inputRadioCtrl.city"
+					option="cityOption">
+				</wg-inputradio>
+			</div>
+
+			<label for="city-10">Rio de Janeiro</label>
+			<wg-inputradio
+				id="city-10"
+				value="inputRadioCtrl.city"
+				option="{ id: 10, name: 'Rio de Janeiro', country: 'BR'}">
+			</wg-inputradio>
+
+			<p>Controller value is: {{inputRadioCtrl.city}}</p>
+		</wg-fieldset>
+	</section>
+
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

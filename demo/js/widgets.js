@@ -102,8 +102,7 @@
 				{ "label": "Overview", "path": "inputNumber/inputNumberOverview" },
 		        { "label": "Default", "path": "inputNumber/inputNumberDefault" }
 			]
-		},		
-
+		},
 		{
 			"widget": "puiFieldset",
 			"label": "Fieldset",
@@ -116,6 +115,16 @@
 				{ "label": "Prog Collapse", "path": "fieldset/fieldsetProgCollapse" },
 				{ "label": "Callback", "path": "fieldset/fieldsetCallback" },
 				{ "label": "Dynamic Legend", "path": "fieldset/fieldsetLegend" }
+		     ]
+		},
+		{
+			"widget": "InputRadio",
+			"label": "InputRadio",
+			"controller": "InputRadioController",
+			"defaultPath": "inputRadio/inputRadioOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "inputRadio/inputRadioOverview" },
+				{ "label": "Default", "path": "inputRadio/inputRadioDefault" }
 		     ]
 		 },
 /*		{
