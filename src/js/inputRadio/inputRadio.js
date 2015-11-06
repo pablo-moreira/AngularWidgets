@@ -4,7 +4,9 @@
     angular.module('angularWidgets')
     	.config(['$wgConfigProvider', InputRadioConfig])
     	.factory('widgetInputRadio', ['widgetBase', '$compile', '$timeout', InputRadioWidget])
-		.directive('wgInputradio', ['widgetInputRadio', InputRadioDirective]);
+    	.factory('widgetSelectOneRadio', ['widgetBase', '$compile', '$timeout', SelectOneRadioWidget])
+		.directive('wgInputradio', ['widgetInputRadio', InputRadioDirective])
+		.directive('wgSelectoneradio', ['widgetSelectOneRadio', SelectOneRadioDirective]);
 		
 	function InputRadioConfig($wgConfigProvider) {
 		$wgConfigProvider.configureWidget('inputradio', {});
@@ -19,10 +21,10 @@
         widget.template = '<input type="radio" />';
 
         widget.buildWidget = function(scope, element, options) {
-        	return new widget.Radio(scope, element, options);
+        	return new widget.Inputradio(scope, element, options);
         };
   
-    	widget.Radio = widgetBase.createWidget({
+    	widget.Inputradio = widgetBase.createWidget({
 
     		init: function(options) {
     			
@@ -183,6 +185,76 @@
         return widget;
     };
 
+    function SelectOneRadioWidget(widgetBase, $compile, $timeout) {
+
+    	var widget = {};
+    	
+        widget.template =	'<div class="pui-selectoneradio ui-widget pui-grid pui-grid-responsive">' + 
+							'</div>';
+
+        widget.buildWidget = function(scope, element, options) {
+        	return new widget.SelectOneRadio(scope, element, options);
+        };
+  
+    	widget.SelectOneRadio = widgetBase.createWidget({
+
+    		init: function(options) {
+    			   			
+    			this.scope.$options = this.scope.$eval(options.options);
+    			this.scope.$getLabel = function(option) {
+    				if (options.optionlabel !== undefined) {
+    					return option[options.optionlabel];
+    				}
+    				else {
+    					return option;
+    				}
+    			}
+				
+				this.options = options;
+				this.options.id = 'xpto';
+
+				var label = '<label for="' + this.options.id + '-{{$index}}">{{$getLabel($option)}}</label>',
+					radio = '<wg-inputradio id="' + this.options.id + '-{{$index}}" value="' + this.options.value + '" option="$option"></wg-inputradio>';
+			
+				var table =	'<table>' + 
+								'<tbody>' +
+									'<tr ng-repeat="$option in $options">' +
+        								'<td>' + radio + '</td>' +
+        								'<td>' + label + '</td>' +
+        							'</tr>' +
+        						'</tbody>' +
+        					'</table>';
+
+				var layout = 'horizontal',
+					columns;
+
+				if (layout === 'horizontal') {
+					columns = 1;
+				}
+				else if (layout === 'vertical') {
+					columns = 12;
+				}
+				else {
+					columns = 3;
+				}
+				
+				var div =	'<div class="ui-grid-row" ng-repeat="$option in $options">' + 
+								'<div class="ui-grid-col-' + columns + '">' +
+									radio + 
+        							label + 
+        						'</div>' + 
+        					'</div>';
+				
+    			this.element.append(div);
+
+    			$compile(this.element)(this.scope);
+    		}
+        });
+        
+        return widget;
+    };
+
+
     function InputRadioDirective(widgetInputRadio) {       
         return {
             restrict: 'E',
@@ -195,5 +267,18 @@
             template: widgetInputRadio.template
         };
     };
+
+    function SelectOneRadioDirective(widgetSelectOneRadio) {       
+        return {
+            restrict: 'E',
+            priority: 10,
+            scope: true,
+            link: function(scope, element, attrs) {
+            	widgetSelectOneRadio.buildWidget(scope, element, attrs);
+			},
+            replace: true,
+            template: widgetSelectOneRadio.template
+        };
+    };  
     
 }(window, document));

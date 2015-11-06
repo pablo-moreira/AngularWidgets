@@ -31,7 +31,7 @@
 			<p>Controller value is: {{inputRadioCtrl.console}}</p>
 		</wg-fieldset>
 
-		<wg-fieldset legend="Object">
+<!-- 		<wg-fieldset legend="Object">
 			<div ng-repeat="cityOption in inputRadioCtrl.cityOptions">		
 				<label for="city-{{cityOption.id}}">{{cityOption.name}}</label>
 
@@ -50,7 +50,12 @@
 			</wg-inputradio>
 
 			<p>Controller value is: {{inputRadioCtrl.city}}</p>
-		</wg-fieldset>
+		</wg-fieldset> -->
+
+
+		<wg-selectoneradio value="inputRadioCtrl.city" options="inputRadioCtrl.cityOptions" optionLabel="name"></wg-selectoneradio>
+
+		<p>Controller value is: {{inputRadioCtrl.city}}</p>
 	</section>
 
 	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
