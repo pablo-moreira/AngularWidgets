@@ -8,9 +8,20 @@
 
 	function InputNumberWidget(widgetBase, $parse) {
 
-		var widgetInputText = {},
-			eventsHelper = {},
-			widget = {};
+		AngularWidgets.configureWidget('inputnumber', {
+			type: 'integer', // integer (default), float, currency, percent
+			locale: undefined,
+			disabled: false,
+			readonly: false,
+			symbol: undefined, // locale for currency and % for percent
+			symbolLocation: 'prefix', // prefix (default) or suffix
+			groupSeparator: null, // "locale"
+			decimalSeparator: undefined, // "locale"
+			decimalPrecision: undefined, 
+			allowNegative: true // false (default), true;
+		});
+
+		var widget = {};
 
 		widget.template =	'<span class="pui-inputnumber pui-inputtext ui-widget ui-state-default ui-corner-all">' +
 								'<input type="text" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false">' +
@@ -21,19 +32,6 @@
 		};
 
 		widget.InputNumber = widgetBase.createWidget({
-
-			optionsDefault: {
-				type: 'integer', // integer (default), float, currency, percent
-				locale: null,
-				disabled: false,
-				readonly: false,
-				symbol: null, // locale for currency and % for percent
-				symbolLocation: 'prefix', // prefix (default) or suffix
-				groupSeparator: null, // "locale"
-				decimalSeparator: null, // "locale"
-				decimalPrecision: null, 
-				allowNegative: true // false (default), true;
-			},
 
 			init: function(options) {
 				
@@ -58,7 +56,7 @@
 
 			renderSymbol: function() {
 				
-				if (this.options.symbol !== null && this.options.symbolLocation !== null) {
+				if (this.options.symbol !== undefined && this.options.symbolLocation !== undefined) {
 
 					this.symbolContainer = angular.element('<span class="pui-inputnumber-symbol">' + this.options.symbol + '</span>');
 
@@ -73,7 +71,7 @@
 
 			determineOptions: function(options) {
 
-				var optionsDefault = angular.copy(this.optionsDefault),
+				var optionsDefault = angular.copy(AngularWidgets.getConfiguration().widgets.inputnumber),
 					type = options.type || optionsDefault.type,
 					locale = AngularWidgets.locales[options.locale] || AngularWidgets.locales.en;
 							
@@ -155,11 +153,11 @@
 			
 			onKeypress: function (e) {
 
-				var char = '',
-					keyCode = e.which || e.keyCode,
+				var keyCode = e.which || e.keyCode,
 					char = String.fromCharCode(keyCode),
 					KC = widgetBase.keyCode,
-					inputValue = this.input.val();
+					inputValue = this.input.val(),
+					cursorPosition = null;
 				
 				this.log('onKeypress=' + char);
 				this.log('which=' + e.which + ', keyCode=' + e.keyCode + ', charcode=' + e.charCode);
@@ -177,7 +175,7 @@
 						// Verify if exists another decimal separator
 						if (dsIndexOf !== -1) { 						
 
-							var cursorPosition = AngularWidgets.getCursorPosition(this.input[0]);
+							cursorPosition = AngularWidgets.getCursorPosition(this.input[0]);
 
 							this.input.val(inputValue.replace(this.options.decimalSeparator, ''));
 
@@ -203,9 +201,9 @@
 							return;
 						}
 
-						var cursorPosition = AngularWidgets.getCursorPosition(this.input[0]);
+						cursorPosition = AngularWidgets.getCursorPosition(this.input[0]);
 
-						this.input.val('-' + this.input.val())					
+						this.input.val('-' + this.input.val());
 
 						AngularWidgets.setCursorPosition(this.input[0], ++cursorPosition);
  					}
@@ -219,7 +217,7 @@
 
 						this.log('positive pressed');
 
-						var cursorPosition = AngularWidgets.getCursorPosition(this.input[0]);
+						cursorPosition = AngularWidgets.getCursorPosition(this.input[0]);
 
 						this.input.val(this.input.val().replace('-', ''));
 
@@ -257,7 +255,7 @@
 					KC = widgetBase.keyCode,
 					keysCodeAllowed = KC.ARROWS.concat([KC.TAB,KC.HOME,KC.END,KC.ENTER, KC.NUMPAD_ENTER]);
 
-				this.log('keyup=' + e.which || e.keyCode)
+				this.log('keyup=' + e.which || e.keyCode);
 			
 				// Detect ctrl + v
 				if (e.ctrlKey && keyCode === 86) {
@@ -299,7 +297,7 @@
 				var dsPatt = new RegExp("[\\" + this.options.decimalSeparator + "]", "g");
 
 				// Remove decimal separator 
-				var count = (value.match(dsPatt, "g") || []).length
+				var count = (value.match(dsPatt, "g") || []).length;
 
 				while (count > 1) {
 					value = value.replace(this.options.decimalSeparator, '');
@@ -310,7 +308,7 @@
 
 				value = sign + value.replace(patt, '');
 					
-				return value
+				return value;
 			},
 
 			onBlur: function(e) {
@@ -386,7 +384,7 @@
 		});
 
 		return widget;
-	};
+	}
 
 	function InputNumberDirective(widgetInputNumber) {
 		return {
@@ -399,6 +397,6 @@
 				widgetInputNumber.buildWidget(scope, element, attrs);
 			}
 		};
-	};
+	}
 
 }(window, document));

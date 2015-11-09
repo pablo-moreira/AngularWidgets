@@ -7,7 +7,7 @@
 
     function FacetWidget() {
     	
-    	var widgetFacet = {}
+    	var widgetFacet = {};
     	
     	widgetFacet.determineFacetsOptions = function(container) {
     		
@@ -25,7 +25,7 @@
             puiFacets.remove();                       
 
             return facets;
-    	}
+    	};
     	
     	return widgetFacet;
     }

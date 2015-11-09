@@ -14,7 +14,7 @@
         		var options = {        			
 	        		field 		: attrs.value,
 	        		sortBy		: attrs.sortby || attrs.value,
-	        		sortable 	: attrs.sortable || attrs.sortby != null ? true : false,        		
+	        		sortable 	: attrs.sortable || attrs.sortby !== undefined ? true : false,
 	        		headerText	: attrs.headertext || attrs.value,
 	        		element		: element,
 	        		contents	: element[0].innerHTML.trim()        		
@@ -27,14 +27,14 @@
         				element.data("options", options);		
         			},
         			post: function (scope, element, attrs) {}
-                }
+                };
         	}
         };
     }
 
     function ColumnWidget() {
     	
-		var widgetColumn = {}
+		var widgetColumn = {};
 
 		widgetColumn.determineColumnsOptions = function(container) {
 
@@ -48,7 +48,7 @@
 			puiColumns.remove();
 
 			return columns;
-		}
+		};
 
 		return widgetColumn;
 	}

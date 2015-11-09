@@ -5,22 +5,39 @@
 
 	function DataQuery(data) {
 
-		var queryWhere = null;
-		var querySort = new DataQuerySort(this);
+		var $this = this;
+
+		// Private
+		var queryWhere = null,
+			querySort = new DataQuerySort(this),
+			firstResult = -1,
+			maxResults = -1;
 
 		this.getAttributeValueByPath = getAttributeValueByPath;
 		this.getData = getData;
+		this.getFirstResult = getFirstResult;
+		this.getMaxResults = getMaxResults;
 		this.where = where;
 		this.select = select;
+		this.setFirstResult = setFirstResult;
+		this.setMaxResults = setMaxResults;
 		this.sort = sort;
 
 		function getAttributeValueByPath(item, path) {
-			/* TODO - multiple obj */
+			/* TODO - item.subobj.subobj.value */
 			return item[path];
 		}
 
 		function getData() {
 			return data;
+		}
+
+		function getFirstResult() {
+			return firstResult;
+		}
+
+		function getMaxResults() {
+			return maxResults;
 		}
 
 		function where(operator) {
@@ -30,11 +47,11 @@
 				operator = operator || 'AND';
 
 				if (operator === 'AND') {
-					queryWhere = new DataQueryExpression('AND', this);
+					queryWhere = new DataQueryExpression('AND', $this);
 					return queryWhere;
 				}
 				else {
-					queryWhere = new DataQueryExpression('OR', this);
+					queryWhere = new DataQueryExpression('OR', $this);
 					return queryWhere;
 				}				
 			} 
@@ -45,26 +62,57 @@
 
 		function select() {
 
-			var processedData = null;
+			var processedData = null,
+				i,l;
 
-			if (queryWhere !== undefined) {
+			if (queryWhere) {
 
-				processedData = [],
-				data = this.getData();
+				processedData = [];
+				
+				data = $this.getData();
 
-				for (var i=0, l=data.length; i<l; i++) {
+				for (i=0, l=data.length; i<l; i++) {
 					if (queryWhere.process(data[i])) {
 						processedData.push(data[i]);
 					}
 				}
 			}
 			else {
-				processedData = this.getData();
+				processedData = $this.getData();
 			}
+		
+			querySort.process(processedData);
 			
-			querySort.process(processedData);			
+			if (firstResult !== -1 || maxResults !== -1) {
 
-			return processedData;
+				var rowCount = processedData.length,
+					rows = maxResults !== -1 ? maxResults : rowCount,
+					first = firstResult !== -1 ? firstResult : 0,
+					pageLimit = first + rows;
+	
+				var pagedData = [];
+
+				for (i = first; i < (pageLimit) && i < rowCount; i++) {
+					pagedData.push(processedData[i]);
+				}
+
+				return pagedData;
+			}
+			else {
+				return processedData;
+			}
+		}
+
+		function setFirstResult(v) {
+			if (AngularWidgets.isNumber(v)) {
+				firstResult = v;
+			}
+		}
+
+		function setMaxResults(v) {
+			if (AngularWidgets.isNumber(v)) {
+				maxResults = v;	
+			}			
 		}
 
 		function sort() {
@@ -74,28 +122,31 @@
 
 	function DataQuerySort(parentValue) {
 
+		var $this = this;
+		
+		// Private
 		var sorts = [];
-
+		
+		// Public
 		this.asc = asc;	
 		this.clear = clear;
 		this.desc = desc;
 		this.parent = parent;	
 		this.process = process;
 
-		// Public
 		function asc(attribute) {
 			sorts.push({ attribute: attribute, order: 'ASC' });
-			return this;
+			return $this;
 		}	
 
 		function clear() { 
 			sorts = [];
-			return this;
+			return $this;
 		}
 
 		function desc(attribute) {
 			sorts.push({ attribute: attribute, order: 'DESC' });
-			return this;
+			return $this;
 		}
 
 		function parent() {
@@ -124,7 +175,7 @@
 			else {
 				var result = v1Attribute > v2Attribute ? 1 : -1;
 
-				var order = sort.order == "ASC" ? 1 : -1
+				var order = sort.order == "ASC" ? 1 : -1;
 
 				return (order * result);
 			}
@@ -133,10 +184,13 @@
 	}
 
 	function DataQueryExpression(operator, parentValue) {
+		
+		var $this = this;
 
-		var operator = operator;
+		// Private
 		var expressions = [];
 
+		// Public
 		this.add = add;
 		this.addAnd = addAnd;
 		this.addOr = addOr;
@@ -146,17 +200,17 @@
 
 			expressions.push(fct);
 
-			return this;
+			return $this;
 		}
 
 		function addAnd() {
-			var and = new DataQueryExpression('AND', this);
+			var and = new DataQueryExpression('AND', $this);
 			expressions.push(and);
 			return and;
 		}
 
 		function addOr() {
-			var or = new DataQueryExpression('OR', this);
+			var or = new DataQueryExpression('OR', $this);
 			expressionspush(or);
 			return or;
 		}
@@ -256,6 +310,6 @@
 
 			return false;
 		}
-	}
+	};
 
 }(window, document));

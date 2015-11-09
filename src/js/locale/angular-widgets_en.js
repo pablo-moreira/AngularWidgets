@@ -1,4 +1,4 @@
-AngularWidgets.locales['en'] = {
+AngularWidgets.locales.en = {
 	yesText: 'Yes',
 	noText: 'No',	
 	number: {
@@ -7,4 +7,4 @@ AngularWidgets.locales['en'] = {
 		currencySymbol: '$'
 	}
 };
-AngularWidgets.locale = AngularWidgets.locales['en'];
+AngularWidgets.locale = AngularWidgets.locales.en;

@@ -2,30 +2,27 @@
 	"use strict";
 
 	angular.module('angularWidgets')
-		.config(['$wgConfigProvider', GrowlConfig])
 		.factory('wgGrowl', ['widgetBase', '$timeout', GrowlWidget])
 		.factory('$wgGrowl', ['wgGrowl', GrowlService]);
-	
-	function GrowlConfig($wgConfigProvider) {		
-		$wgConfigProvider.configureWidget('growl', {
+
+	function GrowlWidget(widgetBase, $timeout) {
+
+		AngularWidgets.configureWidget('growl', {
 			appendTo: null,
 			sticky: false,
 			life: 3000
-		});
-	}
-
-	function GrowlWidget(widgetBase, $timeout) {
+		});		
 		
 		var growl = {
 
-			options: widgetBase.getConfiguration().widgets.growl,
+			options: AngularWidgets.getConfiguration().widgets.growl,
 			initialized: false,
 
 			init: function (){
 
 				var parent;
 
-				if (this.options.appendTo !== null) {
+				if (this.options.appendTo !== undefined) {
 
 					parent = angular.element(this.options.appendTo);
 
@@ -188,7 +185,7 @@
 			clearMessages: function() {
 				puiGrowl.clearMessages();
 			}
-		}
+		};
 	}
 
 }(window, document));

@@ -1,4 +1,4 @@
-AngularWidgets.locales['pt_BR'] = {	
+AngularWidgets.locales.pt_BR = {	
 	yesText: 'Sim',
 	noText: 'Não',	
 	number: {

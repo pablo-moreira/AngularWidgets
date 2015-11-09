@@ -6,17 +6,20 @@
 
 	function Restriction(options) {
 		
-		var expression = null;
-		var type = null;
+		var $this = this;	
 
+		// Private
+		var	expression = null,
+			type = null;
+		
+		// Public
 		this.r = {};
-		this.init = init;
 		this.isSimple = isSimple;
 		this.add = add;
 		this.getExpression = getExpressions;
 		this.createRequest = createRequest;
 
-		this.init(options);
+		init(options);
 
 		function init(options) {
 
@@ -34,7 +37,7 @@
 			}
 
 			for (var i=0, l=exps.length; i<l; i++) {
-				this.add(exps[i]);
+				$this.add(exps[i]);
 			}
 		} 
 	
@@ -60,22 +63,22 @@
 
 				var filter = new Filter(options);
 
-				if (this.r[filter.id] !== undefined) {
+				if ($this.r[filter.id] !== undefined) {
 					throw new Error('Restriction - The filter id: ' + filter.id + ' has already been set, set the other id for the filter. If you did not set the value of id the value of attribute that was used.');
 				}
 
-				this.r[filter.id] = filter;
+				$this.r[filter.id] = filter;
 
 				expression.add(filter);
 			}
-		};
+		}
 
 		function getExpressions() {
 			return expression.getExpressions();
-		};		 
+		}		 
 		
 		function createRequest() {
-			if (this.isSimple()) {
+			if ($this.isSimple()) {
 				return expression.createRequestParamForSimpleRestriction();
 			}
 			else {
@@ -86,10 +89,13 @@
 
 	function Expression(operator) {
 		
-		var expressions = [];
-		var operator = operator || 'AND';
+		var $this = this,
+			expressions = [];
+
+		if (operator === undefined) {
+			operator = 'AND';
+		}
 		
-// 		this.init = init;
 		this.add = add;
 		this.getExpressions = getExpressions;
 		this.getOperator = getOperator;
@@ -97,21 +103,6 @@
 		this.getFilters = getFilters;
 		this.createRequestParamForSimpleRestriction = createRequestParamForSimpleRestriction;
 		this.createRequestParamForComplexRestriction = createRequestParamForComplexRestriction;
-
-// 		this.init(options);
-
-// 		function init(options) {
-
-// 			var exps;
-
-// 			exps = options.expressions || [];
-// 			operator = options.expressions || 'AND';
-			
-
-// 			for (var i=0, l=exps.length; i<l; i++) {
-// 				this.add(exps[i]);
-// 			}
-// 		}
 
 		function add(filter) {
 			expressions.push(filter);
@@ -126,7 +117,7 @@
 		}
 
 		function setOperator(value) {
-			operator = value
+			operator = value;
 		}
 
 		function getFilters() {
@@ -150,7 +141,7 @@
 
 		function createRequestParamForSimpleRestriction() {
 			
-			var filters = this.getFilters();
+			var filters = $this.getFilters();
 
 			var restriction = [];
 
@@ -168,43 +159,43 @@
 
 		function createRequestParamForComplexRestriction() {
 			/* TODO */
-			return {};			
+			return {};
 		}
 	}
 
 	function Filter(options) {
 		
-		this.attribute;
-		this.type;
-		this.operator = options.operator || "EQUALS";
-		this.value;
-		this.sensitive = options.sensitive !== undefined ? options.sensitive : true;
+		var $this = this;
 
-		this.init = init;
+		this.attribute = null;
+		this.type = null;
+		this.operator = options.operator || "EQUALS";
+		this.value = null;
+		this.sensitive = options.sensitive !== undefined ? options.sensitive : true;		
 		this.isDefined = isDefined;
 		this.createRequestParam = createRequestParam;
 
-		this.init(options);
+		init(options);
 
 		function init(options) {
 			
-			if (angular.isString(options)) {
-				this.id = options;
-				this.attribute = options;
+			if (AngularWidgets.isString(options)) {
+				$this.id = options;
+				$this.attribute = options;
 			}
 			else {
 				if (options.id === undefined && options.attribute === undefined) {
 					throw new Error("Filter - The options 'id' or 'attribute' should be set!, " + options.toString());
 				}
 
-				angular.merge(this, options);
+				angular.merge($this, options);
 
-				if (this.id === undefined) {
-					this.id = this.attribute;
+				if ($this.id === undefined) {
+					$this.id = $this.attribute;
 				}
 
-				if (this.attribute === undefined) {
-					this.attribute = this.id;
+				if ($this.attribute === undefined) {
+					$this.attribute = $this.id;
 				}
 			}
 		}
@@ -213,20 +204,57 @@
 			
 			var array = ['IS_NULL', 'IS_NOT_NULL', 'IS_EMPTY', 'IS_NOT_EMPTY'];
 
-			return (this.value !== null && this.value !== undefined && this.value !== '') || AngularWidgets.inArray(array, this.operator);
+			return ($this.value !== null && $this.value !== undefined && $this.value !== '') || AngularWidgets.inArray(array, $this.operator);
+		}
+
+		/**
+		  *  Try get type by value
+		  */
+		function getTypeByValue() {
+			
+			var value;
+
+			if ($this.value !== undefined) {
+				value = $this.value;
+			}
+			//else if ($this.valueStart) {
+			//else if ($this.values)
+			
+			if (AngularWidgets.isString(value)) {
+				return 'STRING';
+			}			
+			else if (AngularWidgets.isNumber(value)) {
+				return 'NUMBER';
+			}
+			else if (AngularWidgets.isDate(value)) {
+				return 'DATE';
+			}			
+			else if (AngularWidgets.isBoolean(value)) {
+				return "BOOLEAN";
+			}
+			else {
+				return undefined;
+			}
 		}
 
 		function createRequestParam() {
 
 			var param = {
-				attribute: this.attribute,
-				value: this.value,
-				operator: this.operator,
-				sensitive: this.sensitive
+				attribute: $this.attribute,
+				value: $this.value,
+				operator: $this.operator,
+				sensitive: $this.sensitive
 			};
 
-			if (this.type) {
-				param.type = this.type;
+			if ($this.type) {
+				param.type = $this.type;
+			}
+			else {
+				var type = getTypeByValue();
+				if (type !== undefined) {
+					$this.type = type;
+					param.type = $this.type;
+				}
 			}
 
 			return param;

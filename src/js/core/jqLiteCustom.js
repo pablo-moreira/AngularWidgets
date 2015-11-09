@@ -150,7 +150,7 @@
                         value = jqLite(value);
                     }
                 } else {
-                    JQLiteAddNodes(value, fn(this[i], arg1, arg2));
+                    JQLiteAddNodes(value, fn(this[i], arg1, arg2)); // jshint ignore:line
                 }
             }
             return value === undefined ? this : value;

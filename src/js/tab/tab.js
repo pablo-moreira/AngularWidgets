@@ -7,7 +7,7 @@
     
     function TabWidget() {
     	
-    	var widget = {}
+    	var widget = {};
     	
     	widget.determineOptions = function(container) {
     		
@@ -21,7 +21,7 @@
             puiTabs.remove();
 
             return tabs;
-    	}
+    	};
     	
     	return widget;
     }

@@ -1,14 +1,14 @@
 (function(window, document, undefined) {
     "use strict";
 
-    angular.module('angularWidgets')
-    	.config(['$wgConfigProvider', DialogConfig])
+    angular.module('angularWidgets')   	
     	.factory('widgetDialog', ['$compile', '$timeout', '$parse', '$window', '$document', '$http', 'widgetBase', 'widgetFacet', DialogWidget])    	
     	.directive('wgDialog', ['widgetDialog', DialogDirective])
     	.service('$puiDialog', ['widgetDialog', 'widgetConfirmdialog', DialogService]);
 	
-	function DialogConfig($wgConfigProvider) {
-		$wgConfigProvider.configureWidget('dialog', {
+	function DialogWidget($compile, $timeout, $parse, $window, $document, $http, widgetBase, widgetFacet) {
+
+		AngularWidgets.configureWidget('dialog', {
 			width: null,
 			visible: false,
 			showEffect: null,
@@ -26,10 +26,7 @@
 			onBeforeShow: null,
 			onDismiss: null
 		});	
-	};
-
-	function DialogWidget($compile, $timeout, $parse, $window, $document, $http, widgetBase, widgetFacet) {
-
+		
         var widget = {};
         
 		widget.template = 	'<div class="pui-dialog-container">' +
@@ -55,11 +52,13 @@
 			}
 
 			return dialog.data("$widget");
-        }
+        };
                 
     	widget.Dialog = widgetBase.createWidget({
 
 			init: function(options) {
+			
+				var $this = this;
 			
 				this.determineOptions(options);
 				
@@ -82,9 +81,7 @@
 					this.dialog.addClass(this.options.width);					
 				}
 
-				this.determineTransclude();
-
-				var $this;
+				this.determineTransclude();		
 
 				if (this.facets) {					
 					this.renderFooterIfNecessarily();					
@@ -102,8 +99,6 @@
 				if (this.options.rtl) {
 					this.dialog.addClass('pui-dialog-rtl');
 				}
-
-				var $this = this;
 
 				if(this.options.closable) {
 					this.renderCloaser(); 					
@@ -134,7 +129,7 @@
 			},
 
         	determineOptions: function (options) {
-        		this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.dialog, options, ['onAfterHide', 'onBeforeHide', 'onBeforeShow', 'onDismiss'], []);
+        		this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.dialog, options, ['onAfterHide', 'onBeforeHide', 'onBeforeShow', 'onDismiss'], []);
             },
 
             determineTransclude: function () {    		    				

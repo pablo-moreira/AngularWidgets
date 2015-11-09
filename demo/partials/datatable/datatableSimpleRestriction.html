@@ -4,7 +4,7 @@
 		<header>Simple Restriction</header>
 		
 		<wg-fieldset legend="Filters">
-			<labe for="itBrand">Brand:</label> 
+			<label for="itBrand">Brand:</label>
 			<wg-inputtext id="itBrand" value="datatableCtrl.simpleRestriction.r.brand.value"></wg-inputtext>
 
 			<label for="itColor">Color:</label>
@@ -35,7 +35,7 @@
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
 <wg-fieldset legend="Filters">
-	<labe for="itBrand">Brand:</label> 
+	<label for="itBrand">Brand:</label> 
 	<wg-inputtext id="itBrand" value="datatableCtrl.simpleRestriction.r.brand.value"></wg-inputtext>
 
 	<label for="itColor">Color:</label>
@@ -68,7 +68,6 @@ function DatatableController($wgGrowl) {
 	var vm = this;
 
     vm.httpDataSource = new AngularWidgets.HttpDataSource({ url: 'json/cars.json' });
-
 
 	vm.datatable = null;
 

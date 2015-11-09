@@ -3,6 +3,12 @@ module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		pkg : grunt.file.readJSON('package.json'),
+		jshint: {
+			files: [
+				'GruntFile.js',
+				'src/js/**/*.js',
+			]
+		},
 		concat : {
 			js : {
 				src: ['src/js/core/core.js', 'src/js/**/*.js', '!src/js/locale/*.js', 'src/js/locale/angular-widgets_en.js'],
@@ -36,12 +42,13 @@ module.exports = function(grunt) {
 	});
 
 	// Load the plugins
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	
 	// Task(s).
-	grunt.registerTask('default', ['concat', 'uglify', 'cssmin']);
+	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 
 };

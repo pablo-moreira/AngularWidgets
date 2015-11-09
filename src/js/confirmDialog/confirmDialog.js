@@ -35,11 +35,11 @@
 				noCallback,
 				dismissCallback,
 				widget,
-				scope = parentScope != null ? parentScope.$new() : $rootScope.$new();
+				scope = parentScope !== undefined ? parentScope.$new() : $rootScope.$new();
 			
 			scope.$yes = function yes() {				
 				if (yesCallback) { 
-					yesCallback()
+					yesCallback();
 				}
 				destroy();
 			};
@@ -188,6 +188,6 @@
 				widgetConfirmdialog.buildWidget(scope, element, attrs);
             }
         };
-    };
+    }
 	    
 }(window, document));

@@ -2,21 +2,18 @@
     "use strict";
 
     angular.module('angularWidgets')
-    	.config(['$wgConfigProvider', FieldsetConfig])
     	.factory('widgetFieldset', ['widgetBase', FieldsetWidget])
     	.directive('wgFieldset', ['widgetFieldset', FieldsetDirective]);
 
-	function FieldsetConfig($wgConfigProvider) {
-		$wgConfigProvider.configureWidget('fieldset', {
+    function FieldsetWidget(widgetBase) {
+        
+		AngularWidgets.configureWidget('fieldset', {
 			toggleable: false,
 			toglleDuration: 'normal',
 			collapsed: false,
 			onToggle: null
 		});	
-	};
-    
-    function FieldsetWidget(widgetBase) {
-        
+    	
         var widget = {};
         
         widget.template = '<fieldset class="pui-fieldset ui-widget ui-widget-content ui-corner-all">' +
@@ -72,7 +69,7 @@
         	},
         	
 	        determineOptions: function (options) {        	
-	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.fieldset, options, ['onToggle']);
+	        	this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.fieldset, options, ['onToggle']);
 			},		
 			
 			bindEvents: function() {

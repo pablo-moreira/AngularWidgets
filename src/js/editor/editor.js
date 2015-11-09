@@ -170,7 +170,7 @@
 		});
 	
 		return widget;
-    };
+    }
 
     function EditorDirective(widgetEditor) {
         return {
@@ -182,6 +182,6 @@
             	widgetEditor.buildWidget(scope, element, attrs);
             }
         };
-    };
+    }
     
 }(window, document));

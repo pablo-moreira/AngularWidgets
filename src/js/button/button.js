@@ -2,20 +2,17 @@
     "use strict";
 
     angular.module('angularWidgets')
-    	.config(['$wgConfigProvider', ButtonConfig])
     	.factory('widgetButton', ['$interpolate', 'widgetBase', ButtonWidget])
 		.directive('wgButton', ['widgetButton', ButtonDirective]);
+
+	function ButtonWidget($interpolate, widgetBase) {
 		
-	function ButtonConfig($wgConfigProvider) {
-		$wgConfigProvider.configureWidget('button', {
+		AngularWidgets.configureWidget('button', {
 			value: null,
 			icon: null,
 			iconPosition: 'left',
 			action: null
 		});
-	}
-	
-	function ButtonWidget($interpolate, widgetBase) {
 
     	var widget = {};
 
@@ -102,7 +99,7 @@
         	},
         	
 	        determineOptions: function (options) {
-	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.button, options);
+	        	this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.button, options);
 			},
 			
 	        setValue: function(text) {
@@ -170,7 +167,7 @@
 	        	widgetBase.onKeydownEnterOrSpace(this.element, function(e) {
 	        		$this.element.addClass('ui-state-active');
 	        		$this.click();
-	        	})
+	        	});
 	        	
 	        	this.element.bind('keyup', function(e){ 
 	        		$this.element.removeClass('ui-state-active');	        		
@@ -183,7 +180,7 @@
         });
         
         return widget;
-    };
+    }
 
     function ButtonDirective(widgetButton) {       
         return {
@@ -196,6 +193,6 @@
             replace: true,
             template: widgetButton.template
         };
-    };
+    }
     
 }(window, document));
