@@ -19,8 +19,8 @@
     				throw new Error('The attribute ' + requiredOption + ' is required!');
     			}
     		});
-    	}
-    	    	
+    	};
+
     	widgetBase.createWidget = function (widgetChild) {
 			
  			var baseWidget = function(scope, element, options) {
@@ -131,7 +131,8 @@
 			}
 
 			return dataLoader;
-    	}    	
+    	};
+
     	widgetBase.extend = function(target, source) {
     		
     		target = target || {};
@@ -148,7 +149,8 @@
     	};
     	
     	widgetBase.isArrayLike = function (obj) {
-    	  if (obj == null || widgetBase.isWindow(obj)) {
+    	 
+    	  if (obj === null || widgetBase.isWindow(obj)) {
     	    return false;
     	  }
 
@@ -218,7 +220,7 @@
             		}
             	});            	
             });
-        }
+        };
         
         widgetBase.onKeydownEnterOrSpace = function(element, onKeydownCallback) {
         	
@@ -232,7 +234,7 @@
             		}
             	});            	
             });            
-        }        
+        };       
 
         widgetBase.supportHighlight = function (element) {
             var items = angular.isArray(element) ? element : [].concat(element);
@@ -266,26 +268,26 @@
         widgetBase.slideUp = function(element, duration, doneCallback) {
         	element.hide();
         	if (doneCallback) doneCallback();
-        }
+        };
         
         widgetBase.slideDown = function(element, duration, doneCallback) {
         	element.show();
         	if (doneCallback) doneCallback();
-        }
+        };
         
         widgetBase.fadeOut = function (element, duration, doneCallback) {
         	element.hide();
         	if (doneCallback) doneCallback();
-        }
+        };
         
         widgetBase.fadeIn = function (element, duration, doneCallback) {
         	element.show();
         	if (doneCallback) doneCallback();
-        }
+        };
 
         widgetBase.isVisible = function (element) {
         	return AngularWidgets.isVisible(element);
-		}
+		};
         
     	widgetBase.watchExpression = function(scope, expression, watchFunction) {
     		    			

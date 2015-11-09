@@ -54,33 +54,29 @@
 						$this.selectTab(value);
 					});
 				}
-				
-				for (var i=0, t=this.tabs.length; i<t; i++) {
-					
-					var tab = this.tabs[i];
-					
+							
+				angular.forEach(this.tabs, function(tab, index) {
+
 					tab.nav = angular.element('<li class="ui-state-default ui-corner-top"></li>')
-                    	.appendTo(this.navContainer);
+                    	.appendTo($this.navContainer);
 
 					var navLink = angular.element('<a href="#">' + tab.header + '</a>')
 						.appendTo(tab.nav);
-										    
-					widgetBase.watchExpression(this.scope, tab.element.attr('header'), function(nl) {			            
-						return function(value) {
-							nl.text(value);
-						}
-					}(navLink))
-					
-					if (this.options.closeable) {						
-						tab.closer = angular.element('<span class="ui-icon ui-icon-close"></span>')
+
+					widgetBase.watchExpression($this.scope, tab.element.attr('header'), function(value) {
+						navLink.text(value);
+					});
+
+					if ($this.options.closeable) {						
+						tab.closer = angular.element('<span class="fa fa-close"></span>')
 							.appendTo(tab.nav);
 					}
-								
+
                     tab.content = angular.element('<div class="pui-tabview-panel ui-widget-content ui-corner-bottom ui-helper-hidden"></div>')
-						.appendTo(this.panelContainer)
-						.append(tab.transclude());
-				}
-				
+						.appendTo($this.panelContainer)
+						.append(tab.transclude());					
+				});
+
 				this._selectTab(this.options.activeIndex);
 						
 				this.bindEvents();
@@ -192,48 +188,38 @@
 	        	
 	        	var $this = this;
 	        	
-	            for (var i = 0; i < this.tabs.length; i++) {
-
-	            	var tab = this.tabs[i];
-	            	var tabNav = this.tabs[i].nav;
+	            //for (var i = 0; i < this.tabs.length; i++) {
+	            angular.forEach(this.tabs, function(tab, i) {
+	            	
+	            	var tabNav = tab.nav;
 	            		            	
-	            	tabNav.bind('click', function (tab) {			            
-						return function (e) {
+	            	tabNav.bind('click', function (e) {
 		                    
-		                	var target = e.target,
-		                        linkTarget = target.nodeName === 'A',
-		                        liElement = linkTarget ? e.target.parentElement : e.target,
-		                        elem = angular.element(liElement);
-		                		                	
-		            		if (!angular.element(target).hasClass('ui-icon-close')
-		            				&& !elem.hasClass('ui-state-disabled')) {
-		            			
-		            			var index = $this.getTabIndex(tab);
-		            			
-		                		$this.selectTab(index);
-		                	}
-		                    
-		                    e.preventDefault();
-		                }
-					}(tab));
+	                	var target = e.target,
+	                        linkTarget = target.nodeName === 'A',
+	                        liElement = linkTarget ? e.target.parentElement : e.target,
+	                        elem = angular.element(liElement);
+	                		                	
+	            		if (!angular.element(target).hasClass('ui-icon-close') && !elem.hasClass('ui-state-disabled')) {
+	                		$this.selectTab($this.getTabIndex(tab));
+	                	}
+	                    
+	                    e.preventDefault();	            
+					});
 
 	                widgetBase.hoverAndFocus(tabNav);
 	                
-	                var tabCloser = this.tabs[i].closer;
+	                var tabCloser = tab.closer;
 	                
 	                if (tabCloser) {
-	                	tabCloser.bind('click', function (tab) {			            
-							return function (e) {
-                		
-		                		var index = $this.getTabIndex(tab);
+	                	tabCloser.bind('click', function (e) {
+                				                		
+		                	$this.closeTab($this.getTabIndex(tab));                		
 		                		
-		                		$this.closeTab(index);                		
-		                		
-		 	                    e.preventDefault()
-		                	}
-						}(tab));
-	                }	                
-	            }
+		                	e.preventDefault();
+	                	});
+	                }
+	            });
 	        },
 	        
 	        closeTab: function(index) {    
@@ -258,7 +244,9 @@
         				this.options.activeIndex--;
         			}
 	        		
-	        		this.options.onTabClose && this.options.onTabClose(this.bindInstance, index);	        		
+	        		if (this.options.onTabClose) {
+	        			this.options.onTabClose(this.bindInstance, index);
+	        		}
 	        	}
 	        },
 	        
@@ -292,7 +280,7 @@
         });
    
         return widget;
-    };
+    }
 
     function TabviewDirective(widgetTabview) {
 		return {

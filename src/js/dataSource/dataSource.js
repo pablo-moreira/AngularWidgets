@@ -41,12 +41,14 @@
 		function getData() {
 			return data;
 		}
-	}
+	};
 
-	AngularWidgets.ArrayDataSource = function (allData) {
+	AngularWidgets.ArrayDataSource = function(allData) {
       	
+      	var $this = this;
+
 		// public
-		this.load = load
+		this.load = load;
 		this.allData = allData;
 		this.getRowCount = getRowCount;
 		this.getData = getData;
@@ -62,10 +64,10 @@
 
 				if (expression.restrictions) {
 					if (expression.operator === 'AND') {
-						this.processRestrictions(queryExpression.addAnd(), expression.restrictions);
+						$this.processRestrictions(queryExpression.addAnd(), expression.restrictions);
 					}
 					else {
-						this.processRestrictions(queryExpression.addOr(), expression.restrictions);
+						$this.processRestrictions(queryExpression.addOr(), expression.restrictions);
 					}
 				}
 				else {
@@ -76,7 +78,7 @@
 						return AngularWidgets.DataFilter.check(attributeValue, expression.value, expression.operator, expression.sensitive);
 					});
 				}					
-			})	
+			});
 		}	
 
 		function load(request) {
@@ -85,8 +87,10 @@
 
 			try {
 				
-				var query = new AngularWidgets.DataQuery(this.allData),
-					queryExpression = null;
+				var query = new AngularWidgets.DataQuery($this.allData),
+					queryExpression = null,
+					i,
+					l;
 				
 				if (request.restriction)  {
 					
@@ -102,7 +106,7 @@
 						restrictions = request.restriction.restrictions;
 					}
 
-					this.processRestrictions(query, queryExpression, restrictions);
+					$this.processRestrictions(query, queryExpression, restrictions);
 				}
 				else if (request.query) {
 					
@@ -118,7 +122,7 @@
 
 				if (request.sorts && request.sorts.length) {
 
-					for (var i=0, l=request.sorts.length; i < l; i++)  {
+					for (i=0, l=request.sorts.length; i < l; i++)  {
 
 						var sort = request.sorts[i];
 
@@ -139,7 +143,7 @@
 				
 				data = [];
 				
-				for (var i = request.first; i < (page) && i < rowCount; i++) {
+				for (i = request.first; i < (page) && i < rowCount; i++) {
 					data.push(filteredData[i]);
 				}
 
@@ -164,23 +168,25 @@
 	AngularWidgets.configure({
 		httpDataSource: {
 			httpMethod : 'post',
-			parseRequest: function(request) {
+			translateRequest: function(request) {
 				return request;
 			},
-			parseResponse: function (data, request) {
+			translateResponse: function (data, request) {
 				return data;
 			}
 		}
 	});
 		
 	AngularWidgets.HttpDataSource = function (options) {
+		
+		var $this = this;
 
 		// public
 		this.url = options.url;
 		this.method = options.method || AngularWidgets.getConfiguration().httpDataSource.httpMethod;
 		this.load = load;
-		this.parseRequest = options.parseRequest || AngularWidgets.getConfiguration().httpDataSource.parseRequest;
-		this.parseResponse = options.parseResponse || AngularWidgets.getConfiguration().httpDataSource.parseResponse;
+		this.translateRequest = options.translateRequest || AngularWidgets.getConfiguration().httpDataSource.translateRequest;
+		this.translateResponse = options.translateResponse || AngularWidgets.getConfiguration().httpDataSource.translateResponse;
 		this.getRowCount = getRowCount;
 		this.getData = getData;
 
@@ -190,13 +196,12 @@
 
 		function load(request) {
 
-			var $this = this;
 			var deferred = AngularWidgets.$q.defer();
 
-			AngularWidgets.$http[this.method](this.url, $this.parseRequest(request))
+			AngularWidgets.$http[$this.method]($this.url, $this.translateRequest(request))
 				.success(function(data) {
 
-					loadedData = $this.parseResponse(data, request);
+					loadedData = $this.translateResponse(data, request);
 
 					deferred.resolve(request);
 				})
@@ -205,7 +210,7 @@
 				});
 
 			return customPromise(deferred.promise);
-		};
+		}
 
 		function getRowCount() {
 			return loadedData.rowCount;
@@ -218,7 +223,7 @@
 
 	AngularWidgets.FakeHttpDataSource = function (options) {
 
-		options.parseResponse = function(data, request) {
+		options.translateResponse = function(data, request) {
 
 			var arrayDataSource = new AngularWidgets.ArrayDataSource(data.rows);
 
@@ -230,10 +235,10 @@
 				'rowCount': arrayDataSource.getRowCount(), 
 				'rows': arrayDataSource.getData() 
 			};
-		}
+		};
 
 		return new AngularWidgets.HttpDataSource(options);
-	}
+	};
 
 	function customPromise(promise) {
 
@@ -248,7 +253,7 @@
 
 		promise.error = function(fn) {
 
-			return promise.then(null, function(response) {
+			promise.then(null, function(response) {
 				fn(response);
 			});
 

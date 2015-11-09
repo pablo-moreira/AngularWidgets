@@ -52,11 +52,13 @@
 			}
 
 			return dialog.data("$widget");
-        }
+        };
                 
     	widget.Dialog = widgetBase.createWidget({
 
 			init: function(options) {
+			
+				var $this = this;
 			
 				this.determineOptions(options);
 				
@@ -79,9 +81,7 @@
 					this.dialog.addClass(this.options.width);					
 				}
 
-				this.determineTransclude();
-
-				var $this;
+				this.determineTransclude();		
 
 				if (this.facets) {					
 					this.renderFooterIfNecessarily();					
@@ -99,8 +99,6 @@
 				if (this.options.rtl) {
 					this.dialog.addClass('pui-dialog-rtl');
 				}
-
-				var $this = this;
 
 				if(this.options.closable) {
 					this.renderCloaser(); 					

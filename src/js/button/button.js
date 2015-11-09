@@ -167,7 +167,7 @@
 	        	widgetBase.onKeydownEnterOrSpace(this.element, function(e) {
 	        		$this.element.addClass('ui-state-active');
 	        		$this.click();
-	        	})
+	        	});
 	        	
 	        	this.element.bind('keyup', function(e){ 
 	        		$this.element.removeClass('ui-state-active');	        		
@@ -180,7 +180,7 @@
         });
         
         return widget;
-    };
+    }
 
     function ButtonDirective(widgetButton) {       
         return {
@@ -193,6 +193,6 @@
             replace: true,
             template: widgetButton.template
         };
-    };
+    }
     
 }(window, document));

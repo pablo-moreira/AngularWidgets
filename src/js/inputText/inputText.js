@@ -103,7 +103,7 @@
         };
 
         return widgetInputText;
-    };
+    }
 
     function InputTextDirective(widgetInputText) {
     

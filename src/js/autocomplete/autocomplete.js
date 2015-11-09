@@ -45,6 +45,8 @@
         	    		
     		init: function(options) {
 
+				var $this = this;
+
     			this.value = null;
     			this.cachedResults = [];
     			this.childrenScope = [];
@@ -68,9 +70,7 @@
         						'</div>');
 				this.panel.appendTo(angular.element($document[0].body));
                 this.panelContent = this.panel.childrenSelector('.pui-autocomplete-panel-content');
-                                            
-                var $this = this;
-                
+                                                            
                 this.scope.$watch(this.element.attr('value'), function(value) {
                		$this.setValue(value, false);
     			});
@@ -93,13 +93,9 @@
                         this.inputQuery.removeClass('ui-corner-all').addClass('ui-corner-left');
                     }
                 }
-                            	
-            	var $this = this;
-
+                
 				if (this.options.paginator) {
 					
-					var $this = this;
-
 					this.paginator = widgetPaginator.buildWidget(this.scope, null, {
 						rows: this.options.rows,
 						dataLoader: this.items,
@@ -186,16 +182,16 @@
                         key = e.which,
                         shouldSearch = true;
             		
-                    if(key === keyCode.UP 
-                    	|| key === keyCode.LEFT 
-                    	|| (key === keyCode.DOWN && ( $this.panelVisible() || $this.options.dropdown == false ))
-                    	|| key === keyCode.RIGHT 
-                    	|| key === keyCode.TAB 
-                    	|| key === keyCode.SHIFT 
-                    	|| key === keyCode.ENTER 
-                    	|| key === keyCode.END
-                    	|| key === keyCode.HOME
-                    	|| key === keyCode.NUMPAD_ENTER) {
+                    if(key === keyCode.UP ||
+                    	key === keyCode.LEFT ||
+                    	(key === keyCode.DOWN && ( $this.panelVisible() || $this.options.dropdown === false )) ||
+                    	key === keyCode.RIGHT ||
+                    	key === keyCode.TAB ||
+                    	key === keyCode.SHIFT ||
+                    	key === keyCode.ENTER ||
+                    	key === keyCode.END ||
+                    	key === keyCode.HOME ||
+                    	key === keyCode.NUMPAD_ENTER) {
                         shouldSearch = false;
                     }
 
@@ -356,7 +352,7 @@
     	        	
     	        	widgetBase.onKeydownEnterOrSpace(this.dropdownBtn, function(e) {
     	        		$this.search('');
-    	        	})
+    	        	});
     	        	
     	        	this.dropdownBtn.bind('keyup', function(e){ 
     	        		$this.dropdownBtn.removeClass('ui-state-active');	        		
@@ -774,7 +770,7 @@
             		request.query = {
             			attribute : this.options.itemLabel || '*', 
             			value : this.query
-            		}
+            		};
             	}
 
             	if (this.paginator) {
@@ -913,7 +909,7 @@
         });
                 
         return widget;
-    };
+    }
     
 	function AutocompleteDirective(widgetAutocomplete) {
         return {

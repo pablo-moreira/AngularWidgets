@@ -66,8 +66,7 @@
         		
         		page = parseInt(page, 10);
         		
-        		if ((page > this.getPageCount() - 1) 
-        				|| (page === this.page) ) {
+        		if ((page > this.getPageCount() - 1) || (page === this.page) ) {
         			return;
         		}
         		        		

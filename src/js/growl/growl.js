@@ -22,7 +22,7 @@
 
 				var parent;
 
-				if (this.options.appendTo !== null) {
+				if (this.options.appendTo !== undefined) {
 
 					parent = angular.element(this.options.appendTo);
 
@@ -185,7 +185,7 @@
 			clearMessages: function() {
 				puiGrowl.clearMessages();
 			}
-		}
+		};
 	}
 
 }(window, document));

@@ -3,11 +3,11 @@
 
 	String.prototype.firstToLowerCase = function() {
 		return this.charAt(0).toLowerCase() + this.slice(1);
-	}
+	};
 
 	String.prototype.firstToUpperCase = function() {
 		return this.charAt(0).toUpperCase() + this.slice(1);
-	}
+	};
 	
 	var configuration = {
 		widgets: {}
@@ -49,7 +49,7 @@
     		
     		newConfigs.widgets[widgetName] = configs;
 
-    		this.configure(newConfigs);
+    		configuration = angular.merge(newConfigs, configuration);
     	},
     	
     	getConfiguration: function() {
@@ -58,6 +58,14 @@
 
     	isArray: function(array) {
 			return angular.isArray(array);
+		},
+
+		isBoolean: function(obj) {
+		    return obj === true || obj === false || toString.call(obj) == '[object Boolean]';
+		},
+
+		isDate: function(obj) {
+			return angular.isDate(obj);
 		},
 
 		isString: function(str) {
@@ -94,19 +102,6 @@
         }, result);
 
         return result;
-    };
-
-    AngularWidgets.WidgetConfig = function(configurationDefault) {
-
-		var configuration = configurationDefault;
-
-    	this.configure = function(configs) {
-    		configuration = angular.merge(configuration, configs);
-    	}
-
-    	this.getConfiguration = function() {
-    		return configuration;
-    	}
     };
 
     AngularWidgets.tagSelectorSelection = function(elements, tagSelector) {
@@ -182,7 +177,7 @@
 			range.moveStart('character', pos);
 			range.select();
 		}
-	}
+	};
 
 	AngularWidgets.getCursorPosition = function(input) {
 
@@ -203,8 +198,8 @@
 		}
 
 		return 0;
-	}
-
+	};
+	
 	AngularWidgets.preventDefault =	function(e) {
 		//standard browsers
 		if (e.preventDefault) { 
@@ -214,21 +209,21 @@
 		else {
 			e.returnValue = false;
 		}
-	}
+	};
 
 	AngularWidgets.isRelative = function(element, parent) {
 		var elemParent = angular.element(element).parent()[0];
             	
-		if (elemParent == undefined) {
+		if (elemParent === undefined) {
 			return false;
 		}
-		else if (elemParent == parent) {
+		else if (elemParent === parent) {
 			return true;
 		}
 		else {
 			return this.isRelative(elemParent, parent);
 		} 
-	}
+	};
 
 	AngularWidgets.isVisible = function(element, parent) {
 		
@@ -239,7 +234,7 @@
 		}
 		
 		return elm.offsetWidth > 0 || elm.offsetHeight > 0;
-	}
+	};
 
 	AngularWidgets.position = {};
 
@@ -363,7 +358,7 @@
 				basePosition.top -= elementDimensions.height / 2;
 			}
 
-			var elm = angular.element(element).css({ 'visibility' : 'visible', 'display' : 'block' });
+			elm.css({ 'visibility' : 'visible', 'display' : 'block' });
 		}			
 
 		element.style.position = "absolute";
