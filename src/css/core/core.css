@@ -66,15 +66,29 @@
     box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
 }
 
-
 /*!
- * Angular Animate 
+ * Animate 
  */
 .pui-hide {
 	-webkit-transition:all linear 0.5s;
 	transition:all linear 0.5s;    
 	opacity:0;
 	min-height: 0;
+}
+
+.pui-normal {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+}
+
+.pui-slow {
+	-webkit-animation-duration: 1.5s;
+	animation-duration: 1.5s;
+}
+
+.pui-fast {
+	-webkit-animation-duration: 500ms;
+	animation-duration: 500ms;	
 }
 
 @-webkit-keyframes ui-widget-overlay-fadeIn {
@@ -105,7 +119,7 @@
     -webkit-animation-name: ui-widget-overlay-fadeIn;
     animation-name: ui-widget-overlay-fadeIn;
 }
- 
+
 .ui-widget-overlay-fadeOut {
     -webkit-animation-name: ui-widget-overlay-fadeOut;
     animation-name: ui-widget-overlay-fadeOut;

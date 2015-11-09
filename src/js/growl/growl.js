@@ -8,10 +8,14 @@
 	function GrowlWidget(widgetBase, $timeout) {
 
 		AngularWidgets.configureWidget('growl', {
-			appendTo: null,
+			appendTo: undefined,
 			sticky: false,
-			life: 3000
-		});		
+			life: 3000,
+			showAnimation: 'fadeIn',
+			hideAnimation: 'fadeOut',
+			animationSpeed: 'normal',
+			enableAnimation: true
+		});
 		
 		var growl = {
 
@@ -79,26 +83,38 @@
 
 				msg.element = angular.element(html);
 
+				if (this.options.enableAnimation) {
+					
+					msg.element.addClass('animated').addClass('pui-' + this.options.animationSpeed);
+					
+					if (this.options.showAnimation) {
+						msg.element.addClass(this.options.showAnimation);
+					}
+				}
+
 				this.bindMessageEvents(msg);
 				
 				this.container.css('zIndex', ++AngularWidgets.zindex);
 				this.container.append(msg.element);
 
-				msg.element.showAsBlock();
+				msg.element.show();
 			},
 
 			bindMessageEvents: function(message) {
 
-				var closer = message.element.findAllSelector(".pui-growl-icon-close");
+				var $this = this,
+					closer = message.element.findAllSelector(".pui-growl-icon-close");
+
+				if (this.options.enableAnimation) {
+					closer.addClass('animated').addClass('pui-' + $this.options.animationSpeed);
+				}
 
 				message.element.hover(function(e) {
 					closer.show();
 				}, 
-				function (e) {
+				function (e) {			
 					closer.hide();
 				});
-
-				var $this = this;
 
 				closer.click(function(e) {
 					e.preventDefault();
@@ -122,11 +138,24 @@
 			},
 		   
 			removeMessage: function(message, removedByTimer) {
+				
+				var $this = this;
+
 				if (!removedByTimer) {
 					$timeout.cancel(message.data('timer'));
 				}
-				message.hide();
-				message.remove();
+				
+				if (this.options.enableAnimation) {
+					message.addClass(this.options.hideAnimation);
+					message.onAnimationEnd(function() {
+						message.hide();
+						message.remove();		
+					});
+				}
+				else {
+					message.hide();
+					message.remove();
+				}
 			},
 
 			clearMessages: function()  {
