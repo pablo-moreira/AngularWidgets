@@ -131,6 +131,14 @@
         		elem.addClass(styleClass);
         	}
         	return elem;
+        },
+        onAnimationEnd: function onAnimationEnd(element, callback) {		
+			
+			var elem = angular.element(element);
+						
+			elem.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', callback);
+
+			return elem;
         }
     };
 

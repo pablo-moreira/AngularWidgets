@@ -11,10 +11,10 @@
 		AngularWidgets.configureWidget('dialog', {
 			width: null,
 			visible: false,
-			showEffect: null,
-			hideEffect: null,
-			effectOptions: {},
-			effectSpeed: 'normal',
+			showAnimation: 'fadeIn',
+			hideAnimation: 'fadeOut',
+			animationSpeed: 'normal',
+			enableAnimation: true,
 			closeOnEscape: true,
 			rtl: false,
 			closable: true,
@@ -112,6 +112,10 @@
 
  				//aria
  				this.applyARIA();
+//
+				if (this.options.enableAnimation) {
+					this.dialog.addClass('animated').addClass('pui-' + this.options.animationSpeed);
+				}
 
  				if (this.options.visible) {
 					this.show();
@@ -180,15 +184,18 @@
 					this.onBeforeShow();
 				}
 
-				if(this.options.showEffect) {
+				if(this.options.enableAnimation && this.options.showAnimation) {
 					
 					var $this = this;
 
-					this.element.show(this.options.showEffect, this.options.effectOptions, this.options.effectSpeed, function() {
+					this.dialog.addClass(this.options.showAnimation);
+					this.dialog.onAnimationEnd(function() {
+						$this.dialog.removeClass($this.options.showAnimation);
 						$this.postShow();
 					});
-				}    
-				else {
+ 					this.element.show();
+				}
+				else {					
 					this.element.show();
 
 					this.postShow();
@@ -221,28 +228,24 @@
 					this.options.onBeforeHide();
 				}
 				
-				// TODO - Add effects
-				if(this.options.hideEffect) {
+				if(this.options.enableAnimation && this.options.hideAnimation) {
 					
 					var $this = this;
-
-					this.element.hide(this.options.hideEffect, this.options.effectOptions, this.options.effectSpeed, function() {
+					
+					this.dialog.addClass(this.options.hideAnimation);
+					this.dialog.onAnimationEnd(function() {						
+						$this.dialog.removeClass($this.options.hideAnimation);
+						$this.element.hide();
 						$this.postHide();
-					});
+					})
 				}
 				else {
 					this.element.hide();
 
 					this.postHide();
 				}
-				
+
 				this.disableModality();
-
-				var body = angular.element($document[0].body);
-
-				if (body.childrenSelector('.pui-dialog-modal').length === 0) {
-					body.removeClass('pui-dialog-open');					
-				}
 			},
 
 			dismiss: function() {
@@ -264,13 +267,29 @@
 					'aria-hidden': true,
 					'aria-live': 'off'
 				});
+
+				var body = angular.element($document[0].body);
+
+				if (body.childrenSelector('.pui-dialog-modal').length === 0) {
+					body.removeClass('pui-dialog-open');					
+				}
 			},
 
 			enableModality: function() {
-								
+		
 				this.modality = angular.element('<div id="' + this.id + '" class="pui-dialog-modal ui-widget-overlay"></div>')
 					.css({ 'zIndex' : ++AngularWidgets.zindex })
-					.appendTo($document[0].body);
+					.appendTo($document[0].body)
+				
+				if (this.options.enableAnimation) {
+					
+					var $this = this;
+
+					this.modality.addClass('animated ui-widget-overlay-fadeIn').addClass('pui-' + this.options.effectSpeed);
+					this.modality.onAnimationEnd(function() {
+						$this.modality.removeClass('ui-widget-overlay-fadeIn');
+					});
+				}
 
 				//Disable tabbing out of modal dialog and stop events from targets outside of dialog
 // 				doc.bind('keydown.puidialog',
@@ -297,9 +316,23 @@
 // 						});
 			},
 
-			disableModality: function(){
-				this.modality.remove();
-				this.modality = null;
+			disableModality: function() {
+				
+				if (this.options.enableAnimation) {
+				
+					var $this = this;
+
+					this.modality.addClass('ui-widget-overlay-fadeOut');
+					this.modality.onAnimationEnd(function() {
+						$this.modality.remove();
+						$this.modality = null;	
+					});
+				}
+				else {
+					this.modality.remove();
+					this.modality = null;
+				}
+
 				//$(document).unbind(this.blockEvents).unbind('keydown.dialog');
 			},
 
