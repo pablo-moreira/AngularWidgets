@@ -200,54 +200,108 @@
 
     		init: function(options) {
     			   			
-    			this.scope.$options = this.scope.$eval(options.options);
-    			this.scope.$getLabel = function(option) {
-    				if (options.optionlabel !== undefined) {
-    					return option[options.optionlabel];
-    				}
-    				else {
-    					return option;
-    				}
-    			}
-				
-				this.options = options;
-				this.options.id = 'xpto';
+    			var $this = this;
 
-				var label = '<label for="' + this.options.id + '-{{$index}}">{{$getLabel($option)}}</label>',
-					radio = '<wg-inputradio id="' + this.options.id + '-{{$index}}" value="' + this.options.value + '" option="$option"></wg-inputradio>';
+				this.childrenScope = [];
+				
+				var opt_default = {
+					id: 'xpto',
+					optionLabel: undefined
+				};
+				
+				this.options = widgetBase.determineOptions(this.scope, opt_default, options, [], []);
+
+    			this.items = this.scope.$eval(this.options.options);    			
+
+// 				var layout = 'horizontal',
+// 					columns;
+
+// 				if (layout === 'horizontal') {
+// 					columns = 1;
+// 				}
+// 				else if (layout === 'vertical') {
+// 					columns = 12;
+// 				}
+// 				else {
+// 					columns = 3;
+// 				}
+				
+// 				var div =	'<div class="ui-grid-row" ng-repeat="$option in $options">' + 
+// 								'<div class="ui-grid-col-' + columns + '">' +
+// 									radio + 
+//         							label + 
+//         						'</div>' + 
+//         					'</div>';
+
+				this.renderVertical();
+    		},
 			
-				var table =	'<table>' + 
-								'<tbody>' +
-									'<tr ng-repeat="$option in $options">' +
-        								'<td>' + radio + '</td>' +
-        								'<td>' + label + '</td>' +
-        							'</tr>' +
-        						'</tbody>' +
-        					'</table>';
-
-				var layout = 'horizontal',
-					columns;
-
-				if (layout === 'horizontal') {
-					columns = 1;
-				}
-				else if (layout === 'vertical') {
-					columns = 12;
-				}
-				else {
-					columns = 3;
-				}
+			renderHorizontal: function() {
 				
-				var div =	'<div class="ui-grid-row" ng-repeat="$option in $options">' + 
-								'<div class="ui-grid-col-' + columns + '">' +
-									radio + 
-        							label + 
-        						'</div>' + 
-        					'</div>';
-				
-    			this.element.append(div);
+				var $this = this,
+					table = angular.element('<table><tbody><tr></tr></tbody></table>'),
+        			tr = table.findAllSelector('tr');
 
-    			$compile(this.element)(this.scope);
+				angular.forEach(this.items, function (item, index) {
+					
+					var itemScope = $this.createChildScope(item);
+										
+					var id = $this.options.id + '-' + index,
+						itemLabel = ($this.options.optionLabel !== undefined) ? item[$this.options.optionLabel] : item;
+						
+					var tdLabel = angular.element('<td>' + $this.renderLabel(id, itemLabel) + '</td>');
+					var tdRadio = angular.element('<td>' + $this.renderRadio(id) + '</td>');
+						
+					tr.append(tdRadio).append(tdLabel);
+
+					$compile(tdRadio)(itemScope);					
+				});
+
+				this.element.append(table);
+			},
+
+			renderVertical: function() {
+				
+				var $this = this,
+					table = angular.element('<table><tbody></tbody></table>'),
+        			tbody = table.findAllSelector('tbody');
+
+				angular.forEach(this.items, function (item, index) {
+					
+					var itemScope = $this.createChildScope(item);
+										
+					var id = $this.options.id + '-' + index,
+						itemLabel = ($this.options.optionLabel !== undefined) ? item[$this.options.optionLabel] : item;
+					
+					var tr = angular.element('<table><tbody><tr></tr></tbody></table>').findAllSelector('tr'),
+						tdLabel = angular.element('<td>' + $this.renderLabel(id, itemLabel) + '</td>'),
+						tdRadio = angular.element('<td>' + $this.renderRadio(id) + '</td>');
+						
+					tr.append(tdRadio).append(tdLabel).appendTo(tbody);
+
+					$compile(tdRadio)(itemScope);					
+				});
+
+				this.element.append(table);				
+			},
+
+			createChildScope: function(item) {
+								
+				var itemScope = this.scope.$new(false, this.scope);
+				itemScope.$item = item;
+					
+				// Store childscope for destroy 
+				this.childrenScope.push(itemScope);
+					
+				return itemScope;
+			},
+
+			renderRadio: function(id) {
+				return '<wg-inputradio id="' + id + '" value="' + this.options.value + '" option="$item"></wg-inputradio>';
+			},
+
+    		renderLabel: function(id, itemLabel) {
+    			return '<label for="' + id + '">' + itemLabel + '</label>';
     		}
         });
         
