@@ -3,7 +3,7 @@
     
     angular.module('demo').constant('widgets', [
 		{
-			"widget": "puiAutocomplete",
+			"widget": "wgAutocomplete",
 			"label": "Autocomplete",
 			"controller": "AutocompleteController",
 			"defaultPath": "autocomplete/autocompleteOverview",
@@ -23,7 +23,7 @@
 			]
 		},
 		{
-			"widget" : "puiButton",
+			"widget" : "wgButton",
 			"label" : "Button",
 			"controller" : "ButtonController",
 			"defaultPath" : "button/overview",
@@ -37,7 +37,7 @@
 			]
 		},
 		{
-			"widget" : "puiDatatable",
+			"widget" : "wgDatatable",
 			"label" : "Datatable",
 			"controller" : "DatatableController",
 			"defaultPath" : "datatable/datatableOverview",
@@ -60,7 +60,7 @@
 			]
 		},
 		{
-			"widget": "puiDialog",
+			"widget": "wgDialog",
 			"label": "Dialog",
 			"controller": "DialogController",
 			"defaultPath": "dialog/dialogOverview",
@@ -72,7 +72,7 @@
 			]
 		},
 		{
-			"widget": "puiEditor",
+			"widget": "wgEditor",
 			"label": "Editor",
 			"controller": "EditorController",
 			"defaultPath": "editor/editorOverview",
@@ -83,7 +83,7 @@
 			]
 		},
 		{
-			"widget": "puiGrowl",
+			"widget": "wgGrowl",
 			"label": "Growl",
 			"controller": "GrowlController",
 			"defaultPath": "growl/growlOverview",
@@ -94,7 +94,7 @@
 			]
 		},
 		{
-			"widget": "puiInputNumber",
+			"widget": "wgInputNumber",
 			"label": "InputNumber",
 			"controller": "InputNumberController",
 			"defaultPath": "inputNumber/inputNumberOverview",
@@ -104,7 +104,7 @@
 			]
 		},
 		{
-			"widget": "puiFieldset",
+			"widget": "wgFieldset",
 			"label": "Fieldset",
 			"controller": "FieldsetController",
 			"defaultPath": "fieldset/fieldsetOverview",
@@ -118,13 +118,15 @@
 		     ]
 		},
 		{
-			"widget": "InputRadio",
+			"widget": "wgInputRadio",
 			"label": "InputRadio",
 			"controller": "InputRadioController",
 			"defaultPath": "inputRadio/inputRadioOverview",
 			"subPages": [
 				{ "label": "Overview", "path": "inputRadio/inputRadioOverview" },
-				{ "label": "Default", "path": "inputRadio/inputRadioDefault" }
+				{ "label": "Default", "path": "inputRadio/inputRadioDefault" },
+				{ "label": "SelectOneRadio", "path": "inputRadio/inputRadioSelectOneRadio" },
+				{ "label": "Layouts", "path": "inputRadio/inputRadioLayouts" }
 		     ]
 		 },
 /*		{

@@ -2,8 +2,12 @@
     "use strict";
 
 	var functions = {
-    	uniqueId: function uniqueId(element) {
-			angular.element(element).attr('id', AngularWidgets.guid());
+    	uniqueId: function uniqueId(element, prepend) {
+    		
+			var id = prepend !== undefined ? prepend + "-" : '';
+			id += AngularWidgets.guid();
+    		
+    		angular.element(element).attr('id', id);
     	},
         hover: function hoverFn(element, fnEnter, fnLeave) {
             angular.element(element).bind('mouseenter', fnEnter).bind('mouseleave', fnLeave ||fnEnter);
