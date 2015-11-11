@@ -1,70 +1,141 @@
 <wg-panel header="{{mainCtrl.widget.label}}">
 
 	<section>
-		<header>Default integration</header>
+		<header>SelectOneRadio</header>
 		
 		<wg-fieldset legend="Simple">
 			<div ng-repeat="consoleOption in inputRadioCtrl.consoleOptions">		
 				<wg-inputradio
 					id="console-{{$index}}"
-					value="inputRadioCtrl.console"
+					value="inputRadioCtrl.consoleDefault"
 					option="consoleOption">
 				</wg-inputradio>
 
 				<label for="console-{{$index}}">{{consoleOption}}</label>
-			</div>
-
-			<wg-inputradio
-				id="console-10"
-				value="inputRadioCtrl.console"
-				option="'Atari'">
-			</wg-inputradio>
-			<label for="console-10">Atari</label>
+			</div>	
 			
 			<wg-inputradio
+				id="console-10"
+				value="inputRadioCtrl.consoleDefault"
+				option="'Atari'">
+			</wg-inputradio>
+			
+			<label for="console-10">Atari</label>
+			
+			<br/>
+						
+			<wg-inputradio
 				id="console-11"				
-				value="inputRadioCtrl.console"
+				value="inputRadioCtrl.consoleDefault"
 				option="inputRadioCtrl.mega">
 			</wg-inputradio>
+			
 			<label for="console-11">Mega</label>
 
-			<p>Controller value is: {{inputRadioCtrl.console}}</p>
+			<p>Controller value is: {{inputRadioCtrl.consoleDefault}}</p>
 		</wg-fieldset>
 
-<!-- 		<wg-fieldset legend="Object">
-			<div ng-repeat="cityOption in inputRadioCtrl.cityOptions">		
-				<label for="city-{{cityOption.id}}">{{cityOption.name}}</label>
-
+		<wg-fieldset legend="Object">
+			<div ng-repeat="cityOption in inputRadioCtrl.cityOptions">
 				<wg-inputradio
 					id="city-{{cityOption.id}}"
-					value="inputRadioCtrl.city"
+					value="inputRadioCtrl.cityDefault"
 					option="cityOption">
 				</wg-inputradio>
+				<label for="city-{{cityOption.id}}">{{cityOption.name}}</label>
 			</div>
 
-			<label for="city-10">Rio de Janeiro</label>
+			
 			<wg-inputradio
 				id="city-10"
-				value="inputRadioCtrl.city"
+				value="inputRadioCtrl.cityDefault"
 				option="{ id: 10, name: 'Rio de Janeiro', country: 'BR'}">
 			</wg-inputradio>
+			<label for="city-10">Rio de Janeiro</label>
 
-			<p>Controller value is: {{inputRadioCtrl.city}}</p>
-		</wg-fieldset> -->
+			<p>Controller value is: {{inputRadioCtrl.cityDefault}}</p>
+		</wg-fieldset>
 
-		<wg-selectoneradio value="inputRadioCtrl.city" options="inputRadioCtrl.cityOptions" optionLabel="name" layout="grid" columnsize="4"></wg-selectoneradio>
-
-		<p>Controller value is: {{inputRadioCtrl.city}}</p>
 	</section>
 
 	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<wg-tabview id="sourceTabs">
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
+<wg-fieldset legend="Simple">
+	<div ng-repeat="consoleOption in inputRadioCtrl.consoleOptions">		
+		<wg-inputradio
+			id="console-{{$index}}"
+			value="inputRadioCtrl.consoleDefault"
+			option="consoleOption">
+		</wg-inputradio>
+
+		<label for="console-{{$index}}">{{consoleOption}}</label>
+	</div>	
+
+	<wg-inputradio
+		id="console-10"
+		value="inputRadioCtrl.consoleDefault"
+		option="'Atari'">
+	</wg-inputradio>
+
+	<label for="console-10">Atari</label>
+
+	<br/>
+
+	<wg-inputradio
+		id="console-11"				
+		value="inputRadioCtrl.consoleDefault"
+		option="inputRadioCtrl.mega">
+	</wg-inputradio>
+
+	<label for="console-11">Mega</label>
+
+	<p>Controller value is: {{inputRadioCtrl.consoleDefault}}</p>
+</wg-fieldset>
+
+<wg-fieldset legend="Object">
+	<div ng-repeat="cityOption in inputRadioCtrl.cityOptions">
+		<wg-inputradio
+			id="city-{{cityOption.id}}"
+			value="inputRadioCtrl.cityDefault"
+			option="cityOption">
+		</wg-inputradio>
+		<label for="city-{{cityOption.id}}">{{cityOption.name}}</label>
+	</div>
+
+
+	<wg-inputradio
+		id="city-10"
+		value="inputRadioCtrl.cityDefault"
+		option="{ id: 10, name: 'Rio de Janeiro', country: 'BR'}">
+	</wg-inputradio>
+	<label for="city-10">Rio de Janeiro</label>
+
+	<p>Controller value is: {{inputRadioCtrl.cityDefault}}</p>
+</wg-fieldset>
 				</demo-source>
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
+function InputRadioController($wgGrowl) {
+   		
+	var vm = this;
+
+	vm.mega = 'Mega';
+	vm.consoleDefault = vm.mega;			
+	vm.consoleOptions = ['Xbox One', 'PS4', 'Wii U'];
+	
+	vm.cityOptions = [
+		{ id: 1, name: 'Miami', country: 'US'},
+		{ id: 2, name: 'Brasilia', country: 'BR'},
+		{ id: 3, name: 'Porto Velho', country: 'BR'},
+		{ id: 4, name: 'London', country: 'UK'},
+		{ id: 5, name: 'Paris', country: 'FR'}			
+	];
+
+	vm.cityDefault = vm.cityOptions[3];
+}
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>

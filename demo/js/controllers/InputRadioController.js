@@ -7,10 +7,15 @@
    		
 		var vm = this;
 
-		vm.mega = 'Mega';
-		vm.console = vm.mega;			
 		vm.consoleOptions = ['Xbox One', 'PS4', 'Wii U'];
+		vm.mega = 'Mega';
 		
+		vm.console = null;			
+		vm.consoleDefault = vm.mega;
+		vm.consoleHorizontal = null;
+		vm.consoleVertical = null;
+		vm.consoleGrid = null;
+
 		vm.cityOptions = [
 			{ id: 1, name: 'Miami', country: 'US'},
 			{ id: 2, name: 'Brasilia', country: 'BR'},
@@ -20,6 +25,7 @@
 		];
 
 		vm.city = null;
+		vm.cityDefault = vm.cityOptions[3];
     }
 
 }(window, document));

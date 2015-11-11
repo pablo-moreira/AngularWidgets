@@ -206,38 +206,74 @@
 				this.childrenScope = [];
 				
 				var opt_default = {
-					id: 'xpto',
 					optionLabel: undefined,
-					layout: 'horizontal',
+					layout: 'grid',
 					columnSize: 3
 				};
 				
 				this.options = widgetBase.determineOptions(this.scope, opt_default, options, [], []);
 
+				this.id = this.element.attr('id');
+				
+				if(!this.id) {
+					this.id = this.element.uniqueId('wg-ir').attr('id');
+				}
+
     			this.items = this.scope.$eval(this.options.options);    			
 				
 				this.renderOptions();
     		},
-			
-			renderOptions: function() {
-
+    		
+    		renderOptions: function() {
+				
+				if (this.options.layout === 'horizontal') {
+					this.renderHorizontal();
+				}
+				else {
+					this.renderResponsive();
+				}
+    		},
+    		
+			renderHorizontal: function() {
+				
 				var $this = this,
-        			used = 0,
-        			divRow = undefined,      		
- 					colSize = this.options.columnSize;
+					table = angular.element('<table><tbody><tr></tr></tbody></table>'),
+        			tr = table.findAllSelector('tr');
 
- 				if (this.options.layout === 'horizontal') {
- 					colSize = 1;
- 				}
- 				else if (this.options.layout === 'vertical') {
- 					colSize = 12;
- 				}
+				angular.forEach(this.items, function (item, index) {
+					
+					var itemScope = $this.createChildScope(item);
+										
+					var id = $this.options.id + '-' + index,
+						itemLabel = ($this.options.optionLabel !== undefined) ? item[$this.options.optionLabel] : item;
+						
+					var tdLabel = angular.element('<td>' + $this.renderLabel(id, itemLabel) + '</td>');
+					var tdRadio = angular.element('<td>' + $this.renderRadio(id) + '</td>');
+						
+					tr.append(tdRadio).append(tdLabel);
 
+					$compile(tdRadio)(itemScope);					
+				});
+
+				this.element.append(table);
+			},
+			
+			renderResponsive: function() {
+
+    			var $this = this,
+					used = 0,
+					divRow = undefined,      		
+					colSize = this.options.columnSize;
+
+				if (this.options.layout === 'vertical') {
+					colSize = 12;
+				}
+    			
 				angular.forEach(this.items, function (item, index) {
 
 					var itemScope = $this.createChildScope(item);
 										
-					var id = $this.options.id + '-' + index,
+					var id = $this.id + '-' + index,
 						itemLabel = ($this.options.optionLabel !== undefined) ? item[$this.options.optionLabel] : item;
 						
 					if (used === 0) {						
