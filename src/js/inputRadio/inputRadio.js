@@ -95,6 +95,7 @@
     				var $this = this;
 	    			this.label.bind('click', function(e) {
 	                    $this.element[0].click();
+	                    $this.box.addClass('ui-state-active');
 	                    e.preventDefault();
 	                });
     			}
@@ -206,84 +207,66 @@
 				
 				var opt_default = {
 					id: 'xpto',
-					optionLabel: undefined
+					optionLabel: undefined,
+					layout: 'horizontal',
+					columnSize: 3
 				};
 				
 				this.options = widgetBase.determineOptions(this.scope, opt_default, options, [], []);
 
     			this.items = this.scope.$eval(this.options.options);    			
-
-// 				var layout = 'horizontal',
-// 					columns;
-
-// 				if (layout === 'horizontal') {
-// 					columns = 1;
-// 				}
-// 				else if (layout === 'vertical') {
-// 					columns = 12;
-// 				}
-// 				else {
-// 					columns = 3;
-// 				}
 				
-// 				var div =	'<div class="ui-grid-row" ng-repeat="$option in $options">' + 
-// 								'<div class="ui-grid-col-' + columns + '">' +
-// 									radio + 
-//         							label + 
-//         						'</div>' + 
-//         					'</div>';
-
-				this.renderVertical();
+				this.renderOptions();
     		},
 			
-			renderHorizontal: function() {
-				
+			renderOptions: function() {
+
 				var $this = this,
-					table = angular.element('<table><tbody><tr></tr></tbody></table>'),
-        			tr = table.findAllSelector('tr');
+        			used = 0,
+        			divRow = undefined,      		
+ 					colSize = this.options.columnSize;
+
+ 				if (this.options.layout === 'horizontal') {
+ 					colSize = 1;
+ 				}
+ 				else if (this.options.layout === 'vertical') {
+ 					colSize = 12;
+ 				}
 
 				angular.forEach(this.items, function (item, index) {
-					
+
 					var itemScope = $this.createChildScope(item);
 										
 					var id = $this.options.id + '-' + index,
 						itemLabel = ($this.options.optionLabel !== undefined) ? item[$this.options.optionLabel] : item;
 						
-					var tdLabel = angular.element('<td>' + $this.renderLabel(id, itemLabel) + '</td>');
-					var tdRadio = angular.element('<td>' + $this.renderRadio(id) + '</td>');
-						
-					tr.append(tdRadio).append(tdLabel);
+					if (used === 0) {						
+						divRow = angular.element('<div class="pui-grid-row"></div>')
+							.appendTo($this.element);
+					}
 
-					$compile(tdRadio)(itemScope);					
-				});
-
-				this.element.append(table);
-			},
-
-			renderVertical: function() {
-				
-				var $this = this,
-					table = angular.element('<table><tbody></tbody></table>'),
-        			tbody = table.findAllSelector('tbody');
-
-				angular.forEach(this.items, function (item, index) {
-					
-					var itemScope = $this.createChildScope(item);
+					var divCol = angular.element('<div class="pui-grid-col-' + colSize + '">').appendTo(divRow);
+					used += colSize;
 										
-					var id = $this.options.id + '-' + index,
-						itemLabel = ($this.options.optionLabel !== undefined) ? item[$this.options.optionLabel] : item;
+					divCol
+					.append($this.renderRadio(id))
+					.append($this.renderLabel(id, itemLabel));
 					
-					var tr = angular.element('<table><tbody><tr></tr></tbody></table>').findAllSelector('tr'),
-						tdLabel = angular.element('<td>' + $this.renderLabel(id, itemLabel) + '</td>'),
-						tdRadio = angular.element('<td>' + $this.renderRadio(id) + '</td>');
-						
-					tr.append(tdRadio).append(tdLabel).appendTo(tbody);
-
-					$compile(tdRadio)(itemScope);					
+					$compile(divCol)(itemScope);					
+					
+					if ((used + colSize) > 12) {
+						used = 0;
+					}
 				});
-
-				this.element.append(table);				
 			},
+
+			renderRadio: function(id) {
+				return '<wg-inputradio id="' + id + '" value="' + this.options.value + '" option="$item"></wg-inputradio>';
+			},
+
+    		renderLabel: function(id, itemLabel) {
+    			return '<label for="' + id + '">' + itemLabel + '</label>';
+    		},
 
 			createChildScope: function(item) {
 								
@@ -294,15 +277,7 @@
 				this.childrenScope.push(itemScope);
 					
 				return itemScope;
-			},
-
-			renderRadio: function(id) {
-				return '<wg-inputradio id="' + id + '" value="' + this.options.value + '" option="$item"></wg-inputradio>';
-			},
-
-    		renderLabel: function(id, itemLabel) {
-    			return '<label for="' + id + '">' + itemLabel + '</label>';
-    		}
+			}
         });
         
         return widget;

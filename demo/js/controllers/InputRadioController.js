@@ -16,7 +16,7 @@
 			{ id: 2, name: 'Brasilia', country: 'BR'},
 			{ id: 3, name: 'Porto Velho', country: 'BR'},
 			{ id: 4, name: 'London', country: 'UK'},
-			{ id: 5, name: 'Paris', country: 'FR'},			
+			{ id: 5, name: 'Paris', country: 'FR'}			
 		];
 
 		vm.city = null;
