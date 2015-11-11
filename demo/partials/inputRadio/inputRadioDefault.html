@@ -5,28 +5,28 @@
 		
 		<wg-fieldset legend="Simple">
 			<div ng-repeat="consoleOption in inputRadioCtrl.consoleOptions">		
-				<label for="console-{{$index}}">{{consoleOption}}</label>
-
 				<wg-inputradio
 					id="console-{{$index}}"
 					value="inputRadioCtrl.console"
 					option="consoleOption">
 				</wg-inputradio>
+
+				<label for="console-{{$index}}">{{consoleOption}}</label>
 			</div>
 
-			<label for="console-10">Atari</label>
 			<wg-inputradio
 				id="console-10"
 				value="inputRadioCtrl.console"
 				option="'Atari'">
 			</wg-inputradio>
-
-			<label for="console-11">Mega</label>
+			<label for="console-10">Atari</label>
+			
 			<wg-inputradio
 				id="console-11"				
 				value="inputRadioCtrl.console"
 				option="inputRadioCtrl.mega">
 			</wg-inputradio>
+			<label for="console-11">Mega</label>
 
 			<p>Controller value is: {{inputRadioCtrl.console}}</p>
 		</wg-fieldset>
@@ -52,7 +52,7 @@
 			<p>Controller value is: {{inputRadioCtrl.city}}</p>
 		</wg-fieldset> -->
 
-		<wg-selectoneradio value="inputRadioCtrl.city" options="inputRadioCtrl.cityOptions" optionLabel="name"></wg-selectoneradio>
+		<wg-selectoneradio value="inputRadioCtrl.city" options="inputRadioCtrl.cityOptions" optionLabel="name" layout="grid" columnsize="4"></wg-selectoneradio>
 
 		<p>Controller value is: {{inputRadioCtrl.city}}</p>
 	</section>
