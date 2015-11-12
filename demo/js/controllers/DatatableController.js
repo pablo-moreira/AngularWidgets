@@ -1,9 +1,9 @@
 (function (window, document, undefined) {	
 	"use strict";
 
-	angular.module('demo').controller('DatatableController', ['$http', '$wgGrowl', DatatableController]);
+	angular.module('demo').controller('DatatableController', ['$wgGrowl', DatatableController]);
 
-	function DatatableController($http, $wgGrowl) {      
+	function DatatableController($wgGrowl) {      
 		
 		var vm = this;
 		

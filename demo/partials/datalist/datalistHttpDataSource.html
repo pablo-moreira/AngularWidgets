@@ -1,0 +1,50 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+				
+	<section>
+		<header>HttpDataSource</header>
+				
+		<wg-datalist id="httpDataSource" items="datalistCtrl.httpDataSource" item="car" itemId="vin" paginator="true" rows="8" selectionMode="single" onItemSelect="datalistCtrl.onItemSelect">
+			
+			<wg-facet name="header">
+				Cars
+			</wg-facet>
+			
+			<b>Brand:</b><span>{{car.brand}}</span><br/>
+			<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+			
+		</wg-datalist>
+	</section>
+	
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<wg-datalist id="httpDataSource" items="datalistCtrl.httpDataSource" item="car" itemId="vin" paginator="true" rows="8" selectionMode="single" onItemSelect="datalistCtrl.onItemSelect">
+			
+	<wg-facet name="header">
+		Cars
+	</wg-facet>
+	
+	<b>Brand:</b><span>{{car.brand}}</span><br/>
+	<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+	
+</wg-datalist>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function DatalistController($wgGrowl) {
+
+	var vm = this;
+	
+	vm.onItemSelect = function(data) {
+		$wgGrowl.showInfoMessage('Item selection', 'Selected a ' + data.color + ' ' + data.brand + ' of ' + data.year + ' (id = ' + data.vin + ')');
+	};
+
+    vm.httpDataSource = new AngularWidgets.HttpDataSource({ url: 'json/cars.json' });
+};
+				</demo-source>
+        	</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

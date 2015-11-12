@@ -4,11 +4,11 @@
     padding:2px;
 }
 
-.pui-paginator .pui-paginator-top {
+.pui-paginator.ui-widget-header.pui-paginator-top {
     border-bottom:0px none;
 }
 
-.pui-paginator .pui-paginator-bottom {
+.pui-paginator.ui-widget-header.pui-paginator-bottom {
     border-top:0px none;
 }
 

@@ -54,7 +54,6 @@
 
 			this.constructor = function(scope, element, options) {
 
-
 				this.table = this.element.findAllSelector('table');
 
 				this.determineOptions(options);
@@ -247,10 +246,10 @@
 
 				scope.$watch('$even', function(newValue, oldValue) {
 					if (newValue) {
-						element.addClass('pui-datatable-even').removeClass('pui-datatable-odd');
+						element.addClass('pui-even').removeClass('pui-odd');
 					} 
 					else {
-						element.addClass('pui-datatable-odd').removeClass('pui-datatable-even');
+						element.addClass('pui-odd').removeClass('pui-even');
 					}
 				});
 
@@ -539,14 +538,17 @@
 			};
 
 			this.unselectAllRows = function(silent) {
+				
+				if (this.selection.length > 0) {
 
-				this.tbody.children('tr.ui-state-highlight').removeClass('ui-state-highlight').attr('aria-selected', false);
+					this.tbody.children('tr.ui-state-highlight').removeClass('ui-state-highlight').attr('aria-selected', false);
 
-				if (!silent && this.options.onRowUnselect) {
-					this.options.onRowUnselect('rowUnselectAll', null);
+					if (!silent && this.options.onRowUnselect) {
+						this.options.onRowUnselect('rowUnselectAll', null);
+					}
+
+					this.selection = [];
 				}
-
-				this.selection = [];
 			};
 
 			this.unselectRow = function(row, silent) {
