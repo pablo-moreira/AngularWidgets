@@ -1,0 +1,90 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Layouts</header>
+		
+		<wg-fieldset legend="Horizontal">
+
+			<wg-selectoneradio 
+				value="inputRadioCtrl.consoleHorizontal" 
+				options="inputRadioCtrl.consoleOptions"  
+				layout="horizontal">
+			</wg-selectoneradio>
+
+		</wg-fieldset>
+
+		<wg-fieldset legend="Vertical">
+			
+			<wg-selectoneradio 
+				value="inputRadioCtrl.consoleVertical" 
+				options="inputRadioCtrl.consoleOptions"  
+				layout="vertical">
+			</wg-selectoneradio>
+			
+		</wg-fieldset>
+		
+		<wg-fieldset legend="Grid">
+			
+			<wg-selectoneradio 
+				value="inputRadioCtrl.consoleGrid" 
+				options="inputRadioCtrl.consoleOptions"  
+				layout="grid"
+				columnsize="4">
+			</wg-selectoneradio>
+			
+		</wg-fieldset>
+		
+	</section>
+
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<wg-fieldset legend="Horizontal">
+
+	<wg-selectoneradio 
+		value="inputRadioCtrl.consoleHorizontal" 
+		options="inputRadioCtrl.consoleOptions"  
+		layout="horizontal">
+	</wg-selectoneradio>
+
+</wg-fieldset>
+
+<wg-fieldset legend="Vertical">
+	
+	<wg-selectoneradio 
+		value="inputRadioCtrl.consoleVertical" 
+		options="inputRadioCtrl.consoleOptions"  
+		layout="vertical">
+	</wg-selectoneradio>
+	
+</wg-fieldset>
+
+<wg-fieldset legend="Grid">
+	
+	<wg-selectoneradio 
+		value="inputRadioCtrl.consoleGrid" 
+		options="inputRadioCtrl.consoleOptions"  
+		layout="grid"
+		columnsize="4">
+	</wg-selectoneradio>
+	
+</wg-fieldset>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function InputRadioController($wgGrowl) {
+
+	var vm = this;
+	
+	vm.consoleOptions = ['Xbox One', 'PS4', 'Wii U'];
+	vm.consoleHorizontal = null;
+	vm.consoleVertical = null;
+	vm.consoleGrid = null;	
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

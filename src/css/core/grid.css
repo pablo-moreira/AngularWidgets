@@ -44,6 +44,8 @@
 .pui-grid-col-12 {
     float: left;
     box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
 }
 
 .pui-grid-col-1 {

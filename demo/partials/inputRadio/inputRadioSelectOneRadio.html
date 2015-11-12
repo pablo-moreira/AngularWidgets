@@ -1,0 +1,84 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Default integration</header>
+		
+		<wg-fieldset legend="Simple">
+
+			<wg-selectoneradio 
+				value="inputRadioCtrl.console" 
+				options="inputRadioCtrl.consoleOptions"  
+				layout="horizontal">
+			</wg-selectoneradio>
+
+			<p>Controller value is: {{inputRadioCtrl.console}}</p>
+		</wg-fieldset>
+
+		<wg-fieldset legend="Object">
+			
+			<wg-selectoneradio 
+				value="inputRadioCtrl.city" 
+				options="inputRadioCtrl.cityOptions"
+				optionLabel="name"	
+				layout="grid" 
+				columnsize="4">
+			</wg-selectoneradio>
+			
+			<p>Controller value is: {{inputRadioCtrl.city}}</p>
+		</wg-fieldset>
+		
+	</section>
+
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<wg-fieldset legend="Simple">
+
+	<wg-selectoneradio 
+		value="inputRadioCtrl.console" 
+		options="inputRadioCtrl.consoleOptions"  
+		layout="horizontal">
+	</wg-selectoneradio>
+
+	<p>Controller value is: {{inputRadioCtrl.console}}</p>
+</wg-fieldset>
+
+<wg-fieldset legend="Object">
+
+	<wg-selectoneradio 
+		value="inputRadioCtrl.city" 
+		options="inputRadioCtrl.cityOptions"
+		optionLabel="name"	
+		layout="grid" 
+		columnsize="4">
+	</wg-selectoneradio>
+
+	<p>Controller value is: {{inputRadioCtrl.city}}</p>
+</wg-fieldset>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function InputRadioController($wgGrowl) {
+
+	var vm = this;
+	
+	vm.consoleOptions = ['Xbox One', 'PS4', 'Wii U'];
+	vm.console = null;	
+	
+	vm.cityOptions = [
+		{ id: 1, name: 'Miami', country: 'US'},
+		{ id: 2, name: 'Brasilia', country: 'BR'},
+		{ id: 3, name: 'Porto Velho', country: 'BR'},
+		{ id: 4, name: 'London', country: 'UK'},
+		{ id: 5, name: 'Paris', country: 'FR'}			
+	];
+
+	vm.city = null;
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>
