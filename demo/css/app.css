@@ -41,11 +41,6 @@ pre {
     border: 0px !important;
 }
 
-
-tr.pui-datatable-odd {
-    background: none repeat scroll 0 0 #F2F5F9;
-}
-
 body {
     font-size: 14px;
     background-color: #F7F7F7;    

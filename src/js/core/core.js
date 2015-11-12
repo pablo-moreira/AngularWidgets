@@ -76,6 +76,10 @@
 			return angular.isNumber(num);
 		},
 
+		isObject: function(obj) {
+			return angular.isObject(obj);
+		},
+
 		isFunction: function(fct) {
 			return angular.isFunction(fct);
 		},

@@ -60,6 +60,23 @@
 			]
 		},
 		{
+			"widget" : "wgDatalist",
+			"label" : "Datalist",
+			"controller" : "DatalistController",
+			"defaultPath" : "datalist/datalistOverview",
+			"subPages" : [ 
+				{ "label" : "Overview", "path" : "datalist/datalistOverview" }, 
+				{ "label" : "Default", "path" : "datalist/datalistDefault" }, 
+				{ "label" : "Empty Message", "path" : "datalist/datalistEmptyMessage" },
+				{ "label" : "Custom content", "path" : "datalist/datalistCustomContent" },
+				{ "label" : "Selection", "path" : "datalist/datalistSelection" },
+				{ "label" : "Paginator", "path" : "datalist/datalistPaginator" },
+				{ "label" : "Facets", "path" : "datalist/datalistFacets" },
+				{ "label" : "HttpDataSource", "path" : "datalist/datalistHttpDataSource" },
+				{ "label" : "Simple Restrictions", "path" : "datalist/datalistSimpleRestriction" },
+			]
+		},
+		{
 			"widget": "wgDialog",
 			"label": "Dialog",
 			"controller": "DialogController",

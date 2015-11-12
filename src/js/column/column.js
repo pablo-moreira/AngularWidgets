@@ -17,7 +17,7 @@
 	        		sortable 	: attrs.sortable || attrs.sortby !== undefined ? true : false,
 	        		headerText	: attrs.headertext || attrs.value,
 	        		element		: element,
-	        		contents	: element[0].innerHTML.trim()        		
+	        		contents	: element[0].innerHTML.trim()
 	        	};
     				
         		element.html('');

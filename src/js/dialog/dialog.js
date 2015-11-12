@@ -237,7 +237,7 @@
 						$this.dialog.removeClass($this.options.hideAnimation);
 						$this.element.hide();
 						$this.postHide();
-					})
+					});
 				}
 				else {
 					this.element.hide();
@@ -279,7 +279,7 @@
 		
 				this.modality = angular.element('<div id="' + this.id + '" class="pui-dialog-modal ui-widget-overlay"></div>')
 					.css({ 'zIndex' : ++AngularWidgets.zindex })
-					.appendTo($document[0].body)
+					.appendTo($document[0].body);
 				
 				if (this.options.enableAnimation) {
 					

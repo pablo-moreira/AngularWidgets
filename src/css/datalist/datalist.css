@@ -1,0 +1,43 @@
+.pui-datalist .pui-datalist-header,
+.pui-datalist .pui-datalist-footer {
+    text-align:center;
+    padding:4px 10px;
+}
+
+.pui-datalist .pui-datalist-header {
+    border-bottom: 0px none;
+}
+
+.pui-datalist .pui-datalist-footer {
+    border-top: 0px none;
+}
+
+.pui-datalist .pui-datalist-empty-message {
+    padding: 4px 10px;
+}
+
+.pui-datalist .pui-datalist-nobullets {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.pui-datalist-content.ui-widget-content.pui-datalist-alone {
+	border: none;	
+}
+
+.pui-datalist ul,
+.pui-datalist ol,
+.pui-datalist dl {
+	margin: 0px;
+}
+
+.pui-datalist li,
+.pui-datalist dt {
+	padding: 4px 10px;
+	border: 1px solid #fff;
+}
+
+.pui-datalist .pui-datalist-data li.ui-state-hover {    
+    cursor: pointer;
+    font-weight: inherit;
+}
