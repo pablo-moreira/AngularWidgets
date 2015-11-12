@@ -129,6 +129,18 @@
 				{ "label": "Layouts", "path": "inputRadio/inputRadioLayouts" },
 				{ "label": "Disabled", "path": "inputRadio/inputRadioDisabled" }
 		     ]
+		},
+		{
+			"widget": "wgInputRadio",
+			"label": "InputRadio",
+			"controller": "InputRadioController",
+			"defaultPath": "inputRadio/inputRadioOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "inputRadio/inputRadioOverview" },
+				{ "label": "Default", "path": "inputRadio/inputRadioDefault" },
+				{ "label": "SelectOneRadio", "path": "inputRadio/inputRadioSelectOneRadio" },
+				{ "label": "Layouts", "path": "inputRadio/inputRadioLayouts" }
+		     ]
 		 },
 /*		{
 			"widget": "puiDropdown",
