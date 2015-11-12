@@ -167,97 +167,47 @@
 				{ "label": "Table Content", "path": "dropdown/dropdownTableContent" }
 			]
 		},*/ 
- {
-     "widget": "puiInputText",
-     "label": "InputText",
-     "controller": "InputController",
-     "defaultPath": "inputText/overview",
-     "subPages": [
-         {
-             "label": "overview",
-             "path": "inputText/overview"
-         },
-         {
-             "label": "default",
-             "path": "inputText/default"
-         },
-         {
-             "label": "disabled",
-             "path": "inputText/disabled"
-         },
-         {
-             "label": "visible",
-             "path": "inputText/visible"
-         }        ]
- },
- {
-     "widget": "puiPanel",
-     "label": "Panel",
-     "controller": "PanelController",
-     "defaultPath": "panel/overview",
-     "subPages": [
-         {
-             "label": "overview",
-             "path": "panel/overview"
-         },
-         {
-             "label": "default",
-             "path": "panel/default"
-         },
-         {
-             "label": "options",
-             "path": "panel/options"
-         },
-         {
-             "label": "programmatic toggle",
-             "path": "panel/progtoggle"
-         },
-         {
-             "label": "dynamic title",
-             "path": "panel/title"
-         },
-         {
-             "label": "Callback",
-             "path": "panel/callback"
-         }
-     ]
- }, 
- {
-     "widget": "puiTabview",
-     "label": "TabView",
-     "controller": "TabviewController",
-     "defaultPath": "tabview/overview",
-     "subPages": [
-         {
-             "label": "Overview",
-             "path": "tabview/overview"
-         },
-         {
-             "label": "Default",
-             "path": "tabview/default"
-         },
-         {
-             "label": "Closeable",
-             "path": "tabview/closeable"
-         },
-         {
-             "label": "Left Orientation",
-             "path": "tabview/left"
-         },
-         {
-             "label": "Callback",
-             "path": "tabview/callback"
-         },
-         {
-             "label": "Dynamic",
-             "path": "tabview/dynamic"
-         },
-         {
-             "label": "Programmatic Index Change",
-             "path": "tabview/programmatic"
-         }
-     ]
- }                                                
+		{
+			"widget": "puiInputText",
+			"label": "InputText",
+			"controller": "InputController",
+			"defaultPath": "inputText/overview",
+			"subPages": [
+				{ "label": "overview", "path": "inputText/overview" },
+				{ "label": "default", "path": "inputText/default" },
+				{ "label": "disabled", "path": "inputText/disabled" },
+				{ "label": "visible", "path": "inputText/visible" }
+			]
+		},
+		{
+			"widget": "puiPanel",
+			"label": "Panel",
+			"controller": "PanelController",
+			"defaultPath": "panel/overview",
+			"subPages": [
+				{ "label": "overview", "path": "panel/overview" },
+				{ "label": "default", "path": "panel/default" },
+				{ "label": "options", "path": "panel/options" },
+				{ "label": "programmatic toggle", "path": "panel/progtoggle" },
+				{ "label": "dynamic title", "path": "panel/title" },
+				{ "label": "Callback", "path": "panel/callback" }
+			]
+		}, 
+		{
+			"widget": "puiTabview",
+			"label": "TabView",
+			"controller": "TabviewController",
+			"defaultPath": "tabview/overview",
+			"subPages": [
+				{ "label": "Overview", "path": "tabview/overview" },
+				{ "label": "Default", "path": "tabview/default" },
+				{ "label": "Closeable", "path": "tabview/closeable" },
+				{ "label": "Left Orientation", "path": "tabview/left" },
+				{ "label": "Callback", "path": "tabview/callback" },
+				{ "label": "Dynamic", "path": "tabview/dynamic" },
+				{ "label": "Programmatic Index Change", "path": "tabview/programmatic" }
+			]
+		}
 	]);
 
 }(window, document));
