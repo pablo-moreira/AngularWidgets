@@ -1,0 +1,56 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Disable</header>
+		
+		<wg-selectoneradio 
+			value="inputRadioCtrl.console" 
+			options="inputRadioCtrl.consoleOptions"  
+			layout="horizontal"
+			disabled="inputRadioCtrl.selectOneRadioDisabled">
+		</wg-selectoneradio>
+			
+		<br>		
+
+		<wg-button action="inputRadioCtrl.selectOneRadioDisabled = false" ng-show="inputRadioCtrl.selectOneRadioDisabled" id="btnEnable" value="Enable"></wg-button>
+		<wg-button action="inputRadioCtrl.selectOneRadioDisabled = true" ng-hide="inputRadioCtrl.selectOneRadioDisabled" id="btnDisable" value="Disable"></wg-button>
+
+		<p>Controller value is: {{inputRadioCtrl.console}}</p>
+	</section>
+
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<wg-selectoneradio 
+	value="inputRadioCtrl.console" 
+	options="inputRadioCtrl.consoleOptions"  
+	layout="horizontal"
+	disabled="inputRadioCtrl.selectOneRadioDisabled">
+</wg-selectoneradio>
+
+<br>		
+
+<wg-button action="inputRadioCtrl.selectOneRadioDisabled = false" ng-show="inputRadioCtrl.selectOneRadioDisabled" id="btnEnable" value="Enable"></wg-button>
+<wg-button action="inputRadioCtrl.selectOneRadioDisabled = true" ng-hide="inputRadioCtrl.selectOneRadioDisabled" id="btnDisable" value="Disable"></wg-button>
+
+<p>Controller value is: {{inputRadioCtrl.console}}</p>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function InputRadioController($wgGrowl) {
+
+	var vm = this;
+	
+	vm.consoleOptions = ['Xbox One', 'PS4', 'Wii U'];
+
+	vm.console = null;
+
+	vm.selectOneRadioDisabled = true;
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

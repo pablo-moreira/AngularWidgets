@@ -26,6 +26,8 @@
 
 		vm.city = null;
 		vm.cityDefault = vm.cityOptions[3];
+
+		vm.selectOneRadioDisabled = true;
     }
 
 }(window, document));

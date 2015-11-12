@@ -1,21 +1,18 @@
 (function (window, document, undefined) {
     "use strict";
 
-    angular.module('angularWidgets')
-    	.config(['$wgConfigProvider', InputRadioConfig])
+    angular.module('angularWidgets')    	
     	.factory('widgetInputRadio', ['widgetBase', '$compile', '$timeout', InputRadioWidget])
     	.factory('widgetSelectOneRadio', ['widgetBase', '$compile', '$timeout', SelectOneRadioWidget])
 		.directive('wgInputradio', ['widgetInputRadio', InputRadioDirective])
 		.directive('wgSelectoneradio', ['widgetSelectOneRadio', SelectOneRadioDirective]);
-		
-	function InputRadioConfig($wgConfigProvider) {
-		$wgConfigProvider.configureWidget('inputradio', {});
-	}
 	
 	function InputRadioWidget(widgetBase, $compile, $timeout) {
 
-    	var widget = {};
-
+		AngularWidgets.configureWidget('inputradio', {});
+		
+    	var widget = {};    	
+    	
     	widget.checkedRadios = {};
     	
         widget.template = '<input type="radio" />';
@@ -27,7 +24,9 @@
     	widget.Inputradio = widgetBase.createWidget({
 
     		init: function(options) {
-    			
+				
+				var $this = this;
+
     			this.element.wrap('<div class="ui-helper-hidden-accessible"></div>');
     			this.hidden = this.element.parent();
     			this.hidden.wrap('<div class="pui-radiobutton ui-widget">');
@@ -36,24 +35,14 @@
     			this.box = this.container.childrenSelector('.pui-radiobutton-box');
     			this.icon = this.box.childrenSelector('.pui-radiobutton-icon');
 				
-				this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.inputradio, options, ['onChange'], ['disabled']);
+    			this.determineOptions(options);
 
      			this.element.attr({
      				'ng-value': this.options.option,
      				'ng-model': this.options.value,
      				'name' : this.options.name || this.options.value.replace('\.', '_')
      			});
-    			
-                this.disabled = this.element.prop('disabled');
-                    
-                var $this = this;
-                
-                $timeout(function () {
-                	$this.initLabel();
-                }, 1000);                
-                
-				$compile(this.element)(this.scope);
-                
+    			                                                   
                 // check if model is default option
 				var value = this.scope.$eval(this.element.attr('value'));
 				var option = this.scope.$eval(this.element.attr('option'));
@@ -62,14 +51,25 @@
                 	this.box.addClass('ui-state-active');
                 	this.icon.addClass('fa fa-fw fa-circle');
                 	widget.checkedRadios[this.element.attr('name')] = this.box;
-                }
+                }  
+                                     
+                if (options.disabled) {
+
+					this.element.attr('ng-disabled', this.options.disabled); 
+
+	            	this.scope.$watch(options.disabled, function (value) {
+	            		$this.enableDisable(value);
+					});
+	            }
+	            else {
+	            	this.enable();
+	            }
                 
-                if (this.disabled) {
-                    this.box.addClass('ui-state-disabled');
-                } 
-                else {
-                	this.bindEvents();
-                }
+				$compile(this.element)(this.scope);
+
+            	$timeout(function () {
+               		$this.initLabel();
+                }, 300);
 
        			this.element[0].removeAttribute('value');
     			this.element[0].removeAttribute('disabled');
@@ -77,7 +77,7 @@
     		},
     		
 	        determineOptions: function (options) {
-	        	this.options = widgetBase.determineOptions(this.scope, widgetBase.getConfiguration().widgets.radio, options);
+				this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.inputradio, options, ['onChange'], ['disabled']);
 			},
         	
     		initLabel: function() {
@@ -85,13 +85,16 @@
                 this.label = angular.element(document.querySelectorAll('label[for="' + this.options.id + '"]'));
                 this.label.addClass('pui-radiobutton-label');
                 
-                if (!this.disabled) {
+                if (this.disabled) {
+                	this.label.addClass('ui-state-disabled');
+                }
+                else {
                 	this.bindLabelEvents();
-                }                
+                }
       		},
     		
     		bindLabelEvents: function() {
-    			if (this.label) {
+    			if (this.label !== undefined && this.label.length > 0) {
     				var $this = this;
 	    			this.label.bind('click', function(e) {
 	                    $this.element[0].click();
@@ -122,6 +125,8 @@
 //	                    }
 	                }
 	            });
+
+	            this.bindLabelEvents();
 	            
 	            this.element
 	            .bind('focus', function() {
@@ -147,9 +152,7 @@
 
 	                $this.icon.addClass('fa fa-fw fa-circle');
 	                
-	                if(!$this.element.is(':focus')) {
-	                    $this.box.addClass('ui-state-active');
-	                }
+	                $this.box.addClass('ui-state-active');	                
 
 	                widget.checkedRadios[name] = $this.box;
 	                
@@ -163,23 +166,41 @@
 	            return this.element.attr('checked');
 	        },
 
+	        enableDisable: function(value) {
+				            	
+            	if (value === true) {	
+					this.disable();
+                }
+                else {
+                    this.enable();
+                }
+    		},
+
+	        enable: function () {
+	        	this.disabled = false;
+	            this.bindEvents();
+	            this.box.removeClass('ui-state-disabled');
+	            if (this.label !== undefined) {
+	            	this.label.removeClass('ui-state-disabled');
+	            }
+	        },
+
+	        disable: function () {
+	        	this.disabled = true;
+	            this.unbindEvents();
+	            this.box.addClass('ui-state-disabled');
+	            if (this.label !== undefined) {
+	            	this.label.addClass('ui-state-disabled');
+	            }
+	        },
+
 	        unbindEvents: function () {
 	        
 	        	this.box.off();
 
-	            if (this.label.length > 0) {
+	            if (this.label !== undefined) {
 	                this.label.off();
 	            }
-	        },
-
-	        enable: function () {
-	            this.bindEvents();
-	            this.box.removeClass('ui-state-disabled');
-	        },
-
-	        disable: function () {
-	            this.unbindEvents();
-	            this.box.addClass('ui-state-disabled');
 	        }
         });
         
@@ -188,6 +209,12 @@
 
     function SelectOneRadioWidget(widgetBase, $compile, $timeout) {
 
+    	AngularWidgets.configureWidget('selectoneradio', {
+			optionLabel: undefined,
+			layout: 'grid',
+			columnSize: 3
+    	});
+    	
     	var widget = {};
     	
         widget.template =	'<div class="pui-selectoneradio ui-widget pui-grid pui-grid-responsive">' + 
@@ -205,23 +232,21 @@
 
 				this.childrenScope = [];
 				
-				var opt_default = {
-					optionLabel: undefined,
-					layout: 'grid',
-					columnSize: 3
-				};
+				this.determineOptions(options)
 				
-				this.options = widgetBase.determineOptions(this.scope, opt_default, options, [], []);
-
 				this.id = this.element.attr('id');
 				
 				if(!this.id) {
 					this.id = this.element.uniqueId('wg-ir').attr('id');
 				}
-
+				
     			this.items = this.scope.$eval(this.options.options);    			
 				
 				this.renderOptions();
+    		},
+    		
+    		determineOptions: function(options) {
+    			this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.selectoneradio, options);
     		},
     		
     		renderOptions: function() {
@@ -244,7 +269,7 @@
 					
 					var itemScope = $this.createChildScope(item);
 										
-					var id = $this.options.id + '-' + index,
+					var id = $this.id + '-' + index,
 						itemLabel = ($this.options.optionLabel !== undefined) ? item[$this.options.optionLabel] : item;
 						
 					var tdLabel = angular.element('<td>' + $this.renderLabel(id, itemLabel) + '</td>');
@@ -297,7 +322,16 @@
 			},
 
 			renderRadio: function(id) {
-				return '<wg-inputradio id="' + id + '" value="' + this.options.value + '" option="$item"></wg-inputradio>';
+				
+				var radio = '<wg-inputradio id="' + id + '" value="' + this.options.value + '" option="$item"';
+				
+				if (this.options.disabled) {
+					radio+= ' disabled="' + this.options.disabled + '"';
+				}
+				
+				radio+= '></wg-inputradio>';
+				
+				return radio;
 			},
 
     		renderLabel: function(id, itemLabel) {

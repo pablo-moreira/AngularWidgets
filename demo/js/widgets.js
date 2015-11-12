@@ -126,7 +126,8 @@
 				{ "label": "Overview", "path": "inputRadio/inputRadioOverview" },
 				{ "label": "Default", "path": "inputRadio/inputRadioDefault" },
 				{ "label": "SelectOneRadio", "path": "inputRadio/inputRadioSelectOneRadio" },
-				{ "label": "Layouts", "path": "inputRadio/inputRadioLayouts" }
+				{ "label": "Layouts", "path": "inputRadio/inputRadioLayouts" },
+				{ "label": "Disabled", "path": "inputRadio/inputRadioDisabled" }
 		     ]
 		 },
 /*		{
