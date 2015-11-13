@@ -30,7 +30,7 @@
     	return widget;
     }
 
-    function TabDirective(widgetBase) {
+    function TabDirective() {
         return {
             restrict: 'E',
             priority: 1000,
