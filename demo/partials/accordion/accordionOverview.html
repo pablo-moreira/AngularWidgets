@@ -1,0 +1,38 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<wg-fieldset id="description" legend="Description" style="margin-bottom:20px">
+		Accordion is a container component with vertically stacked panels.
+	</wg-fieldset>
+	
+	<wg-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
+	
+	</wg-fieldset>
+	
+	<wg-fieldset id="issues" legend="Known issues" style="margin-bottom:20px">
+	</wg-fieldset>
+
+	<wg-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
+	</wg-fieldset>
+
+	<wg-fieldset id="Configuration" legend="Documentation" style="margin-bottom:20px">
+
+		<table class="doc-table">
+        	<thead>
+	           	<tr>
+	               	<th class="ui-state-default">Name</th>
+					<th class="ui-state-default">Type</th>
+					<th class="ui-state-default">Default</th>
+					<th class="ui-state-default">Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="ui-widget-content" ng-repeat=" option in mainCtrl.widget.options">
+					<td>{{option.name}}</td>
+	                <td>{{option.type}}</td>
+	                <td>{{option.default}}</td>
+	                <td>{{option.description}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</wg-fieldset>
+</wg-panel>
