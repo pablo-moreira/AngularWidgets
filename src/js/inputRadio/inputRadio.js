@@ -205,7 +205,7 @@
         });
         
         return widget;
-    };
+    }
 
     function SelectOneRadioWidget(widgetBase, $compile, $timeout) {
 
@@ -232,7 +232,7 @@
 
 				this.childrenScope = [];
 				
-				this.determineOptions(options)
+				this.determineOptions(options);
 				
 				this.id = this.element.attr('id');
 				
@@ -287,7 +287,7 @@
 
     			var $this = this,
 					used = 0,
-					divRow = undefined,      		
+					divRow,      		
 					colSize = this.options.columnSize;
 
 				if (this.options.layout === 'vertical') {
@@ -351,8 +351,7 @@
         });
         
         return widget;
-    };
-
+    }
 
     function InputRadioDirective(widgetInputRadio) {       
         return {
@@ -365,7 +364,7 @@
             replace: true,
             template: widgetInputRadio.template
         };
-    };
+    }
 
     function SelectOneRadioDirective(widgetSelectOneRadio) {       
         return {
@@ -378,6 +377,6 @@
             replace: true,
             template: widgetSelectOneRadio.template
         };
-    };  
+    }
     
 }(window, document));
