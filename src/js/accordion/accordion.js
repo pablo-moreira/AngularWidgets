@@ -155,10 +155,12 @@
 
 					if (this.options.onTabShow) {
 						this.options.onTabShow(this.bindInstance, index);
+						this.scope.safeApply();
 					}
 
 					if (tab.options.onShow) {
 						tab.options.onShow(this.bindInstance);
+						this.scope.safeApply();
 					}
 
 					//update state
@@ -195,10 +197,12 @@
 
 				if (this.options.onTabHide) {
 					this.options.onTabHide(this.bindInstance, index);
+					this.scope.safeApply();
 				}
 
 				if (tab.options.onHide) {
 					tab.options.onHide(this.bindInstance);
+					this.scope.safeApply();
 				}
 							
 				this.removeFromSelection(index);				 
