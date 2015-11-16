@@ -15,7 +15,7 @@
             	var parseValue = $parse(model);
             	parseValue.assign(scope, value);
            	});
-		}
+		};
 
     	widgetBase.verifyRequiredOptions = function(widget, requiredOptions) {
 
