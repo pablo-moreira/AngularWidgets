@@ -228,7 +228,7 @@
         });
         
         return widget;
-    };
+    }
 
     function InputCheckboxDirective(widgetInputCheckbox) {       
         return {
@@ -241,6 +241,6 @@
             replace: true,
             template: widgetInputCheckbox.template
         };
-    };
+    }
     
 }(window, document));
