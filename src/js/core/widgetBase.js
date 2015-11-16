@@ -10,6 +10,13 @@
 	
     	var widgetBase = {};
 
+		widgetBase.setModelValue = function(scope, model, value) {           
+            scope.safeApply(function() {
+            	var parseValue = $parse(model);
+            	parseValue.assign(scope, value);
+           	});
+		}
+
     	widgetBase.verifyRequiredOptions = function(widget, requiredOptions) {
 
     		requiredOptions = angular.isArray(requiredOptions) ? requiredOptions : [requiredOptions];
