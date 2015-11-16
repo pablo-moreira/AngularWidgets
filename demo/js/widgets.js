@@ -3,6 +3,23 @@
     
     angular.module('demo').constant('widgets', [
 		{
+			"widget": "puiAccordion",
+			"label": "Accordion",
+			"controller": "AccordionController",
+			"defaultPath": "accordion/accordionOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "accordion/accordionOverview" },
+				{ "label": "Default", "path": "accordion/accordionDefault" },
+				{ "label": "Multiple", "path": "accordion/accordionMultiple" },
+				{ "label": "Events", "path": "accordion/accordionEvents" },
+				{ "label": "Tab Events", "path": "accordion/accordionTabEvents" }
+			],
+			options : [
+				{ name: 'activeIndex', type: 'Integer/Array', 'default': 0, description: 'Index of the active tab. If multiple is enabled, an array of active indexes.' },
+				{ name: 'multiple', type: 'Boolean', 'default': false, description: 'Defines if multiple tabs can be active at the same time.' }
+			]
+		},
+		{
 			"widget": "wgAutocomplete",
 			"label": "Autocomplete",
 			"controller": "AutocompleteController",

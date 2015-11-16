@@ -177,31 +177,31 @@
 
         	angular.forEach(items, function (item) {
 
-        		var elem = angular.element(item);
+				var elem = angular.element(item);
 
         		elem.hover(function () {
-                    var $this = angular.element(this);
-                    if (!$this.hasClass('ui-state-active') && !$this.hasClass('ui-state-disabled')) {
-                        $this.addClass('ui-state-hover');
+                    var element = angular.element(this);
+                    if (!element.hasClass('ui-state-active') && !element.hasClass('ui-state-disabled')) {
+                        element.addClass('ui-state-hover');
                     }
-                }, function () {
-                    var $this = angular.element(this);
-                    if (!$this.hasClass('ui-state-active')) {
-                        $this.removeClass('ui-state-hover');
+                }, 
+                function () {
+                    var element = angular.element(this);
+                    if (!element.hasClass('ui-state-active') && !element.hasClass('ui-state-disabled')) {
+                        element.removeClass('ui-state-hover');
                     }
                 });
 
-
         		elem.focus(function () {
-        			var $this = angular.element(this);
-        			if (!$this.hasClass('ui-state-disabled')) {
-                        $this.addClass('ui-state-focus');
+        			var element = angular.element(this);
+        			if (!element.hasClass('ui-state-disabled')) {
+                        element.addClass('ui-state-focus');
                     }        			
                 });
 
         		elem.blur(function () {
-        			var $this = angular.element(this);
-        			$this.removeClass('ui-state-focus');
+        			var element = angular.element(this);
+        			element.removeClass('ui-state-focus');
                 });
             });
         };

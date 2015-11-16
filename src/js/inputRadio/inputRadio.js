@@ -377,6 +377,6 @@
             replace: true,
             template: widgetSelectOneRadio.template
         };
-    }  
+    }
     
 }(window, document));

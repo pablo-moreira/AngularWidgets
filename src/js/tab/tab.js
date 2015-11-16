@@ -2,10 +2,10 @@
     "use strict";
 
     angular.module('angularWidgets')
-        .factory('widgetTab', TabWidget)
+        .factory('widgetTab', [ 'widgetBase', TabWidget])
         .directive('wgTab', TabDirective);
     
-    function TabWidget() {
+    function TabWidget(widgetBase) {
     	
     	var widget = {};
     	
@@ -15,7 +15,11 @@
             	tabs = [];
             
             angular.forEach(puiTabs, function(puiTab) {
-            	this.push(angular.element(puiTab).data('options'));
+                
+                var options = angular.element(puiTab).data('options');
+                options.options = widgetBase.determineOptions(options.scope, { onHide:undefined, onShow:undefined }, options.options, ['onShow','onHide']);
+            	this.push(options);
+            	
             }, tabs);
             
             puiTabs.remove();
@@ -37,6 +41,7 @@
             		scope		: scope,
             		element		: element,
             		header 		: attrs.header,
+            		options		: attrs,
             		transclude  : $transclude
             	};
             	
