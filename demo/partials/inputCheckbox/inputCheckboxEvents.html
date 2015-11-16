@@ -1,0 +1,42 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Disable</header>		
+		
+		<div>
+			<wg-inputcheckbox id="icAngularWidgets" value="inputCheckboxCtrl.angularWidgets" onChange="inputCheckboxCtrl.onChange"></wg-inputcheckbox>
+			<label for="icAngularWidgets">AngularWidgets</label>
+		</div>
+		
+		<p>Controller value is: {{inputCheckboxCtrl.angularWidgets}}</p>
+	</section>
+
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">	
+<div>
+	<wg-inputcheckbox id="icAngularWidgets" value="inputCheckboxCtrl.angularWidgets" onChange="inputCheckboxCtrl.onChange"></wg-inputcheckbox>
+	<label for="icAngularWidgets">AngularWidgets</label>
+</div>
+
+<p>Controller value is: {{inputCheckboxCtrl.angularWidgets}}</p>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function InputCheckboxController($wgGrowl) {
+
+	var vm = this;
+
+	vm.angularWidgets = false;
+
+	vm.onChange = function(checkbox, checked) {
+		$wgGrowl.showInfoMessage('Checkbox', 'The checkbox value is: '  + (checked ? 'true' : 'false'));
+	};
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

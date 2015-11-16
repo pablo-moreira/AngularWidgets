@@ -1,0 +1,28 @@
+.pui-checkbox {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.pui-checkbox .pui-checkbox-box {
+    float: left;
+    width: 16px;
+    height: 16px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    margin-right: 3px;
+}
+
+.pui-checkbox .pui-checkbox-icon {
+    margin-top: 1px;
+    margin-left: -1px;
+}
+
+.pui-checkbox .pui-checkbox-label {
+    cursor: pointer;
+    display: block;
+    margin: 0 3px;
+    outline: medium none;
+    z-index: 1;
+    float: left;
+}

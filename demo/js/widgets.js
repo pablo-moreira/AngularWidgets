@@ -135,6 +135,18 @@
 		     ]
 		},
 		{
+			"widget": "wgInputCheckbox",
+			"label": "InputCheckbox",
+			"controller": "InputCheckboxController",
+			"defaultPath": "inputCheckbox/inputCheckboxOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "inputCheckbox/inputCheckboxOverview" },				
+				{ "label": "Default", "path": "inputCheckbox/inputCheckboxDefault" },
+				{ "label": "Disabled", "path": "inputCheckbox/inputCheckboxDisabled" },
+				{ "label": "Events", "path": "inputCheckbox/inputCheckboxEvents" }			
+		     ]
+		},
+		{
 			"widget": "wgInputRadio",
 			"label": "InputRadio",
 			"controller": "InputRadioController",
