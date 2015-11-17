@@ -1,8 +1,8 @@
 <wg-panel header="{{mainCtrl.widget.label}}">
-		
+
 	<section>
-		<header>Default integration</header>
-		<wg-panel id="default" header="Default">
+		<header>Collapseable and closeable can be specified by options</header>
+		<wg-panel id="options" toggleable="true" closable="true" header="Toggle and Close">
 			The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
 			His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
 			Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
@@ -11,19 +11,18 @@
 		</wg-panel>
 	</section>
 
-	<wg-fieldset id="Source" legend="Source" style="margin-top:20px">
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<wg-tabview id="sourceTabs" >
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<wg-panel id="default" header="Default">
+<wg-panel id="options" toggleable="true" closable="true" header="Toggle and Close">
 	The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
 	...
 	but given to ruthless violence whenever anything stands against the good of the family.
 </wg-panel>
 				</demo-source>
 			</wg-tab>
-			<wg-tab header="Controller" id="d_script">
-			</wg-tab>
 		</wg-tabview>
 	</wg-fieldset>
+		
 </wg-panel>
