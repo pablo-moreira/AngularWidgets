@@ -1,0 +1,37 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Default integration</header>
+
+		<wg-inputText id="default" value="inputTextCtrl.value1"></wg-inputText><br/>
+		Controller value is : <span id="defaultModel">{{inputTextCtrl.value1}}</span><br/>
+		<wg-inputText id="digits" type="number" value="inputTextCtrl.numbers"></wg-inputText><br/>
+		Controller value is : <span id="digitsModel">{{inputTextCtrl.numbers}}</span>
+	</section>
+
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<wg-inputText id="default" value="inputTextCtrl.value1"></wg-inputText><br/>
+Controller value is : <span id="defaultModel">{{inputTextCtrl.value1}}</span><br/>
+<wg-inputText id="digits" type="number" value="inputTextCtrl.numbers"></wg-inputText><br/>
+Controller value is : <span id="digitsModel">{{inputTextCtrl.numbers}}</span>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function InputTextController() {
+  		
+   	var vm = this;
+	
+	vm.value1 = 'Change me';
+	vm.numbers = 123;
+	
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+		
+</wg-panel>

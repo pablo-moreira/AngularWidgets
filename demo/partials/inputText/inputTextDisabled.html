@@ -1,0 +1,46 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Support for disabled</header>
+
+		<wg-inputText id="disabled" value="inputTextCtrl.value1" pui-disabled="inputTextCtrl.fieldDisabled"></wg-inputText>
+		<br/>
+		<br/>
+		Controller value is : <span id="modelValue">{{inputTextCtrl.value1}}</span><br/>
+		<wg-button action="inputTextCtrl.enableField()" ng-show="inputTextCtrl.fieldDisabled" id="enableBtn" value="Enable"></wg-button>
+		<wg-button action="inputTextCtrl.disableField()" ng-hide="inputTextCtrl.fieldDisabled" id="disableBtn" value="Disable"></wg-button>
+	</section>
+
+	<wg-fieldset id="Source"legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<wg-inputText id="disabled" value="inputTextCtrl.value1" pui-disabled="inputTextCtrl.fieldDisabled"></wg-inputText>
+<br/>
+<br/>
+Controller value is : <span id="modelValue">{{inputTextCtrl.value1}}</span><br/>
+<wg-button action="inputTextCtrl.enableField()" ng-show="inputTextCtrl.fieldDisabled" id="enableBtn" value="Enable"></wg-button>
+<wg-button action="inputTextCtrl.disableField()" ng-hide="inputTextCtrl.fieldDisabled" id="disableBtn" value="Disable"></wg-button>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function InputTextController() {
+  		
+   	var vm = this;
+	
+	vm.fieldDisabled = true;
+
+	vm.enableField = function() {
+		vm.fieldDisabled = false;
+	};
+
+	vm.disableField = function() {
+	    vm.fieldDisabled =  true;
+	};
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

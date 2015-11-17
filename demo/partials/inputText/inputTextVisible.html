@@ -3,12 +3,12 @@
 	<section>
 		<header>Support for rendered</header>
 		
-		<wg-inputText id="visible" value="value1" rendered="fieldVisible"></wg-inputText>
+		<wg-inputText id="visible" value="inputTextCtrl.value1" rendered="inputTextCtrl.fieldVisible"></wg-inputText>
 		<br/>
 		<br/>
-		Controller value is : <span id="modelValue">{{value1}}</span><br/>
-		<button ng-click="showField()" type="button" ng-hide="fieldVisible" id="showBtn">Show</button>
-		<button ng-click="hideField()" type="button" ng-show="fieldVisible" id="hideBtn">Hide</button>
+		Controller value is : <span id="modelValue">{{inputTextCtrl.value1}}</span><br/>
+		<button ng-click="inputTextCtrl.showField()" type="button" ng-hide="inputTextCtrl.fieldVisible" id="showBtn">Show</button>
+		<button ng-click="inputTextCtrl.hideField()" type="button" ng-show="inputTextCtrl.fieldVisible" id="hideBtn">Hide</button>
 	</section>
 
 	<wg-fieldset id="Source"legend="Source" style="margin-bottom:20px">
