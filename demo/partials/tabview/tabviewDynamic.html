@@ -1,0 +1,55 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+		
+	<section>
+		<header>Title and content can be dynamic</header>
+		
+		<wg-tabview id="dynamic" >
+        	<wg-tab header="{{tabviewCtrl.title1}}" id="tab1">
+            	{{tabviewCtrl.description1}}
+			</wg-tab>
+			<wg-tab header="{{tabviewCtrl.title2}}" id="tab2">
+            	{{tabviewCtrl.description2}}
+			</wg-tab>
+		</wg-tabview>
+		
+		<p>Title 1 = <wg-inputtext value="tabviewCtrl.title1" id="title1"></wg-inputtext></p>
+		<p>Description 1 = <wg-inputtext value="tabviewCtrl.description1" id="desc1"></wg-inputtext></p>
+		<p>Title 2 = <wg-inputtext value="tabviewCtrl.title2" id="title2"></wg-inputtext></p>
+		<p>Description 2 = <wg-inputtext value="tabviewCtrl.description2" id="desc2"></wg-inputtext></p>
+	</section>
+
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<wg-tabview id="dynamic" >
+      	<wg-tab header="{{tabviewCtrl.title1}}" id="tab1">
+          	{{tabviewCtrl.description1}}
+	</wg-tab>
+	<wg-tab header="{{tabviewCtrl.title2}}" id="tab2">
+          	{{tabviewCtrl.description2}}
+	</wg-tab>
+</wg-tabview>
+
+<p>Title 1 = <wg-inputtext value="tabviewCtrl.title1" id="title1"></wg-inputtext></p>
+<p>Description 1 = <wg-inputtext value="tabviewCtrl.description1" id="desc1"></wg-inputtext></p>
+<p>Title 2 = <wg-inputtext value="tabviewCtrl.title2" id="title2"></wg-inputtext></p>
+<p>Description 2 = <wg-inputtext value="tabviewCtrl.description2" id="desc2"></wg-inputtext></p>
+				</demo-source>
+		    </wg-tab>
+			<wg-tab header="controller" id="d_script">
+				<demo-source language="javascript">
+function TabviewController($wgGrowl) {
+
+	var vm = this;
+	vm.title1 = 'title1';
+	vm.description1 = 'description1';
+	vm.title2 = 'title2';
+	vm.description2 = 'description2';
+	
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>
