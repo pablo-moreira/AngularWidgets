@@ -4,7 +4,7 @@
 		<header>Custom content</header>
 
 		<wg-fieldset legend="Single">		
-			<wg-autocomplete id="acCustomSingle" value="car" completeMethod="httpDataSourceSingle" item="car" itemLabel="brand" dropdown="true" paginator="true" rows="25">
+			<wg-autocomplete id="acCustomSingle" value="autocompleteCtrl.car" items="autocompleteCtrl.httpDataSourceSingle" item="car" itemLabel="brand" dropdown="true" paginator="true" rows="25">
 				<wg-column headerText="Vin" value="vin"></wg-column>
 				<wg-column headerText="Brand" value="brand"></wg-column>
 				<wg-column headerText="Year" value="year"></wg-column>
@@ -14,11 +14,11 @@
 			</wg-autocomplete>
 			<br/>
 			<br/>
-			Controller value is: <pre ng-show="car != null">{{car | json}}</pre>
+			Controller value is: <pre ng-show="autocompleteCtrl.car != null">{{autocompleteCtrl.car | json}}</pre>
 		</wg-fieldset>
 	
 		<wg-fieldset legend="Multiple" style="margin-top: 10px">
-			<wg-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="httpDataSourceMultiple" item="car" itemLabel="brand" dropdown="true" multiple="true" paginator="true" rows="25">
+			<wg-autocomplete id="acCustomMultiple" value="autocompleteCtrl.carSelecteds" items="autocompleteCtrl.httpDataSourceMultiple" item="car" itemLabel="brand" dropdown="true" multiple="true" paginator="true" rows="25">
 				<wg-column headerText="Vin" value="vin"></wg-column>
 				<wg-column headerText="Brand" value="brand"></wg-column>
 				<wg-column headerText="Year" value="year"></wg-column>
@@ -28,7 +28,7 @@
 			</wg-autocomplete>
 			<br/>
 			<br/>
-			Controller value is: <pre ng-show="carSelecteds != null">{{carSelecteds | json}}</pre>
+			Controller value is: <pre ng-show="autocompleteCtrl.carSelecteds != null">{{autocompleteCtrl.carSelecteds | json}}</pre>
 		</wg-fieldset>
 	</section>
 	
@@ -37,7 +37,7 @@
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
 <wg-fieldset legend="Single">		
-	<wg-autocomplete id="acCustomSingle" value="car" completeMethod="cars" item="car" itemLabel="brand" dropdown="true" paginator="true" rows="25">
+	<wg-autocomplete id="acCustomSingle" value="autocompleteCtrl.car" items="autocompleteCtrl.httpDataSourceSingle" item="car" itemLabel="brand" dropdown="true" paginator="true" rows="25">
 		<wg-column headerText="Vin" value="vin"></wg-column>
 		<wg-column headerText="Brand" value="brand"></wg-column>
 		<wg-column headerText="Year" value="year"></wg-column>
@@ -47,11 +47,11 @@
 	</wg-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: <pre ng-show="car != null">((car | json))</pre>
+	Controller value is: <pre ng-show="autocompleteCtrl.car != null">{{autocompleteCtrl.car | json}}</pre>
 </wg-fieldset>
 
 <wg-fieldset legend="Multiple" style="margin-top: 10px">
-	<wg-autocomplete id="acCustomMultiple" value="carSelecteds" completeMethod="cars" item="car" itemLabel="brand" dropdown="true" multiple="true" paginator="true" rows="25">
+	<wg-autocomplete id="acCustomMultiple" value="autocompleteCtrl.carSelecteds" itens="autocompleteCtrl.httpDataSourceMultiple" item="car" itemLabel="brand" dropdown="true" multiple="true" paginator="true" rows="25">
 		<wg-column headerText="Vin" value="vin"></wg-column>
 		<wg-column headerText="Brand" value="brand"></wg-column>
 		<wg-column headerText="Year" value="year"></wg-column>
@@ -61,15 +61,22 @@
 	</wg-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: <pre ng-show="carSelecteds != null">((carSelecteds | json))</pre>
-</wg-fieldset>	
+	Controller value is: <pre ng-show="autocompleteCtrl.carSelecteds != null">{{autocompleteCtrl.carSelecteds | json}}</pre>
+</wg-fieldset>
 				</demo-source>
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.car = null;
-$scope.carSelecteds = [];
-$scope.cars = [ {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'}, ... ];          
+function AutocompleteController() {		
+		
+	var vm = this;
+		
+	vm.car = null;
+	vm.carSelecteds = [];
+	vm.httpDataSourceSingle = new AngularWidgets.HttpDataSource({ url: 'json/cars.json' });
+	vm.httpDataSourceMultiple = new AngularWidgets.HttpDataSource({ url: 'json/cars.json' });
+	
+}          
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>

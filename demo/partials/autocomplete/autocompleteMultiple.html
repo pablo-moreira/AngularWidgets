@@ -5,14 +5,14 @@
 
 		<wg-autocomplete 
 			id="multiple" 
-			value="selectedsCountries" 
-			completeMethod="countries"
+			value="autocompleteCtrl.selectedsCountries" 
+			items="autocompleteCtrl.countries"
 			multiple="true">
 		</wg-autocomplete>
 		
 		<br/>
 			
-		Selected values are : {{selectedsCountries}}
+		Selected values are : {{autocompleteCtrl.selectedsCountries}}
 	</section>
 
 	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
@@ -21,20 +21,26 @@
 				<demo-source language="html">
 <wg-autocomplete 
 	id="multiple" 
-	value="selectedsCountries" 
-	completeMethod="countries"
+	value="autocompleteCtrl.selectedsCountries" 
+	items="autocompleteCtrl.countries"
 	multiple="true">
 </wg-autocomplete>
 
 <br/>
 	
-Selected values are : ((selectedsCountries))
+Selected values are : {{autocompleteCtrl.selectedsCountries}}
 				</demo-source>
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.selectedsCountries = [];
-$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+function AutocompleteController() {		
+		
+	var vm = this;
+	
+	vm.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+	
+	vm.selectedsCountries = ["Brazil","Argentina"];
+}
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>

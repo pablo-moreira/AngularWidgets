@@ -3,24 +3,29 @@
 	<section>
 		<header>Limit the value to the allowed list</header>
 
-		<wg-autocomplete id="limit" value="country" forceSelection="true" completeMethod="countries"></wg-autocomplete>
+		<wg-autocomplete id="limit" value="autocompleteCtrl.country" forceSelection="true" items="autocompleteCtrl.countries"></wg-autocomplete>
 		<br/>
-		Controller value is : <span id="modelValue">{{country}}</span>
+		Controller value is : <span id="modelValue">{{autocompleteCtrl.country}}</span>
 	</section>
 
 	<wg-fieldset legend="Source" style="margin-bottom:20px">
 		<wg-tabview id="sourceTabs">
                <wg-tab header="HTML" id="d_html">
 					<demo-source language="html">
-<wg-autocomplete id="limit" value="country" forceSelection="true" completeMethod="countries"></wg-autocomplete>
+<wg-autocomplete id="limit" value="autocompleteCtrl.country" forceSelection="true" items="autocompleteCtrl.countries"></wg-autocomplete>
 <br/>
-Controller value is : {{country}}
+Controller value is : <span id="modelValue">{{autocompleteCtrl.country}}</span>
 				    </demo-source>
                </wg-tab>
                <wg-tab header="Controller" id="d_script">
 					<demo-source language="javascript">
-$scope.country = null;
-$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+function AutocompleteController() {		
+		
+	var vm = this;
+	vm.country = null;
+	vm.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+
+}
 				   </demo-source>
 				</wg-tab>
 			</wg-tabview>

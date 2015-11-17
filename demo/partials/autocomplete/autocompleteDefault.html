@@ -3,22 +3,27 @@
 	<section>
 		<header>Default integration</header>
 
-		<wg-autocomplete id="default" value="country" completeMethod="countries"></wg-autocomplete> (hint: countries)<br/>
-		Controller value is: {{country}}
+		<wg-autocomplete id="default" value="autocompleteCtrl.country" items="autocompleteCtrl.countries"></wg-autocomplete> (hint: countries)<br/>
+		Controller value is: {{autocompleteCtrl.country}}
 	</section>
 
 	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<wg-tabview id="sourceTabs" >
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<wg-autocomplete id="default" value="country" complete_method="countries"></wg-autocomplete> (hint: countries)<br/>
-Controller value is: {{country}}
+<wg-autocomplete id="default" value="autocompleteCtrl.country" items="autocompleteCtrl.countries"></wg-autocomplete> (hint: countries)<br/>
+Controller value is: {{autocompleteCtrl.country}}
 				</demo-source>
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.country = null;
-$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+function AutocompleteController() {		
+		
+	var vm = this;
+	vm.country = null;
+	vm.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+
+}
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>
