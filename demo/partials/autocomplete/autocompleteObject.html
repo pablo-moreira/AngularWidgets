@@ -4,17 +4,17 @@
 		<header>Autocomplete object value</header>
 
 		<wg-fieldset legend="Single">		
-			<wg-autocomplete id="acObjectSingle" value="car" completeMethod="cars" itemLabel="brand" dropdown="true"></wg-autocomplete>
+			<wg-autocomplete id="acObjectSingle" value="autocompleteCtrl.car" items="autocompleteCtrl.cars" itemLabel="brand" dropdown="true"></wg-autocomplete>
 			<br/>
 			<br/>
-			Controller value is: <pre ng-show="car != null">{{car | json}}</pre>
+			Controller value is: <pre ng-show="autocompleteCtrl.car != null">{{autocompleteCtrl.car | json}}</pre>
 		</wg-fieldset>
 	
 		<wg-fieldset legend="Multiple" style="margin-top: 10px">
-			<wg-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true"></wg-autocomplete>
+			<wg-autocomplete id="acObjectMultiple" value="autocompleteCtrl.carSelecteds" items="autocompleteCtrl.cars" itemLabel="brand" dropdown="true" multiple="true"></wg-autocomplete>
 			<br/>
 			<br/>
-			Controller value is: <pre ng-show="carSelecteds != null">{{carSelecteds | json}}</pre>
+			Controller value is: <pre ng-show="autocompleteCtrl.carSelecteds != null">{{autocompleteCtrl.carSelecteds | json}}</pre>
 		</wg-fieldset>
 	</section>
 	
@@ -23,25 +23,31 @@
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
 <wg-fieldset legend="Single">		
-	<wg-autocomplete id="acObjectSingle" value="car" completeMethod="cars" itemLabel="brand" dropdown="true"></wg-autocomplete>
+	<wg-autocomplete id="acObjectSingle" value="autocompleteCtrl.car" items="autocompleteCtrl.cars" itemLabel="brand" dropdown="true"></wg-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: <pre ng-show="car != null">{ {car | json}}</pre>
+	Controller value is: <pre ng-show="autocompleteCtrl.car != null">{{autocompleteCtrl.car | json}}</pre>
 </wg-fieldset>
 
 <wg-fieldset legend="Multiple" style="margin-top: 10px">
-	<wg-autocomplete id="acObjectMultiple" value="carSelecteds" completeMethod="cars" itemLabel="brand" dropdown="true" multiple="true"></wg-autocomplete>
+	<wg-autocomplete id="acObjectMultiple" value="autocompleteCtrl.carSelecteds" items="autocompleteCtrl.cars" itemLabel="brand" dropdown="true" multiple="true"></wg-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: <pre ng-show="carSelecteds != null">{ {carSelecteds | json}}</pre>
+	Controller value is: <pre ng-show="autocompleteCtrl.carSelecteds != null">{{autocompleteCtrl.carSelecteds | json}}</pre>
 </wg-fieldset>
 				</demo-source>
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.car = null;
-$scope.carSelecteds = [];
-$scope.cars = [ {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'}, ... ];          
+function AutocompleteController() {		
+		
+	var vm = this;
+		
+	vm.car = null;
+	vm.carSelecteds = [];
+	vm.cars = [ {'brand':'Volkswagen','year': 2012, 'color':'White', 'vin':'dsad231ff'}, ... ];
+
+}          
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>

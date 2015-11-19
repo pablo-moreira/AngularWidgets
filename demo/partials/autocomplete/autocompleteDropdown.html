@@ -2,26 +2,31 @@
 	
 	<section>
 		<header>Additional arrow button for all options</header>
-		<wg-autocomplete id="dropdown" value="country" completeMethod="countries" dropdown="true" scrollHeight="200"></wg-autocomplete>
+		<wg-autocomplete id="dropdown" value="autocompleteCtrl.country" items="autocompleteCtrl.countries" dropdown="true" scrollHeight="200"></wg-autocomplete>
 		<br/>
 		<br/>
-		Controller value is : <span id="modelValue">{{country}}</span>
+		Controller value is : <span id="modelValue">{{autocompleteCtrl.country}}</span>
 	</section>
 
 	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<wg-tabview id="sourceTabs" >
-			<wg-tab header="html" id="d_html">
+			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<wg-autocomplete id="default" value="country" complete_method="countries" dropdown="true" scroll_height="200"></wg-autocomplete>
+<wg-autocomplete id="dropdown" value="autocompleteCtrl.country" items="autocompleteCtrl.countries" dropdown="true" scrollHeight="200"></wg-autocomplete>
 <br/>
 <br/>
-Controller value is : {{country}}
+Controller value is : <span id="modelValue">{{autocompleteCtrl.country}}</span>
 				</demo-source>
 			</wg-tab>
-			<wg-tab header="controller" id="d_script">
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="js">
-$scope.country = null;
-$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+function AutocompleteController() {		
+		
+	var vm = this;
+	vm.country = null;
+	vm.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+
+}
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>

@@ -12,7 +12,9 @@ var demo = angular.module('demo', ['ngRoute', 'angularWidgets']);
 demo.config(['$routeProvider', 'widgets', function($routeProvider, widgets) {
    
     AngularWidgets.configure({
-        teste: 'xpto'
+    	httpDataSource : {
+			httpMethod : 'get'
+        }
     });
 
     // Configure highlightjs

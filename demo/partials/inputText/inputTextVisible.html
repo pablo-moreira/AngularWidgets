@@ -1,0 +1,40 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Support for rendered</header>
+		
+		<wg-inputtext id="visible" value="inputTextCtrl.value" ng-show="inputTextCtrl.fieldVisible"></wg-inputtext>
+		<br/>
+		<br/>
+		Controller value is : <span id="modelValue">{{inputTextCtrl.value}}</span><br/>
+		<wg-button id="btnShow" value="Show" action="inputTextCtrl.fieldVisible = true"  ng-hide="inputTextCtrl.fieldVisible"></wg-button>
+		<wg-button id="btnHide" value="Hide" action="inputTextCtrl.fieldVisible = false" ng-show="inputTextCtrl.fieldVisible"></wg-button>
+	</section>
+
+	<wg-fieldset id="Source"legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs" >
+			<wg-tab header="html" id="d_html">
+				<demo-source language="html">
+<wg-inputtext id="visible" value="inputTextCtrl.value" ng-show="inputTextCtrl.fieldVisible"></wg-inputtext>
+<br/>
+<br/>
+Controller value is : <span id="modelValue">{{inputTextCtrl.value}}</span><br/>
+<wg-button id="btnShow" value="Show" action="inputTextCtrl.fieldVisible = true"  ng-hide="inputTextCtrl.fieldVisible"></wg-button>
+<wg-button id="btnHide" value="Hide" action="inputTextCtrl.fieldVisible = false" ng-show="inputTextCtrl.fieldVisible"></wg-button>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function InputTextController() {
+  		
+   	var vm = this;
+
+	vm.value = 'Change me';
+
+	vm.fieldVisible = false;
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+</wg-panel>

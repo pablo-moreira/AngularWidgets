@@ -3,7 +3,7 @@
 	<section>
 		<header>Callback when user selects tab</header>
 
-		<wg-tabview id="callback" onTabChange="onTabChange" onTabClose="onTabClose" closeable="true">
+		<wg-tabview id="callback" onTabChange="tabviewCtrl.onTabChange" onTabClose="tabviewCtrl.onTabClose" closeable="true">
 	        <wg-tab header="Tab 1" id="tab1">
 	            The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved son Michael has
 	            just come home from the war, but does not intend to become part of his father's business. Through Michael's life the nature of the
@@ -35,7 +35,7 @@
 		<wg-tabview id="sourceTabs" >
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">        
-<wg-tabview id="callback" ontabchange="onTabChange" ontabclose="onTabClose" closeable="true">
+<wg-tabview id="callback" ontabchange="tabviewCtrl.onTabChange" ontabclose="tabviewCtrl.onTabClose" closeable="true">
 	<wg-tab header="Tab 1" id="tab1">
         The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved son Michael has
         ...
@@ -56,12 +56,18 @@
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.onTabChange = function (tabView, index) {
-	alert('Tab with index '+ index + ' selected');
-};
-$scope.onTabClose = function (tabView, index) {
-	alert('Tab with index ' + index + ' is close - Tabs remains: ' + tabView.getLength());
-};
+function TabviewController($wgGrowl) {
+
+	var vm = this;
+
+	vm.onTabChange = function(tabView, index) {
+		$wgGrowl.showInfoMessage('Info', 'Tab with index '+ index + ' selected');
+	};
+	
+	vm.onTabClose = function(tabView, index) {
+		$wgGrowl.showInfoMessage('Info', 'Tab with index ' + index + ' closed - Tabs remains: ' + tabView.getLength());
+	};
+}
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>

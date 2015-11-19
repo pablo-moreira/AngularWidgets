@@ -23,7 +23,7 @@
 			rows			: 30,
 			panelWidth		: null,
 			disabled		: false,
-			completeMethod	: null,
+			items			: null,
 			onItemSelect	: null,
 			onItemRemove	: null,
 			pageLinks		: 1
@@ -56,8 +56,8 @@
 			
 				this.determineOptions(options);
             	
-            	if (this.options.completeMethod) {
-            		this.setItems(this.scope.$eval(this.options.completeMethod));
+            	if (this.options.items) {
+            		this.setItems(this.scope.$eval(this.options.items));
             	}
             	else {
             		this.setItems([]);

@@ -2,39 +2,44 @@
 
 	<section>
 		<header>Disabled autocomplete</header>
-
-		<wg-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></wg-autocomplete><br/>
-		Controller value is : {{country}}
+		<wg-autocomplete id="dropdown" value="autocompleteCtrl.country" items="autocompleteCtrl.countries" disabled="autocompleteCtrl.fieldDisabled" dropdown="true"></wg-autocomplete>
 		<br/>
-		<wg-button action="enableField()" disabled="!fieldDisabled" value="Enable"></wg-button>
-		<wg-button action="disableField()" disabled="fieldDisabled" value="Disable"></wg-button>
+		Controller value is : {{autocompleteCtrl.country}}
+		<br/>
+		<wg-button action="autocompleteCtrl.enableField()" disabled="!autocompleteCtrl.fieldDisabled" value="Enable"></wg-button>
+		<wg-button action="autocompleteCtrl.disableField()" disabled="autocompleteCtrl.fieldDisabled" value="Disable"></wg-button>
 	</section>
 
 	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<wg-tabview id="sourceTabs" >
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<wg-autocomplete id="dropdown" value="country" completeMethod="countries" disabled="fieldDisabled" dropdown="true"></wg-autocomplete><br/>
-Controller value is : {{country}}
+<wg-autocomplete id="dropdown" value="autocompleteCtrl.country" items="autocompleteCtrl.countries" disabled="autocompleteCtrl.fieldDisabled" dropdown="true"></wg-autocomplete>
 <br/>
-<wg-button action="enableField()" disabled="!fieldDisabled" value="Enable"></wg-button>
-<wg-button action="disableField()" disabled="fieldDisabled" value="Disable"></wg-button>
+Controller value is : {{autocompleteCtrl.country}}
+<br/>
+<wg-button action="autocompleteCtrl.enableField()" disabled="!autocompleteCtrl.fieldDisabled" value="Enable"></wg-button>
+<wg-button action="autocompleteCtrl.disableField()" disabled="autocompleteCtrl.fieldDisabled" value="Disable"></wg-button>
 				</demo-source>
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.country = null;
-$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+function AutocompleteController() {		
+		
+	var vm = this;
+	vm.country = null;
+	vm.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
 
-$scope.fieldDisabled = true;
+	vm.fieldDisabled = true;
 
-$scope.enableField = function() {
-	$scope.fieldDisabled = false;
-};
+	vm.enableField = function() {
+		vm.fieldDisabled = false;
+	};
 
-$scope.disableField = function() {
-	$scope.fieldDisabled =  true;
-};
+	vm.disableField = function() {
+		vm.fieldDisabled =  true;
+	};
+}
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>

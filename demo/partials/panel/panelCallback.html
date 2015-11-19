@@ -3,7 +3,7 @@
 	<section>
 		<header>Callback of user actions</header>
 
-		<wg-panel id="options" toggleable="true" closable="true" header="Callback" onToggle="onToggle" onClose="onClose">
+		<wg-panel id="options" toggleable="true" closable="true" header="Callback" onToggle="panelCtrl.onToggle" onClose="panelCtrl.onClose">
 			The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
 			His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
 			Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
@@ -16,7 +16,7 @@
 		<wg-tabview id="sourceTabs" >
         	<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<wg-panel id="options" toggleable="true" closable="true" header="Callback" onToggle="onToggle" onClose="onClose">
+<wg-panel id="options" toggleable="true" closable="true" header="Callback" onToggle="panelCtrl.onToggle" onClose="panelCtrl.onClose">
 	The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
 	...
 	but given to ruthless violence whenever anything stands against the good of the family.
@@ -25,12 +25,18 @@
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.onToggle = function (panel) {
-	alert('User toggled the panel to ' + (panel.isCollapsed() ? 'collapse' : 'expand') + '!');
-};
-$scope.onClose = function(panel) {
-	alert('user closed the panel');
-};
+function PanelController($wgGrowl) {
+  		
+	var vm = this;
+                      
+	vm.onToggle = function (panel) {
+    	$wgGrowl.showInfoMessage('Message', 'User toggled the panel to ' + (panel.isCollapsed() ? 'collapse' : 'expand') + '!');
+	};
+       
+	vm.onClose = function(panel) {
+		$wgGrowl.showInfoMessage('Message', 'User closed the panel');
+	};
+}
  				</demo-source>
 			</wg-tab>
 		</wg-tabview>

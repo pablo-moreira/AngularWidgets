@@ -3,7 +3,7 @@
     
     angular.module('demo').constant('widgets', [
 		{
-			"widget": "puiAccordion",
+			"widget": "wgAccordion",
 			"label": "Accordion",
 			"controller": "AccordionController",
 			"defaultPath": "accordion/accordionOverview",
@@ -128,16 +128,6 @@
 			]
 		},
 		{
-			"widget": "wgInputNumber",
-			"label": "InputNumber",
-			"controller": "InputNumberController",
-			"defaultPath": "inputNumber/inputNumberOverview",
-			"subPages": [
-				{ "label": "Overview", "path": "inputNumber/inputNumberOverview" },
-		        { "label": "Default", "path": "inputNumber/inputNumberDefault" }
-			]
-		},
-		{
 			"widget": "wgFieldset",
 			"label": "Fieldset",
 			"controller": "FieldsetController",
@@ -164,6 +154,16 @@
 		     ]
 		},
 		{
+			"widget": "wgInputNumber",
+			"label": "InputNumber",
+			"controller": "InputNumberController",
+			"defaultPath": "inputNumber/inputNumberOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "inputNumber/inputNumberOverview" },
+		        { "label": "Default", "path": "inputNumber/inputNumberDefault" }
+			]
+		},
+		{
 			"widget": "wgInputRadio",
 			"label": "InputRadio",
 			"controller": "InputRadioController",
@@ -176,65 +176,66 @@
 				{ "label": "Disabled", "path": "inputRadio/inputRadioDisabled" }
 		     ]
 		},
-/*		{
-			"widget": "puiDropdown",
-			"label": "Dropdown",
-			"controller": "DropdownController",
-			"defaultPath": "dropdown/dropdownOverview",
-			"subPages": [
-				{ "label": "Overview", "path": "dropdown/dropdownOverview" },
-		        { "label": "Default", "path": "dropdown/dropdownDefault" },
-		        { "label": "Dropdown", "path": "dropdown/dropdownDropdown" },
-		        { "label": "Function", "path": "dropdown/dropdownFunction" },
-				{ "label": "Disabled", "path": "dropdown/dropdownDisabled" },
-				{ "label": "Multiple", "path": "dropdown/dropdownMultiple" },
-				{ "label": "Force selection", "path": "dropdown/dropdownLimited" },
-				{ "label": "Callback", "path": "dropdown/dropdownCallback" },
-				{ "label": "Object", "path": "dropdown/dropdownObject" },
-				{ "label": "Http Data Loader", "path": "dropdown/dropdownHttpDataSource" },
-				{ "label": "Custom Content", "path": "dropdown/dropdownCustomContent" },
-				{ "label": "Table Content", "path": "dropdown/dropdownTableContent" }
-			]
-		},*/ 
 		{
-			"widget": "puiInputText",
+			"widget": "wgInputText",
 			"label": "InputText",
-			"controller": "InputController",
-			"defaultPath": "inputText/overview",
+			"controller": "InputTextController",
+			"defaultPath": "inputText/inputTextOverview",
 			"subPages": [
-				{ "label": "overview", "path": "inputText/overview" },
-				{ "label": "default", "path": "inputText/default" },
-				{ "label": "disabled", "path": "inputText/disabled" },
-				{ "label": "visible", "path": "inputText/visible" }
+				{ "label": "Overview", "path": "inputText/inputTextOverview" },
+				{ "label": "Default", "path": "inputText/inputTextDefault" },
+				{ "label": "Disabled", "path": "inputText/inputTextDisabled" },
+				{ "label": "Visible", "path": "inputText/inputTextVisible" },
+				{ "label": "Events", "path": "inputText/inputTextEvents" }
 			]
 		},
+		/*		{
+		"widget": "wgDropdown",
+		"label": "Dropdown",
+		"controller": "DropdownController",
+		"defaultPath": "dropdown/dropdownOverview",
+		"subPages": [
+			{ "label": "Overview", "path": "dropdown/dropdownOverview" },
+	        { "label": "Default", "path": "dropdown/dropdownDefault" },
+	        { "label": "Dropdown", "path": "dropdown/dropdownDropdown" },
+	        { "label": "Function", "path": "dropdown/dropdownFunction" },
+			{ "label": "Disabled", "path": "dropdown/dropdownDisabled" },
+			{ "label": "Multiple", "path": "dropdown/dropdownMultiple" },
+			{ "label": "Force selection", "path": "dropdown/dropdownLimited" },
+			{ "label": "Callback", "path": "dropdown/dropdownCallback" },
+			{ "label": "Object", "path": "dropdown/dropdownObject" },
+			{ "label": "Http Data Loader", "path": "dropdown/dropdownHttpDataSource" },
+			{ "label": "Custom Content", "path": "dropdown/dropdownCustomContent" },
+			{ "label": "Table Content", "path": "dropdown/dropdownTableContent" }
+		]
+	},*/
 		{
-			"widget": "puiPanel",
+			"widget": "wgPanel",
 			"label": "Panel",
 			"controller": "PanelController",
-			"defaultPath": "panel/overview",
+			"defaultPath": "panel/panelOverview",
 			"subPages": [
-				{ "label": "overview", "path": "panel/overview" },
-				{ "label": "default", "path": "panel/default" },
-				{ "label": "options", "path": "panel/options" },
-				{ "label": "programmatic toggle", "path": "panel/progtoggle" },
-				{ "label": "dynamic title", "path": "panel/title" },
-				{ "label": "Callback", "path": "panel/callback" }
+				{ "label": "Overview", "path": "panel/panelOverview" },
+				{ "label": "Default", "path": "panel/panelDefault" },
+				{ "label": "Options", "path": "panel/panelOptions" },
+				{ "label": "Programmatic Toggle", "path": "panel/panelProgtoggle" },
+				{ "label": "Dynamic Title", "path": "panel/panelTitle" },
+				{ "label": "Callback", "path": "panel/panelCallback" }
 			]
 		}, 
 		{
-			"widget": "puiTabview",
+			"widget": "wgTabview",
 			"label": "TabView",
 			"controller": "TabviewController",
-			"defaultPath": "tabview/overview",
+			"defaultPath": "tabview/tabviewOverview",
 			"subPages": [
-				{ "label": "Overview", "path": "tabview/overview" },
-				{ "label": "Default", "path": "tabview/default" },
-				{ "label": "Closeable", "path": "tabview/closeable" },
-				{ "label": "Left Orientation", "path": "tabview/left" },
-				{ "label": "Callback", "path": "tabview/callback" },
-				{ "label": "Dynamic", "path": "tabview/dynamic" },
-				{ "label": "Programmatic Index Change", "path": "tabview/programmatic" }
+				{ "label": "Overview", "path": "tabview/tabviewOverview" },
+				{ "label": "Default", "path": "tabview/tabviewDefault" },
+				{ "label": "Closeable", "path": "tabview/tabviewCloseable" },
+				{ "label": "Left Orientation", "path": "tabview/tabviewLeft" },
+				{ "label": "Callback", "path": "tabview/tabviewCallback" },
+				{ "label": "Dynamic", "path": "tabview/tabviewDynamic" },
+				{ "label": "Programmatic Index Change", "path": "tabview/tabviewProgrammatic" }
 			]
 		}
 	]);

@@ -1,0 +1,35 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<section>
+		<header>Events</header>
+
+		<wg-inputText id="default" value="inputTextCtrl.value" onEnterKey="inputTextCtrl.onEnterKey"></wg-inputText><br/>
+		Controller value is : <span id="defaultModel">{{inputTextCtrl.value}}</span>
+	</section>
+
+	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
+		<wg-tabview id="sourceTabs">
+			<wg-tab header="HTML" id="d_html">
+				<demo-source language="html">
+<wg-inputText id="default" value="inputTextCtrl.value" onEnterKey="inputTextCtrl.onEnterKey"></wg-inputText><br/>
+Controller value is : <span id="defaultModel">{{inputTextCtrl.value}}</span>
+				</demo-source>
+			</wg-tab>
+			<wg-tab header="Controller" id="d_script">
+				<demo-source language="javascript">
+function InputTextController() {
+  		
+	var vm = this;
+
+	vm.value = 'Change me';	
+
+	vm.onEnterKey = function(inputText) {
+		$wgGrowl.showInfoMessage('On enter key press!!!', 'InputText value is: ' + inputText.getValue());
+	}
+}
+				</demo-source>
+			</wg-tab>
+		</wg-tabview>
+	</wg-fieldset>
+		
+</wg-panel>

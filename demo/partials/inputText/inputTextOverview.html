@@ -1,0 +1,62 @@
+<wg-panel header="{{mainCtrl.widget.label}}">
+
+	<wg-fieldset id="description" legend="Description" style="margin-bottom:20px">
+		Extension to standard inputText with skinning capabilities.
+	</wg-fieldset>
+	<wg-fieldset id="supports" legend="Supports" style="margin-bottom:20px">
+	          <ul>
+	              <li>Support for 'rendered', showing and hiding field.</li>
+	              <li>Support for disabled.</li>
+	              <li>Showing/hiding and enable/disable field can be animated.</li>
+	          </ul>
+	</wg-fieldset>
+	<wg-fieldset id="issues" legend="Known issues" style="margin-bottom:20px">
+	</wg-fieldset>
+
+	<wg-fieldset id="planned" legend="Planned" style="margin-bottom:20px">
+	</wg-fieldset>
+
+	<wg-fieldset id="documentation" legend="Documentation" style="margin-bottom:20px">
+	
+	    <table class="doc-table">
+	        <thead>
+	        <tr>
+	            <th class="ui-state-default">Name</th>
+	            <th class="ui-state-default">Type</th>
+	            <th class="ui-state-default">Default</th>
+	            <th class="ui-state-default">Description</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <tr class="ui-widget-content">
+	            <td>value</td>
+	            <td>String</td>
+	            <td>undefined</td>
+	            <td>Link from field content to scope variable.
+	            </td>
+	        </tr>
+	        <tr class="ui-widget-content">
+	            <td>type</td>
+	            <td>String</td>
+	            <td>Text</td>
+	            <td>The type of the input field. By default text is assumed.
+	            </td>
+	        </tr>
+	        <tr class="ui-widget-content">
+	            <td>pui-disabled</td>
+	            <td>String</td>
+	            <td>undefined</td>
+	            <td>Link to scope variable which defines if the field is disabled or not.
+	            </td>
+	        </tr>
+	        <tr class="ui-widget-content">
+	            <td>rendered</td>
+	            <td>String</td>
+	            <td>undefined</td>
+	            <td>Link to scope variable which defines if the field is visible.
+	            </td>
+	        </tr>
+	        </tbody>
+	    </table>
+	</wg-fieldset>
+</wg-panel>

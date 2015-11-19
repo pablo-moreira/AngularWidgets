@@ -2,21 +2,19 @@
 
 	<section>
 		<header>Callback when user selects from proposed list</header>
-
 		<wg-fieldset legend="Single">		
-			<wg-autocomplete id="acEvtSingle" value="country" completeMethod="countries" onItemSelect="onItemSelect"></wg-autocomplete>
+			<wg-autocomplete id="acEvtSingle" value="autocompleteCtrl.country" items="autocompleteCtrl.countries" onItemSelect="autocompleteCtrl.onItemSelect"></wg-autocomplete>
 			<br/>
 			<br/>
-			Controller value is: {{country}}
+			Controller value is: {{autocompleteCtrl.country}}
 		</wg-fieldset>
 	
 		<wg-fieldset legend="Multiple" style="margin-top: 10px">			
-			<wg-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" onItemSelect="onItemSelect" onItemRemove="onItemRemove" multiple="true"></wg-autocomplete>
+			<wg-autocomplete id="acEvtMultiple" value="autocompleteCtrl.countrySelecteds" items="autocompleteCtrl.countries" onItemSelect="autocompleteCtrl.onItemSelect" onItemRemove="autocompleteCtrl.onItemRemove" multiple="true"></wg-autocomplete>
 			<br/>
 			<br/>
-			Controller value is: {{countriesSelected}}
+			Controller value is: {{autocompleteCtrl.countriesSelected}}
 		</wg-fieldset>
-
 	</section>
 
 	<wg-fieldset legend="Source" pui-fieldset style="margin-bottom:20px">
@@ -24,33 +22,37 @@
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
 <wg-fieldset legend="Single">		
-	<wg-autocomplete id="acEvtSingle" value="country" completeMethod="countries" onItemSelect="onItemSelect"></wg-autocomplete>
+	<wg-autocomplete id="acEvtSingle" value="autocompleteCtrl.country" items="autocompleteCtrl.countries" onItemSelect="autocompleteCtrl.onItemSelect"></wg-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: ((country))
+	Controller value is: {{autocompleteCtrl.country}}
 </wg-fieldset>
 
 <wg-fieldset legend="Multiple" style="margin-top: 10px">			
-	<wg-autocomplete id="acEvtMultiple" value="countrySelecteds" completeMethod="countries" onItemSelect="onItemSelect" onItemRemove="onItemRemove" multiple="true"></wg-autocomplete>
+	<wg-autocomplete id="acEvtMultiple" value="autocompleteCtrl.countrySelecteds" items="autocompleteCtrl.countries" onItemSelect="autocompleteCtrl.onItemSelect" onItemRemove="autocompleteCtrl.onItemRemove" multiple="true"></wg-autocomplete>
 	<br/>
 	<br/>
-	Controller value is: ((countriesSelected))
+	Controller value is: {{autocompleteCtrl.countriesSelected}}
 </wg-fieldset>
 				</demo-source>
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.country = null;
-$scope.countrySelecteds = [];
-$scope.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+function AutocompleteController($wgGrowl) {		
+		
+	var vm = this;
+	vm.country = null;
+	vm.countrySelecteds = [];
+	vm.countries = new Array("Afghanistan", "Albania", "Algeria", "Andorra", ...);
+	
+	vm.onItemSelect = function(item) {
+		$wgGrowl.showInfoMessage('Message', item + ' selected');			
+	};
 
-$scope.onItemSelect = function(item) {
-	alert(item + ' selected');
-};
-
-$scope.onItemRemove = function(item) {
-	alert(item + ' removed')
-};
+	vm.onItemRemove = function(item) {
+		$wgGrowl.showInfoMessage('Message', item + ' removed');
+	};
+}
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>

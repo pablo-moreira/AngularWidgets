@@ -123,7 +123,8 @@
 	            this.element.attr('aria-disabled', false);
 	        },
 	        
-	        disable: function() {                
+	        disable: function() {    
+	        	this.element.removeClass('ui-state-active').removeClass('ui-state-hover').removeClass('ui-state-focus');
                 this.element.addClass('ui-state-disabled');
                 this.element.attr('aria-disabled', true);
 	        },
@@ -175,7 +176,7 @@
 	        },
 	        
 	        unbindEvents: function() {
-	            this.element.off('mouseover.puibutton mouseout.puibutton mousedown.puibutton mouseup.puibutton focus.puibutton blur.puibutton keydown.puibutton keyup.puibutton');
+	            this.element.off();
 	        }
         });
         
