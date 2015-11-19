@@ -10,6 +10,29 @@
 	
     	var widgetBase = {};
 
+    	widgetBase.handleOnEnterKey = function(scope, element, onEnterKeyHandle) {
+			
+			if (onEnterKeyHandle !== undefined) {
+				element.bind('keyup', function(e) {
+
+					var keyCode = widgetBase.keyCode,
+						key = e.which;
+
+					if (key === keyCode.ENTER) {
+						scope.safeApply(function() {
+							onEnterKeyHandle();
+						});
+						e.preventDefault();
+					}
+				});
+			}
+    	}
+
+    	widgetBase.getModelValue = function(scope, model) {
+			var parseValue = $parse(model);
+			return parseValue(scope);
+    	}
+
 		widgetBase.setModelValue = function(scope, model, value) {           
             scope.safeApply(function() {
             	var parseValue = $parse(model);
@@ -187,9 +210,7 @@
                 }, 
                 function () {
                     var element = angular.element(this);
-                    if (!element.hasClass('ui-state-active') && !element.hasClass('ui-state-disabled')) {
-                        element.removeClass('ui-state-hover');
-                    }
+					element.removeClass('ui-state-hover');
                 });
 
         		elem.focus(function () {

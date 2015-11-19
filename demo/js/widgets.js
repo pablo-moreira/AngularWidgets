@@ -185,7 +185,8 @@
 				{ "label": "Overview", "path": "inputText/inputTextOverview" },
 				{ "label": "Default", "path": "inputText/inputTextDefault" },
 				{ "label": "Disabled", "path": "inputText/inputTextDisabled" },
-				{ "label": "Visible", "path": "inputText/inputTextVisible" }
+				{ "label": "Visible", "path": "inputText/inputTextVisible" },
+				{ "label": "Events", "path": "inputText/inputTextEvents" }
 			]
 		},
 		/*		{

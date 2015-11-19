@@ -18,10 +18,10 @@
         widget.template = '<input type="checkbox" />';
 
         widget.buildWidget = function(scope, element, options) {
-        	return new widget.Inputradio(scope, element, options);
+        	return new widget.Inputcheckbox(scope, element, options);
         };
   
-    	widget.Inputradio = widgetBase.createWidget({
+    	widget.Inputcheckbox = widgetBase.createWidget({
 
     		init: function(options) {
 				

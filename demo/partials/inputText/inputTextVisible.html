@@ -3,36 +3,36 @@
 	<section>
 		<header>Support for rendered</header>
 		
-		<wg-inputText id="visible" value="inputTextCtrl.value1" rendered="inputTextCtrl.fieldVisible"></wg-inputText>
+		<wg-inputtext id="visible" value="inputTextCtrl.value" ng-show="inputTextCtrl.fieldVisible"></wg-inputtext>
 		<br/>
 		<br/>
-		Controller value is : <span id="modelValue">{{inputTextCtrl.value1}}</span><br/>
-		<button ng-click="inputTextCtrl.showField()" type="button" ng-hide="inputTextCtrl.fieldVisible" id="showBtn">Show</button>
-		<button ng-click="inputTextCtrl.hideField()" type="button" ng-show="inputTextCtrl.fieldVisible" id="hideBtn">Hide</button>
+		Controller value is : <span id="modelValue">{{inputTextCtrl.value}}</span><br/>
+		<wg-button id="btnShow" value="Show" action="inputTextCtrl.fieldVisible = true"  ng-hide="inputTextCtrl.fieldVisible"></wg-button>
+		<wg-button id="btnHide" value="Hide" action="inputTextCtrl.fieldVisible = false" ng-show="inputTextCtrl.fieldVisible"></wg-button>
 	</section>
 
 	<wg-fieldset id="Source"legend="Source" style="margin-bottom:20px">
 		<wg-tabview id="sourceTabs" >
 			<wg-tab header="html" id="d_html">
 				<demo-source language="html">
-    <wg-inputText id="visible" value="value1" rendered="fieldVisible"></wg-inputText><br/>
-    <br/>
-    Controller value is : <span id="modelValue">{{value1}}</span><br/>
-    <button ng-click="showField()" type="button" ng-hide="fieldVisible" id="showBtn">Show</button>
-    <button ng-click="hideField()" type="button" ng-show="fieldVisible" id="hideBtn">Hide</button>
+<wg-inputtext id="visible" value="inputTextCtrl.value" ng-show="inputTextCtrl.fieldVisible"></wg-inputtext>
+<br/>
+<br/>
+Controller value is : <span id="modelValue">{{inputTextCtrl.value}}</span><br/>
+<wg-button id="btnShow" value="Show" action="inputTextCtrl.fieldVisible = true"  ng-hide="inputTextCtrl.fieldVisible"></wg-button>
+<wg-button id="btnHide" value="Hide" action="inputTextCtrl.fieldVisible = false" ng-show="inputTextCtrl.fieldVisible"></wg-button>
 				</demo-source>
 			</wg-tab>
-			<wg-tab header="controler" id="d_script">
+			<wg-tab header="Controller" id="d_script">
 				<demo-source language="javascript">
-$scope.fieldDisabled = true;
+function InputTextController() {
+  		
+   	var vm = this;
 
-$scope.enableField = function() {
-    $scope.fieldDisabled = false;
-};
+	vm.value = 'Change me';
 
-$scope.disableField = function() {
-    $scope.fieldDisabled =  true;
-};
+	vm.fieldVisible = false;
+}
 				</demo-source>
 			</wg-tab>
 		</wg-tabview>
