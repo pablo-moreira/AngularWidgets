@@ -38,7 +38,28 @@ module.exports = function(grunt) {
 				src: 'dist/<%= pkg.name %>.css',
 				dest: 'dist/<%= pkg.name %>.min.css'
 			}
-		}
+		},
+		copy: {
+			demo: {
+				files: [
+					{ src: 'dist/*', dest: 'demo/' },
+					{ 
+						expand: true,
+						flatten: true,
+						src: [
+						      'node_modules/font-awesome/css/font-awesome.css',
+						      'node_modules/animate.css/animate.min.css',
+						      'node_modules/angular/angular.js',
+						      'demo/node_modules/angular-route/angular-route.js',
+						      'node_modules/angular-animate/angular-animate.js',
+						      'node_modules/tinymce/tinymce.min.js',
+						      'demo/node_modules/highlight.js/styles/github.css'						      
+					    ],
+					    dest: 'demo/dist/'					
+					}
+				],
+			},
+		}		
 	});
 
 	// Load the plugins
@@ -47,8 +68,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	
 	// Task(s).
 	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
+	grunt.registerTask('demo', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:demo']);
 
 };
