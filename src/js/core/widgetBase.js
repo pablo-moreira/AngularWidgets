@@ -26,12 +26,12 @@
 					}
 				});
 			}
-    	}
+    	};
 
     	widgetBase.getModelValue = function(scope, model) {
 			var parseValue = $parse(model);
 			return parseValue(scope);
-    	}
+    	};
 
 		widgetBase.setModelValue = function(scope, model, value) {           
             scope.safeApply(function() {
