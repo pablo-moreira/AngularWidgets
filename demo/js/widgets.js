@@ -210,6 +210,16 @@
 		]
 	},*/
 		{
+			"widget": "wgMessages",
+			"label": "Messages",
+			"controller": "MessagesController",
+			"defaultPath": "messages/messagesOverview",
+			"subPages": [
+				{ "label": "Overview", "path": "messages/messagesOverview" },
+				{ "label": "Default", "path": "messages/messagesDefault" }
+			]
+		},		
+		{
 			"widget": "wgPanel",
 			"label": "Panel",
 			"controller": "PanelController",

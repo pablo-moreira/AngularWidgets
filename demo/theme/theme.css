@@ -169,6 +169,13 @@ a {
     text-decoration: none;
 }
 
+.ng-invalid.ng-touched.ui-state-hover,
+.ng-invalid.ng-touched.ui-state-focus {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
     border: 1px solid #7096ab;
     background: #85b2cb url("images/ui-bg_inset-hard_65_85b2cb_1x100.png") 50% 50% repeat-x;
@@ -210,7 +217,8 @@ a {
     color: #363636;
 }
 
-.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error,
+.ng-invalid.ng-touched {
     border: 1px solid #cd0a0a;
     background: #fef1ec url("images/ui-bg_inset-soft_95_fef1ec_1x100.png") 50% bottom repeat-x;
     background: #fef1ec linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
@@ -2092,4 +2100,8 @@ button.ui-button::-moz-focus-inner {
 
 .pui-odd {
     background: none repeat scroll 0 0 #F2F5F9;
+}
+
+input.ng-touched.ng-invalid {
+
 }

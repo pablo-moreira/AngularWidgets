@@ -68,7 +68,7 @@
 	                    .click(function(e) {
 	                    	$this.close();
 	                    	$this.scope.safeApply();
-	                    	e.preventDefault();	                                	
+	                    	e.preventDefault();
 	                    });
 	            }
 	            

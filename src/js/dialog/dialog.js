@@ -112,7 +112,7 @@
 
  				//aria
  				this.applyARIA();
-//
+
 				if (this.options.enableAnimation) {
 					this.dialog.addClass('animated').addClass('pui-' + this.options.animationSpeed);
 				}
