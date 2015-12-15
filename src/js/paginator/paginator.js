@@ -98,9 +98,11 @@
         	},
 
         	update: function () {
+        		for (var i = 0; i < this.templateKeys.length; i++) {
+        			
+        			var templateKey = this.templateKeys[i];
 
-				for (var key in this.templateElements) {
-					puiPaginatorTemplate.getTemplate(key).update(this.templateElements[key], this);
+					puiPaginatorTemplate.getTemplate(templateKey).update(this.templateElements[templateKey], this);
 				}
 			},
 
