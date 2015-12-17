@@ -112,7 +112,9 @@
 
 				this.facets = widgetFacet.determineFacetsOptions(divTransclude);
 
-				this.transclude = divTransclude[0].innerHTML.trim();
+				if (this.facets.content) {
+					this.facets.content.transcluded = angular.element('<div></div>').append(this.facets.content.transclude()).html();
+				}
 
 				divTransclude.remove();
 			},
@@ -203,8 +205,8 @@
 						}
 
 						// Determine content
-						if ($this.transclude !== '') {
-							li.append($this.transclude);
+						if ($this.facets.content) {
+							li.append($this.facets.content.transcluded);
 						}	
 						else if ($this.options.itemLabel) {
 							li.append(item[$this.options.itemLabel]);

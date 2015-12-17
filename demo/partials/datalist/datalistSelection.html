@@ -4,15 +4,19 @@
 		<header>Items selection</header>
 		<wg-fieldset legend="Single">
 			<wg-datalist id="selection" items="datalistCtrl.cars" item="car" selectionMode="single" onItemSelect="datalistCtrl.onItemSelect" onItemUnselect="datalistCtrl.onItemUnselect">
-				<b>Brand:</b><span>{{car.brand}}</span><br/>
-				<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+				<wg-facet name="content">
+					<b>Brand:</b><span>{{car.brand}}</span><br/>
+					<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+				</wg-facet>
 			</wg-datalist>
 		</wg-fieldset>
 
 		<wg-fieldset legend="Multiple">
 			<wg-datalist id="selection" items="datalistCtrl.cars" item="car" selectionMode="multiple" onItemSelect="datalistCtrl.onItemSelect" onItemUnselect="datalistCtrl.onItemUnselect">
-				<b>Brand:</b><span>{{car.brand}}</span><br/>
-				<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+				<wg-facet name="content">
+					<b>Brand:</b><span>{{car.brand}}</span><br/>
+					<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+				</wg-facet>
 			</wg-datalist>
 		</wg-fieldset>
 	</section>
@@ -23,15 +27,19 @@
 				<demo-source language="html">
 <wg-fieldset legend="Single">
 	<wg-datalist id="selection" items="datalistCtrl.cars" item="car" selectionMode="single" onItemSelect="datalistCtrl.onItemSelect" onItemUnselect="datalistCtrl.onItemUnselect">
-		<b>Brand:</b><span>{{car.brand}}</span><br/>
-		<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+		<wg-facet name="content">
+			<b>Brand:</b><span>{{car.brand}}</span><br/>
+			<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+		</wg-facet>
 	</wg-datalist>
 </wg-fieldset>
 
 <wg-fieldset legend="Multiple">
 	<wg-datalist id="selection" items="datalistCtrl.cars" item="car" selectionMode="multiple" onItemSelect="datalistCtrl.onItemSelect" onItemUnselect="datalistCtrl.onItemUnselect">
-		<b>Brand:</b><span>{{car.brand}}</span><br/>
-		<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+		<wg-facet name="content">
+			<b>Brand:</b><span>{{car.brand}}</span><br/>
+			<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+		</wg-facet>
 	</wg-datalist>
 </wg-fieldset>
 				</demo-source>

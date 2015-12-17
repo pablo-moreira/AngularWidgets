@@ -4,8 +4,10 @@
 		<header>Default integration</header>
 		
 		<wg-datalist id="paginator" items="datalistCtrl.cars" item="car" paginator="true" rows="8">
-			<b>Brand:</b><span>{{car.brand}}</span><br/>
-			<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+			<wg-facet name="content">
+				<b>Brand:</b><span>{{car.brand}}</span><br/>
+				<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+			</wg-facet>
 		</wg-datalist>
 	</section>
 
@@ -14,8 +16,10 @@
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
 <wg-datalist id="paginator" items="datalistCtrl.cars" item="car" paginator="true" rows="8">
-	<b>Brand:</b><span>{{car.brand}}</span><br/>
-	<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+	<wg-facet name="content">
+		<b>Brand:</b><span>{{car.brand}}</span><br/>
+		<span style="font-size: 0.75em">Year: {{car.year}}, Color: {{car.color}}, Vin: {{car.vin}}</span>
+	</wg-facet>
 </wg-datalist>
 				</demo-source>
 			</wg-tab>
