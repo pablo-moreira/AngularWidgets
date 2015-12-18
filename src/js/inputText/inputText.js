@@ -60,7 +60,7 @@
 			},
 
 			determineOptions: function (options) {
-				this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.inputtext, options, ['onEnterKey'], ['disabled']);
+				this.options = widgetBase.determineOptions(this.scope, AngularWidgets.getConfiguration().widgets.inputtext, options, [], ['disabled']);
 			},
 
             bindEvents: function() {
@@ -69,7 +69,11 @@
 
 				widgetBase.hoverAndFocus(this.element);
 
-				widgetBase.handleOnEnterKey(this.scope, this.element, function() { $this.options.onEnterKey($this.bindInstance); });
+				if (this.options.onEnterKey) {
+					widgetBase.handleOnEnterKey(this.scope, this.element, function() {
+						$this.scope.$eval($this.options.onEnterKey);
+					});
+				}
 			},
 
 			unbindEvents: function() {
