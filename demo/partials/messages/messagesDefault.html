@@ -6,32 +6,51 @@
 		<wg-messages></wg-messages>
 		
 		<form name="frmTeste" novalidate>
-			
-			<wg-inputtext type="text" name="surname" value="messagesCtrl.surname" required></wg-inputtext>
-    
-    		<wg-inputtext type="text" name="firstname" value="messagesCtrl.firstname" required ng-maxlength="2"></wg-inputtext>
+			<label>First name</label><br/>
+			<wg-inputtext type="text" name="firstname" value="messagesCtrl.firstname" required ng-maxlength="2"></wg-inputtext><br/>
+
+			<label>Surname</label><br/>
+			<wg-inputtext type="text" name="surname" value="messagesCtrl.surname" required></wg-inputtext><br/>
     		
-    		<wg-inputtext type="text" name="city" value="messagesCtrl.city" required ng-minlength="3"></wg-inputtext>
-    
-        	<br/>
-        	form validity - {{ frmTeste.$valid }}<br/>
+    		
+    		<label>City</label><br/>
+    		<wg-inputtext type="text" name="city" value="messagesCtrl.city" required ng-minlength="3"></wg-inputtext><br/>
+    		
+<!--        <br/>
+		 	form validity - {{ frmTeste.$valid }}<br/>
         	input validity - {{ frmTeste.surname.$valid }}<br/>
         	input validity - {{ frmTeste.firstname.$valid }}<br/>
-        	input validity - {{ frmTeste.city.$valid }}			
+        	input validity - {{ frmTeste.city.$valid }}			 -->
 		</form>
 		
-		<wg-button id="infoBtn" value="Info" action="messagesCtrl.showInfoGrowl()" icon="fa-info-circle"></wg-button>
-		<wg-button id="errorBtn" value="Error" action="messagesCtrl.showErrorGrowl()" icon="fa-times-circle" ></wg-button>
-		<wg-button id="warnBtn" value="Warn" action="messagesCtrl.showWarnGrowl()" icon="fa-exclamation-triangle" ></wg-button>
+		<br/>
+
+		<wg-button id="btnShowInfo" value="Show Info" action="messagesCtrl.showInfoMessage()" icon="fa-info-circle"></wg-button>
+		<wg-button id="btnShowWarn" value="Show Warn" action="messagesCtrl.showWarnMessage()" icon="fa-exclamation-triangle"></wg-button>
+		<wg-button id="btnShowError" value="Show Error" action="messagesCtrl.showErrorMessage()" icon="fa-times-circle"></wg-button>
+		
+		<wg-button id="btnAddInfo" value="Add Info" action="messagesCtrl.addInfoMessage()" icon="fa-info-circle"></wg-button>
+		<wg-button id="btnAddError" value="Add Warn" action="messagesCtrl.addWarnMessage()" icon="fa-exclamation-triangle"></wg-button>
+		<wg-button id="btnAddWarn" value="Add Error" action="messagesCtrl.addErrorMessage()" icon="fa-times-circle"></wg-button>
+		
+		<wg-button id="btnMultiple" value="Multiple" action="messagesCtrl.showMultipleMessages()"></wg-button>		
+		<wg-button id="btnClear" value="Clear" action="messagesCtrl.clearMessages()"></wg-button>
 	</section>
 
 	<wg-fieldset id="Source" legend="Source" style="margin-bottom:20px">
 		<wg-tabview id="sourceTabs">
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<wg-button id="infoBtn" value="Info" action="messagesCtrl.showInfoGrowl()" icon="fa-info-circle"></wg-button>
-<wg-button id="errorBtn" value="Error" action="messagesCtrl.showErrorGrowl()" icon="fa-times-circle" ></wg-button>
-<wg-button id="warnBtn" value="Warn" action="messagesCtrl.showWarnGrowl()" icon="fa-exclamation-triangle" ></wg-button>
+<wg-button id="btnShowInfo" value="Show Info" action="messagesCtrl.showInfoMessage()" icon="fa-info-circle"></wg-button>
+<wg-button id="btnShowWarn" value="Show Warn" action="messagesCtrl.showWarnMessage()" icon="fa-exclamation-triangle"></wg-button>
+<wg-button id="btnShowError" value="Show Error" action="messagesCtrl.showErrorMessage()" icon="fa-times-circle"></wg-button>
+
+<wg-button id="btnAddInfo" value="Add Info" action="messagesCtrl.addInfoMessage()" icon="fa-info-circle"></wg-button>
+<wg-button id="btnAddError" value="Add Warn" action="messagesCtrl.addWarnMessage()" icon="fa-exclamation-triangle"></wg-button>
+<wg-button id="btnAddWarn" value="Add Error" action="messagesCtrl.addErrorMessage()" icon="fa-times-circle"></wg-button>
+
+<wg-button id="btnMultiple" value="Multiple" action="messagesCtrl.showMultipleMessages()"></wg-button>		
+<wg-button id="btnClear" value="Clear" action="messagesCtrl.clearMessages()"></wg-button>
 				</demo-source>
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">
@@ -40,16 +59,43 @@ function GrowlController($wgGrowl) {
 
 	var vm = this;
 
-	vm.showInfoGrowl = function() {
-		$wgGrowl.showInfoMessage('Info message title', "Info detail message");
+	vm.addInfoMessage = function() {
+		$wgMessages.addInfoMessage('Info message summary', "Info detail message");
 	};
 
-	vm.showErrorGrowl = function() {
-		$wgGrowl.showErrorMessage('Error message title', "Error detail message");
+	vm.addWarnMessage = function() {
+		$wgMessages.addWarnMessage('Warn message summary', "Warn detail message");
 	};
 
-	vm.showWarnGrowl = function() {
-		$wgGrowl.showWarnMessage('Warn message title', "Warn detail message");
+	vm.addErrorMessage = function() {
+		$wgMessages.addErrorMessage('Error message summary', "Error detail message");
+	};
+
+	vm.showInfoMessage = function() {
+		$wgMessages.showInfoMessage('Info message summary', "Info detail message");
+	};
+
+	vm.showErrorMessage = function() {
+		$wgMessages.showErrorMessage('Error message summary', "Error detail message");
+	};
+
+	vm.showWarnMessage = function() {
+		$wgMessages.showWarnMessage('Warn message summary', "Warn detail message");
+	};
+
+	vm.showMultipleMessages = function() {
+
+		var msgs = [
+			{ severity: 'info', summary: 'Info message summary', detail: "Info detail message" },
+			{ severity: 'warn', summary: 'Warn message summary', detail: "Warn detail message" },
+			{ severity: 'error', summary: 'Error message summary', detail: "Error detail message" }
+		];
+
+		$wgMessages.showMessages(msgs);
+	};
+
+	vm.clearMessages = function() {
+		$wgMessages.clearMessages();
 	};	
 };
 				</demo-source>

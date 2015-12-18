@@ -2,7 +2,7 @@
     "use strict";
 
     angular.module('angularWidgets')
-    	.factory('widgetMessages', ['widgetBase', MessagesWidget])
+    	.factory('widgetMessages', ['widgetBase', '$rootScope', MessagesWidget])
     	.factory('$wgMessages', ['widgetMessages', MessagesService])
     	.directive('wgMessages', ['widgetMessages', MessagesDirective])
     	.directive('form', ['widgetMessages', FormDirective]);
@@ -12,32 +12,28 @@
     		restrict: 'E',
     		require: '^form',
     		scope: {},
-    		link: function(scope, element, attrs, form) {
-			
-				if (widgetMessages.watchFormErrors()) {
-					scope.$watch(
-						function() { 
-							return form.$error; 
-						}, 
-						function(newVal) {
-							widgetMessages.showFormErrors(form);
-						},
-						true
-					);
-				}
+    		link: function(scope, element, attrs, ctrl) {			
+				widgetMessages.registerForm({ 
+					scope: scope, 
+					element: element,
+					attrs: attrs,
+					ctrl: ctrl
+				});				
     		}
     	};
     }
 
-    function MessagesWidget(widgetBase) {
+    function MessagesWidget(widgetBase, $rootScope) {
 
 		AngularWidgets.configureWidget('messages', {
-			closeable: true
+			closeable: true,
+			clearOnRouteChange: true
 		});
     	
         var widget = {},
         	messagesItems = [],
-        	validationErrorHandlers = {};        	
+        	formItems = [],
+        	validationErrorHandlers = {};
         
         widget.template = '<div class="pui-messages-container"></div>';
 
@@ -67,7 +63,7 @@
 					            
 	            this.bindEvents();
 
-	            messagesItems.push(this);
+				widget.registerMessagesItem(this);
         	},
 	        
         	determineOptions: function (options) {	        		        	
@@ -112,29 +108,20 @@
                 }
             },
             
-            showInfoMessage: function(summary, detail) {
-            	this.showMessage({ severity: 'info', summary: summary, detail: detail });
-            },
-            
-            showWarnMessage: function(summary, detail) {
-            	this.showMessage({ severity: 'warn', summary: summary, detail: detail });
-            },
-            
-            showErrorMessage: function(summary, detail) {
-            	this.showMessage({ severity: 'error', summary: summary, detail: detail });
-            },
-            
-            showMessage: function(msgs) {
+            showMessages: function(msgs) {
 
             	this.clear();
+                
+				this.addMessages(msgs);
+            },
+
+            addMessages: function(msgs) {
                 
                 msgs = AngularWidgets.isArray(msgs) ? msgs : [msgs];
 				
 				for(var i = 0; i < msgs.length; i++) {
                 	this.renderMessage(msgs[i]);
 				}
-                
-                this.element.show();
             },
                         
             renderMessage: function(msg) {
@@ -152,8 +139,6 @@
             		group.list.children().remove();
             		group.container.hide();
             	});
-            	
-                this.element.hide();
             },
         	
             getGroupBySeverity: function(severity) {
@@ -168,29 +153,47 @@
             }            
        	});
 
-		widget.showMessage = function(msgs) {
+		widget.addMessages = function(msgs) {
 			angular.forEach(messagesItems, function(messagesItem) {
-				messagesItem.showMessage(msgs);
+				messagesItem.addMessages(msgs);
 			});
 		}
 
-       	widget.showInfoMessage = function(summary, detail) {
-       		angular.forEach(messagesItems, function(messagesItem) {
-       			messagesItem.showInfoMessage(summary, detail);
-       		});
+		widget.addInfoMessage = function(summary, detail) {
+       		widget.addMessages([{ severity: 'info', summary: summary, detail: detail }]);
+		};
+
+        widget.addWarnMessage = function(summary, detail) {
+       		widget.addMessages([{ severity: 'warn', summary: summary, detail: detail }]);
+        };
+
+		widget.addErrorMessage = function(summary, detail) {
+       		widget.addMessages([{ severity: 'error', summary: summary, detail: detail }]);
+		};
+
+		widget.showMessages = function(msgs) {
+			angular.forEach(messagesItems, function(messagesItem) {
+				messagesItem.showMessages(msgs);
+			});
+		};
+
+		widget.showInfoMessage = function(summary, detail) {
+       		widget.showMessages([{ severity: 'info', summary: summary, detail: detail }]);
 		};
 
         widget.showWarnMessage = function(summary, detail) {
-       		angular.forEach(messagesItems, function(messagesItem) {
-       			messagesItem.showWarnMessage(summary, detail);
-       		});
+       		widget.showMessages([{ severity: 'warn', summary: summary, detail: detail }]);
         };
-            	
+
 		widget.showErrorMessage = function(summary, detail) {
-       		angular.forEach(messagesItems, function(messagesItem) {
-       			messagesItem.showErrorMessage(summary, detail);
-       		});
+       		widget.showMessages([{ severity: 'error', summary: summary, detail: detail }]);
 		};
+
+		widget.clearMessages = function() {
+			angular.forEach(messagesItems, function(messagesItem) {
+       			messagesItem.clear();
+       		});
+		}
 	
 		widget.watchFormErrors = function() {
 			return messagesItems.length > 0;
@@ -208,19 +211,29 @@
 					
 					var control = keyItems[i],
 						validator = control.$validators[key];
-						
+								
 					var detail = 'The field "' + keyItems[i].$name + '" is "' + key;
-
-					msgs.push({ severity: 'error', summary: 'Validation', detail: detail });
+					
+					if (control.$touched) {
+						msgs.push({ severity: 'error', summary: 'Validation', detail: detail });
+					}
 				}
 			}
 			
-			widget.showMessage(msgs);
+			widget.showMessages(msgs);
 		};
 
 		widget.getValidationErrorHandlerByType = function(errorType) {
 			return validationErrorHandlers[errorType];
 		};
+
+		widget.registerForm = function(formItem) {
+			formItems.push(formItem);
+		};
+
+		widget.registerMessagesItem = function(messagesItem) {
+			messagesItems.push(messagesItem);
+		}
 
 		widget.registerValidationErrorHandler = function(errorType, handler) {
 			validationErrorHandlers[errorType] = handler;
@@ -249,6 +262,21 @@
 
 			return replaceParams(msg, 2);
 		});
+
+		/* TODO */
+		widget.initFormWatch = function() {
+		
+			if (widgetMessages.watchFormErrors()) {
+				scope.$watch(function() { 
+						return form.$error; 
+					}, 
+					function(newVal) {
+						widgetMessages.showFormErrors(form);
+					},
+					true
+				);
+			}
+		};
         
         return widget;
     }
@@ -268,14 +296,26 @@
     
 	function MessagesService(widgetMessages) {
 		return {
-			showInfoMessage: function(title, msg, options) {
-				widgetMessages.showInfoMessage(title, msg, options);
+			addInfoMessage: function(title, msg) {
+				widgetMessages.addInfoMessage(title, msg);
 			},
-			showWarnMessage: function(title, msg, options) {
-				widgetMessages.showWarnMessage(title, msg, options);
+			addWarnMessage: function(title, msg) {
+				widgetMessages.addWarnMessage(title, msg);
 			},
-			showErrorMessage: function(title, msg, options) {
-				widgetMessages.showErrorMessage(title, msg, options);
+			addErrorMessage: function(title, msg) {
+				widgetMessages.addErrorMessage(title, msg);
+			},
+			showInfoMessage: function(title, msg) {
+				widgetMessages.showInfoMessage(title, msg);
+			},
+			showWarnMessage: function(title, msg) {
+				widgetMessages.showWarnMessage(title, msg);
+			},
+			showErrorMessage: function(title, msg) {
+				widgetMessages.showErrorMessage(title, msg);
+			},			
+			showMessages: function(msgs) {
+				widgetMessages.showMessages(msgs);	
 			},
 			clearMessages: function() {
 				widgetMessages.clearMessages();
