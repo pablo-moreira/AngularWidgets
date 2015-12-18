@@ -2,10 +2,10 @@
 	"use strict";
 	
 	angular.module('angularWidgets')			
-		.factory('widgetDatalist', ['$compile', '$http', 'widgetBase', 'widgetPaginator', 'widgetFacet', DatalistWidget])
+		.factory('widgetDatalist', ['$compile', '$http', 'widgetBase', 'widgetPaginator', 'widgetFacet', '$wgMessages', DatalistWidget])
 		.directive('wgDatalist', ['widgetDatalist', DatalistDirective]);
 
-	function DatalistWidget($compile, $http, widgetBase, widgetPaginator, widgetFacet) {
+	function DatalistWidget($compile, $http, widgetBase, widgetPaginator, widgetFacet, $wgMessages) {
 			
 		AngularWidgets.configureWidget('datalist', {
 			emptyMessage: 'No items found.',
@@ -23,7 +23,18 @@
 			itemStyleClass: undefined,
 			loadOnRender: true,
 			loadOnDemand: false,
-			responsive: false // reflow, TODO flip-scroll
+			responsive: false, // reflow, TODO flip-scroll
+			onError: function(datatable, context, event) {
+
+				if ($wgMessages.isVisible()) {
+					$wgMessages.addErrorMessage('Datalist error', context.error);
+				}
+				else {
+					$wgMessages.showErrorMessage('Datalist error', context.error);
+				}
+
+				AngularWidgets.$log.error(context);
+			}
 		});
 
 		var widget = {};
@@ -152,8 +163,7 @@
 						$this.onLoadData();
 					},
 					function(response) {
-						/* TODO - Tratar erros */
-						alert(response);
+						$this.options.onError($this.bindInstance, response, 'load');
 					}
 				);
 			},

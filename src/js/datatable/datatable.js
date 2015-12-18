@@ -2,10 +2,10 @@
 	"use strict";
 	
 	angular.module('angularWidgets')			
-		.factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', DatatableWidget])
+		.factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', '$wgMessages', DatatableWidget])
 		.directive('wgDatatable', ['widgetDatatable', DatatableDirective]);
 
-	function DatatableWidget($compile, $http, widgetBase, widgetColumn, widgetPaginator, widgetFacet) {
+	function DatatableWidget($compile, $http, widgetBase, widgetColumn, widgetPaginator, widgetFacet, $wgMessages) {
 			
 		AngularWidgets.configureWidget('datatable', {
 			emptyMessage: 'No rows found.',
@@ -22,7 +22,18 @@
 			onBuildRow: null,
 			loadOnRender: true,
 			loadOnDemand: false,
-			responsive: false // reflow, TODO flip-scroll
+			responsive: false, // reflow, TODO flip-scroll
+			onError: function(datatable, context, event) {
+
+				if ($wgMessages.isVisible()) {
+					$wgMessages.addErrorMessage('Datatable error', context.error);
+				}
+				else {
+					$wgMessages.showErrorMessage('Datatable error', context.error);
+				}
+				
+				AngularWidgets.$log.error(context);
+			}
 		});
 
 		var widget = {};
@@ -51,12 +62,10 @@
 			this.selection = [];
 			this.firstLoad = true;
 			this.sorts = [];
-			this.childrenScope = [];
 
 			this.constructor = function(scope, element, options) {
 
 				this.table = this.element.findAllSelector('table');
-				this.tableWrapper = this.table.parent();
 
 				this.determineOptions(options);
 
@@ -448,8 +457,7 @@
 						$this.onLoadData();
 					},
 					function(response) {
-						/* TODO - Tratar erros */
-						alert(response);
+						$this.options.onError($this.bindInstance, response, 'load');
 					}
 				);
 			};

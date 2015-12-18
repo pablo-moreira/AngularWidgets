@@ -199,14 +199,14 @@
 			var deferred = AngularWidgets.$q.defer();
 
 			AngularWidgets.$http[$this.method]($this.url, $this.translateRequest(request))
-				.success(function(data) {
+				.success(function(data, status, headers, config) {
 
 					loadedData = $this.translateResponse(data, request);
 
 					deferred.resolve(request);
 				})
-				.error(function(data){
-					deferred.reject({ 'request': request, 'error': data });
+				.error(function(data, status, headers, config){
+					deferred.reject({ 'request': request, 'error': data, 'status': status, 'headers': headers, 'config': config });
 				});
 
 			return customPromise(deferred.promise);
@@ -228,7 +228,7 @@
 			var arrayDataSource = new AngularWidgets.ArrayDataSource(data.rows);
 
 			arrayDataSource.load(request).error(function(response) {
-				alert(response.error);
+				AngularWidgets.$log.error(response);
 			});
 
 			return { 

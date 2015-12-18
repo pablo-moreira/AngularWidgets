@@ -5,10 +5,10 @@
     "use strict";
 
     angular.module('angularWidgets')
-    	.factory('widgetAutocomplete', ['$compile', '$timeout', '$parse', '$document', 'widgetBase', 'widgetInputText', 'widgetColumn', 'widgetPaginator', 'widgetFacet', AutocompleteWidget])
+    	.factory('widgetAutocomplete', ['$compile', '$timeout', '$parse', '$document', 'widgetBase', 'widgetInputText', 'widgetColumn', 'widgetPaginator', 'widgetFacet', '$wgMessages', AutocompleteWidget])
     	.directive('wgAutocomplete', ['widgetAutocomplete', AutocompleteDirective]);
 
-	function AutocompleteWidget($compile, $timeout, $parse, $document, widgetBase, widgetInputText, widgetColumn, widgetPaginator, widgetFacet) {
+	function AutocompleteWidget($compile, $timeout, $parse, $document, widgetBase, widgetInputText, widgetColumn, widgetPaginator, widgetFacet, $wgMessages) {
 
 		AngularWidgets.configureWidget('autocomplete', {
 			caseSensitive	: false, 
@@ -26,7 +26,18 @@
 			items			: null,
 			onItemSelect	: null,
 			onItemRemove	: null,
-			pageLinks		: 1
+			pageLinks		: 1,
+			onError			: function(datatable, context, event) {
+
+				if ($wgMessages.isVisible()) {
+					$wgMessages.addErrorMessage('Autocomplete error', context.error);
+				}
+				else {
+					$wgMessages.showErrorMessage('Autocomplete error', context.error);
+				}
+				
+				AngularWidgets.$log.error(context);
+			}
 		});
 		
         var widget = {};
@@ -422,8 +433,7 @@
 	                   	$this.onLoadData();
 					})
 					.error(function(response) {
-						/* TODO - Tratar erros */
-						alert(response.error);
+						$this.options.onError($this.bindInstance, response, 'load');
 					});
             },
             

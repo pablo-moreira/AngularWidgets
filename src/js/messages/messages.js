@@ -132,6 +132,20 @@
 
             	group.container.show();
             },
+
+            isVisible: function() {
+				
+				var isVisible = false;
+
+				for (var i=0,t=this.groups.length; i<t; i++) {
+					if (widgetBase.isVisible(this.groups[i].container)) {
+						isVisible = true;
+						break;
+					}
+				}
+
+				return isVisible;
+            },
             
             clear: function(severityContainer) {
             	
@@ -188,6 +202,20 @@
 		widget.showErrorMessage = function(summary, detail) {
        		widget.showMessages([{ severity: 'error', summary: summary, detail: detail }]);
 		};
+
+		widget.isVisible = function() {
+
+			var isVisible = false;
+			
+			for (var i=0, l=messagesItems.length; i<l; i++) {
+				if (messagesItems[i].isVisible()) {
+					isVisible = true;
+					break;
+				}
+			}
+						
+			return isVisible;
+		}
 
 		widget.clearMessages = function() {
 			angular.forEach(messagesItems, function(messagesItem) {
@@ -316,6 +344,9 @@
 			},			
 			showMessages: function(msgs) {
 				widgetMessages.showMessages(msgs);	
+			},
+			isVisible: function() {
+				return widgetMessages.isVisible();
 			},
 			clearMessages: function() {
 				widgetMessages.clearMessages();

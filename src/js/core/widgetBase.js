@@ -1,12 +1,13 @@
 (function(window, document, undefined) {
     "use strict";
 
-	angular.module('angularWidgets').factory('widgetBase', ['$parse', '$interpolate', '$animate', '$q', '$http', WidgetBaseFactory]);
+	angular.module('angularWidgets').factory('widgetBase', ['$parse', '$interpolate', '$animate', '$q', '$http', '$log', WidgetBaseFactory]);
 
-	function WidgetBaseFactory($parse, $interpolate, $animate, $q, $http) {
+	function WidgetBaseFactory($parse, $interpolate, $animate, $q, $http, $log) {
     	
 		AngularWidgets.$q = $q;
 		AngularWidgets.$http = $http;
+		AngularWidgets.$log = $log;
 	
     	var widgetBase = {};
 
