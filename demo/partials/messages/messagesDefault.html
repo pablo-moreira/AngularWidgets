@@ -5,7 +5,7 @@
 		
 		<wg-messages></wg-messages>
 		
-		<form name="frmTeste" novalidate>
+<!-- 		<form name="frmTeste" novalidate>
 			<label>First name</label><br/>
 			<wg-inputtext type="text" name="firstname" value="messagesCtrl.firstname" required ng-maxlength="2"></wg-inputtext><br/>
 
@@ -16,12 +16,12 @@
     		<label>City</label><br/>
     		<wg-inputtext type="text" name="city" value="messagesCtrl.city" required ng-minlength="3"></wg-inputtext><br/>
     		
-<!--        <br/>
+       <br/>
 		 	form validity - {{ frmTeste.$valid }}<br/>
         	input validity - {{ frmTeste.surname.$valid }}<br/>
         	input validity - {{ frmTeste.firstname.$valid }}<br/>
-        	input validity - {{ frmTeste.city.$valid }}			 -->
-		</form>
+        	input validity - {{ frmTeste.city.$valid }}			
+		</form> -->
 		
 		<br/>
 
@@ -41,6 +41,8 @@
 		<wg-tabview id="sourceTabs">
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
+<wg-messages></wg-messages>
+
 <wg-button id="btnShowInfo" value="Show Info" action="messagesCtrl.showInfoMessage()" icon="fa-info-circle"></wg-button>
 <wg-button id="btnShowWarn" value="Show Warn" action="messagesCtrl.showWarnMessage()" icon="fa-exclamation-triangle"></wg-button>
 <wg-button id="btnShowError" value="Show Error" action="messagesCtrl.showErrorMessage()" icon="fa-times-circle"></wg-button>
