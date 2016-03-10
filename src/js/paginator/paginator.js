@@ -97,6 +97,10 @@
         		this.goToPage(0);
         	},
 
+        	onChangeRestriction: function() {
+        		this.page = 0;
+        	},
+
         	update: function () {
         		for (var i = 0; i < this.templateKeys.length; i++) {
         			
@@ -105,7 +109,7 @@
 					puiPaginatorTemplate.getTemplate(templateKey).update(this.templateElements[templateKey], this);
 				}
 			},
-
+			
         	render: function() {
         	
 				this.element.html('');

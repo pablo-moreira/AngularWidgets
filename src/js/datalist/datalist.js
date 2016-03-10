@@ -22,6 +22,7 @@
 			paginator: false,
 			itemStyleClass: undefined,
 			loadOnRender: true,
+			loadOnDemand: false,
 			responsive: false // reflow, TODO flip-scroll
 		});
 
@@ -78,6 +79,29 @@
 					
 					this.paginator.element.addClass('pui-paginator-bottom');
 					this.element.append(this.paginator.element);
+
+					this.dataModel = new AngularWidgets.PaginatedDataModel({						
+						rows: this.options.rows,
+						dataSource: this.items,
+						paginator: this.paginator
+					});
+				}
+				else if (this.options.loadOnDemand) {
+
+					this.onDemandDataModel = new AngularWidgets.OnDemandDataModel({					
+						rows: this.options.rows,
+						dataSource: this.items,
+						onChangePageListener: function(page) {
+							$this.refresh();
+						}
+					});
+
+					this.dataModel = this.onDemandDataModel;
+				}
+				else {
+					this.dataModel = new AngularWidgets.BasicDataModel({
+						dataSource: this.items
+					});
 				}
 
 				this.determineTransclude();
@@ -88,7 +112,7 @@
 					this.content.addClass('pui-datalist-alone');
 				}
 
-				this.renderListContainer();				
+				this.renderListContainer();			
 
 				widgetBase.createBindAndAssignIfNecessary(this, "getCurrentPage,goToPage,refresh");
 
@@ -123,16 +147,15 @@
 
 				var $this = this;
 
-				if (this.items !== null && this.items !== undefined) {
-					this.items.load(this.createRequest())
-					.success(function(request) {
+				this.dataModel.load(this.createRequest(),
+					function() {
 						$this.onLoadData();
-					})
-					.error(function(response) {
+					},
+					function(response) {
 						/* TODO - Tratar erros */
 						alert(response);
-					});
-				}
+					}
+				);
 			},
 
 			onLoadData: function() {
@@ -152,6 +175,25 @@
 				}
 
 				this.renderListContent();
+
+				if (this.options.loadOnDemand && this.onDemandLoader === undefined) {
+					
+					this.onDemandLoader = angular.element('<div class="pui-datalist-loader"></div>');
+
+					this.content.append(this.onDemandLoader);
+
+					var watcher = scrollMonitor.create(this.onDemandLoader);
+
+					var $this = this;
+					
+					watcher.enterViewport(function() {
+						if ($this.dataModel.hasMoreRows()) {
+							var li = $this.createListItem().addClass('pui-datalist-loader').append('<i class="fa fa-2x fa-spinner fa-pulse"></i>');
+							$this.listContainer.append(li);
+							$this.onDemandDataModel.nextPage();
+						}
+					});
+				}
 			},
 
 			renderListContainer: function() {
@@ -176,29 +218,49 @@
 				}
 			},
 
+			createListItem: function() {
+				return angular.element('<' + this.listTag + '><' + this.itemTag + '></' + this.itemTag + '></' + this.listTag + '>').childrenSelector(this.itemTag);
+			},
+
+			removeListItem: function(listItem) {
+				var scope = listItem.data('itemScope');				
+				if (scope) scope.$destroy();
+				listItem.remove();
+			},
+
+			removeListItems: function(listItems) {				
+				for (var i=0,t=listItems.length; i<t; i++) {
+					this.removeListItem(angular.element(listItems[i]));
+				}				
+			},
+
 			renderListContent: function() {
 
                 var $this = this;
 
-				this.cleanAndDestroyChildrenScope();
-				this.listContainer.children().remove();
+				var children = Array.prototype.slice.call(this.listContainer.children());
 
-				if (this.items.getData().length > 0) {
+				if ($this.dataModel.getData().length > 0) {
 
-					angular.forEach(this.items.getData(), function (item, index) {
-						
+					angular.forEach($this.dataModel.getData(), function (item, index) {
+
+						var oldLi;
+
+						if (children.length > 0) {							
+							oldLi = angular.element(children[0]);
+						}
+
 						var itemKey = $this.options.item ? $this.options.item : 'item',
 							itemScope = $this.scope.$new(false, $this.scope);
-
-						itemScope[itemKey] = item;
-
-						// Store childscope for destroy
-						$this.childrenScope.push(itemScope);
 						
-						// Determine item type
-						var li = angular.element('<' + $this.listTag + '><' + $this.itemTag + ' class="pui-datalist-item"></' + $this.itemTag + '></' + $this.listTag + '>')
-								.childrenSelector($this.itemTag)
+						itemScope[itemKey] = item;
+						
+						var li = $this.createListItem()
+								.addClass('pui-datalist-item')
 								.addClass(index % 2 === 0 ? 'pui-even' : 'pui-odd');
+												
+						// Store childscope for destroy
+						li.data('itemScope', itemScope);
 						
 						if ($this.options.itemStyleClass !== undefined) {
 							li.addClass($this.options.itemStyleClass);
@@ -226,32 +288,34 @@
 						}
 
 						$compile(li)(itemScope);
-
-						$this.listContainer.append(li);
-					});
+						
+						if (oldLi) {							
+							oldLi.after(li);							
+							$this.removeListItem(oldLi);
+							children.shift();
+						}
+						else {
+							$this.listContainer.append(li);	
+						}	
+					});	
+					
+					$this.removeListItems(children);
 				}
 				else {
-					this.listContainer.append(angular.element('<li class="ui-datalist-item pui-datalist-empty-message">' + this.options.emptyMessage + '</li>'));
+					$this.removeListItems(children);															
+					
+					var liEmpty = $this.createListItem()
+						.addClass('pui-datalist-empty-message')
+						.append($this.options.emptyMessage);
+				
+					$this.listContainer.append(liEmpty);
 				}
             },
-
-            cleanAndDestroyChildrenScope: function() {
-
-				for (var i=0,l=this.childrenScope.length; i<l; i++) {
-					this.childrenScope[i].$destroy();
-				}
-
-				this.childrenScope = [];
-            },
-
-			getFirst: function() {
-				return this.options.paginator ? this.paginator.getFirst() : 0;
-			},
 
 			createRequest: function() {
 
 				var request = {
-					first: this.getFirst(),
+					first: this.dataModel.getFirst(),
 					sorts: this.sorts
 				};
 
@@ -261,14 +325,14 @@
 
 					if (!AngularWidgets.equals(this.lastRestriction, request.restriction)) {
 						request.first = 0;
-						this.paginator.page = 0;
+						this.dataModel.onChangeRestriction();
 					}				
 
 					this.lastRestriction = request.restriction;
 				}
 
-				if (this.paginator) {
-					request.pageSize = this.paginator.getRows();
+				if (this.dataModel.getPageSize) {
+					request.pageSize = this.dataModel.getPageSize();
 				}
 
 				return request;

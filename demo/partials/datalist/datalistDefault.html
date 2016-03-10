@@ -3,8 +3,10 @@
 	<section>
 		<header>Default integration</header>
 		
+		<h3>Ordered</h3>
 		<wg-datalist id="default-ordered" items="datalistCtrl.countries" type="ordered"></wg-datalist>
 
+		<h3>Unordered</h3>
 		<wg-datalist id="default-unordered" items="datalistCtrl.countries" type="unordered"></wg-datalist>
 
 	</section>
@@ -13,7 +15,9 @@
 		<wg-tabview id="sourceTabs">
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
-<wg-datalist id="default" items="datalistCtrl.countries"></wg-datalist>
+<wg-datalist id="default-ordered" items="datalistCtrl.countries" type="ordered"></wg-datalist>
+
+<wg-datalist id="default-unordered" items="datalistCtrl.countries" type="unordered"></wg-datalist>
 				</demo-source>
 			</wg-tab>
 			<wg-tab header="Controller" id="d_script">

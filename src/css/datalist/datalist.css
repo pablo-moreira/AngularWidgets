@@ -41,3 +41,6 @@
     cursor: pointer;
     font-weight: inherit;
 }
+.pui-datalist-loader {
+	text-align: center;
+}

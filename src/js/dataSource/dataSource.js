@@ -263,4 +263,165 @@
 		return promise;			
 	}
 
+	AngularWidgets.BasicDataModel = function(options) {
+
+		var $this = this;
+		var data = [];
+
+		this.dataSource = options.dataSource;
+
+		this.getFirst = function() {
+    		return 0;
+		};
+
+		this.onChangeRestriction = function() {};
+
+		this.getData = function() {
+			return data;
+		}
+
+		this.load = function(request, onSuccess, onError) {
+								
+			$this.dataSource.load(request)			
+				.success(function(request) {
+
+					data = $this.dataSource.getData();
+
+					if (onSuccess) {
+						onSuccess(request);
+					}
+				})
+				.error(function(response) {
+					if (onError) {
+						onError(response);
+					}
+				});
+        };
+	}
+
+	AngularWidgets.PaginatedDataModel = function(options) {
+
+		var $this = this;
+		var data = [];		
+		var dataSource = options.dataSource;
+		var paginator = options.paginator;
+		
+		this.getData = function() {
+			return data;
+		}
+
+		this.getFirst = function() {
+    		return paginator.getFirst();
+		};
+
+		this.getPageSize = function() {
+			return paginator.getRows();
+		}
+
+		this.load = function(request, onSuccess, onError) {
+
+			dataSource.load(request)
+				.success(function(request) {
+
+					data = dataSource.getData();
+
+					if (onSuccess) {
+						onSuccess(request);
+					}
+				})
+				.error(function(response) {
+					if (onError) {
+						onError(response);
+					}
+				});
+        };
+
+        this.onChangeRestriction = function() {
+        	paginator.onChangeRestriction();
+        };
+	}
+
+	AngularWidgets.OnDemandDataModel = function(options) {
+
+		var $this = this;
+		var data = [];
+		var rows = parseInt(options.rows) || 10;
+		var page = 0
+		var rowCount = 0;
+		var dataSource = options.dataSource;
+
+		if (options.onChangePageListener) {
+			this.onChangePageListener = options.onChangePageListener;
+		}  
+
+		if (options.onChangePage) {
+			this.onChangePage = options.onChangePage;
+		} 
+
+		this.getData = function() {
+			return data;
+		}
+
+		this.getRowCount = function() {
+			return dataSource.getRowCount();
+		};
+		
+		this.getFirst = function() {
+    		return ($this.getCurrentPage() * $this.getRows());
+		};
+		
+		this.getRows = function() {
+			return rows;
+		}
+
+		this.getPageSize = function() {
+			return rows	
+		}
+    		
+		this.getCurrentPage = function() {
+			return page;
+		};
+
+		this.nextPage = function() {
+        		
+			page++;
+
+			if ($this.onChangePageListener) {
+				$this.onChangePageListener(page);
+			}
+
+			if ($this.onChangePage) {
+				$this.onChangePage(page);
+			}
+		};
+
+		this.onChangeRestriction = function() {
+        	page = 0;
+        	data = [];
+        };
+
+        this.load = function(request, onSuccess, onError) {
+								
+			dataSource.load(request)			
+				.success(function(request) {
+
+					data = data.concat(dataSource.getData());
+
+					if (onSuccess) {
+						onSuccess(request);
+					}
+				})
+				.error(function(response) {
+
+					if (onError) {
+						onError(response);
+					}
+				});
+        };
+
+        this.hasMoreRows = function() {
+        	return $this.getRowCount() > data.length;
+        }
+	}
+
 }(window, document));

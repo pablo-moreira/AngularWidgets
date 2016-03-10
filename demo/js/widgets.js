@@ -73,6 +73,7 @@
 				{ "label" : "Custom Column", "path" : "datatable/datatableCustomColumn" },
 				{ "label" : "Responsive", "path" : "datatable/datatableResponsive" },
 				{ "label" : "Simple Restrictions", "path" : "datatable/datatableSimpleRestriction" },
+				{ "label" : "Load On Demand", "path" : "datatable/datatableLoadOnDemand" },
 				//{ "label" : "Complex Restrictions", "path" : "datatable/datatableComplexRestriction" }
 			]
 		},
@@ -91,6 +92,7 @@
 				{ "label" : "Facets", "path" : "datalist/datalistFacets" },
 				{ "label" : "HttpDataSource", "path" : "datalist/datalistHttpDataSource" },
 				{ "label" : "Simple Restrictions", "path" : "datalist/datalistSimpleRestriction" },
+				{ "label" : "Load On Demand", "path" : "datalist/datalistLoadOnDemand" }
 			]
 		},
 		{
