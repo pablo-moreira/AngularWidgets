@@ -40,6 +40,7 @@
 	 
 		// HttpDataSource
 		vm.httpDataSource = new AngularWidgets.FakeHttpDataSource({ url: 'json/cars.json' });
+		vm.httpDataSource2 = new AngularWidgets.FakeHttpDataSource({ url: 'json/cars2.json' });
 			
 		// Restriction
 		vm.datalist = null;

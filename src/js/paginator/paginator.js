@@ -97,13 +97,17 @@
         		this.goToPage(0);
         	},
 
+        	onChangeRestriction: function() {
+        		this.page = 0;
+        	},
+
         	update: function () {
 
 				for (var key in this.templateElements) {
 					puiPaginatorTemplate.getTemplate(key).update(this.templateElements[key], this);
 				}
 			},
-
+			
         	render: function() {
         	
 				this.element.html('');

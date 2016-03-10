@@ -3,8 +3,7 @@
 	
 	angular.module('angularWidgets')			
 		.factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', DatatableWidget])
-		.directive('wgDatatable', ['widgetDatatable', DatatableDirective])
-		.directive('wgRowBuild', RowBuildDirective);
+		.directive('wgDatatable', ['widgetDatatable', DatatableDirective]);
 
 	function DatatableWidget($compile, $http, widgetBase, widgetColumn, widgetPaginator, widgetFacet) {
 			
@@ -22,6 +21,7 @@
 			paginator: false,
 			onBuildRow: null,
 			loadOnRender: true,
+			loadOnDemand: false,
 			responsive: false // reflow, TODO flip-scroll
 		});
 
@@ -51,10 +51,12 @@
 			this.selection = [];
 			this.firstLoad = true;
 			this.sorts = [];
+			this.childrenScope = [];
 
 			this.constructor = function(scope, element, options) {
 
 				this.table = this.element.findAllSelector('table');
+				this.tableWrapper = this.table.parent();
 
 				this.determineOptions(options);
 
@@ -77,6 +79,29 @@
 					});
 
 					this.element.append(this.paginator.element);
+					
+					this.dataModel = new AngularWidgets.PaginatedDataModel({						
+						rows: this.options.rows,
+						dataSource: this.items,
+						paginator: this.paginator
+					});
+				}
+				else if (this.options.loadOnDemand) {
+
+					this.onDemandDataModel = new AngularWidgets.OnDemandDataModel({
+						rows: this.options.rows,
+						dataSource: this.items,
+						onChangePageListener: function(page) {
+							$this.refresh();
+						}
+					});
+
+					this.dataModel = this.onDemandDataModel;
+				}
+				else {
+					this.dataModel = new AngularWidgets.BasicDataModel({
+						dataSource: this.items
+					});
 				}
 
 				this.determineTransclude();
@@ -96,10 +121,13 @@
 				this.buildFacets();
 				this.buildCaption();
 				this.buildColumnHeaders();
+				this.renderBody();
 
 				if (this.isSortingEnabled()) {
 					this.initSorting();
 				}
+
+				this.changeScope();
 
 				widgetBase.createBindAndAssignIfNecessary(this, "getCurrentPage,goToPage,refresh");
 
@@ -229,35 +257,6 @@
 				}
 			};
 
-			this.buildRow = function(scope, element, attrs) {
-
-				var item = scope[this.options.item];
-
-				// Share item with autocomplete call onBuildRow
-				element.data('item', item);
-
-				if (this.options.selectionMode) {
-					this.initSelection(element);
-				}
-
-				if (this.options.selectionMode && this.isSelected(item)) {
-					element.addClass("ui-state-highlight");
-				}
-
-				scope.$watch('$even', function(newValue, oldValue) {
-					if (newValue) {
-						element.addClass('pui-even').removeClass('pui-odd');
-					} 
-					else {
-						element.addClass('pui-odd').removeClass('pui-even');
-					}
-				});
-
-				if (this.options.onBuildRow) {
-					this.options.onBuildRow(this, scope, element, attrs);
-				}
-			};
-
 			this.getItemId = function(item) {
 				return item[this.options.itemId];
 			};
@@ -265,10 +264,6 @@
 			this.changeScope = function() {
 
 				var $this = this;
-
-				this.scope.$getData = function() {
-					return $this.items.getData();
-				};
 
 				if (this.options.itemsBind) {
 					this.scope.$watch(this.options.items, function(newValue, oldValue) {
@@ -285,18 +280,10 @@
 				this.options.itemsBind = angular.isString(options.items);
 			};
 
-			this.getFirst = function() {
-				return this.options.paginator ? this.paginator.getFirst() : 0;
-			};
-
-			this.getPageSize = function() {
-				return this.options.paginator ? this.paginator.getRows() : this.items.getRowCount();
-			};
-
 			this.createRequest = function() {
 
 				var request = {
-					first: this.getFirst(),
+					first: this.dataModel.getFirst(),
 					sorts: this.sorts
 				};
 
@@ -306,42 +293,42 @@
 
 					if (!AngularWidgets.equals(this.lastRestriction, request.restriction)) {
 						request.first = 0;
-						this.paginator.page = 0;
+						this.dataModel.onChangeRestriction();
 					}				
 
 					this.lastRestriction = request.restriction;
 				}
 
-				if (this.paginator) {
-					request.pageSize = this.paginator.getRows();
+				if (this.dataModel.getPageSize) {
+					request.pageSize = this.dataModel.getPageSize();
 				}
 
 				return request;
 			};
 
-			this.initSelection = function(row) {
+			this.initSelection = function(tr, item) {
 
-				row.hover(function() {
-					if (!row.hasClass('ui-state-highlight')) {
-						row.addClass('ui-state-hover');
+				tr.hover(function() {
+					if (!tr.hasClass('ui-state-highlight')) {
+						tr.addClass('ui-state-hover');
 					}
 				}, function() {
-					if (!row.hasClass('ui-state-highlight')) {
-						row.removeClass('ui-state-hover');
+					if (!tr.hasClass('ui-state-highlight')) {
+						tr.removeClass('ui-state-hover');
 					}
 				});
 
 				var $this = this;
 
-				row.bind('click', function(e) {
+				tr.bind('click', function(e) {
 					if (e.target.nodeName === 'TD') {
-						var selected = row.hasClass('ui-state-highlight'), 
+						var selected = tr.hasClass('ui-state-highlight'), 
 						metaKey = event.metaKey || event.ctrlKey, 
 						shiftKey = event.shiftKey;
 
 						//unselect a selected row if metakey is on
 						if (selected && metaKey) {
-							$this.unselectRow(row, false);
+							$this.unselectRow(tr, false);
 						} 
 						else {
 							//unselect previous selection if this is single selection or multiple one with no keys
@@ -349,7 +336,7 @@
 								$this.unselectAllRows();
 							}
 
-							$this.selectRow(row, false);
+							$this.selectRow(tr, false);
 						}
 					}
 				});
@@ -456,16 +443,15 @@
 
 				var $this = this;
 
-				if (this.items !== null && this.items !== undefined) {
-					this.items.load(this.createRequest())
-					.success(function(request) {
+				this.dataModel.load(this.createRequest(),
+					function() {
 						$this.onLoadData();
-					})
-					.error(function(response) {
+					},
+					function(response) {
 						/* TODO - Tratar erros */
 						alert(response);
-					});
-				}
+					}
+				);
 			};
 
 			this.onLoadData = function() {
@@ -473,10 +459,6 @@
 				if (this.firstLoad) {
 
 					this.firstLoad = false;
-
-					this.changeScope();
-
-					this.buildBody();
 
 					if (this.options.paginator) {
 						this.paginator.render();
@@ -487,7 +469,131 @@
 						this.paginator.update();
 					}
 				}
+
+				this.renderRows();
+
+				if (this.options.loadOnDemand && this.onDemandLoader === undefined) {
+					
+					this.onDemandLoader = angular.element('<div class="pui-datatable-loader"></div>');
+
+					this.element.append(this.onDemandLoader);
+
+					var watcher = scrollMonitor.create(this.onDemandLoader);
+
+					var $this = this;
+					
+					watcher.enterViewport(function() {
+						if ($this.dataModel.hasMoreRows()) {							
+							var tr = angular.element('<tr class="ui-widget-content pui-datatable-loader"><td colspan="' + $this.columns.length + '"><i class="fa fa-2x fa-spinner fa-pulse"></i></td></tr>');
+							$this.tbody.append(tr);
+							$this.onDemandDataModel.nextPage();
+						}
+					});
+				}		
 			};
+
+			this.renderBody = function() {
+				this.tbody = this.table.childrenSelector("tbody");
+			};
+
+			this.removeRow = function(row) {
+				var scope = row.data('itemScope');				
+				if (scope) scope.$destroy();
+				row.remove();
+			},
+
+			this.removeRows = function(rows) {				
+				for (var i=0,t=rows.length; i<t; i++) {
+					this.removeRow(angular.element(rows[i]));
+				}				
+			},
+
+			this.renderRows = function() {
+								
+ 				var $this = this;
+
+				var children = Array.prototype.slice.call(this.tbody.children());
+
+				if ($this.dataModel.getData().length > 0) {
+
+					angular.forEach($this.dataModel.getData(), function (item, index) {
+						
+						var oldTr;
+
+						if (children.length > 0) {							
+							oldTr = angular.element(children[0]);
+						}
+
+						var itemKey = $this.options.item ? $this.options.item : 'item',
+							itemScope = $this.scope.$new(false, $this.scope);
+
+						itemScope[itemKey] = item;
+						
+						var tr = angular.element('<tr class="ui-widget-content">')
+									.addClass(index % 2 === 0 ? 'pui-even' : 'pui-odd');
+
+						// Store childscope for destroy
+						tr.data('itemScope', itemScope);
+
+						for (var i = 0, t = $this.columns.length; i < t; i++) {
+
+							var column = $this.columns[i], 
+							td = angular.element('<table><tbody><tr><td/></tr></tbody></table>').findAllSelector('td');
+							td.attr('data-title', column.headerText || column.field);
+
+							if (column.contents) {
+								td.append(column.contents);
+							} 
+							else {
+								td.append(angular.element('<span ng-bind="' + itemKey + '.' + column.field + '"></span>'));
+							}
+
+							tr.append(td);
+						}
+						
+						tr.data('item', item);
+
+						if ($this.options.selectionMode) {
+							$this.initSelection(tr, item);
+						}
+
+						if ($this.options.selectionMode && $this.isSelected(item)) {
+							tr.addClass("ui-state-highlight");
+						}
+						
+						//if ($this.options.onBuildRow) {
+						//	$this.options.onBuildRow(this, scope, element, attrs);
+						//}
+
+						$compile(tr)(itemScope);
+						
+						if (oldTr) {							
+							oldTr.after(tr);							
+							$this.removeRow(oldTr);
+							children.shift();
+						}
+						else {
+							$this.tbody.append(tr);
+						}						
+					});
+
+					$this.removeRows(children);
+				}
+				else {
+					$this.removeRows(children);
+
+					$this.tbody.append(angular.element('<tr class="ui-widget-content pui-datatable-empty-message"><td colspan="' + this.columns.length + '">' + this.options.emptyMessage + '</td></tr>'));
+				}
+            },
+
+			this.cleanAndDestroyChildrenScope = function() {
+
+				for (var i=0,l=this.childrenScope.length; i<l; i++) {
+					this.childrenScope[i].$destroy();
+				}
+
+				this.childrenScope = [];
+            };
 
 			this.clearSelection = function() {
 				this.selection = [];
@@ -575,26 +681,16 @@
 	}
 	
 	function DatatableDirective(widgetDatatable) {
-			return {
+		return {
 			restrict: 'E',
 			priority: 50,
 			transclude: true,
 			scope: true,
 			link: function(scope, element, attrs, ctrl) {
-			widgetDatatable.buildWidget(scope, element, attrs);
+				widgetDatatable.buildWidget(scope, element, attrs);
 			},
 			replace: true,
 			template: widgetDatatable.template
-			};
-	}
-	
-	function RowBuildDirective() {
-		return {
-			restrict: 'A',
-			link: function(scope, element, attrs, ctrl) {
-				var dataTable = element.parent().data('dataTable');
-				dataTable.buildRow(scope, element, attrs);
-			}
 		};
 	}
 
