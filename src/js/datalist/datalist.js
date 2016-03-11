@@ -383,11 +383,11 @@
 					}
 				});
 
-				li.bind('click', function(e) {
+				li.bind('click', function(evt) {
 
 					var selected = li.hasClass('ui-state-highlight'), 
-					metaKey = event.metaKey || event.ctrlKey, 
-					shiftKey = event.shiftKey;
+					metaKey = evt.metaKey || evt.ctrlKey, 
+					shiftKey = evt.shiftKey;
 
 					// unselect a selected row if metakey is on
 					if (selected && metaKey) {

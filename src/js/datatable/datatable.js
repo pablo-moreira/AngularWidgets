@@ -329,11 +329,11 @@
 
 				var $this = this;
 
-				tr.bind('click', function(e) {
-					if (e.target.nodeName === 'TD') {
+				tr.bind('click', function(evt) {
+					if (evt.target.nodeName === 'TD') {
 						var selected = tr.hasClass('ui-state-highlight'), 
-						metaKey = event.metaKey || event.ctrlKey, 
-						shiftKey = event.shiftKey;
+						metaKey = evt.metaKey || evt.ctrlKey, 
+						shiftKey = evt.shiftKey;
 
 						//unselect a selected row if metakey is on
 						if (selected && metaKey) {
