@@ -87,7 +87,7 @@
 	            	group.closer = angular.element('<a href="#" class="pui-messages-close"><i class="fa fa-close"></i></a>').appendTo(group.container);
 	            }	
 	            
-        		group.icon = angular.element('<span class="pui-messages-icon fa fa-2x"></span>').appendTo(group.container).addClass(iconClass[severity]),
+        		group.icon = angular.element('<span class="pui-messages-icon fa fa-2x"></span>').appendTo(group.container).addClass(iconClass[severity]);
         		group.list = angular.element('<ul></ul>').appendTo(group.container);
 
         		return group;
@@ -171,7 +171,7 @@
 			angular.forEach(messagesItems, function(messagesItem) {
 				messagesItem.addMessages(msgs);
 			});
-		}
+		};
 
 		widget.addInfoMessage = function(summary, detail) {
        		widget.addMessages([{ severity: 'info', summary: summary, detail: detail }]);
@@ -215,17 +215,17 @@
 			}
 						
 			return isVisible;
-		}
+		};
 
 		widget.clearMessages = function() {
 			angular.forEach(messagesItems, function(messagesItem) {
        			messagesItem.clear();
        		});
-		}
+		};
 	
 		widget.watchFormErrors = function() {
 			return messagesItems.length > 0;
-		}		
+		};		
 
 		widget.showFormErrors = function(form) {
 
@@ -261,7 +261,7 @@
 
 		widget.registerMessagesItem = function(messagesItem) {
 			messagesItems.push(messagesItem);
-		}
+		};
 
 		widget.registerValidationErrorHandler = function(errorType, handler) {
 			validationErrorHandlers[errorType] = handler;

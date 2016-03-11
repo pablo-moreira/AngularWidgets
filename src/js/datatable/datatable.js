@@ -508,13 +508,13 @@
 				var scope = row.data('itemScope');				
 				if (scope) scope.$destroy();
 				row.remove();
-			},
+			};
 
 			this.removeRows = function(rows) {				
 				for (var i=0,t=rows.length; i<t; i++) {
 					this.removeRow(angular.element(rows[i]));
 				}				
-			},
+			};
 
 			this.renderRows = function() {
 								
@@ -592,7 +592,7 @@
 
 					$this.tbody.append(angular.element('<tr class="ui-widget-content pui-datatable-empty-message"><td colspan="' + this.columns.length + '">' + this.options.emptyMessage + '</td></tr>'));
 				}
-            },
+            };
 
 			this.cleanAndDestroyChildrenScope = function() {
 
