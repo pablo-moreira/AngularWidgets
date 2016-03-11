@@ -5,10 +5,10 @@
 		
 		<wg-fieldset legend="Filters">
 			<label for="itBrand">Brand:</label>
-			<wg-inputtext id="itBrand" value="datatableCtrl.simpleRestriction.r.brand.value"></wg-inputtext>
+			<wg-inputtext id="itBrand" value="datatableCtrl.simpleRestriction.r.brand.value" onEnterKey="datatableCtrl.datatable.refresh()"></wg-inputtext>
 
 			<label for="itColor">Color:</label>
-			<wg-inputtext id="itColor" value="datatableCtrl.simpleRestriction.r.color.value"></wg-inputtext>
+			<wg-inputtext id="itColor" value="datatableCtrl.simpleRestriction.r.color.value" onEnterKey="datatableCtrl.datatable.refresh()"></wg-inputtext>
 
 			<span>Year:</span>
 			<span ng-bind="datatableCtrl.simpleRestriction.r.year.value"></span>
@@ -35,11 +35,11 @@
 			<wg-tab header="HTML" id="d_html">
 				<demo-source language="html">
 <wg-fieldset legend="Filters">
-	<label for="itBrand">Brand:</label> 
-	<wg-inputtext id="itBrand" value="datatableCtrl.simpleRestriction.r.brand.value"></wg-inputtext>
+	<label for="itBrand">Brand:</label>
+	<wg-inputtext id="itBrand" value="datatableCtrl.simpleRestriction.r.brand.value" onEnterKey="datatableCtrl.datatable.refresh()"></wg-inputtext>
 
 	<label for="itColor">Color:</label>
-	<wg-inputtext id="itColor" value="datatableCtrl.simpleRestriction.r.color.value"></wg-inputtext>
+	<wg-inputtext id="itColor" value="datatableCtrl.simpleRestriction.r.color.value" onEnterKey="datatableCtrl.datatable.refresh()"></wg-inputtext>
 
 	<span>Year:</span>
 	<span ng-bind="datatableCtrl.simpleRestriction.r.year.value"></span>

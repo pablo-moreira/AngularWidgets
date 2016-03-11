@@ -2,10 +2,10 @@
 	"use strict";
 	
 	angular.module('angularWidgets')			
-		.factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', DatatableWidget])
+		.factory('widgetDatatable', ['$compile', '$http', 'widgetBase', 'widgetColumn', 'widgetPaginator', 'widgetFacet', '$wgMessages', DatatableWidget])
 		.directive('wgDatatable', ['widgetDatatable', DatatableDirective]);
 
-	function DatatableWidget($compile, $http, widgetBase, widgetColumn, widgetPaginator, widgetFacet) {
+	function DatatableWidget($compile, $http, widgetBase, widgetColumn, widgetPaginator, widgetFacet, $wgMessages) {
 			
 		AngularWidgets.configureWidget('datatable', {
 			emptyMessage: 'No rows found.',
@@ -22,7 +22,18 @@
 			onBuildRow: null,
 			loadOnRender: true,
 			loadOnDemand: false,
-			responsive: false // reflow, TODO flip-scroll
+			responsive: false, // reflow, TODO flip-scroll
+			onError: function(datatable, context, event) {
+
+				if ($wgMessages.isVisible()) {
+					$wgMessages.addErrorMessage('Datatable error', context.error);
+				}
+				else {
+					$wgMessages.showErrorMessage('Datatable error', context.error);
+				}
+				
+				AngularWidgets.$log.error(context);
+			}
 		});
 
 		var widget = {};
@@ -51,12 +62,10 @@
 			this.selection = [];
 			this.firstLoad = true;
 			this.sorts = [];
-			this.childrenScope = [];
 
 			this.constructor = function(scope, element, options) {
 
 				this.table = this.element.findAllSelector('table');
-				this.tableWrapper = this.table.parent();
 
 				this.determineOptions(options);
 
@@ -448,8 +457,7 @@
 						$this.onLoadData();
 					},
 					function(response) {
-						/* TODO - Tratar erros */
-						alert(response);
+						$this.options.onError($this.bindInstance, response, 'load');
 					}
 				);
 			};
@@ -500,13 +508,13 @@
 				var scope = row.data('itemScope');				
 				if (scope) scope.$destroy();
 				row.remove();
-			},
+			};
 
 			this.removeRows = function(rows) {				
 				for (var i=0,t=rows.length; i<t; i++) {
 					this.removeRow(angular.element(rows[i]));
 				}				
-			},
+			};
 
 			this.renderRows = function() {
 								
@@ -584,7 +592,7 @@
 
 					$this.tbody.append(angular.element('<tr class="ui-widget-content pui-datatable-empty-message"><td colspan="' + this.columns.length + '">' + this.options.emptyMessage + '</td></tr>'));
 				}
-            },
+            };
 
 			this.cleanAndDestroyChildrenScope = function() {
 

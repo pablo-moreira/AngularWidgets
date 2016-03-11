@@ -199,14 +199,14 @@
 			var deferred = AngularWidgets.$q.defer();
 
 			AngularWidgets.$http[$this.method]($this.url, $this.translateRequest(request))
-				.success(function(data) {
+				.success(function(data, status, headers, config) {
 
 					loadedData = $this.translateResponse(data, request);
 
 					deferred.resolve(request);
 				})
-				.error(function(data){
-					deferred.reject({ 'request': request, 'error': data });
+				.error(function(data, status, headers, config){
+					deferred.reject({ 'request': request, 'error': data, 'status': status, 'headers': headers, 'config': config });
 				});
 
 			return customPromise(deferred.promise);
@@ -228,7 +228,7 @@
 			var arrayDataSource = new AngularWidgets.ArrayDataSource(data.rows);
 
 			arrayDataSource.load(request).error(function(response) {
-				alert(response.error);
+				AngularWidgets.$log.error(response);
 			});
 
 			return { 
@@ -278,7 +278,7 @@
 
 		this.getData = function() {
 			return data;
-		}
+		};
 
 		this.load = function(request, onSuccess, onError) {
 								
@@ -297,7 +297,7 @@
 					}
 				});
         };
-	}
+	};
 
 	AngularWidgets.PaginatedDataModel = function(options) {
 
@@ -308,7 +308,7 @@
 		
 		this.getData = function() {
 			return data;
-		}
+		};
 
 		this.getFirst = function() {
     		return paginator.getFirst();
@@ -316,7 +316,7 @@
 
 		this.getPageSize = function() {
 			return paginator.getRows();
-		}
+		};
 
 		this.load = function(request, onSuccess, onError) {
 
@@ -339,14 +339,14 @@
         this.onChangeRestriction = function() {
         	paginator.onChangeRestriction();
         };
-	}
+	};
 
 	AngularWidgets.OnDemandDataModel = function(options) {
 
 		var $this = this;
 		var data = [];
 		var rows = parseInt(options.rows) || 10;
-		var page = 0
+		var page = 0;
 		var rowCount = 0;
 		var dataSource = options.dataSource;
 
@@ -360,7 +360,7 @@
 
 		this.getData = function() {
 			return data;
-		}
+		};
 
 		this.getRowCount = function() {
 			return dataSource.getRowCount();
@@ -372,11 +372,11 @@
 		
 		this.getRows = function() {
 			return rows;
-		}
+		};
 
 		this.getPageSize = function() {
-			return rows	
-		}
+			return rows;
+		};
     		
 		this.getCurrentPage = function() {
 			return page;
@@ -421,7 +421,7 @@
 
         this.hasMoreRows = function() {
         	return $this.getRowCount() > data.length;
-        }
-	}
+        };
+	};
 
 }(window, document));

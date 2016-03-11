@@ -87,7 +87,7 @@
 	            	group.closer = angular.element('<a href="#" class="pui-messages-close"><i class="fa fa-close"></i></a>').appendTo(group.container);
 	            }	
 	            
-        		group.icon = angular.element('<span class="pui-messages-icon fa fa-2x"></span>').appendTo(group.container).addClass(iconClass[severity]),
+        		group.icon = angular.element('<span class="pui-messages-icon fa fa-2x"></span>').appendTo(group.container).addClass(iconClass[severity]);
         		group.list = angular.element('<ul></ul>').appendTo(group.container);
 
         		return group;
@@ -132,6 +132,20 @@
 
             	group.container.show();
             },
+
+            isVisible: function() {
+				
+				var isVisible = false;
+
+				for (var i=0,t=this.groups.length; i<t; i++) {
+					if (widgetBase.isVisible(this.groups[i].container)) {
+						isVisible = true;
+						break;
+					}
+				}
+
+				return isVisible;
+            },
             
             clear: function(severityContainer) {
             	
@@ -157,7 +171,7 @@
 			angular.forEach(messagesItems, function(messagesItem) {
 				messagesItem.addMessages(msgs);
 			});
-		}
+		};
 
 		widget.addInfoMessage = function(summary, detail) {
        		widget.addMessages([{ severity: 'info', summary: summary, detail: detail }]);
@@ -189,15 +203,29 @@
        		widget.showMessages([{ severity: 'error', summary: summary, detail: detail }]);
 		};
 
+		widget.isVisible = function() {
+
+			var isVisible = false;
+			
+			for (var i=0, l=messagesItems.length; i<l; i++) {
+				if (messagesItems[i].isVisible()) {
+					isVisible = true;
+					break;
+				}
+			}
+						
+			return isVisible;
+		};
+
 		widget.clearMessages = function() {
 			angular.forEach(messagesItems, function(messagesItem) {
        			messagesItem.clear();
        		});
-		}
+		};
 	
 		widget.watchFormErrors = function() {
 			return messagesItems.length > 0;
-		}		
+		};		
 
 		widget.showFormErrors = function(form) {
 
@@ -233,7 +261,7 @@
 
 		widget.registerMessagesItem = function(messagesItem) {
 			messagesItems.push(messagesItem);
-		}
+		};
 
 		widget.registerValidationErrorHandler = function(errorType, handler) {
 			validationErrorHandlers[errorType] = handler;
@@ -316,6 +344,9 @@
 			},			
 			showMessages: function(msgs) {
 				widgetMessages.showMessages(msgs);	
+			},
+			isVisible: function() {
+				return widgetMessages.isVisible();
 			},
 			clearMessages: function() {
 				widgetMessages.clearMessages();
